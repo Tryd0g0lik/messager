@@ -16,6 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf.urls.static import static
+
+from app_messager import views
+from project import settings
+from django.views.defaults import page_not_found, server_error, permission_denied, bad_request
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home_page),
 ]
+
+if settings.DEBUG:
+    # urlpatterns += (r'^500/$', 'your_custom_view_if_you_wrote_one'),
+    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # urlpatterns += static(settings.MEDIA_URL)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # urlpatterns +=[
+    #     path('400/', bad_request, kwargs={'exception': Exception('Bad Request!')}),
+    #     path('403/', permission_denied, kwargs={'exception': Exception('Permission Denied')}),
+    #     path('404/', page_not_found, kwargs={'exception': Exception('Page not Found')}),
+    #     path('500/', server_error),
+    # ]

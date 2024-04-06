@@ -1,8 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, User, Group
+# from django.contrib.auth.models import AbstractUser, User, Group
+class TypeMenuChoise(models.TextChoices):
+	'''
+	TODO: The type title of menu
+	'''
 
-
-# # Create your models here.
+	PARENTS = "PARENTS", "Родительский"
+	CHILDE = "CHILDE", "Дочернеий"
+class Messages(models.Model):
+	id_users = models.IntegerField()
+	# pass
+# Create your models here.
 # class AdvUser(AbstractUser):
 # 	user = models.ForeignKey(
 # 		User,
