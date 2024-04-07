@@ -1,12 +1,23 @@
 from django.db import models
 # from django.contrib.auth.models import AbstractUser, User, Group
-class TypeMenuChoise(models.TextChoices):
+class TypeRequastion(models.TextChoices):
 	'''
-	TODO: The type title of menu
+	TODO: Первый пользователь - автор заявки. Второй пользователь - тот, кто нажал кнопку перехода в диалог (мессенджер).
 	'''
 
-	PARENTS = "PARENTS", "Родительский"
-	CHILDE = "CHILDE", "Дочернеий"
+	PARENTS = "A", "Author"
+	CHILDE = "NA", "NoAuthor"
+
+class TypeSubRequastion(models.TextChoices):
+	'''
+	TODO: Статус пользователя
+	'''
+
+	PARENTS = "S", "Seller"
+	CHILDE = "B", "Buyer"
+
+
+
 class Messages(models.Model):
 	id_users = models.IntegerField()
 	# pass
