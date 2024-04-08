@@ -1,0 +1,55 @@
+// https://www.typescriptlang.org/tsconfig
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "ES6",
+    "module": "ES2020",
+    "rootDirs": [
+      "./src"
+    ],
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      // "@type": [
+      //   "src/frontend/src/interfaces.ts"
+      // ],
+      // "@img/*": [
+      //   "src/frontend/src/img/*",
+      // ],
+      // "@svgs/*": [
+      //   "src/frontend/src/svgs/*",
+      // ],
+      // "@pages/*": [
+      //   "./src/frontend/src/components/pages/*"
+      // ],
+      // "@site/*": [
+      //   "./src/frontend/src/components/site/*"
+      // ],
+      // "@service/*": [
+      //   "./src/frontend/src/services/*"
+      // ],
+      // "@reduxs/*": [
+      //   "./src/frontend/src/reduxs/*",
+      // ]
+    }
+  },
+  "exclude": [
+    "./node_modules/**/*.js",
+    "*.config.js",
+    "**/dist",
+  ]
+}
