@@ -4,7 +4,7 @@ from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
 from django.core.asgi import get_asgi_application
-from django.urls import path
+from django.urls import path, re_path
 
 from app_messager import consumers
 
@@ -16,12 +16,13 @@ django_asgi_app = get_asgi_application()
 from app_messager.consumers import ChatConsumer  # AdminChatConsumer, PublicChatConsumer
 
 ws_pattern = [
-	path("ws", consumers.ChatConsumer),
+	path("ws", consumers.ChatConsumer.as_asgi()),
 ]
 
 # router
 # https://channels.readthedocs.io/en/latest/topics/routing.html#protocoltyperouter
 application = ProtocolTypeRouter({
+	# Django's ASGI application to handle traditional HTTP requests
 	"http": django_asgi_app,
 	"websocket": AllowedHostsOriginValidator(
 		AuthMiddlewareStack(  #

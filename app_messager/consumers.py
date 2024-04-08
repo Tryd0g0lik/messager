@@ -21,7 +21,7 @@ from channels.db import database_sync_to_async
 class ChatConsumer(AsyncConsumer):
 
 	async def websocket_connect(self, event):
-		# подключение полюзователя
+		# подключение пользователя
 		# https://youtu.be/r6oTcAYDRt0?t=905
 		'''
 			 Название канала на который подкрисываемся можно изменить
