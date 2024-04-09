@@ -14,7 +14,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../static/js'),
     filename: 'main-[id]-[hash].js',
-    publicPath: '/'
+    publicPath: '/',
+    clean: true,
+
   },
   target: 'web',
   module: {
@@ -66,9 +68,9 @@ module.exports = {
     //     { from: './src/backend/src', to: './server' }
     //   ],
     // }), template: '../templates/index.html',
-    // new HtmlWebpackPlugin({
-    //   template: 'src/public/index.html'
-    // }),
+    new HtmlWebpackPlugin({
+      template: '../templates/index.html'
+    }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
       filename: './dist/maps/[file].map.[query]',
