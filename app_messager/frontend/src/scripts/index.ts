@@ -1,1 +1,1 @@
-console.log('Hollo word!');
+import './MessageForm/index.ts';

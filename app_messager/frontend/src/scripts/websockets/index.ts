@@ -1,3 +1,8 @@
+interface WSData {
+  open: []
+  close: []
+  data: []
+}
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -13,19 +18,17 @@
 export class WSocket {
   socket: any;
 
-  handlers: {
-    open: []
-    close: []
-    data: []
-  };
+  handlers: WSData;
 
   constructor(url: string) {
     this.socket = new WebSocket(url);
 
-    this.socket.addEventListener('open', (e: any) => { console.log('OPEN') });
+    this.socket.addEventListener('open', (e: any) => {
+      console.info(`[WSocket > OPEN]: ${e}`);
+    });
 
     this.socket.addEventListener('message', (e: any) => {
-      console.log(`[websokets > message]: WebSocket - message was received; E.TARGET.URL ${e.target.url}, ${e.code}`);
+      console.info(`[WSocket > MESSAGE]: WebSocket - message was received; MESSAGE: ${e.target.url}, ${e.code}`);
 
       this.onMessage(e);
     });
@@ -33,10 +36,13 @@ export class WSocket {
     this.socket.addEventListener('close', (e: any) => {
       // if (e.wasClean) { console.log('[websokets > close] : connection was breaked]') }
       // else { console.log('[websokets > close]: - connection was closed]') };
-      console.log(`[websokets > close]: - connection was closed. ${e}`);
+      console.info(`[WSocket > CLOSE]: - connection was CLOSED: ${e}`);
       // console.log('[websokets: WebSocket.addEventListener("close") - closed Event]: ', e['message']);
     });
-    this.socket.addEventListener('error', (e: any) => { });
+
+    this.socket.addEventListener('error', (e: any) => {
+      console.info(`[WSocket > ERROR]: - connection was ERROR: ${e}`);
+    });
 
     this.handlers = {
       open: [],
@@ -45,40 +51,46 @@ export class WSocket {
     };
   }
 
-  sends(datas: string): void { this.handlers.data.push(datas) };
-
-  onOpen(): void {
-    console.log('[websokets: WebSocket.onOpen connection opened]');
-    let data: string | undefined = '';
-    if (this.handlers.data.length > 0) {
-      const handlers = this.handlers.data.slice(0);
-      data = handlers[0];
-      // debugger
-      if ((this.readyState as unknown as number) === 1) {
-        console.log('[websokets: WebSocket.onOpen connection opened]');
-        this.socket.send(data);
-        this.handlers.data.pop();
-      } else setTimeout(() => { this.onOpen() }, 1000);
-    } else if ((this.readyState as unknown as number) > 1) {
-      const handlers = this.handlers.data.slice(0);
-      data = handlers[0];
-      this.socket.send(data);
-      this.handlers.data.pop();
-    } else {
-      console.error('[websokets: WebSocket.onOpen; Not datas for a Sehding]');
-      this.handlers.data.pop();
+  /**
+   * Here we getting the data for a send.
+   * Entry point getting JSON.stringfy
+   * @param datas void
+   */
+  beforeSend(datas: string): void {
+    // debugger;
+    try {
+      if ((typeof JSON.parse(datas)).includes('object')) {
+        (this.handlers.data as string[]).push(datas);
+      } else {
+        console.log('[websokets: SENDS]: Received datas is a not JSON object. ');
+      }
+    } catch (e: any) {
+      console.error(`[websokets: sends ERROR]: Received datas and what went wrong. It is not JSON object. MESSAGE: ${e.message}`);
     }
   };
 
-  get readyState(): () => typeof this.socket.readyState { return this.socket.readyState };
+  get readyState(): typeof this.socket.handlers {
+    const handlers = this.handlers;
+    return handlers;
+  };
 
   onMessage = (e): void => {
-    console.log('[websokets: WebSocket.onMessage - Received message]: ', e.data);
+    console.log('[websokets > OPEN]: - get the MESSAGE: ', e);
   };
 
   onClose(): void {
     this.socket.close();
   }
+
+  dataSendNow(): void {
+    const data = (this.readyState.data.slice(0) as string[])[0];
+    console.log('[websokets > OPEN]: Message was a pass - Ok', data);
+    console.log('[websokets > OPEN]: Before sending');
+
+    this.socket.send(data);
+    console.log('[websokets > OPEN]: After sending - Ok');
+    this.handlers.data.pop();
+  };
 }
 
 // WebSocets

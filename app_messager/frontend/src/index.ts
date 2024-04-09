@@ -1,2 +1,2 @@
-import "../../static/css/style.css";
-import "./scripts/index.ts"
+import '../../static/css/style.css';
+import './scripts/index.ts';

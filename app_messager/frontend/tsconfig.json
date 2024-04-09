@@ -29,6 +29,9 @@
       // "@type": [
       //   "src/frontend/src/interfaces.ts"
       // ],
+      "@Websocket": [
+        "src/scripts/websockets/index.ts"
+      ]
       // "@img/*": [
       //   "src/frontend/src/img/*",
       // ],

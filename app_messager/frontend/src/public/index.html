@@ -302,8 +302,9 @@
 
             <div class="flex-grow-0 py-3 px-4 border-top">
               <div class="input-group">
-                <input type="text" data-id="{{user_index}}" class="form-control" placeholder="Type your message">
-                <button class="btn btn-primary">Send</button>
+                <!-- Here is need the atribute 'data-id="1"' changed.  Replace 1 on the "{{user_index}}" ch -->
+                <input type="text" name="messager" data-id="1" class="form-control" placeholder="Type your message">
+                <button class="btn btn-primary" data-id="1">Send</button>
               </div>
             </div>
 
@@ -314,28 +315,33 @@
   </main>
 
   <script>
-    console.log("Wlocation")
-    console.log(window.location)
+            console.log("[Browser > Wlocation]");
+            console.log(window.location);
     const loc = window.location;
 
     let wsStart = 'ws://';
     if (loc.protocol.includes('https:')) {
       wsStart = 'wss://';
-    }
+            };
+
     const endpoint = wsStart + loc.host + '/ws';
+
     const socket = new WebSocket(endpoint);
 
-    socket.onmessage = (e) => {
-      sconsole.log("messega: ", e);
-    }
-    socket.onopen = (e) => {
-      console.log("open: ", e);
-    }
-    socket.onerror = (e) => {
-      console.log("error: ", e);
-    }
-    socket.onclose = (e) => {
-      console.log("close: ", e);
+            socket.onmessage = function (e) {
+              console.log("[Browser > Messega]: ", e);
+            };
+
+            socket.onopen = function (e) {
+              console.log("[Browser > Open]: ", e);
+            };
+
+            socket.onerror = function (e) {
+              console.log("[Browser > Error]: ", e);
+            };
+
+            socket.onclose = function (e) {
+              console.log("[Browser > Close]: ", e);
     }
   </script>
 </body>

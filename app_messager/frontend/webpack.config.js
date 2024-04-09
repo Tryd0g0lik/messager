@@ -18,7 +18,7 @@ module.exports = {
   mode: 'none',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './main-[id].js',
+    filename: 'main-[id]-[hash].js',
     publicPath: '/'
   },
   target: 'web',
@@ -74,7 +74,9 @@ module.exports = {
       path.resolve(__dirname, 'dist')
     ],
 
-    alias: {} // alias
+    alias: {
+      '@Websocket': path.resolve(__dirname, 'src/scripts/websockets/index.ts')
+    } 
   },
 
   plugins: [
