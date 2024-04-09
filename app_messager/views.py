@@ -5,7 +5,13 @@ import os
 import websocket, json
 
 # Create your views here.
-def home_page(request):
+def get_message(request):
+	if request.method == "GET":
+		print('Received request a GET ')
+	elif request.method == "POST":
+		print('Received request a POST ')
+
+def chat_page(request, room_name):
 	User = get_user_model()
 	user = User.objects.all()
 	user = User.objects.get(username ='root')
@@ -16,4 +22,8 @@ def home_page(request):
 	get_token(user)
 	# ws = websocket.WebSocket()
 	# ws.connect('ws://localhost:6379/ws/tableData/')
-	return render(request, 'index.html', {'user_index': user.id, 'static_files': {'js': file_names_js, 'css': file_names_css} })
+	return render(request, 'index.html', {
+		'user_index': user.id,
+		'static_files': {'js': file_names_js, 'css': file_names_css},
+		'room_name' : room_name }
+	              )

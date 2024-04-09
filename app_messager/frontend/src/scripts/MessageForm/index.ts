@@ -6,8 +6,12 @@ let APP_WS_URL = process.env.APP_WS_URL;
 if (APP_WS_URL === undefined) {
   APP_WS_URL = '';
 };
-const socket = new WSocket(APP_WS_URL);
+
+const roomName = '/chat/';
 let oldTextOfMessage = '';
+const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
+// const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
+// APP_WS_URL + roomName
 
 const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const buttonHTML = document.querySelector('button[data-id]');
@@ -16,6 +20,7 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const indexUser = target.dataset.id;
 
   const sendlerTotal = (): void => {
+
     socket.beforeSend(JSON.stringify({ messages: oldTextOfMessage, userId: indexUser }));
     socket.dataSendNow();
 

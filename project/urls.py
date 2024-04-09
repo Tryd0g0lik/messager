@@ -24,7 +24,8 @@ from project import settings
 from django.views.defaults import page_not_found, server_error, permission_denied, bad_request
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_page),
+    path('ws/<str:room_name>/', views.chat_page, name="room"),
+    # path('chat/', views.get_message),
     # url()
 ]
 

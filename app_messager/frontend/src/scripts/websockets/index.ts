@@ -75,7 +75,7 @@ export class WSocket {
   };
 
   onMessage = (e): void => {
-    console.log('[websokets > OPEN]: - get the MESSAGE: ', e);
+    console.log('[websokets > OPEN]: - get the MESSAGE: ', e.message);
   };
 
   onClose(): void {
@@ -85,11 +85,14 @@ export class WSocket {
   dataSendNow(): void {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN]: Message was a pass - Ok', data);
-    console.log('[websokets > OPEN]: Before sending');
-
-    this.socket.send(data);
-    console.log('[websokets > OPEN]: After sending - Ok');
-    this.handlers.data.pop();
+    console.log(`[websokets > OPEN]: Before send. ReadyState: ${this.socket.readyState}`);
+    if (this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(data);
+      console.log('[websokets > OPEN]: After sending - Ok', this.socket.readyState);
+      this.handlers.data.pop();
+    } else {
+      console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");
+    }
   };
 }
 

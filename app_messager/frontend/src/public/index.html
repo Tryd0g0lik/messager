@@ -314,7 +314,7 @@
     </div>
   </main>
 
-  <script>
+  <!-- script>
             console.log("[Browser > Wlocation]");
             console.log(window.location);
     const loc = window.location;
@@ -324,7 +324,7 @@
       wsStart = 'wss://';
             };
 
-    const endpoint = wsStart + loc.host + '/ws';
+      const endpoint = wsStart + loc.host + '/ws/chat/';
 
     const socket = new WebSocket(endpoint);
 
@@ -343,7 +343,7 @@
             socket.onclose = function (e) {
               console.log("[Browser > Close]: ", e);
     }
-  </script>
+  </script -->
 </body>
 
 </html>
