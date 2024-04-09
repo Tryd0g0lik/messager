@@ -43,6 +43,7 @@
     "http": "^0.0.1-security",
     "jsdom": "^23.0.1",
     "lorem-ipsum": "^2.0.8",
+    "mini-css-extract-plugin": "^2.8.1",
     "postcss": "^8.4.38",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",

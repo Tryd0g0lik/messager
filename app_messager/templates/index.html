@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang = "en">
+	{% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+<!-- {% bootstrap_javascript jquery='full' %} -->
 {% load render_bundle from webpack_loader %}
 
 <head>
 	<meta charset = "UTF-8">
 	
+	<script src="{% static 'js/' %}{{static_files.js}}"></script>
+	<link href="{% static 'css/' %}{{static_files.css}}" rel="stylesheet" />
 	<title>Title</title>
 </head>
 <body>
@@ -265,8 +268,9 @@
 
 					<div class="flex-grow-0 py-3 px-4 border-top">
 						<div class="input-group">
-							<input type="text" data-id="{{user_index}}" class="form-control" placeholder="Type your message">
-							<button class="btn btn-primary">Send</button>
+							<!-- Here is need the atribute 'data-id="1"' changed.  Replace 1 on the "{{user_index}}" ch -->
+							<input type="text" name="messager" data-id="1" class="form-control" placeholder="Type your message">
+							<button class="btn btn-primary" data-id="1">Send</button>
 						</div>
 					</div>
 

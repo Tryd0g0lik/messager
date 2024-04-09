@@ -5,19 +5,14 @@ const Dotenv = require('dotenv-webpack');
 const BundleTracker = require('webpack-bundle-tracker');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // config.output.path = require('path').resolve('./interface/dist');
 
 module.exports = {
   entry: './src/index.ts',
-  //   [
-  //   'webpack-dev-server/client?http://localhost:3000',
-  //   'webpack/hot/only-dev-server',
-  //   './app_messager/interface/js/index.ts',
-  // ],
-  // devtool: 'evel-'
   mode: 'none',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../static/js'),
     filename: 'main-[id]-[hash].js',
     publicPath: '/'
   },
@@ -45,39 +40,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
         ],
 
       },
-      // {
-      //   test: /\.(png|jpe?g)$/i,
-      //   type: 'asset/resource',
-      //   generator: {
-      //     filename: 'img/[name][ext]',
-      //   }
-      //   // loader: 'file-loader',
-      // },
-      // {
-      //   test: /\.svg$/i,
-      //   use: ["@svgr/webpack", "@svgs/*"],
-      // }
     ]
   },
 
-  resolve: {
-    extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
-    modules: [
-      path.resolve(__dirname, "./.browserslistrc"),
-      path.resolve(__dirname, "node_modules"),
-      path.resolve(__dirname, 'dist')
-    ],
 
-    alias: {
-      '@Websocket': path.resolve(__dirname, 'src/scripts/websockets/index.ts')
-    } 
-  },
 
   plugins: [
     new TsconfigPathsPlugin(),
@@ -94,9 +66,9 @@ module.exports = {
     //     { from: './src/backend/src', to: './server' }
     //   ],
     // }), template: '../templates/index.html',
-    new HtmlWebpackPlugin({
-      template: 'src/public/index.html'
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: 'src/public/index.html'
+    // }),
     new webpack.SourceMapDevToolPlugin({
       test: /\.tsx?$/,
       filename: './dist/maps/[file].map.[query]',
@@ -106,7 +78,10 @@ module.exports = {
     new ESLintPlugin({
       files: path.resolve(__dirname, 'src/scripts'),
 
-    })
+    }),
+    new MiniCssExtractPlugin({
+      filename: '../css/style.css'
+    }),
   ],
   watchOptions: {
     ignored: [
@@ -116,19 +91,31 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, '../static'),
 
     },
 
     watchFiles: [
       './src/scripts',
-
     ],
 
     compress: true,
     historyApiFallback: true,
     open: true,
     // port: 8080
+  },
+
+  resolve: {
+    extensions: [".tsx", ".jsx", ".ts", ".js", ".svg"],
+    modules: [
+      path.resolve(__dirname, "./.browserslistrc"),
+      path.resolve(__dirname, "node_modules"),
+      path.resolve(__dirname, 'dist')
+    ],
+
+    alias: {
+      '@Websocket': path.resolve(__dirname, 'src/scripts/websockets/index.ts')
+    }
   },
 
 };
