@@ -28,7 +28,7 @@ export class WSocket {
     });
 
     this.socket.addEventListener('message', (e: any) => {
-      console.info(`[WSocket > MESSAGE]: WebSocket - message was received; MESSAGE: ${e.target.url}, ${e.code}`);
+      console.info(`[WSocket > MESSAGE]: WebSocket - message was received; MESSAGE: ${e.target.url}`);
 
       this.onMessage(e);
     });
@@ -75,7 +75,7 @@ export class WSocket {
   };
 
   onMessage = (e): void => {
-    console.log('[websokets > OPEN]: - get the MESSAGE: ', e.message);
+    console.log('[websokets > OPEN]: - get the MESSAGE: ', JSON.parse(e.data).message);
   };
 
   onClose(): void {
