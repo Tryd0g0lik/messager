@@ -30,10 +30,9 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 			 Данные от пользователя или от системы отправляем на этот канал
 		:return:
 		'''
-		print('websocket_CONNECTe: ')
-		await self.send({
-			"type": "websocket.accept",
-		})
+		test = {"type": "websocket.accept"}
+		print('websocket_CONNECTe: ', type(test))
+		await self.send(test)
 		# self.accept()
 		# self.group_name = 'tableData'
 		# await self.channel_layer.group_add(
@@ -42,17 +41,18 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 		# )
 		# await self.accept()
 
-	async def websocket_disconnect(self, close_code):
-		# от ключение пользователя
-		print('receive', close_code)
+		# async def websocket_disconnect(self, close_code):
+		# 	# от ключение пользователя
+		# 	print('receive', close_code)
 
 	async def websocket_receive(self, event):
 		# https://youtu.be/r6oTcAYDRt0?t=1036
 		# получаем данные/ Рассылаем всем подпизчикам
 		# Вводим логику для манипуляции полученными данными
-		print(f'[CONSUMER > RECEIVE]: Received event { json.dumps(event)}')
-		text_data_json = json.loads(event)
-		message = text_data_json['message']
-		await self.send(json.dumps({"message": message}))
-		# https://youtu.be/r6oTcAYDRt0?t=1113
+
+		print(f'[CONSUMER > RECEIVE]: Received event {json.dumps(event)}')
+		await self.send({
+			"type": "websocket.send",
+			"text": event["text"],
+		})
 		print('websocket_Good!', event)

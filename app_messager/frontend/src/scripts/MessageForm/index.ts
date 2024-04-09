@@ -20,8 +20,7 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const indexUser = target.dataset.id;
 
   const sendlerTotal = (): void => {
-
-    socket.beforeSend(JSON.stringify({ messages: oldTextOfMessage, userId: indexUser }));
+    socket.beforeSend(String([JSON.stringify({ message: oldTextOfMessage, userId: indexUser })]));
     socket.dataSendNow();
 
     const inputFormHTML = document.querySelector('input[data-id]');
