@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from uuid import uuid4
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 # from django.contrib.auth.models import AbstractUser, User, Group
 # class Messeger_TypeRequastionModel(models.TextChoices):
 # 	'''

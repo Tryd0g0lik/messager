@@ -36,7 +36,7 @@ def chat_page(request, room_name):
 @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
-	groups = Messeger_GroupModel.objects.all()
+	groups = GroupModel.objects.all()
 	user = request.user
 	context = {
 		"groups": groups,
@@ -49,7 +49,7 @@ def HomeView(request):
 def GroupChatView(request, uuid):
 	'''The view for a group where all messages and events are sent to the frontend'''
 
-	group = get_object_or_404(Messeger_GroupModel, uuid=uuid)
+	group = get_object_or_404(GroupModel, uuid=uuid)
 	if request.user not in group.members.all():
 		return HttpResponseForbidden("You are not a member of this group.\
                                        Kindly use the join button")
