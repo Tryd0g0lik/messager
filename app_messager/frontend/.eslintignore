@@ -1,0 +1,19 @@
+
+src/backend/*
+*.js
+__tests__/**/*.js
+src/*.js
+src/**/*.js
+dist/
+archive/
+.github/
+src/index.ts
+.eslintrc.cjs
+ /node_modules
+**/node_modules
+./styleguide
+archive
+.cache
+**/backend
+**/svgs
+**/*.d.ts
