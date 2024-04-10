@@ -1,0 +1,27 @@
+{
+  "status": "done",
+  "assets": {
+    "../css/style.css": {
+      "name": "../css/style.css",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\css\\style.css",
+      "publicPath": "/../css/style.css"
+    },
+    "index.html": {
+      "name": "index.html",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\index.html",
+      "publicPath": "/index.html"
+    },
+    "main-main-51138877228b4ee0888c.js": {
+      "name": "main-main-51138877228b4ee0888c.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-51138877228b4ee0888c.js",
+      "publicPath": "/main-main-51138877228b4ee0888c.js"
+    }
+  },
+  "chunks": {
+    "main": [
+      "../css/style.css",
+      "main-main-51138877228b4ee0888c.js"
+    ]
+  },
+  "publicPath": "/"
+}
