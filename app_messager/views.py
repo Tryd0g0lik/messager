@@ -33,7 +33,7 @@ def chat_page(request, room_name):
 	              )
 
 
-@login_required
+# @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
 	groups = GroupModel.objects.all()
@@ -45,7 +45,7 @@ def HomeView(request):
 	return render(request, template_name="chat/home.html", context=context)
 
 
-@login_required
+# @login_required
 def GroupChatView(request, uuid):
 	'''The view for a group where all messages and events are sent to the frontend'''
 
