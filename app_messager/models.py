@@ -71,6 +71,7 @@ class MessageModel(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
 	group = models.ForeignKey(GroupModel, on_delete=models.CASCADE)
+	message = models.ForeignKey('FilesModels', related_name="chating", on_delete=models.CASCADE, null=True)
 
 	def __str__(self) -> str:
 		date = self.timestamp.date()
