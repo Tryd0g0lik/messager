@@ -22,7 +22,7 @@ from django.urls import reverse
 User = get_user_model()
 
 class Messeger_User(models.Model):
-	user = models.OneToOneField(User, on_delete= models.CASCADE, unique=True)
+	user = models.OneToOneField(User, on_delete= models.CASCADE, unique=True, )
 	'''
 	TODO: This's the first user. It's the order's (group's)  autor
 	'''
@@ -30,7 +30,7 @@ class Messeger_User(models.Model):
 		("A", "Author"),
 		("NA", "NoAuthor")
 	)
-	status = models.CharField(choices=Status, max_length=10, unique=True)
+	status = models.CharField(choices=Status, max_length=10, )
 	'''
 	TODO: This's the user's level
 	'''
@@ -38,7 +38,7 @@ class Messeger_User(models.Model):
 		('s', "Seller"),
 		('b', "Buyer")
 	)
-	sub_status = models.CharField(choices=Sub_Status, max_length=10, unique=True)
+	sub_status = models.CharField(choices=Sub_Status, max_length=10, )
 
 class GroupsModel(models.Model):
   '''The group model where multiple users can share and discuss ideas'''

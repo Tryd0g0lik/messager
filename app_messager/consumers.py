@@ -10,7 +10,7 @@ from channels.generic.websocket import AsyncConsumer, WebsocketConsumer  # Async
 # https://channels.readthedocs.io/en/latest/topics/databases.html#database-sync-to-async
 from channels.db import database_sync_to_async
 
-from app_messager.models import GroupModel
+from app_messager.models import GroupsModel
 
 # from .models import импорт сообщения в чате  https://youtu.be/RVH05S1qab8?t=435
 
@@ -55,7 +55,7 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 		# https://youtu.be/r6oTcAYDRt0?t=1036
 		# получаем данные/ Рассылаем всем подпизчикам
 		# Вводим логику для манипуляции полученными данными
-		group = GroupModel()
+		group = GroupsModel()
 
 		print(f'[CONSUMER > RECEIVE]: Received event {json.dumps(event)}')
 		await self.send({
