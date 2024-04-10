@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
-from .models import GroupModel
+from .models import GroupsModel
 from django.contrib.auth.decorators import login_required
 import os
 import websocket, json
@@ -36,7 +36,7 @@ def chat_page(request, room_name):
 # @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
-	groups = GroupModel.objects.all()
+	groups = GroupsModel.objects.all()
 	user = request.user
 	context = {
 		"groups": groups,
@@ -49,7 +49,7 @@ def HomeView(request):
 def GroupChatView(request, uuid):
 	'''The view for a group where all messages and events are sent to the frontend'''
 
-	group = get_object_or_404(GroupModel, uuid=uuid)
+	group = get_object_or_404(GroupsModel, uuid=uuid)
 	if request.user not in group.members.all():
 		return HttpResponseForbidden("You are not a member of this group.\
                                        Kindly use the join button")
