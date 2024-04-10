@@ -4,30 +4,46 @@ from uuid import uuid4
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 # from django.contrib.auth.models import AbstractUser, User, Group
-class Messeger_TypeRequastionModel(models.TextChoices):
-	'''
-	TODO: This's the first user. It's the order's (group's)  autor
-	'''
-	PARENTS = "A", _("Author")
-	CHILDE = "NA", _("NoAuthor")
+# class Messeger_TypeRequastionModel(models.TextChoices):
+# 	'''
+# 	TODO: This's the first user. It's the order's (group's)  autor
+# 	'''
+# 	PARENTS = "A", _("Author")
+# 	CHILDE = "NA", _("NoAuthor")
+#
+#
+# class Messeger_SubTypeRequastionModel(models.TextChoices):
+#   '''
+#   TODO: This's the user's level
+#   '''
+#   PARENTS = "S", _("Seller")
+#   CHILDE = "B", _("Buyer")
 
-
-class Messeger_SubTypeRequastionModel(models.TextChoices):
-  '''
-  TODO: This's the user's level
-  '''
-  PARENTS = "S", _("Seller")
-  CHILDE = "B", _("Buyer")
 
 User = get_user_model()
-class Messeger_GroupModel(models.Model):
+class GroupModel(models.Model):
   '''The group model where multiple users can share and discuss ideas'''
   uuid = models.UUIDField(default=uuid4, editable=False)
   name = models.CharField(max_length=30)
   members = models.ManyToManyField(User)
-  status = models.CharField(choices=Messeger_TypeRequastionModel, default=Messeger_TypeRequastionModel.PARENTS, max_length=10)
-  sub_status = models.CharField(choices=Messeger_SubTypeRequastionModel, default=Messeger_SubTypeRequastionModel.PARENTS, max_length=10)
-  title_order = models.CharField()
+
+  '''
+	TODO: This's the first user. It's the order's (group's)  autor
+	'''
+  Status=(
+	  ("A", "Author"),
+	  ("NA", "NoAuthor")
+  )
+  status = models.CharField(choices=Status, max_length=10, unique = True)
+  '''
+  TODO: This's the user's level
+  '''
+  Sub_Status = (
+	  ('s', "Seller"),
+	  ('b', "Buyer")
+  )
+  sub_status = models.CharField(choices=Sub_Status, max_length=10, unique = True)
+  title_order = models.CharField(max_length = 50)
   hide = models.BooleanField()
   
   def __str__(self) -> str:
@@ -50,11 +66,11 @@ class Messeger_GroupModel(models.Model):
       self.save()
 
 
-class Messeger_MessageModel(models.Model):
+class MessageModel(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
-	group = models.ForeignKey(Group, on_delete=models.CASCADE)
+	group = models.ForeignKey(GroupModel, on_delete=models.CASCADE)
 
 	def __str__(self) -> str:
 		date = self.timestamp.date()
@@ -62,15 +78,15 @@ class Messeger_MessageModel(models.Model):
 		return f"{self.author}:- {self.content} @{date} {time.hour}:{time.minute}"
 
 
-class Messeger_FilesModels(models.Model):
-	link = models.CharField(verbose_name="File path name")
+class FilesModels(models.Model):
+	link = models.CharField(verbose_name="File path name", max_length=100)
 	size = models.FloatField()
 
-class Messeger_EventModels(models.Model):
+class EventModels(models.Model):
   '''
   A model that holds all events related to a group like when a user joins the group or leaves.
   '''
-  group = models.ForeignKey(Group ,on_delete=models.CASCADE)
+  group = models.ForeignKey(GroupModel, on_delete=models.CASCADE)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   CHOICES = [
       ("Join", "join"),
