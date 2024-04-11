@@ -5,7 +5,7 @@ IN now time we get an Error from  the Redis"
 messager\app_messager\views.py
 def home_page - will get an authorization conditions.
 
-A'settings.py'
+## A'settings.py'
 ```py
 import os
 
@@ -61,3 +61,21 @@ if not DEBUG:
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
     })
 ```
+
+## Frontend
+pthname: 'app_messager\frontend\src\scripts\MessageForm\index.ts'
+NOTE: Now, i can't get the script for create the user group and get number it. \
+I insert a static group number, number '1'.
+
+### Replce the code
+Before it's
+```ts
+socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '53c97b25-2345-428a-a468-7197db713904' })]));
+```
+After the
+```ts
+socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: < Your_number > })]));
+```
+
+`53c97b25-2345-428a-a468-7197db713904` - it's number from the `app_messager_groupsmodel` db. \
+Table `app_messager_groupsmodel` it's the model `GroupsModel` of `app_messager\models.py` and PrimaryKey string.  

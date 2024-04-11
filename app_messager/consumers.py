@@ -4,13 +4,15 @@
 import json
 import asyncio
 
+from asgiref.sync import sync_to_async
+
 from app_messager import models
 from channels.generic.websocket import AsyncConsumer, WebsocketConsumer  # AsyncWebsocketConsumer
 
 # https://channels.readthedocs.io/en/latest/topics/databases.html#database-sync-to-async
 from channels.db import database_sync_to_async
 
-from app_messager.models import GroupsModel
+from app_messager.models import *
 
 # from .models import импорт сообщения в чате  https://youtu.be/RVH05S1qab8?t=435
 
@@ -18,12 +20,10 @@ from app_messager.models import GroupsModel
 #
 # # Пользователь при подключении подключается на один из каналов
 #
-
 '''
 	TODD: https://channels.readthedocs.io/en/latest/topics/consumers.html#basic-layout
 '''
 class ChatConsumer(AsyncConsumer): # WebsocketConsumer
-
 	# async def websocket_connect(self, event):
 	async def websocket_connect(self, event):
 		# подключение пользователя
@@ -43,23 +43,54 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 
 		# self.accept()
 
+	@database_sync_to_async
+	def send_chat_message_inDB(self, event):
 
-	# async def websocket_disconnect(self, close_code):
-	# 	# от ключение пользователя
-	# 	print('receive', close_code)
+		def save_datas_inDB(chat):
+			new_message_text = []
+			print('[CONSUMER > SAVED DB] BEFORE:', json.dumps(event), '[TEST > event.TEXT]: ', event['text'])
+
+			data_message = json.loads(event['text'])
+			new_message_text.append({'eventtime': data_message['eventtime'], 'message': data_message['message']})
+			chat.content = str(new_message_text)
+
+			chat.autor_id = data_message['userId']
+			return chat
+
+		if Chat_MessageModel.objects.filter(group='53c97b25-2345-428a-a468-7197db713904').exists():
+
+			print("There is at least one object in some_queryset")
+			chat = Chat_MessageModel.objects.filter(group='53c97b25-2345-428a-a468-7197db713904')[0]
+
+			chat = save_datas_inDB(chat)
+			chat.save()
+			print('[CONSUMER > UPDATE DB] end')
+		else:
+			chat = Chat_MessageModel()
+			chat['group'] = json.load(event['text'])['groupId']
+			chat = save_datas_inDB(chat, 1)
+
+			chat.save()
+			print('[CONSUMER > SAVED DB] end')
+
+	async def websocket_disconnect(self, close_code):
+		# от ключение пользователя
+		print('receive', close_code)
 
 	async def websocket_receive(self, event):
+		await self.send_chat_message_inDB(event)
+
+
 		for v in event.values() :
 			print('receive K: ', v)
 			# print('websocket V: ', v)
 		# https://youtu.be/r6oTcAYDRt0?t=1036
 		# получаем данные/ Рассылаем всем подпизчикам
 		# Вводим логику для манипуляции полученными данными
-		group = GroupsModel()
 
 		print(f'[CONSUMER > RECEIVE]: Received event {json.dumps(event)}')
 		await self.send({
 			"type": "websocket.send",
-			"text": event["text"],
+			"text": event['text'],
 		})
 		print('websocket_Good!', event)

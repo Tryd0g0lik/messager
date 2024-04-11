@@ -82,7 +82,7 @@ export class WSocket {
     this.socket.close();
   }
 
-  dataSendNow(): void {
+  dataSendNow(): void | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN]: Message was a pass - Ok', data);
     console.log(`[websokets > OPEN]: Before send. ReadyState: ${this.socket.readyState}`);
@@ -92,6 +92,7 @@ export class WSocket {
       this.handlers.data.pop();
     } else {
       console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");
+      return false;
     }
   };
 }

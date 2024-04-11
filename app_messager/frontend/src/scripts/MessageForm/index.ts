@@ -19,7 +19,15 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const indexUser = target.dataset.id;
 
   const sendlerTotal = (): void => {
-    socket.beforeSend(String([JSON.stringify({ message: messages, userId: indexUser })]));
+    const currentdate = new Date();
+    const datetime = currentdate.getFullYear() + '-' +
+      (currentdate.getMonth() + 1) + '-' +
+      currentdate.getDate() + '@' +
+      currentdate.getHours() + ':' +
+      currentdate.getMinutes() + ':' +
+      currentdate.getSeconds() + ':' +
+      currentdate.getMilliseconds();
+    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '53c97b25-2345-428a-a468-7197db713904' })]));
     socket.dataSendNow();
 
     const inputFormHTML = document.querySelector('input[data-id]');
