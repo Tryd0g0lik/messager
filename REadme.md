@@ -68,7 +68,7 @@ NOTE: Now, i can't get the script for create the user group and get number it. \
 I insert a static group number, number '1'.
 
 ### Replce the code
-Before it's
+Before this's
 ```ts
 socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '53c97b25-2345-428a-a468-7197db713904' })]));
 ```
@@ -79,3 +79,14 @@ socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: message
 
 `53c97b25-2345-428a-a468-7197db713904` - it's number from the `app_messager_groupsmodel` db. \
 Table `app_messager_groupsmodel` it's the model `GroupsModel` of `app_messager\models.py` and PrimaryKey string.  
+
+
+#### app_messager\frontend\src\scripts\MessageForm\index.ts
+Before this's
+```js
+const indexUser = 3; // target.dataset.id;
+```
+After this's
+```js
+const indexUser = target.dataset.id;
+```

@@ -16,7 +16,7 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const buttonHTML = document.querySelector('button[data-id]');
   const target = e.target as HTMLInputElement;
   const messages = target.value.trim();
-  const indexUser = target.dataset.id;
+  const indexUser = 3; // target.dataset.id;
 
   const sendlerTotal = (): void => {
     const currentdate = new Date();
@@ -27,7 +27,7 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
       currentdate.getMinutes() + ':' +
       currentdate.getSeconds() + ':' +
       currentdate.getMilliseconds();
-    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '53c97b25-2345-428a-a468-7197db713904' })]));
+    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
     socket.dataSendNow();
 
     const inputFormHTML = document.querySelector('input[data-id]');

@@ -1,7 +1,7 @@
 # https://channels.readthedocs.io/en/latest/topics/consumers.html
 
 
-import json
+import json, re
 import asyncio
 
 from asgiref.sync import sync_to_async
@@ -43,36 +43,74 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 
 		# self.accept()
 
-	@database_sync_to_async
+	@sync_to_async
 	def send_chat_message_inDB(self, event):
+		from app_messager.models import GroupsModel
+		chats_all =Chat_MessageModel.objects.all()
+		group_all = GroupsModel.objects.all()
 
-		def save_datas_inDB(chat):
-			new_message_text = []
-			print('[CONSUMER > SAVED DB] BEFORE:', '[TEST > event.TEXT]: ', event['text'])
-			chat['group'] = 1 # event['text']['groupId']
-			# print('ddddddddddddddddd',  event['text'] )
-			data_message = json.loads(event['text'])
-			new_message_text.append({'eventtime': data_message['eventtime'], 'message': data_message['message']})
-			chat.content = str(new_message_text)
+		json_data = json.loads(event['text'])
+		print('rrrrr: ', json_data['groupId'])
+		print('------------------------', '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' in json_data['groupId'])
 
-			chat.autor_id = data_message['userId']
-			return chat
 
-		if Chat_MessageModel.objects.filter(group='53c97b25-2345-428a-a468-7197db713904').exists():
+		id = 0
+		group_all_len = len(list(group_all))
+		'''
+			Check a group number 'ID' in the 'groupId' 
+		'''
+		for i in range(0, group_all_len):
+			print('TEST 0: ', i ,  '/',  group_all_len)
+			print('[UUID]: ', str(list(group_all)[i].uuid))
+			print('[GOUPID]: ', json_data['groupId'])
+			if (str(list(group_all)[i].uuid) == json_data['groupId']):
+				id = list(group_all)[i].id
+				print('[id]: ', id)
 
-			print("There is at least one object in some_queryset")
-			chat = Chat_MessageModel.objects.filter(group='53c97b25-2345-428a-a468-7197db713904')[0]
 
-			chat = save_datas_inDB(chat)
-			chat.save()
-			print('[CONSUMER > UPDATE DB] end')
+		chat_ind = 0
+		chats_all_len = len(list(chats_all))
+		count_row = Chat_MessageModel.objects.count()
+		'''
+			Check the we have records or not
+		'''
+		for i in range(0, chats_all_len):
+			print('TEST 1: ', i,  '/',  chats_all_len)
+			if ((count_row > 0) and (chats_all[i].group_id == id)):
+				chat_ind = chats_all[i].id
+				print('TEST chat_ind: ', chat_ind)
+
+		print('[CONSUMER > SAVED DB] BEFORE:', '[TEST > event.TEXT]: ', event['text'])
+		data_message = json.loads(event['text'])
+		date_str = str(data_message['eventtime'])
+		chat = Chat_MessageModel()
+		if ((count_row > 0) and (len(group_all)>0)):
+			print('[CONSUMER > SAVED DB] BEFORE:', 'line from the db ', event['text'])
+			chat = Chat_MessageModel.objects.get(pk=chat_ind)
+
+			content_json = json.loads(chat.content)
+			content_json[date_str] = data_message['message']
+			chat.content = json.dumps(content_json)
+			print('group_id', id)
 		else:
-			chat = Chat_MessageModel()
+			chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
 
-			chat = save_datas_inDB(chat, 1)
+		chat.group_id = id
 
-			chat.save()
-			print('[CONSUMER > SAVED DB] end')
+		chat.author_id = json_data['userId']
+		new_message_text = chat.content
+
+
+
+		print('[eventtime]: ',date_str, data_message['message'])
+
+
+		chat.content = str(new_message_text)
+
+		chat.autor_id = data_message['userId']
+		chat.save()
+		print('[CONSUMER > UPDATE DB] end')
+
 
 	async def websocket_disconnect(self, close_code):
 		# от ключение пользователя

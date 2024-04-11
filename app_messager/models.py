@@ -42,7 +42,7 @@ class Messeger_User(models.Model):
 
 class GroupsModel(models.Model):
 	'''The group model where multiple users can share and discuss ideas'''
-	uuid = models.UUIDField(default=uuid4, editable=False, )
+	uuid = models.UUIDField(default=uuid4,  )
 	name = models.CharField(max_length=30)
 	members = models.ManyToManyField(Messeger_User)
 	title_order = models.CharField(max_length=50)
@@ -69,10 +69,10 @@ class GroupsModel(models.Model):
 
 
 class Chat_MessageModel(models.Model):
-	author = models.ForeignKey(Messeger_User, on_delete=models.CASCADE)
+	author = models.ForeignKey(Messeger_User, on_delete=models.CASCADE, related_name="autormessage")
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
-
+	group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
 	file = models.ForeignKey('FileModels', related_name="file_of_chat", on_delete=models.CASCADE, blank=True, null=True)
 
 	def __str__(self) -> str:
