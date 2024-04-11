@@ -41,31 +41,31 @@ class Messeger_User(models.Model):
 	sub_status = models.CharField(choices=Sub_Status, max_length=10, )
 
 class GroupsModel(models.Model):
-  '''The group model where multiple users can share and discuss ideas'''
-  uuid = models.UUIDField(primary_key=True, default=uuid4, editable=False, )
-  name = models.CharField(max_length=30)
-  members = models.ManyToManyField(Messeger_User)
-  title_order = models.CharField(max_length = 50)
-  hide = models.BooleanField()
+	'''The group model where multiple users can share and discuss ideas'''
+	uuid = models.UUIDField( default=uuid4, editable=False, )
+	name = models.CharField(max_length=30)
+	members = models.ManyToManyField(Messeger_User)
+	title_order = models.CharField(max_length=50)
+	hide = models.BooleanField()
   
-  def __str__(self) -> str:
-      return f"Group {self.name}-{self.uuid}"
+	def __str__(self) -> str:
+		return f"Group {self.name}-{self.uuid}"
 
-  def get_absolute_url(self):
-      return reverse("group", args=[str(self.uuid)])
+	def get_absolute_url(self):
+		return reverse("group", args=[str(self.uuid)])
 
-  def add_user_to_group(self, user:Messeger_User):
-      '''A helper function to add a user to a group and create an event object'''
-      self.members.add(user)
-      self.event_set.create(type="Join", user=user)
-      self.save()
+	def add_user_to_group(self, user:Messeger_User):
+		'''A helper function to add a user to a group and create an event object'''
+		self.members.add(user)
+		self.event_set.create(type="Join", user=user)
+		self.save()
 
-  def remove_user_from_group(self, user:User):
-      '''An helper function to remove users from group members when they \
-      leave the group and create an event for the timestamp the user left the group'''
-      self.members.remove(user)
-      self.event_set.create(type="Left", user=user)
-      self.save()
+	def remove_user_from_group(self, user:User):
+		'''An helper function to remove users from group members when they \
+		leave the group and create an event for the timestamp the user left the group'''
+		self.members.remove(user)
+		self.event_set.create(type="Left", user=user)
+		self.save()
 
 
 class Chat_MessageModel(models.Model):

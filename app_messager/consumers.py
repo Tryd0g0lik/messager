@@ -48,8 +48,9 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 
 		def save_datas_inDB(chat):
 			new_message_text = []
-			print('[CONSUMER > SAVED DB] BEFORE:', json.dumps(event), '[TEST > event.TEXT]: ', event['text'])
-
+			print('[CONSUMER > SAVED DB] BEFORE:', '[TEST > event.TEXT]: ', event['text'])
+			chat['group'] = 1 # event['text']['groupId']
+			# print('ddddddddddddddddd',  event['text'] )
 			data_message = json.loads(event['text'])
 			new_message_text.append({'eventtime': data_message['eventtime'], 'message': data_message['message']})
 			chat.content = str(new_message_text)
@@ -67,7 +68,7 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 			print('[CONSUMER > UPDATE DB] end')
 		else:
 			chat = Chat_MessageModel()
-			chat['group'] = json.load(event['text'])['groupId']
+
 			chat = save_datas_inDB(chat, 1)
 
 			chat.save()
