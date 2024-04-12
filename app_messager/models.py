@@ -44,7 +44,7 @@ class GroupsModel(models.Model):
 	'''The group model where multiple users can share and discuss ideas'''
 	uuid = models.UUIDField(default=uuid4,  )
 	name = models.CharField(max_length=30)
-	members = models.ManyToManyField(Messeger_User)
+	members = models.ManyToManyField(Messeger_User, related_name='members_users')
 	title_order = models.CharField(max_length=50)
 	hide = models.BooleanField()
 
