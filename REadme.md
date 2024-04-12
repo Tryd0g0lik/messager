@@ -63,9 +63,9 @@ if not DEBUG:
 ```
 
 ## Frontend
-pthname: 'app_messager\frontend\src\scripts\MessageForm\index.ts'
+pthname: `app_messager\frontend\src\scripts\MessageForm\index.ts` \
 NOTE: Now, i can't get the script for create the user group and get number it. \
-I insert a static group number, number '1'.
+I insert a static group number, number `1`.
 
 ### Replce the code
 Before this's
@@ -90,3 +90,13 @@ After this's
 ```js
 const indexUser = target.dataset.id;
 ```
+
+#### Django Models
+For include to done to the project, you need to change 
+
+pathname: `app_messager\models.py` \
+Before this's \
+`Messeger_User.user = models.OneToOneField(User, on_delete= models.CASCADE, unique=True, )`
+After this's \
+`Messeger_User.user = models.OneToOneField(<your_nam_table_registration_user>, on_delete= models.CASCADE, unique=True, )` Here is us only need the id it user
+

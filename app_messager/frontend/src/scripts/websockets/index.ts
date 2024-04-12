@@ -1,8 +1,6 @@
-interface WSData {
-  open: []
-  close: []
-  data: []
-}
+// app_messager\frontend\src\scripts\websockets\index.ts
+
+import { WSData } from '@Interfaces';
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -76,6 +74,8 @@ export class WSocket {
 
   onMessage = (e): void => {
     console.log('[websokets > OPEN]: - get the MESSAGE: ', JSON.parse(e.data).message);
+
+
   };
 
   onClose(): void {

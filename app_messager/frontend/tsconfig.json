@@ -31,6 +31,9 @@
       // ],
       "@Websocket": [
         "src/scripts/websockets/index.ts"
+      ],
+      "@Interfaces": [
+        "src/interface.ts"
       ]
       // "@img/*": [
       //   "src/frontend/src/img/*",
