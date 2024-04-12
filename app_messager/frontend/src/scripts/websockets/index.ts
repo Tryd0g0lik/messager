@@ -1,6 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
+import createChatMessage from '@Templates/messages';
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -67,15 +68,14 @@ export class WSocket {
     }
   };
 
-  get readyState(): typeof this.socket.handlers {
+  get readyState(): typeof this.handlers {
     const handlers = this.handlers;
     return handlers;
   };
 
-  onMessage = (e): void => {
-    console.log('[websokets > OPEN]: - get the MESSAGE: ', JSON.parse(e.data).message);
-
-
+  onMessage = (e: any): void => {
+    console.log('-------------------');
+  // createChatMessage()
   };
 
   onClose(): void {
@@ -84,11 +84,11 @@ export class WSocket {
 
   dataSendNow(): void | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
-    console.log('[websokets > OPEN]: Message was a pass - Ok', data);
-    console.log(`[websokets > OPEN]: Before send. ReadyState: ${this.socket.readyState}`);
+    console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok', data);
+    console.log(`[websokets > OPEN> BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
-      console.log('[websokets > OPEN]: After sending - Ok', this.socket.readyState);
+      console.log('[websokets > OPEN > AFTER SEND]: Ok', this.socket.readyState);
       this.handlers.data.pop();
     } else {
       console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");

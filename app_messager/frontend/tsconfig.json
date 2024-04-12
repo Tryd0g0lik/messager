@@ -23,6 +23,7 @@
     // "noImplicitAny": true,
     // "strictPropertyInitialization": false,
     // "skipLibCheck": true,
+    // "allowImportingTsExtensions": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -34,6 +35,9 @@
       ],
       "@Interfaces": [
         "src/interface.ts"
+      ],
+      "@Templates/*": [
+        "src/scripts/templates/*"
       ]
       // "@img/*": [
       //   "src/frontend/src/img/*",

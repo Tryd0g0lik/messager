@@ -86,9 +86,9 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 		# получаем данные/ Рассылаем всем подпизчикам
 		# Вводим логику для манипуляции полученными данными
 
-		print(f'[CONSUMER > RECEIVE]: Received event {json.dumps(event)}')
+		print(f'[CONSUMER > RECEIVE]: Received event: {json.dumps(event)}')
 		await self.send({
 			"type": "websocket.send",
-			"text": event['text'],
+			"text": json.dumps(event),
 		})
 		print('websocket_Good!', event)
