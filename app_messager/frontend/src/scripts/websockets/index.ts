@@ -85,7 +85,7 @@ export class WSocket {
   dataSendNow(): void | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok', data);
-    console.log(`[websokets > OPEN> BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);
+    console.log(`[websokets > OPEN > BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
       console.log('[websokets > OPEN > AFTER SEND]: Ok', this.socket.readyState);
