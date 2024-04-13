@@ -8,16 +8,13 @@ if (APP_WS_URL === undefined) {
   APP_WS_URL = '';
 };
 
-const roomName = '/chat/';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
-// const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
-// APP_WS_URL + roomName
 
 const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const buttonHTML = document.querySelector('button[data-id]');
   const target = e.target as HTMLInputElement;
   const messages = target.value.trim();
-  const indexUser = 3; // target.dataset.id;
+  const indexUser = target.dataset.id;
 
   const sendlerTotal = (): void => {
     const datetime = time.getFullTime();

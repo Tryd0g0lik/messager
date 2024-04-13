@@ -2,9 +2,10 @@ function zeroDateTime(): Date {
   const currentdate = new Date();
   return currentdate;
 }
-interface T {
-  timeStyle: 'short'
-}
+
+/**
+ * @returns '13:02"
+ */
 function getNowTime(): string {
   const currentdate = zeroDateTime();
   const time = currentdate.getHours().toLocaleString('en-US') + ':' +
@@ -12,6 +13,9 @@ function getNowTime(): string {
   return time;
 }
 
+/**
+ * @returns '2020-02-21'
+ */
 function getNowDate(): string {
   const currentdate = zeroDateTime();
   const date = currentdate.getFullYear() + '-' +
@@ -20,16 +24,20 @@ function getNowDate(): string {
   return date;
 }
 
+/**
+ * @returns "532"
+ */
 function getMowMultiSecond(): string {
   const currentdate = zeroDateTime();
   const multis = currentdate.getMilliseconds();
   return String(multis);
 }
+
+/**
+ * @returns 2020-02-21@11:02:23 PM'
+ */
 function getFullTime(): string {
   const dt = zeroDateTime();
-  // const datetime = (((dt.getHours()) >= 0) && (dt.getHours() < 12))
-  //   ? getNowDate() + '@' + getNowTime() + '@' + getMowMultiSecond() + '@' + ' AM'
-  //   : getNowDate() + '@' + getNowTime() + '@' + getMowMultiSecond() + '@' + ' PM';
   const datetime = getNowDate() + '@' + dt.toLocaleTimeString('en-US');
   return datetime;
 }

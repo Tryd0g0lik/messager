@@ -34,10 +34,7 @@ export class WSocket {
     });
 
     this.socket.addEventListener('close', (e: any) => {
-      // if (e.wasClean) { console.log('[websokets > close] : connection was breaked]') }
-      // else { console.log('[websokets > close]: - connection was closed]') };
       console.info(`[WSocket > CLOSE]: - connection was CLOSED: ${e.message}`);
-      // console.log('[websokets: WebSocket.addEventListener("close") - closed Event]: ', e['message']);
     });
 
     this.socket.addEventListener('error', (e: any) => {
