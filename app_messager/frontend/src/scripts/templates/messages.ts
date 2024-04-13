@@ -2,7 +2,11 @@ import { ChatMessage } from '@Interfaces';
 import time from '@Service/getDataTime';
 
 function scrollToBottom(): void {
-  window.scrollTo({
+  const chatBox = document.querySelector('#chat');
+  if (chatBox === null) {
+    return;
+  }
+  chatBox.scrollTo({
     top: document.body.scrollHeight,
     behavior: 'smooth'
   });

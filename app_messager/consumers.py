@@ -5,6 +5,8 @@ import json, re
 from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncConsumer
+from django.utils import asyncio
+
 from app_messager.models import *
 
 '''
@@ -30,18 +32,25 @@ class ChatConsumer(AsyncConsumer):
 		# self.accept()
 
 	@sync_to_async
-	async def send_chat_message_inDB(self, event):
+	def send_chat_message_inDB(self, event):
+		print('============ send_chat_message_inDB ============')
 		from app_messager.models import GroupsModel
-		group_all = await database_sync_to_async(GroupsModel.objects.all)()
+		print('TEST 1')
+		group_all = GroupsModel.objects.all()
+		print('TEST 2', event )
 		json_data = json.loads(event['text'])
 
 		id = 0
+		print('TEST 3', list(group_all))
 		group_all_len = len(list(group_all))
 		'''
 			Check a group number 'ID' in the 'groupId' 
 		'''
+		print('TEST 4')
 		for i in range(0, group_all_len):
+			print('TEST 5')
 			if (str(list(group_all)[i].uuid) == json_data['groupId']):
+				print('TEST 6')
 				id = list(group_all)[i].id
 
 		print('[CONSUMER > SAVED DB] BEFORE: datas record')
@@ -51,9 +60,10 @@ class ChatConsumer(AsyncConsumer):
 
 		chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
 		chat.group_id = id
+
 		chat.author_id = json_data['userId']
 		chat.autor_id = data_message['userId']
-		await database_sync_to_async(chat.save)()
+		chat.save()
 
 		print('[CONSUMER > is RECORD in DB] end')
 
@@ -65,9 +75,11 @@ class ChatConsumer(AsyncConsumer):
 		self.connected_clients.remove(self.channel_name)
 
 	async def websocket_receive(self, event):
-		await self.send_chat_message_inDB(event)
+		print('============ Before:  send_chat_message_inDB ============')
+		await  self.send_chat_message_inDB(event)
 
 		# Send the message to all connected clients
+		print('============ After: Send the message to all connected clients ============')
 		for client in self.connected_clients:
 			await self.channel_layer.send(client, {
 				"type": "websocket.send",

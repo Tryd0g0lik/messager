@@ -27,7 +27,7 @@ def chat_page(request, room_name):
 	# ws = websocket.WebSocket()
 	# ws.connect('ws://localhost:6379/ws/tableData/')
 	return render(request, 'index.html', {
-		'user_index': user.id,
+		'user_index': 3, # user.id,
 		'static_files': {'js': file_names_js, 'css': file_names_css},
 		'room_name' : room_name }
 	              )
