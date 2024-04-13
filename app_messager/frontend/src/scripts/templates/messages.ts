@@ -1,7 +1,14 @@
 import { ChatMessage } from '@Interfaces';
 
+function scrollToBottom() {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+  });
+}
+
 /**
- * This's html box for a chat's message
+ * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
  * @param 'dataTime' - it's the time then user sends the message.
  * We gets from a data format: "eventtime":"2024-4-13@6:2:14:38"
@@ -41,4 +48,9 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
   const oldChat = htmlChat?.innerHTML;
   const newBox = htmlMessage.innerHTML;
   htmlChat.innerHTML = (oldChat + newBox);
+
+  /**
+   * scroll
+   */
+  scrollToBottom();
 }
