@@ -63,11 +63,27 @@ if not DEBUG:
 ```
 
 ## Frontend
+### HTML-chat template 
+pthname: `app_messager\templates\index.html`\
+NOTE!!: right now  i can't add a script wich insrt `data-groupId="7a3a744a-64ab-492b-89bf-9ee7c72b91f1"` to the html code. 
+#### Replace the code
+Before this's
+```html
+<div id="group" data-groupId='7a3a744a-64ab-492b-89bf-9ee7c72b91f1' class="col-12 col-lg-7 col-xl-9">
+```
+After this's
+```html
+<div id="group" data-groupId='< your_var_of_script_the_number_group >' class="col-12 col-lg-7 col-xl-9">
+```
+this's the group number we get when to create a group of two people
+
+
+### Message box
 pthname: `app_messager\frontend\src\scripts\MessageForm\index.ts` \
 NOTE: Now, i can't get the script for create the user group and get number it. \
 I insert a static group number, number `1`.
 
-### Replce the code
+#### Replace the code
 Before this's
 ```ts
 socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '53c97b25-2345-428a-a468-7197db713904' })]));
@@ -81,7 +97,7 @@ socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: message
 Table `app_messager_groupsmodel` it's the model `GroupsModel` of `app_messager\models.py` and PrimaryKey string.  
 
 
-#### app_messager\frontend\src\scripts\MessageForm\index.ts
+#### Replace the code
 Before this's
 ```js
 const indexUser = 3; // target.dataset.id;

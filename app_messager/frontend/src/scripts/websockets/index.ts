@@ -2,10 +2,7 @@
 
 import { WSData } from '@Interfaces';
 import { createChatMessage } from '@htmlTemplates/messages';
-const authorId = '';
-const dataTime = '';
-const message = '';
-createChatMessage({ authorId, dataTime, message });
+
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -82,22 +79,23 @@ export class WSocket {
     // debugger
     const dataJson = JSON.parse(e.data);
     const dataTextJson = JSON.parse((JSON.parse(e.data)).text);
-    const message = dataTextJson.massage;
-    const authorId = dataTextJson.usedId;
+    const message = dataTextJson.message;
+    const authorId = String(dataTextJson.userId);
     const groupId = dataTextJson.groupId;
     const eventtime = dataTextJson.eventtime;
     const date = (eventtime.split('@'))[0];
     const time = (eventtime.split('@'))[1];
+
     const dataTime = date + '-' + time;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
-    // createChatMessage({ authorId, dataTime, message });
+    createChatMessage({ authorId, dataTime, message, groupId });
   };
 
   onClose(): void {
     this.socket.close();
   }
 
-  dataSendNow(): void | boolean {
+  dataSendNow(): undefined | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok', data);
     console.log(`[websokets > OPEN > BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);

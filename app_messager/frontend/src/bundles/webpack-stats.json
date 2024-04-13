@@ -11,17 +11,650 @@
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\index.html",
       "publicPath": "/index.html"
     },
+    "main-main-02702f45bda4bcde96d7.js": {
+      "name": "main-main-02702f45bda4bcde96d7.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-02702f45bda4bcde96d7.js",
+      "publicPath": "/main-main-02702f45bda4bcde96d7.js"
+    },
+    "main-main-082431ac98d94dcfe6e3.js": {
+      "name": "main-main-082431ac98d94dcfe6e3.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-082431ac98d94dcfe6e3.js",
+      "publicPath": "/main-main-082431ac98d94dcfe6e3.js"
+    },
+    "main-main-12b71ec631d6e413b9af.js": {
+      "name": "main-main-12b71ec631d6e413b9af.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-12b71ec631d6e413b9af.js",
+      "publicPath": "/main-main-12b71ec631d6e413b9af.js"
+    },
+    "main-main-1721a3077adfbee6a655.js": {
+      "name": "main-main-1721a3077adfbee6a655.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-1721a3077adfbee6a655.js",
+      "publicPath": "/main-main-1721a3077adfbee6a655.js"
+    },
+    "main-main-1b52b8965863c5df563f.js": {
+      "name": "main-main-1b52b8965863c5df563f.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-1b52b8965863c5df563f.js",
+      "publicPath": "/main-main-1b52b8965863c5df563f.js"
+    },
+    "main-main-20fc26f45343126ce16c.js": {
+      "name": "main-main-20fc26f45343126ce16c.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-20fc26f45343126ce16c.js",
+      "publicPath": "/main-main-20fc26f45343126ce16c.js"
+    },
+    "main-main-22a210f0f27ca51e8b54.js": {
+      "name": "main-main-22a210f0f27ca51e8b54.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-22a210f0f27ca51e8b54.js",
+      "publicPath": "/main-main-22a210f0f27ca51e8b54.js"
+    },
+    "main-main-23e48dec487b17f6da38.js": {
+      "name": "main-main-23e48dec487b17f6da38.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-23e48dec487b17f6da38.js",
+      "publicPath": "/main-main-23e48dec487b17f6da38.js"
+    },
+    "main-main-24f600609f914c805776.js": {
+      "name": "main-main-24f600609f914c805776.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-24f600609f914c805776.js",
+      "publicPath": "/main-main-24f600609f914c805776.js"
+    },
+    "main-main-33a3386f92ca6a2fa233.js": {
+      "name": "main-main-33a3386f92ca6a2fa233.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-33a3386f92ca6a2fa233.js",
+      "publicPath": "/main-main-33a3386f92ca6a2fa233.js"
+    },
+    "main-main-370296c0139231e8e353.js": {
+      "name": "main-main-370296c0139231e8e353.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-370296c0139231e8e353.js",
+      "publicPath": "/main-main-370296c0139231e8e353.js"
+    },
+    "main-main-4da510e195aa8430578a.js": {
+      "name": "main-main-4da510e195aa8430578a.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-4da510e195aa8430578a.js",
+      "publicPath": "/main-main-4da510e195aa8430578a.js"
+    },
+    "main-main-5765d0374d48d7e72063.js": {
+      "name": "main-main-5765d0374d48d7e72063.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-5765d0374d48d7e72063.js",
+      "publicPath": "/main-main-5765d0374d48d7e72063.js"
+    },
+    "main-main-585a4ad1ab585c7fab66.js": {
+      "name": "main-main-585a4ad1ab585c7fab66.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-585a4ad1ab585c7fab66.js",
+      "publicPath": "/main-main-585a4ad1ab585c7fab66.js"
+    },
+    "main-main-59e768777c49fe217731.js": {
+      "name": "main-main-59e768777c49fe217731.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-59e768777c49fe217731.js",
+      "publicPath": "/main-main-59e768777c49fe217731.js"
+    },
+    "main-main-5a57d54038cd1eb98936.js": {
+      "name": "main-main-5a57d54038cd1eb98936.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-5a57d54038cd1eb98936.js",
+      "publicPath": "/main-main-5a57d54038cd1eb98936.js"
+    },
+    "main-main-61b83b044d2044498229.js": {
+      "name": "main-main-61b83b044d2044498229.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-61b83b044d2044498229.js",
+      "publicPath": "/main-main-61b83b044d2044498229.js"
+    },
+    "main-main-656e8c90a482e5c05617.js": {
+      "name": "main-main-656e8c90a482e5c05617.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-656e8c90a482e5c05617.js",
+      "publicPath": "/main-main-656e8c90a482e5c05617.js"
+    },
+    "main-main-6d92cb0ac0cb50226ec5.js": {
+      "name": "main-main-6d92cb0ac0cb50226ec5.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-6d92cb0ac0cb50226ec5.js",
+      "publicPath": "/main-main-6d92cb0ac0cb50226ec5.js"
+    },
+    "main-main-70b497b89b44b9a053fd.js": {
+      "name": "main-main-70b497b89b44b9a053fd.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-70b497b89b44b9a053fd.js",
+      "publicPath": "/main-main-70b497b89b44b9a053fd.js"
+    },
+    "main-main-795add9c7c187becf2f3.js": {
+      "name": "main-main-795add9c7c187becf2f3.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-795add9c7c187becf2f3.js",
+      "publicPath": "/main-main-795add9c7c187becf2f3.js"
+    },
+    "main-main-99e90ada1fcd7e3778a4.js": {
+      "name": "main-main-99e90ada1fcd7e3778a4.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-99e90ada1fcd7e3778a4.js",
+      "publicPath": "/main-main-99e90ada1fcd7e3778a4.js"
+    },
+    "main-main-9b3031ac17d9e79a663d.js": {
+      "name": "main-main-9b3031ac17d9e79a663d.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-9b3031ac17d9e79a663d.js",
+      "publicPath": "/main-main-9b3031ac17d9e79a663d.js"
+    },
+    "main-main-a17077cb95e97646a847.js": {
+      "name": "main-main-a17077cb95e97646a847.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-a17077cb95e97646a847.js",
+      "publicPath": "/main-main-a17077cb95e97646a847.js"
+    },
+    "main-main-ab51c968e37647bf2e5b.js": {
+      "name": "main-main-ab51c968e37647bf2e5b.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-ab51c968e37647bf2e5b.js",
+      "publicPath": "/main-main-ab51c968e37647bf2e5b.js"
+    },
+    "main-main-b00e5ae5b244c9ec4146.js": {
+      "name": "main-main-b00e5ae5b244c9ec4146.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-b00e5ae5b244c9ec4146.js",
+      "publicPath": "/main-main-b00e5ae5b244c9ec4146.js"
+    },
+    "main-main-b2fe2db4f939061eb0e6.js": {
+      "name": "main-main-b2fe2db4f939061eb0e6.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-b2fe2db4f939061eb0e6.js",
+      "publicPath": "/main-main-b2fe2db4f939061eb0e6.js"
+    },
+    "main-main-bb79b40b69958686763d.js": {
+      "name": "main-main-bb79b40b69958686763d.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-bb79b40b69958686763d.js",
+      "publicPath": "/main-main-bb79b40b69958686763d.js"
+    },
+    "main-main-bd6dade361165e3b3333.js": {
+      "name": "main-main-bd6dade361165e3b3333.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-bd6dade361165e3b3333.js",
+      "publicPath": "/main-main-bd6dade361165e3b3333.js"
+    },
+    "main-main-c175884cd340331c8d25.js": {
+      "name": "main-main-c175884cd340331c8d25.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-c175884cd340331c8d25.js",
+      "publicPath": "/main-main-c175884cd340331c8d25.js"
+    },
+    "main-main-c3beb7ffd84384bf238a.js": {
+      "name": "main-main-c3beb7ffd84384bf238a.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-c3beb7ffd84384bf238a.js",
+      "publicPath": "/main-main-c3beb7ffd84384bf238a.js"
+    },
+    "main-main-cc989e735feafb95f1b6.js": {
+      "name": "main-main-cc989e735feafb95f1b6.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-cc989e735feafb95f1b6.js",
+      "publicPath": "/main-main-cc989e735feafb95f1b6.js"
+    },
     "main-main-d2d3a1a2da3388e687ab.js": {
       "name": "main-main-d2d3a1a2da3388e687ab.js",
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-d2d3a1a2da3388e687ab.js",
       "publicPath": "/main-main-d2d3a1a2da3388e687ab.js"
+    },
+    "main-main-d3b203934f94f117a0c1.js": {
+      "name": "main-main-d3b203934f94f117a0c1.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-d3b203934f94f117a0c1.js",
+      "publicPath": "/main-main-d3b203934f94f117a0c1.js"
+    },
+    "main-main-da625c263780eef3b301.js": {
+      "name": "main-main-da625c263780eef3b301.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-da625c263780eef3b301.js",
+      "publicPath": "/main-main-da625c263780eef3b301.js"
+    },
+    "main-main-db262da2e0fac79cfb99.js": {
+      "name": "main-main-db262da2e0fac79cfb99.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-db262da2e0fac79cfb99.js",
+      "publicPath": "/main-main-db262da2e0fac79cfb99.js"
+    },
+    "main-main-e128e088c222e5283461.js": {
+      "name": "main-main-e128e088c222e5283461.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e128e088c222e5283461.js",
+      "publicPath": "/main-main-e128e088c222e5283461.js"
+    },
+    "main-main-e2d728ebb2d2e588ab48.js": {
+      "name": "main-main-e2d728ebb2d2e588ab48.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e2d728ebb2d2e588ab48.js",
+      "publicPath": "/main-main-e2d728ebb2d2e588ab48.js"
+    },
+    "main-main-e4cd2d3ebb5b9a45aacc.js": {
+      "name": "main-main-e4cd2d3ebb5b9a45aacc.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e4cd2d3ebb5b9a45aacc.js",
+      "publicPath": "/main-main-e4cd2d3ebb5b9a45aacc.js"
+    },
+    "main-main-e531cce70baddbb3ecd8.js": {
+      "name": "main-main-e531cce70baddbb3ecd8.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e531cce70baddbb3ecd8.js",
+      "publicPath": "/main-main-e531cce70baddbb3ecd8.js"
+    },
+    "main-main-e9698a2a57835526ed1b.js": {
+      "name": "main-main-e9698a2a57835526ed1b.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e9698a2a57835526ed1b.js",
+      "publicPath": "/main-main-e9698a2a57835526ed1b.js"
+    },
+    "main-main-eaf2d1946e6fa620be69.js": {
+      "name": "main-main-eaf2d1946e6fa620be69.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-eaf2d1946e6fa620be69.js",
+      "publicPath": "/main-main-eaf2d1946e6fa620be69.js"
+    },
+    "main-main-f7fd201657c93aeb4ff6.js": {
+      "name": "main-main-f7fd201657c93aeb4ff6.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-f7fd201657c93aeb4ff6.js",
+      "publicPath": "/main-main-f7fd201657c93aeb4ff6.js"
+    },
+    "main.02702f45bda4bcde96d7.hot-update.js": {
+      "name": "main.02702f45bda4bcde96d7.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.02702f45bda4bcde96d7.hot-update.js",
+      "publicPath": "/main.02702f45bda4bcde96d7.hot-update.js"
+    },
+    "main.02702f45bda4bcde96d7.hot-update.json": {
+      "name": "main.02702f45bda4bcde96d7.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.02702f45bda4bcde96d7.hot-update.json",
+      "publicPath": "/main.02702f45bda4bcde96d7.hot-update.json"
+    },
+    "main.082431ac98d94dcfe6e3.hot-update.js": {
+      "name": "main.082431ac98d94dcfe6e3.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.082431ac98d94dcfe6e3.hot-update.js",
+      "publicPath": "/main.082431ac98d94dcfe6e3.hot-update.js"
+    },
+    "main.082431ac98d94dcfe6e3.hot-update.json": {
+      "name": "main.082431ac98d94dcfe6e3.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.082431ac98d94dcfe6e3.hot-update.json",
+      "publicPath": "/main.082431ac98d94dcfe6e3.hot-update.json"
+    },
+    "main.12b71ec631d6e413b9af.hot-update.js": {
+      "name": "main.12b71ec631d6e413b9af.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.12b71ec631d6e413b9af.hot-update.js",
+      "publicPath": "/main.12b71ec631d6e413b9af.hot-update.js"
+    },
+    "main.12b71ec631d6e413b9af.hot-update.json": {
+      "name": "main.12b71ec631d6e413b9af.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.12b71ec631d6e413b9af.hot-update.json",
+      "publicPath": "/main.12b71ec631d6e413b9af.hot-update.json"
+    },
+    "main.1721a3077adfbee6a655.hot-update.js": {
+      "name": "main.1721a3077adfbee6a655.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.1721a3077adfbee6a655.hot-update.js",
+      "publicPath": "/main.1721a3077adfbee6a655.hot-update.js"
+    },
+    "main.1721a3077adfbee6a655.hot-update.json": {
+      "name": "main.1721a3077adfbee6a655.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.1721a3077adfbee6a655.hot-update.json",
+      "publicPath": "/main.1721a3077adfbee6a655.hot-update.json"
+    },
+    "main.1b52b8965863c5df563f.hot-update.js": {
+      "name": "main.1b52b8965863c5df563f.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.1b52b8965863c5df563f.hot-update.js",
+      "publicPath": "/main.1b52b8965863c5df563f.hot-update.js"
+    },
+    "main.1b52b8965863c5df563f.hot-update.json": {
+      "name": "main.1b52b8965863c5df563f.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.1b52b8965863c5df563f.hot-update.json",
+      "publicPath": "/main.1b52b8965863c5df563f.hot-update.json"
+    },
+    "main.20fc26f45343126ce16c.hot-update.js": {
+      "name": "main.20fc26f45343126ce16c.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.20fc26f45343126ce16c.hot-update.js",
+      "publicPath": "/main.20fc26f45343126ce16c.hot-update.js"
+    },
+    "main.20fc26f45343126ce16c.hot-update.json": {
+      "name": "main.20fc26f45343126ce16c.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.20fc26f45343126ce16c.hot-update.json",
+      "publicPath": "/main.20fc26f45343126ce16c.hot-update.json"
+    },
+    "main.22a210f0f27ca51e8b54.hot-update.js": {
+      "name": "main.22a210f0f27ca51e8b54.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.22a210f0f27ca51e8b54.hot-update.js",
+      "publicPath": "/main.22a210f0f27ca51e8b54.hot-update.js"
+    },
+    "main.22a210f0f27ca51e8b54.hot-update.json": {
+      "name": "main.22a210f0f27ca51e8b54.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.22a210f0f27ca51e8b54.hot-update.json",
+      "publicPath": "/main.22a210f0f27ca51e8b54.hot-update.json"
+    },
+    "main.23e48dec487b17f6da38.hot-update.js": {
+      "name": "main.23e48dec487b17f6da38.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.23e48dec487b17f6da38.hot-update.js",
+      "publicPath": "/main.23e48dec487b17f6da38.hot-update.js"
+    },
+    "main.23e48dec487b17f6da38.hot-update.json": {
+      "name": "main.23e48dec487b17f6da38.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.23e48dec487b17f6da38.hot-update.json",
+      "publicPath": "/main.23e48dec487b17f6da38.hot-update.json"
+    },
+    "main.24f600609f914c805776.hot-update.js": {
+      "name": "main.24f600609f914c805776.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.24f600609f914c805776.hot-update.js",
+      "publicPath": "/main.24f600609f914c805776.hot-update.js"
+    },
+    "main.24f600609f914c805776.hot-update.json": {
+      "name": "main.24f600609f914c805776.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.24f600609f914c805776.hot-update.json",
+      "publicPath": "/main.24f600609f914c805776.hot-update.json"
+    },
+    "main.33a3386f92ca6a2fa233.hot-update.js": {
+      "name": "main.33a3386f92ca6a2fa233.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.33a3386f92ca6a2fa233.hot-update.js",
+      "publicPath": "/main.33a3386f92ca6a2fa233.hot-update.js"
+    },
+    "main.33a3386f92ca6a2fa233.hot-update.json": {
+      "name": "main.33a3386f92ca6a2fa233.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.33a3386f92ca6a2fa233.hot-update.json",
+      "publicPath": "/main.33a3386f92ca6a2fa233.hot-update.json"
+    },
+    "main.370296c0139231e8e353.hot-update.js": {
+      "name": "main.370296c0139231e8e353.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.370296c0139231e8e353.hot-update.js",
+      "publicPath": "/main.370296c0139231e8e353.hot-update.js"
+    },
+    "main.370296c0139231e8e353.hot-update.json": {
+      "name": "main.370296c0139231e8e353.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.370296c0139231e8e353.hot-update.json",
+      "publicPath": "/main.370296c0139231e8e353.hot-update.json"
+    },
+    "main.4da510e195aa8430578a.hot-update.js": {
+      "name": "main.4da510e195aa8430578a.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.4da510e195aa8430578a.hot-update.js",
+      "publicPath": "/main.4da510e195aa8430578a.hot-update.js"
+    },
+    "main.4da510e195aa8430578a.hot-update.json": {
+      "name": "main.4da510e195aa8430578a.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.4da510e195aa8430578a.hot-update.json",
+      "publicPath": "/main.4da510e195aa8430578a.hot-update.json"
+    },
+    "main.5765d0374d48d7e72063.hot-update.js": {
+      "name": "main.5765d0374d48d7e72063.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.5765d0374d48d7e72063.hot-update.js",
+      "publicPath": "/main.5765d0374d48d7e72063.hot-update.js"
+    },
+    "main.5765d0374d48d7e72063.hot-update.json": {
+      "name": "main.5765d0374d48d7e72063.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.5765d0374d48d7e72063.hot-update.json",
+      "publicPath": "/main.5765d0374d48d7e72063.hot-update.json"
+    },
+    "main.585a4ad1ab585c7fab66.hot-update.js": {
+      "name": "main.585a4ad1ab585c7fab66.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.585a4ad1ab585c7fab66.hot-update.js",
+      "publicPath": "/main.585a4ad1ab585c7fab66.hot-update.js"
+    },
+    "main.585a4ad1ab585c7fab66.hot-update.json": {
+      "name": "main.585a4ad1ab585c7fab66.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.585a4ad1ab585c7fab66.hot-update.json",
+      "publicPath": "/main.585a4ad1ab585c7fab66.hot-update.json"
+    },
+    "main.59e768777c49fe217731.hot-update.js": {
+      "name": "main.59e768777c49fe217731.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.59e768777c49fe217731.hot-update.js",
+      "publicPath": "/main.59e768777c49fe217731.hot-update.js"
+    },
+    "main.59e768777c49fe217731.hot-update.json": {
+      "name": "main.59e768777c49fe217731.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.59e768777c49fe217731.hot-update.json",
+      "publicPath": "/main.59e768777c49fe217731.hot-update.json"
+    },
+    "main.61b83b044d2044498229.hot-update.js": {
+      "name": "main.61b83b044d2044498229.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.61b83b044d2044498229.hot-update.js",
+      "publicPath": "/main.61b83b044d2044498229.hot-update.js"
+    },
+    "main.61b83b044d2044498229.hot-update.json": {
+      "name": "main.61b83b044d2044498229.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.61b83b044d2044498229.hot-update.json",
+      "publicPath": "/main.61b83b044d2044498229.hot-update.json"
+    },
+    "main.656e8c90a482e5c05617.hot-update.js": {
+      "name": "main.656e8c90a482e5c05617.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.656e8c90a482e5c05617.hot-update.js",
+      "publicPath": "/main.656e8c90a482e5c05617.hot-update.js"
+    },
+    "main.656e8c90a482e5c05617.hot-update.json": {
+      "name": "main.656e8c90a482e5c05617.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.656e8c90a482e5c05617.hot-update.json",
+      "publicPath": "/main.656e8c90a482e5c05617.hot-update.json"
+    },
+    "main.6d92cb0ac0cb50226ec5.hot-update.js": {
+      "name": "main.6d92cb0ac0cb50226ec5.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.6d92cb0ac0cb50226ec5.hot-update.js",
+      "publicPath": "/main.6d92cb0ac0cb50226ec5.hot-update.js"
+    },
+    "main.6d92cb0ac0cb50226ec5.hot-update.json": {
+      "name": "main.6d92cb0ac0cb50226ec5.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.6d92cb0ac0cb50226ec5.hot-update.json",
+      "publicPath": "/main.6d92cb0ac0cb50226ec5.hot-update.json"
+    },
+    "main.70b497b89b44b9a053fd.hot-update.js": {
+      "name": "main.70b497b89b44b9a053fd.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.70b497b89b44b9a053fd.hot-update.js",
+      "publicPath": "/main.70b497b89b44b9a053fd.hot-update.js"
+    },
+    "main.70b497b89b44b9a053fd.hot-update.json": {
+      "name": "main.70b497b89b44b9a053fd.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.70b497b89b44b9a053fd.hot-update.json",
+      "publicPath": "/main.70b497b89b44b9a053fd.hot-update.json"
+    },
+    "main.74edee220637155305e4.hot-update.js": {
+      "name": "main.74edee220637155305e4.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.74edee220637155305e4.hot-update.js",
+      "publicPath": "/main.74edee220637155305e4.hot-update.js"
+    },
+    "main.74edee220637155305e4.hot-update.json": {
+      "name": "main.74edee220637155305e4.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.74edee220637155305e4.hot-update.json",
+      "publicPath": "/main.74edee220637155305e4.hot-update.json"
+    },
+    "main.795add9c7c187becf2f3.hot-update.js": {
+      "name": "main.795add9c7c187becf2f3.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.795add9c7c187becf2f3.hot-update.js",
+      "publicPath": "/main.795add9c7c187becf2f3.hot-update.js"
+    },
+    "main.795add9c7c187becf2f3.hot-update.json": {
+      "name": "main.795add9c7c187becf2f3.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.795add9c7c187becf2f3.hot-update.json",
+      "publicPath": "/main.795add9c7c187becf2f3.hot-update.json"
+    },
+    "main.982f168e1dd67c0a48aa.hot-update.js": {
+      "name": "main.982f168e1dd67c0a48aa.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.982f168e1dd67c0a48aa.hot-update.js",
+      "publicPath": "/main.982f168e1dd67c0a48aa.hot-update.js"
+    },
+    "main.982f168e1dd67c0a48aa.hot-update.json": {
+      "name": "main.982f168e1dd67c0a48aa.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.982f168e1dd67c0a48aa.hot-update.json",
+      "publicPath": "/main.982f168e1dd67c0a48aa.hot-update.json"
+    },
+    "main.99e90ada1fcd7e3778a4.hot-update.js": {
+      "name": "main.99e90ada1fcd7e3778a4.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.99e90ada1fcd7e3778a4.hot-update.js",
+      "publicPath": "/main.99e90ada1fcd7e3778a4.hot-update.js"
+    },
+    "main.99e90ada1fcd7e3778a4.hot-update.json": {
+      "name": "main.99e90ada1fcd7e3778a4.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.99e90ada1fcd7e3778a4.hot-update.json",
+      "publicPath": "/main.99e90ada1fcd7e3778a4.hot-update.json"
+    },
+    "main.9b3031ac17d9e79a663d.hot-update.js": {
+      "name": "main.9b3031ac17d9e79a663d.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.9b3031ac17d9e79a663d.hot-update.js",
+      "publicPath": "/main.9b3031ac17d9e79a663d.hot-update.js"
+    },
+    "main.9b3031ac17d9e79a663d.hot-update.json": {
+      "name": "main.9b3031ac17d9e79a663d.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.9b3031ac17d9e79a663d.hot-update.json",
+      "publicPath": "/main.9b3031ac17d9e79a663d.hot-update.json"
+    },
+    "main.a17077cb95e97646a847.hot-update.js": {
+      "name": "main.a17077cb95e97646a847.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.a17077cb95e97646a847.hot-update.js",
+      "publicPath": "/main.a17077cb95e97646a847.hot-update.js"
+    },
+    "main.a17077cb95e97646a847.hot-update.json": {
+      "name": "main.a17077cb95e97646a847.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.a17077cb95e97646a847.hot-update.json",
+      "publicPath": "/main.a17077cb95e97646a847.hot-update.json"
+    },
+    "main.ab51c968e37647bf2e5b.hot-update.js": {
+      "name": "main.ab51c968e37647bf2e5b.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.ab51c968e37647bf2e5b.hot-update.js",
+      "publicPath": "/main.ab51c968e37647bf2e5b.hot-update.js"
+    },
+    "main.ab51c968e37647bf2e5b.hot-update.json": {
+      "name": "main.ab51c968e37647bf2e5b.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.ab51c968e37647bf2e5b.hot-update.json",
+      "publicPath": "/main.ab51c968e37647bf2e5b.hot-update.json"
+    },
+    "main.b00e5ae5b244c9ec4146.hot-update.js": {
+      "name": "main.b00e5ae5b244c9ec4146.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.b00e5ae5b244c9ec4146.hot-update.js",
+      "publicPath": "/main.b00e5ae5b244c9ec4146.hot-update.js"
+    },
+    "main.b00e5ae5b244c9ec4146.hot-update.json": {
+      "name": "main.b00e5ae5b244c9ec4146.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.b00e5ae5b244c9ec4146.hot-update.json",
+      "publicPath": "/main.b00e5ae5b244c9ec4146.hot-update.json"
+    },
+    "main.b2fe2db4f939061eb0e6.hot-update.js": {
+      "name": "main.b2fe2db4f939061eb0e6.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.b2fe2db4f939061eb0e6.hot-update.js",
+      "publicPath": "/main.b2fe2db4f939061eb0e6.hot-update.js"
+    },
+    "main.b2fe2db4f939061eb0e6.hot-update.json": {
+      "name": "main.b2fe2db4f939061eb0e6.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.b2fe2db4f939061eb0e6.hot-update.json",
+      "publicPath": "/main.b2fe2db4f939061eb0e6.hot-update.json"
+    },
+    "main.bb79b40b69958686763d.hot-update.js": {
+      "name": "main.bb79b40b69958686763d.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.bb79b40b69958686763d.hot-update.js",
+      "publicPath": "/main.bb79b40b69958686763d.hot-update.js"
+    },
+    "main.bb79b40b69958686763d.hot-update.json": {
+      "name": "main.bb79b40b69958686763d.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.bb79b40b69958686763d.hot-update.json",
+      "publicPath": "/main.bb79b40b69958686763d.hot-update.json"
+    },
+    "main.c175884cd340331c8d25.hot-update.js": {
+      "name": "main.c175884cd340331c8d25.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.c175884cd340331c8d25.hot-update.js",
+      "publicPath": "/main.c175884cd340331c8d25.hot-update.js"
+    },
+    "main.c175884cd340331c8d25.hot-update.json": {
+      "name": "main.c175884cd340331c8d25.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.c175884cd340331c8d25.hot-update.json",
+      "publicPath": "/main.c175884cd340331c8d25.hot-update.json"
+    },
+    "main.c3beb7ffd84384bf238a.hot-update.js": {
+      "name": "main.c3beb7ffd84384bf238a.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.c3beb7ffd84384bf238a.hot-update.js",
+      "publicPath": "/main.c3beb7ffd84384bf238a.hot-update.js"
+    },
+    "main.c3beb7ffd84384bf238a.hot-update.json": {
+      "name": "main.c3beb7ffd84384bf238a.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.c3beb7ffd84384bf238a.hot-update.json",
+      "publicPath": "/main.c3beb7ffd84384bf238a.hot-update.json"
+    },
+    "main.cc989e735feafb95f1b6.hot-update.js": {
+      "name": "main.cc989e735feafb95f1b6.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.cc989e735feafb95f1b6.hot-update.js",
+      "publicPath": "/main.cc989e735feafb95f1b6.hot-update.js"
+    },
+    "main.cc989e735feafb95f1b6.hot-update.json": {
+      "name": "main.cc989e735feafb95f1b6.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.cc989e735feafb95f1b6.hot-update.json",
+      "publicPath": "/main.cc989e735feafb95f1b6.hot-update.json"
+    },
+    "main.d2d3a1a2da3388e687ab.hot-update.js": {
+      "name": "main.d2d3a1a2da3388e687ab.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d2d3a1a2da3388e687ab.hot-update.js",
+      "publicPath": "/main.d2d3a1a2da3388e687ab.hot-update.js"
+    },
+    "main.d2d3a1a2da3388e687ab.hot-update.json": {
+      "name": "main.d2d3a1a2da3388e687ab.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d2d3a1a2da3388e687ab.hot-update.json",
+      "publicPath": "/main.d2d3a1a2da3388e687ab.hot-update.json"
+    },
+    "main.d3b203934f94f117a0c1.hot-update.js": {
+      "name": "main.d3b203934f94f117a0c1.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d3b203934f94f117a0c1.hot-update.js",
+      "publicPath": "/main.d3b203934f94f117a0c1.hot-update.js"
+    },
+    "main.d3b203934f94f117a0c1.hot-update.json": {
+      "name": "main.d3b203934f94f117a0c1.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d3b203934f94f117a0c1.hot-update.json",
+      "publicPath": "/main.d3b203934f94f117a0c1.hot-update.json"
+    },
+    "main.d8bf5e5ef6e87962db87.hot-update.js": {
+      "name": "main.d8bf5e5ef6e87962db87.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d8bf5e5ef6e87962db87.hot-update.js",
+      "publicPath": "/main.d8bf5e5ef6e87962db87.hot-update.js"
+    },
+    "main.d8bf5e5ef6e87962db87.hot-update.json": {
+      "name": "main.d8bf5e5ef6e87962db87.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.d8bf5e5ef6e87962db87.hot-update.json",
+      "publicPath": "/main.d8bf5e5ef6e87962db87.hot-update.json"
+    },
+    "main.db262da2e0fac79cfb99.hot-update.js": {
+      "name": "main.db262da2e0fac79cfb99.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.db262da2e0fac79cfb99.hot-update.js",
+      "publicPath": "/main.db262da2e0fac79cfb99.hot-update.js"
+    },
+    "main.db262da2e0fac79cfb99.hot-update.json": {
+      "name": "main.db262da2e0fac79cfb99.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.db262da2e0fac79cfb99.hot-update.json",
+      "publicPath": "/main.db262da2e0fac79cfb99.hot-update.json"
+    },
+    "main.e128e088c222e5283461.hot-update.js": {
+      "name": "main.e128e088c222e5283461.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e128e088c222e5283461.hot-update.js",
+      "publicPath": "/main.e128e088c222e5283461.hot-update.js"
+    },
+    "main.e128e088c222e5283461.hot-update.json": {
+      "name": "main.e128e088c222e5283461.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e128e088c222e5283461.hot-update.json",
+      "publicPath": "/main.e128e088c222e5283461.hot-update.json"
+    },
+    "main.e4cd2d3ebb5b9a45aacc.hot-update.js": {
+      "name": "main.e4cd2d3ebb5b9a45aacc.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e4cd2d3ebb5b9a45aacc.hot-update.js",
+      "publicPath": "/main.e4cd2d3ebb5b9a45aacc.hot-update.js"
+    },
+    "main.e4cd2d3ebb5b9a45aacc.hot-update.json": {
+      "name": "main.e4cd2d3ebb5b9a45aacc.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e4cd2d3ebb5b9a45aacc.hot-update.json",
+      "publicPath": "/main.e4cd2d3ebb5b9a45aacc.hot-update.json"
+    },
+    "main.e531cce70baddbb3ecd8.hot-update.js": {
+      "name": "main.e531cce70baddbb3ecd8.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e531cce70baddbb3ecd8.hot-update.js",
+      "publicPath": "/main.e531cce70baddbb3ecd8.hot-update.js"
+    },
+    "main.e531cce70baddbb3ecd8.hot-update.json": {
+      "name": "main.e531cce70baddbb3ecd8.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e531cce70baddbb3ecd8.hot-update.json",
+      "publicPath": "/main.e531cce70baddbb3ecd8.hot-update.json"
+    },
+    "main.e9698a2a57835526ed1b.hot-update.js": {
+      "name": "main.e9698a2a57835526ed1b.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e9698a2a57835526ed1b.hot-update.js",
+      "publicPath": "/main.e9698a2a57835526ed1b.hot-update.js"
+    },
+    "main.e9698a2a57835526ed1b.hot-update.json": {
+      "name": "main.e9698a2a57835526ed1b.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.e9698a2a57835526ed1b.hot-update.json",
+      "publicPath": "/main.e9698a2a57835526ed1b.hot-update.json"
+    },
+    "main.f325eb6d1294eff0ecea.hot-update.js": {
+      "name": "main.f325eb6d1294eff0ecea.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.f325eb6d1294eff0ecea.hot-update.js",
+      "publicPath": "/main.f325eb6d1294eff0ecea.hot-update.js"
+    },
+    "main.f325eb6d1294eff0ecea.hot-update.json": {
+      "name": "main.f325eb6d1294eff0ecea.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.f325eb6d1294eff0ecea.hot-update.json",
+      "publicPath": "/main.f325eb6d1294eff0ecea.hot-update.json"
+    },
+    "main.f7fd201657c93aeb4ff6.hot-update.js": {
+      "name": "main.f7fd201657c93aeb4ff6.hot-update.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.f7fd201657c93aeb4ff6.hot-update.js",
+      "publicPath": "/main.f7fd201657c93aeb4ff6.hot-update.js"
+    },
+    "main.f7fd201657c93aeb4ff6.hot-update.json": {
+      "name": "main.f7fd201657c93aeb4ff6.hot-update.json",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.f7fd201657c93aeb4ff6.hot-update.json",
+      "publicPath": "/main.f7fd201657c93aeb4ff6.hot-update.json"
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
-      "main-main-d2d3a1a2da3388e687ab.js"
+      "main-main-bd6dade361165e3b3333.js",
+      "main.23e48dec487b17f6da38.hot-update.js"
     ]
   },
-  "publicPath": "/"
+  "publicPath": "/",
+  "error": "ModuleBuildError",
+  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\src\\scripts\\templates\\messages.ts: Identifier 'authorId' has already been declared. (12:36)\n\n  10 |  * @returns html-text of a box.\n  11 |  */\n> 12 | export function createChatMessage({ authorId, dataTime, message, groupId = undefined }: ChatMessage): undefined {\n     |                                     ^\n  13 |   /*\n  14 |     we change the group number.\n  15 |   */\n    at constructor (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:353:19)\n    at TypeScriptParserMixin.raise (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:3277:19)\n    at TypeScriptScopeHandler.checkRedeclarationInScope (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:1491:19)\n    at TypeScriptScopeHandler.declareName (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:1474:14)\n    at TypeScriptScopeHandler.declareName (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:6937:11)\n    at TypeScriptParserMixin.declareNameFromIdentifier (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:7348:16)\n    at TypeScriptParserMixin.checkIdentifier (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:7344:12)\n    at TypeScriptParserMixin.checkLVal (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:7290:12)\n    at TypeScriptParserMixin.checkLVal (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:7318:14)\n    at TypeScriptParserMixin.checkLVal (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:7318:14)\n    at TypeScriptParserMixin.checkParams (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11647:12)\n    at TypeScriptParserMixin.<anonymous> (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11622:14)\n    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12812:48)\n    at TypeScriptParserMixin.parseBlockBody (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12789:10)\n    at TypeScriptParserMixin.parseBlock (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12777:10)\n    at TypeScriptParserMixin.parseFunctionBody (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11616:24)\n    at TypeScriptParserMixin.parseFunctionBodyAndFinish (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11602:10)\n    at TypeScriptParserMixin.parseFunctionBodyAndFinish (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:8884:18)\n    at E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12919:12\n    at TypeScriptParserMixin.withSmartMixTopicForbiddingContext (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:11913:14)\n    at TypeScriptParserMixin.parseFunction (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12918:10)\n    at TypeScriptParserMixin.parseFunctionStatement (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12602:17)\n    at TypeScriptParserMixin.parseStatementContent (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12263:21)\n    at TypeScriptParserMixin.parseStatementContent (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:9142:18)\n    at TypeScriptParserMixin.parseStatementLike (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12239:17)\n    at TypeScriptParserMixin.parseStatementListItem (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12219:17)\n    at TypeScriptParserMixin.parseExportDeclaration (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13396:17)\n    at TypeScriptParserMixin.parseExportDeclaration (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:9270:85)\n    at TypeScriptParserMixin.maybeParseExportDeclaration (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13355:31)\n    at TypeScriptParserMixin.parseExport (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13282:29)\n    at TypeScriptParserMixin.parseExport (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:9089:20)\n    at TypeScriptParserMixin.parseStatementContent (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12352:27)\n    at TypeScriptParserMixin.parseStatementContent (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:9142:18)\n    at TypeScriptParserMixin.parseStatementLike (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12239:17)\n    at TypeScriptParserMixin.parseModuleItem (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12216:17)\n    at TypeScriptParserMixin.parseBlockOrModuleBlockBody (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12796:36)\n    at TypeScriptParserMixin.parseBlockBody (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12789:10)\n    at TypeScriptParserMixin.parseProgram (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12116:10)\n    at TypeScriptParserMixin.parseTopLevel (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:12106:25)\n    at TypeScriptParserMixin.parse (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13905:10)\n    at TypeScriptParserMixin.parse (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:9743:18)\n    at parse (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\parser\\lib\\index.js:13947:38)\n    at parser (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\core\\lib\\parser\\index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:64:37)\n    at normalizeFile.next (<anonymous>)\n    at run (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\core\\lib\\transformation\\index.js:21:50)\n    at run.next (<anonymous>)\n    at transform (E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\node_modules\\@babel\\core\\lib\\transform.js:22:33)\n    at transform.next (<anonymous>)"
 }

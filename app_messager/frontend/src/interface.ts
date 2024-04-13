@@ -4,6 +4,7 @@ export interface ChatMessage {
   authorId: string
   dataTime: string
   message: string
+  groupId?: string
 }
 
 export interface WSData {
