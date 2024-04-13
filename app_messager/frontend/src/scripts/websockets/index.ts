@@ -91,11 +91,7 @@ export class WSocket {
     const message = dataTextJson.message;
     const authorId = String(dataTextJson.userId);
     const groupId = dataTextJson.groupId;
-    const eventtime = dataTextJson.eventtime;
-    const date = (eventtime.split('@'))[0];
-    const time = (eventtime.split('@'))[1];
-
-    const dataTime = date + '-' + time;
+    const dataTime = dataTextJson.eventtime;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
     createChatMessage({ authorId, dataTime, message, groupId });
   };

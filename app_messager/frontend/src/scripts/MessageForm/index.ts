@@ -1,6 +1,7 @@
 // frontend\src\scripts\MessageForm\index.ts
 
 import { WSocket } from '@Websocket';
+import time from '@Service/getDataTime';
 let APP_WS_URL = process.env.APP_WS_URL;
 
 if (APP_WS_URL === undefined) {
@@ -19,14 +20,7 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const indexUser = 3; // target.dataset.id;
 
   const sendlerTotal = (): void => {
-    const currentdate = new Date();
-    const datetime = currentdate.getFullYear() + '-' +
-      (currentdate.getMonth() + 1) + '-' +
-      currentdate.getDate() + '@' +
-      currentdate.getHours() + ':' +
-      currentdate.getMinutes() + ':' +
-      currentdate.getSeconds() + ':' +
-      currentdate.getMilliseconds();
+    const datetime = time.getFullTime();
     socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
     socket.dataSendNow();
 

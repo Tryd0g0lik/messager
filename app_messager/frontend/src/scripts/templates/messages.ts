@@ -1,10 +1,21 @@
 import { ChatMessage } from '@Interfaces';
+import time from '@Service/getDataTime';
 
-function scrollToBottom() {
+function scrollToBottom(): void {
   window.scrollTo({
     top: document.body.scrollHeight,
     behavior: 'smooth'
   });
+}
+
+function checkOfTime(dateTime: string): string {
+  const oldDate = dateTime.split('@')[0];
+  const t = (dateTime.split('@'))[1];
+  if (oldDate.includes(time.getNowDate())) {
+    return t;
+  };
+  const d = (dateTime.split('@'))[0];
+  return d + ' ' + t;
 }
 
 /**
@@ -39,7 +50,7 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
   htmlMessage.className = 'chat-message-left pb-4';
   htmlMessage.innerHTML = `<div>
         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-        <div class="text-muted small text-nowrap mt-2">${dataTime}</div>
+        <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
     </div>
     <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="font-weight-bold mb-1">${authorId}</div>

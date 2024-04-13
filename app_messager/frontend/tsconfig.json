@@ -38,6 +38,9 @@
       ],
       "@htmlTemplates/*": [
         "src/scripts/templates/*"
+      ],
+      "@Service/*": [
+        "src/scripts/services/*"
       ]
       // "@img/*": [
       //   "src/frontend/src/img/*",
