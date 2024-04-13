@@ -1,9 +1,8 @@
 // app_messager\frontend\src\interface.ts
 
 export interface ChatMessage {
-  userId: string
+  authorId: string
   dataTime: string
-  messageSender: string
   message: string
 }
 

@@ -1,7 +1,11 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
-import createChatMessage from '@Templates/messages';
+import { createChatMessage } from '@htmlTemplates/messages';
+const authorId = '';
+const dataTime = '';
+const message = '';
+createChatMessage({ authorId, dataTime, message });
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -75,7 +79,18 @@ export class WSocket {
 
   onMessage = (e: any): void => {
     console.log('-------------------');
-  // createChatMessage()
+    // debugger
+    const dataJson = JSON.parse(e.data);
+    const dataTextJson = JSON.parse((JSON.parse(e.data)).text);
+    const message = dataTextJson.massage;
+    const authorId = dataTextJson.usedId;
+    const groupId = dataTextJson.groupId;
+    const eventtime = dataTextJson.eventtime;
+    const date = (eventtime.split('@'))[0];
+    const time = (eventtime.split('@'))[1];
+    const dataTime = date + '-' + time;
+    console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
+    // createChatMessage({ authorId, dataTime, message });
   };
 
   onClose(): void {
