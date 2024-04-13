@@ -73,7 +73,6 @@ export class WSocket {
 
   onMessage = (e: any): void => {
     console.log('-------------------');
-    // debugger
     const dataJson = JSON.parse(e.data);
     const resp = (dataJson.text !== undefined)
       ? dataJson.text

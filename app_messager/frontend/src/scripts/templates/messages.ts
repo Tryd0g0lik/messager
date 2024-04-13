@@ -18,6 +18,24 @@ function checkOfTime(dateTime: string): string {
   return d + ' ' + t;
 }
 
+function checkYourOnNotYour(userId: string | number): undefined | boolean {
+  const inputHtml = document.getElementById('messager');
+  if (inputHtml === null) {
+    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputHtml"!');
+    return;
+  }
+  const inputUserId = inputHtml.dataset.id;
+  if (inputUserId === undefined) {
+    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputUserId"!');
+    return;
+  }
+  const userIdNumber = ((typeof userId).includes('string'))
+    ? Number(userId)
+    : userId;
+  const result = (userIdNumber === Number(inputUserId));
+  return result;
+}
+
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -45,21 +63,33 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
   const htmlChat = (groupNumber as HTMLDivElement).querySelector('#chat');
   if (htmlChat === null) { return }
   const htmlMessage = document.createElement('div');
-
-  htmlMessage.setAttribute('user-id', authorId);
-  htmlMessage.className = 'chat-message-left pb-4';
-  htmlMessage.innerHTML = `<div>
-        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+  // htmlMessage.className = 'pb-4';
+  // htmlMessage.setAttribute('user-id', authorId);
+  const resultCheckUser = checkYourOnNotYour(authorId);
+  if (resultCheckUser !== undefined) {
+    htmlMessage.innerHTML = `
+      <div>
+        <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
+          width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
-    </div>
-    <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-        <div class="font-weight-bold mb-1">${authorId}</div>
+      </div>
+      <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+        <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
         ${message}
-    </div>`;
-  const oldChat = htmlChat?.innerHTML;
-  const newBox = htmlMessage.innerHTML;
-  htmlChat.innerHTML = (oldChat + newBox);
+      </div>
+  `;
 
+    const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
+    const res = authorId;
+    htmlMessage.setAttribute('data-user-id', res);
+    htmlMessage.className = 'pb-4';
+    htmlMessage.classList.add(rightLeft);
+    const oldChat = htmlChat?.innerHTML;
+    const newBox = htmlMessage.outerHTML;
+    const combinedHTML = oldChat + newBox;
+    htmlChat.innerHTML = '';
+    htmlChat.innerHTML = combinedHTML;
+  }
   /**
    * scroll
    */
