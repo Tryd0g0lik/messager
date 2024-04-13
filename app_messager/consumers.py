@@ -2,33 +2,18 @@
 
 
 import json, re
-import asyncio
-
 from asgiref.sync import sync_to_async
-
-from app_messager import models
-from channels.generic.websocket import AsyncConsumer, WebsocketConsumer  # AsyncWebsocketConsumer
-
-# https://channels.readthedocs.io/en/latest/topics/databases.html#database-sync-to-async
 from channels.db import database_sync_to_async
-
+from channels.generic.websocket import AsyncConsumer
 from app_messager.models import *
 
-# from .models import импорт сообщения в чате  https://youtu.be/RVH05S1qab8?t=435
-
-# # https://youtu.be/r6oTcAYDRt0?t=752
-#
-# # Пользователь при подключении подключается на один из каналов
-#
 '''
 	TODD: https://channels.readthedocs.io/en/latest/topics/consumers.html#basic-layout
 '''
-class ChatConsumer(AsyncConsumer): # WebsocketConsumer
-	# async def websocket_connect(self, event):
-	async def websocket_connect(self, event):
-		# подключение пользователя
+class ChatConsumer(AsyncConsumer):
+	connected_clients = set()
 
-		# https://youtu.be/r6oTcAYDRt0?t=905
+	async def websocket_connect(self, event):
 		'''
 			 Название канала на который подкрисываемся можно изменить
 			 Данные от пользователя или от системы отправляем на этот канал
@@ -37,16 +22,17 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 		test = {"type": "websocket.accept"}
 		for v in event.values() :
 			print('websocket K: ', v)
-			# print('websocket V: ', v)
-		print('websocket_CONNECTe: ', json.dumps(event) )
+		print('websocket_CONNECTe: ', json.dumps(event))
 		await self.send(test)
 
+		# Add the channel_layer instance to the connected_clients set
+		self.connected_clients.add(self.channel_name);
 		# self.accept()
 
 	@sync_to_async
-	def send_chat_message_inDB(self, event):
+	async def send_chat_message_inDB(self, event):
 		from app_messager.models import GroupsModel
-		group_all = GroupsModel.objects.all()
+		group_all = await database_sync_to_async(GroupsModel.objects.all)()
 		json_data = json.loads(event['text'])
 
 		id = 0
@@ -67,28 +53,34 @@ class ChatConsumer(AsyncConsumer): # WebsocketConsumer
 		chat.group_id = id
 		chat.author_id = json_data['userId']
 		chat.autor_id = data_message['userId']
-		chat.save()
+		await database_sync_to_async(chat.save)()
+
 		print('[CONSUMER > is RECORD in DB] end')
 
 
 	async def websocket_disconnect(self, close_code):
 		# от ключение пользователя
 		print('receive', close_code)
+		# Remove the channel_layer instance from the connected_clients set
+		self.connected_clients.remove(self.channel_name)
 
 	async def websocket_receive(self, event):
 		await self.send_chat_message_inDB(event)
 
+		# Send the message to all connected clients
+		for client in self.connected_clients:
+			await self.channel_layer.send(client, {
+				"type": "websocket.send",
+				"text": event.get('text',  json.dumps(event)),
+			})
 
 		for v in event.values() :
 			print('receive K: ', v)
-			# print('websocket V: ', v)
-		# https://youtu.be/r6oTcAYDRt0?t=1036
-		# получаем данные/ Рассылаем всем подпизчикам
-		# Вводим логику для манипуляции полученными данными
-
 		print(f'[CONSUMER > RECEIVE]: Received event: {json.dumps(event)}')
+		print('websocket_Good!')
+
+	async def websocket_send(self, event):
 		await self.send({
 			"type": "websocket.send",
-			"text": json.dumps(event),
+			"text": event.get('text', json.dumps(event)),
 		})
-		print('websocket_Good!', event)

@@ -78,7 +78,16 @@ export class WSocket {
     console.log('-------------------');
     // debugger
     const dataJson = JSON.parse(e.data);
-    const dataTextJson = JSON.parse((JSON.parse(e.data)).text);
+    const resp = (dataJson.text !== undefined)
+      ? dataJson.text
+      : ((e.data as string).includes('groupId')
+        ? e.data as string
+        : null
+      );
+    if (resp === null) {
+      return;
+    };
+    const dataTextJson = JSON.parse(resp);
     const message = dataTextJson.message;
     const authorId = String(dataTextJson.userId);
     const groupId = dataTextJson.groupId;
