@@ -116,3 +116,7 @@ Before this's \
 After this's \
 `Messeger_User.user = models.OneToOneField(<your_nam_table_registration_user>, on_delete= models.CASCADE, unique=True, )` Here is us only need the id it user
 
+## History
+"this an all package was installed for the chat project from Django.".
+"[1.1 -branch]: we can run chatting and async record messeges in the db".
+"[1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad.".
