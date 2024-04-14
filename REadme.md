@@ -5,7 +5,8 @@ pip install -r requirements.txt
 ```
 ### Javascript 
 First, passing to the `messager\app_messager\frontend` \
-Note: Second step it's `yarn add package.json` or `npm install package.json` - It's for a developer
+Note: Second step it's `yarn add package.json` or `npm install package.json` - It's for a developer \
+To the `SETTINGS.py` insert the `SECRET_KEY` 
 
 #### Command for Developer
 Below i'm public commands for run the project' frontend to the development mode.
