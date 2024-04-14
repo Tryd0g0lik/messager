@@ -1,3 +1,19 @@
+# Install
+## Python
+```python
+pip install -r requirements.txt  
+```
+### Javascript 
+First, passing to the `messager\app_messager\frontend` \
+Note: Second step it's `yarn add package.json` or `npm install package.json` - It's for a developer
+
+#### Command for Developer
+Below i'm public commands for run the project' frontend to the development mode.
+ - `yarn run server:front` or `npm run server:front` This command be run the `webpack.server` \
+ - `yarn run build:dev` for a build to the project, It's  the development mode.
+
+
+/* --------------------- */ \
 Note: Redis. maybe need re-install on the old version. It's  2.4.2. \
 IN now time we get an Error from  the Redis"  
 
