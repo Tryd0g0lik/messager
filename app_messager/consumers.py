@@ -77,7 +77,7 @@ class ChatConsumer(AsyncConsumer):
 	async def websocket_receive(self, event):
 		print('============ Before:  send_chat_message_inDB ============')
 		await  self.send_chat_message_inDB(event)
-
+# сделать асинхронной  сделать загрузку файлов + Typing...
 		# Send the message to all connected clients
 		print('============ After: Send the message to all connected clients ============')
 		for client in self.connected_clients:

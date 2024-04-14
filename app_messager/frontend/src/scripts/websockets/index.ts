@@ -33,6 +33,10 @@ export class WSocket {
       this.onMessage(e);
     });
 
+    this.socket.onbeforeunload = function () {
+      this.socket.send('ping');
+    };
+
     this.socket.addEventListener('close', (e: any) => {
       console.info(`[WSocket > CLOSE]: - connection was CLOSED: ${e.message}`);
     });
