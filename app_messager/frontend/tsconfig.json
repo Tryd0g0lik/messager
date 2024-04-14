@@ -23,6 +23,7 @@
     // "noImplicitAny": true,
     // "strictPropertyInitialization": false,
     // "skipLibCheck": true,
+    // "allowImportingTsExtensions": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -31,6 +32,15 @@
       // ],
       "@Websocket": [
         "src/scripts/websockets/index.ts"
+      ],
+      "@Interfaces": [
+        "src/interface.ts"
+      ],
+      "@htmlTemplates/*": [
+        "src/scripts/templates/*"
+      ],
+      "@Service/*": [
+        "src/scripts/services/*"
       ]
       // "@img/*": [
       //   "src/frontend/src/img/*",

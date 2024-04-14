@@ -1,16 +1,14 @@
 // frontend\src\scripts\MessageForm\index.ts
 
 import { WSocket } from '@Websocket';
+import time from '@Service/getDataTime';
 let APP_WS_URL = process.env.APP_WS_URL;
 
 if (APP_WS_URL === undefined) {
   APP_WS_URL = '';
 };
 
-const roomName = '/chat/';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
-// const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
-// APP_WS_URL + roomName
 
 const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const buttonHTML = document.querySelector('button[data-id]');
@@ -19,7 +17,8 @@ const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
   const indexUser = target.dataset.id;
 
   const sendlerTotal = (): void => {
-    socket.beforeSend(String([JSON.stringify({ message: messages, userId: indexUser })]));
+    const datetime = time.getFullTime();
+    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
     socket.dataSendNow();
 
     const inputFormHTML = document.querySelector('input[data-id]');

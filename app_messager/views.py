@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
-from .models import Group
+from .models import GroupsModel
 from django.contrib.auth.decorators import login_required
 import os
 import websocket, json
@@ -27,16 +27,16 @@ def chat_page(request, room_name):
 	# ws = websocket.WebSocket()
 	# ws.connect('ws://localhost:6379/ws/tableData/')
 	return render(request, 'index.html', {
-		'user_index': user.id,
+		'user_index': 3, # user.id,
 		'static_files': {'js': file_names_js, 'css': file_names_css},
 		'room_name' : room_name }
 	              )
 
 
-@login_required
+# @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
-	groups = Group.objects.all()
+	groups = GroupsModel.objects.all()
 	user = request.user
 	context = {
 		"groups": groups,
@@ -45,11 +45,11 @@ def HomeView(request):
 	return render(request, template_name="chat/home.html", context=context)
 
 
-@login_required
+# @login_required
 def GroupChatView(request, uuid):
 	'''The view for a group where all messages and events are sent to the frontend'''
 
-	group = get_object_or_404(Group, uuid=uuid)
+	group = get_object_or_404(GroupsModel, uuid=uuid)
 	if request.user not in group.members.all():
 		return HttpResponseForbidden("You are not a member of this group.\
                                        Kindly use the join button")

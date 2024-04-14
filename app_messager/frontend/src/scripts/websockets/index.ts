@@ -1,8 +1,8 @@
-interface WSData {
-  open: []
-  close: []
-  data: []
-}
+// app_messager\frontend\src\scripts\websockets\index.ts
+
+import { WSData } from '@Interfaces';
+import { createChatMessage } from '@htmlTemplates/messages';
+
 /**
  * Класс для работы с "WebSocket" протоколом.
  * Запускает прослушку событий:
@@ -33,11 +33,12 @@ export class WSocket {
       this.onMessage(e);
     });
 
+    this.socket.onbeforeunload = function () {
+      this.socket.send('ping');
+    };
+
     this.socket.addEventListener('close', (e: any) => {
-      // if (e.wasClean) { console.log('[websokets > close] : connection was breaked]') }
-      // else { console.log('[websokets > close]: - connection was closed]') };
       console.info(`[WSocket > CLOSE]: - connection was CLOSED: ${e.message}`);
-      // console.log('[websokets: WebSocket.addEventListener("close") - closed Event]: ', e['message']);
     });
 
     this.socket.addEventListener('error', (e: any) => {
@@ -69,29 +70,47 @@ export class WSocket {
     }
   };
 
-  get readyState(): typeof this.socket.handlers {
+  get readyState(): typeof this.handlers {
     const handlers = this.handlers;
     return handlers;
   };
 
-  onMessage = (e): void => {
-    console.log('[websokets > OPEN]: - get the MESSAGE: ', JSON.parse(e.data).message);
+  onMessage = (e: any): void => {
+    console.log('-------------------');
+    const dataJson = JSON.parse(e.data);
+    const resp = (dataJson.text !== undefined)
+      ? dataJson.text
+      : ((e.data as string).includes('groupId')
+        ? e.data as string
+        : null
+      );
+    if (resp === null) {
+      return;
+    };
+    const dataTextJson = JSON.parse(resp);
+    const message = dataTextJson.message;
+    const authorId = String(dataTextJson.userId);
+    const groupId = dataTextJson.groupId;
+    const dataTime = dataTextJson.eventtime;
+    console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
+    createChatMessage({ authorId, dataTime, message, groupId });
   };
 
   onClose(): void {
     this.socket.close();
   }
 
-  dataSendNow(): void {
+  dataSendNow(): undefined | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
-    console.log('[websokets > OPEN]: Message was a pass - Ok', data);
-    console.log(`[websokets > OPEN]: Before send. ReadyState: ${this.socket.readyState}`);
+    console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok', data);
+    console.log(`[websokets > OPEN > BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
-      console.log('[websokets > OPEN]: After sending - Ok', this.socket.readyState);
+      console.log('[websokets > OPEN > AFTER SEND]: Ok', this.socket.readyState);
       this.handlers.data.pop();
     } else {
       console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");
+      return false;
     }
   };
 }

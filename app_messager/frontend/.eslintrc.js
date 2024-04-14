@@ -35,15 +35,7 @@ module.exports = {
   ],
   "rules": {
     "quotes": "off",
-    "import/extensions": [ // укзываем расширение файлов?
-      "error",
-      "ignorePackages",
-      {
-        "ts": "always",
-        "tsx": "always"
-      }
-    ],
-    "no-shadow": "off",
+    "import/extensions": ["error", "never"], // укзываем расширение файлов?    "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error", {
       ignoreTypeValueShadow: true,
       ignoreFunctionTypeParameterNameValueShadow: true

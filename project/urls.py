@@ -15,24 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 
 from django.conf.urls.static import static
 
+import app_messager
 from app_messager import views
 from project import settings
 from django.views.defaults import page_not_found, server_error, permission_denied, bad_request
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ws/<str:room_name>/', views.chat_page, name="room"),
+
     # path('chat/', views.get_message),
     # url()
 ]
 
 if settings.DEBUG:
-    # urlpatterns += (r'^500/$', 'your_custom_view_if_you_wrote_one'),
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # urlpatterns += static(settings.MEDIA_URL)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

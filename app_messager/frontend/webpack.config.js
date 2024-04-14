@@ -112,11 +112,14 @@ module.exports = {
     modules: [
       path.resolve(__dirname, "./.browserslistrc"),
       path.resolve(__dirname, "node_modules"),
-      path.resolve(__dirname, 'dist')
+      path.resolve(__dirname, "dist")
     ],
 
     alias: {
-      '@Websocket': path.resolve(__dirname, 'src/scripts/websockets/index.ts')
+      '@Websocket': path.resolve(__dirname, "src/scripts/websockets/index.ts"),
+      "@Interfaces": path.resolve(__dirname, "src/interface.ts"),
+      "@htmlTemplates": path.resolve(__dirname, "src/scripts/templates"),
+      "@Service": path.resolve(__dirname, "src/scripts/services"),
     }
   },
 
