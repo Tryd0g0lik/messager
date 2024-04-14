@@ -1,40 +1,29 @@
 // frontend\src\scripts\MessageForm\index.ts
 
-import { WSocket } from '@Websocket';
-import time from '@Service/getDataTime';
+import handlerSendlerMessageTotal from '@Service/sendler_message';
+import uplf from '@Service/upload_files';
 let APP_WS_URL = process.env.APP_WS_URL;
 
 if (APP_WS_URL === undefined) {
   APP_WS_URL = '';
 };
 
-const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
-
-const getMessageOfInputHandler = (e: KeyboardEvent | MouseEvent): void => {
+const getMessageOfInputHandler = async (e: KeyboardEvent | MouseEvent): void => {
   const buttonHTML = document.querySelector('button[data-id]');
   const target = e.target as HTMLInputElement;
-  const messages = target.value.trim();
-  const indexUser = target.dataset.id;
+  // const handlerUploadFiles = service.handlerUploadFiles;
+  const messages = ((target.value).length > 0) ? target.value.trim() : '';
 
-  const sendlerTotal = (): void => {
-    const datetime = time.getFullTime();
-    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
-    socket.dataSendNow();
-
-    const inputFormHTML = document.querySelector('input[data-id]');
-    if (inputFormHTML !== null) {
-      (inputFormHTML as HTMLInputElement).value = '';
-    };
-  };
-
+  /* ------ Upload File ------ */
+  // handlerUploadFiles(e)
   /* ------ Keyboard ------ */
   if (messages.length > 0) {
     if ((e as KeyboardEvent).key === 'Enter') {
-      sendlerTotal();
+      await handlerSendlerMessageTotal(e);
     }
     /* ------ MouseEvent ------ */
-    buttonHTML?.removeEventListener('click', sendlerTotal);
-    buttonHTML?.addEventListener('click', sendlerTotal);
+    buttonHTML?.removeEventListener('click', async () => { await handlerSendlerMessageTotal(e) });
+    buttonHTML?.addEventListener('click', async () => { await handlerSendlerMessageTotal(e) });
   }
 };
 

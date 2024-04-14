@@ -1,18 +1,18 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from sesame.utils import get_token
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import GroupsModel
-from django.contrib.auth.decorators import login_required
+from .forms import UploadFileForm
 import os
 import websocket, json
 
 # Create your views here.
 def get_message(request):
-	if request.method == "GET":
+	if request.method == 'GET':
 		print('Received request a GET ')
-	elif request.method == "POST":
+	elif request.method == 'POST':
 		print('Received request a POST ')
 
 def chat_page(request, room_name):
@@ -20,8 +20,8 @@ def chat_page(request, room_name):
 	user = User.objects.all()
 	user = User.objects.get(username ='root')
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-	file_names_js = os.listdir(os.path.join(BASE_DIR,"app_messager\\static\\js\\"))[-1]
-	file_names_css = os.listdir(os.path.join(BASE_DIR, "app_messager\\static\\css\\"))[-1]
+	file_names_js = os.listdir(os.path.join(BASE_DIR,'app_messager\\static\\js\\'))[-1]
+	file_names_css = os.listdir(os.path.join(BASE_DIR, 'app_messager\\static\\css\\'))[-1]
 
 	get_token(user)
 	# ws = websocket.WebSocket()
@@ -39,10 +39,10 @@ def HomeView(request):
 	groups = GroupsModel.objects.all()
 	user = request.user
 	context = {
-		"groups": groups,
-		"user": user
+		'groups': groups,
+		'user': user
 	}
-	return render(request, template_name="chat/home.html", context=context)
+	return render(request, template_name='chat/home.html', context=context)
 
 
 # @login_required
@@ -51,8 +51,8 @@ def GroupChatView(request, uuid):
 
 	group = get_object_or_404(GroupsModel, uuid=uuid)
 	if request.user not in group.members.all():
-		return HttpResponseForbidden("You are not a member of this group.\
-                                       Kindly use the join button")
+		return HttpResponseForbidden('You are not a member of this group.\
+                                       Kindly use the join button')
 
 	messages = group.message_set.all()
 	'''
@@ -77,8 +77,24 @@ def GroupChatView(request, uuid):
 	group_members = group.members.all()
 
 	context = {
-		"message_and_event_list": sorted_message_event_list,
-		"group_members": group_members,
+		'message_and_event_list': sorted_message_event_list,
+		'group_members': group_members,
 	}
 
-	return render(request, template_name="chat/groupchat.html", context=context)
+	return render(request, template_name='chat/groupchat.html', context=context)
+
+
+# def upload_file(request):
+# 	if request.method == 'POST':
+# 		form_file = UploadFileForm(request.POST, request.FILES)
+# 		if form_file.is_valid():
+# 			file = request.FILES['file']
+# 			# Сохраняем файл на сервере
+# 			file.save(file.name, file)
+# 			# return  HttpResponseForbidden('/success/url/')
+# 			# Возвращаем ссылку на файл в виде JSON-ответа
+# 			return JsonResponse({'filename': file.name})
+#
+# 	else:
+# 		UploadFileForm()
+# 	return  render(request, 'chat/groupchat.html', {'form':form_file})
