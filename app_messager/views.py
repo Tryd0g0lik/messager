@@ -3,7 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from sesame.utils import get_token
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from project.settings import BASE_DIR
@@ -94,9 +94,5 @@ def upload_file(request):
 		if form_file.is_valid():
 			file_model = FileModels(link=request.FILES['file'], size=request.FILES['file'].size )
 			file_model.save()
-
-	else:
-		print('[UPLOAD FILE]: is NOT valid!')
-		form_file = UploadFileForm(request.GET, request.FILES)
-		form_file.save()
-	return HttpResponseForbidden()
+			'''An Id returning of the new file'''
+			return JsonResponse({"index": file_model.id})

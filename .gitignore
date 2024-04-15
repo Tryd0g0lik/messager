@@ -11,3 +11,4 @@ node_modules
 !**/.eslintrc.js
 
 *public.png
+**/media/*

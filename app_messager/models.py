@@ -90,6 +90,8 @@ class FileModels(models.Model):
 	                        verbose_name="File path name", max_length=50)
 	size = models.FloatField(null=True, blank=True)
 
+	def __str__(self):
+		return 'Id: %s, Link: %s || size: %s' % (self.id, self.link, self.size)
 
 class EventsModels(models.Model):
   '''

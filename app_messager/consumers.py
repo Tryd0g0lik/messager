@@ -102,26 +102,26 @@ class ChatConsumer(AsyncConsumer):
 			"text": event.get('text', json.dumps(event)),
 		})
 
-class UplodFileConsumer(AsyncConsumer):
-	connected_clients = set()
-	async def websocket_connect(self, event):
-		test = {"type": "websocket.accept"}
-		for v in event.values() :
-			print('Upload websocket K: ', v)
-		print('Upload websocket_CONNECTe: ', event)
-		await self.send(test)
-		self.connected_clients.add(self.channel_name)
-
-	@sync_to_async
-	def record_link_to_server(self, event):
-		# upload_file
-		print(f'[CONSUMER > UPLOAD]: record_link_to_server: {json.dumps(event)}')
-
-	async def websocket_receive(self, event):
-		await self.record_link_to_server(event)
-
-	async def websocket_disconnect(self, close_code):
-		# от ключение пользователя
-		print('receive', close_code)
-		# Remove the channel_layer instance from the connected_clients set
-		self.connected_clients.remove(self.channel_name)
+# class UplodFileConsumer(AsyncConsumer):
+# 	connected_clients = set()
+# 	async def websocket_connect(self, event):
+# 		test = {"type": "websocket.accept"}
+# 		for v in event.values() :
+# 			print('Upload websocket K: ', v)
+# 		print('Upload websocket_CONNECTe: ', event)
+# 		await self.send(test)
+# 		self.connected_clients.add(self.channel_name)
+#
+# 	@sync_to_async
+# 	def record_link_to_server(self, event):
+# 		# upload_file
+# 		print(f'[CONSUMER > UPLOAD]: record_link_to_server: {json.dumps(event)}')
+#
+# 	async def websocket_receive(self, event):
+# 		await self.record_link_to_server(event)
+#
+# 	async def websocket_disconnect(self, close_code):
+# 		# от ключение пользователя
+# 		print('receive', close_code)
+# 		# Remove the channel_layer instance from the connected_clients set
+# 		self.connected_clients.remove(self.channel_name)

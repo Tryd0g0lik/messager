@@ -17,6 +17,8 @@ const handlerUploadFiles = (): undefined => {
     form = formDiv.querySelector('#upload') as HTMLFormElement;
     const formData = new FormData(form);
     formData.append('file', event.target.files[0]);
+    console.log('SEiZE: ', event.target.files[0].size);
+    // debugger
 
     /**
      * Note
@@ -39,26 +41,15 @@ const handlerUploadFiles = (): undefined => {
       body: formData
     })
       .then(async (response) => {
-        console.log('[upload_files > FORM]: response:', response);
         if (response.ok) {
           const data = await response.json();
-          console.log("[upload_files > FORM]: File was upload. It's Ok!:", data);
+          console.info('[upload_files > FORM]:', data);
           return data;
         } else {
-          console.error("[upload_files > FORM]: What is wrong! ERROR while uploading file 'src/scripts/services/upload_files.ts' !", response.statusText);
+          console.error("[upload_files > FORM]: What is wrong! ERROR - didn't received the ID file!", response.statusText);
           return undefined;
         }
-      })
-      .then((result) => {
-        console.log('[upload_files > FORM]: RESPONSE.ok', (result === undefined) ? 'undefined' : result.ok);
       });
-
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   console.log("[upload_files > FORM]: File was upload. It's Ok!:", data);
-    // } else {
-    //   console.error("[upload_files > FORM]: What is wrong! ERROR while uploading file 'src/scripts/services/upload_files.ts' !", response.statusText);
-    // }
   };
   /**
    * added the event listeber
