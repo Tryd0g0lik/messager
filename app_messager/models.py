@@ -93,6 +93,9 @@ class FileModels(models.Model):
 	def __str__(self):
 		return 'Id: %s, Link: %s || size: %s' % (self.id, self.link, self.size)
 
+	def delete(self, *args, **kwargs):
+		self.link.delete()
+		super().delete(*args, **kwargs)
 class EventsModels(models.Model):
   '''
   A model that holds all events related to a group like when a user joins the group or leaves.
