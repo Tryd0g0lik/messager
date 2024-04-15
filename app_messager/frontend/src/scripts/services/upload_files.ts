@@ -14,10 +14,26 @@ const handlerUploadFiles = (): undefined => {
    * rules of handler
    */
   const handlerInputEvent = async (event: any): Promise<void> => {
-		form = formDiv.querySelector('#upload') as HTMLFormElement;
-		const formData = new FormData(form);
-		formData.append('file', event.target.files[0]);
+    form = formDiv.querySelector('#upload') as HTMLFormElement;
+    const formData = new FormData(form);
+    formData.append('file', event.target.files[0]);
 
+    /**
+     * Note
+     */
+    if (event.target.files[0].size > 64000000) {
+      const formMessegeInput = document.querySelector('#messager');
+      const div = document.createElement('div');
+      div.className = 'attention';
+      div.innerText = 'Your file lafge than 64 MB.';
+      formMessegeInput?.before(div);
+      return;
+    } else {
+      const attention = document.getElementsByClassName('attention');
+      if (attention.length > 0) {
+        attention[0].remove();
+      }
+    }
     await fetch('upload/', {
       method: 'POST',
       body: formData
