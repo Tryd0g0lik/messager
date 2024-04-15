@@ -37,6 +37,7 @@ class ChatConsumer(AsyncConsumer):
 		from app_messager.models import GroupsModel
 		print('TEST 1')
 		group_all = GroupsModel.objects.all()
+		upload_files = FileModels()
 		print('TEST 2', event )
 		json_data = json.loads(event['text'])
 
@@ -63,6 +64,10 @@ class ChatConsumer(AsyncConsumer):
 
 		chat.author_id = json_data['userId']
 		chat.autor_id = data_message['userId']
+		# print('[CONSUMER > FILE] BEFORE: EVENT', event['file'])
+		# data_file = json.loads(event['file'])
+		# upload_files.link = data_file
+
 		chat.save()
 
 		print('[CONSUMER > is RECORD in DB] end')
@@ -96,3 +101,27 @@ class ChatConsumer(AsyncConsumer):
 			"type": "websocket.send",
 			"text": event.get('text', json.dumps(event)),
 		})
+
+class UplodFileConsumer(AsyncConsumer):
+	connected_clients = set()
+	async def websocket_connect(self, event):
+		test = {"type": "websocket.accept"}
+		for v in event.values() :
+			print('Upload websocket K: ', v)
+		print('Upload websocket_CONNECTe: ', event)
+		await self.send(test)
+		self.connected_clients.add(self.channel_name)
+
+	@sync_to_async
+	def record_link_to_server(self, event):
+		# upload_file
+		print(f'[CONSUMER > UPLOAD]: record_link_to_server: {json.dumps(event)}')
+
+	async def websocket_receive(self, event):
+		await self.record_link_to_server(event)
+
+	async def websocket_disconnect(self, close_code):
+		# от ключение пользователя
+		print('receive', close_code)
+		# Remove the channel_layer instance from the connected_clients set
+		self.connected_clients.remove(self.channel_name)

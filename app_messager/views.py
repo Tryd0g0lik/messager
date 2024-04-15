@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from datetime import datetime
+
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, get_object_or_404
-from .models import GroupsModel
+
+from project.settings import BASE_DIR
+from .models import GroupsModel, FileModels
 from .forms import UploadFileForm
 import os
 import websocket, json
@@ -83,18 +87,16 @@ def GroupChatView(request, uuid):
 
 	return render(request, template_name='chat/groupchat.html', context=context)
 
+FILES_ROOT = os.path.join(BASE_DIR, 'media')
+def upload_file(request):
+	if request.method == 'POST':
+		form_file = UploadFileForm(request.POST, request.FILES)
+		if form_file.is_valid():
+			file_model = FileModels(link=request.FILES['file'], size=request.FILES['file'].size )
+			file_model.save()
 
-# def upload_file(request):
-# 	if request.method == 'POST':
-# 		form_file = UploadFileForm(request.POST, request.FILES)
-# 		if form_file.is_valid():
-# 			file = request.FILES['file']
-# 			# Сохраняем файл на сервере
-# 			file.save(file.name, file)
-# 			# return  HttpResponseForbidden('/success/url/')
-# 			# Возвращаем ссылку на файл в виде JSON-ответа
-# 			return JsonResponse({'filename': file.name})
-#
-# 	else:
-# 		UploadFileForm()
-# 	return  render(request, 'chat/groupchat.html', {'form':form_file})
+	else:
+		print('[UPLOAD FILE]: is NOT valid!')
+		form_file = UploadFileForm(request.GET, request.FILES)
+		form_file.save()
+	return HttpResponseForbidden()

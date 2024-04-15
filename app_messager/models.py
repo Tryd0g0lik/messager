@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from uuid import uuid4
 from django.urls import reverse
+import os
+
+from app_messager.correctors import get_timestamp_path
+
 # from django.contrib.auth.models import AbstractUser, User, Group
 # class Messeger_TypeRequastionModel(models.TextChoices):
 # 	'''
@@ -80,9 +84,12 @@ class Chat_MessageModel(models.Model):
 		time = self.timestamp.time()
 		return f"{self.author}:- {self.content} @{date} {time.hour}:{time.minute}"
 
+
 class FileModels(models.Model):
-	link = models.FileField(upload_to='files/%Y/%m/%d/' , verbose_name="File path name", max_length=50)
-	size = models.FloatField()
+	link = models.FileField(upload_to='%Y/%m/%d/',
+	                        verbose_name="File path name", max_length=50)
+	size = models.FloatField(null=True, blank=True)
+
 
 class EventsModels(models.Model):
   '''
