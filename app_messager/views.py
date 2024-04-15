@@ -57,13 +57,16 @@ def upload_file(request):
 			link_new_file = file_model.link
 			file_model.save()
 			id_new_file = file_model.id
+			link_new_file = file_model.link
+
 			''' ------ '''
 			fs_old = FileModels.objects.all()
 			fs_old_list = list(fs_old)
-			unique_true_false = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
-
-			if unique_true_false == False:
+			unique_true_link = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
+			print('TYPE: ==', type(unique_true_link) == str)
+			if type(unique_true_link) == str:
 				FileModels.objects.get(id=id_new_file).delete()
+				return JsonResponse({"old_link": unique_true_link})
 
 			# link = file_model.link
 			# result = md5_chacker(file_model)

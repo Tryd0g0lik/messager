@@ -17,7 +17,7 @@ def get_timestamp_path(instance, filename):
 
 
 ''' md5 check is two functions, below'''
-def check_unique_file(id:int, f:str, fs_old_list:list)->bool:
+def check_unique_file(id:int, f:str, fs_old_list:list)->bool or str:
 	'''
 		@:param 'id' this is a line number of the db for the NEW user file.
 		 Below, will be search all the file wich has this name.
@@ -32,7 +32,6 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool:
 		@:returns 'True' if the file is unique. 'False' or not unique
 	'''
 	for view  in extension:
-		print(f'[check_unique_file]: Extension START: {view}', )
 		'''get an extension of the new file'''
 		if view in f:
 			f_new_file_link = ''
@@ -48,9 +47,6 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool:
 				 '''
 				if (view in str(fs_old_list[i].link)[length_link - 5:]):
 					print('[check_unique_file]: file found with EXTENSION!', view)
-
-					print('[check_unique_file]: new file link OK!', f_new_file_link)
-					print('[check_unique_file]: ID', id != int(fs_old_list[i].id))
 					'''check all files exclude new user file'''
 					if ((f[-4] in str(fs_old_list[i].link)) and  (id != int(fs_old_list[i].id))):
 
@@ -59,7 +55,7 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool:
 						s_new_control_summ = md5_chacker(str(f_new_file_link))
 						if (str(s_new_control_summ) in str(s_old_control_summ) ):
 							print('[check_unique_file]: File no is unique')
-							return False
+							return str(fs_old_list[i].link)
 						else:
 							print('[check_unique_file]: File is unique')
 							return True
