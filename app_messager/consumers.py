@@ -63,7 +63,10 @@ class ChatConsumer(AsyncConsumer):
 		chat.group_id = id
 
 		chat.author_id = json_data['userId']
-		chat.autor_id = data_message['userId']
+		# chat.autor_id = data_message['userId']
+		print('%%%%%%', json_data)
+		if (data_message['fileIndex']):
+			chat.file_id = data_message['fileIndex']
 		# print('[CONSUMER > FILE] BEFORE: EVENT', event['file'])
 		# data_file = json.loads(event['file'])
 		# upload_files.link = data_file
