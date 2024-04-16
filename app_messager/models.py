@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from uuid import uuid4
 from django.urls import reverse
+import os
+
+from app_messager.correctors import get_timestamp_path
+
 # from django.contrib.auth.models import AbstractUser, User, Group
 # class Messeger_TypeRequastionModel(models.TextChoices):
 # 	'''
@@ -80,10 +84,18 @@ class Chat_MessageModel(models.Model):
 		time = self.timestamp.time()
 		return f"{self.author}:- {self.content} @{date} {time.hour}:{time.minute}"
 
-class FileModels(models.Model):
-	link = models.FileField(upload_to='files/%Y/%m/%d/' , verbose_name="File path name", max_length=50)
-	size = models.FloatField()
 
+class FileModels(models.Model):
+	link = models.FileField(upload_to='%Y/%m/%d/',
+	                        verbose_name="File path name", max_length=50)
+	size = models.FloatField(null=True, blank=True)
+
+	def __str__(self):
+		return 'Id: %s, Link: %s || size: %s' % (self.id, self.link, self.size)
+
+	def delete(self, *args, **kwargs):
+		self.link.delete()
+		super().delete(*args, **kwargs)
 class EventsModels(models.Model):
   '''
   A model that holds all events related to a group like when a user joins the group or leaves.

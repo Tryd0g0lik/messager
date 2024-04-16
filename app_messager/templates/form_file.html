@@ -1,0 +1,8 @@
+
+<form action='upload/' id="upload" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div>
+ {{ form }}
+		<input name="file" type="file" size="40">
+	</div>
+</form>

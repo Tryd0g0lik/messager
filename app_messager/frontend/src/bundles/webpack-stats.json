@@ -11,6 +11,7 @@
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\index.html",
       "publicPath": "/index.html"
     },
+<<<<<<< HEAD
     "main-main-04c55466cf89429a96a6.js": {
       "name": "main-main-04c55466cf89429a96a6.js",
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-04c55466cf89429a96a6.js",
@@ -150,11 +151,18 @@
       "name": "main.ece1eb25b67929cb58d8.hot-update.json",
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main.ece1eb25b67929cb58d8.hot-update.json",
       "publicPath": "/main.ece1eb25b67929cb58d8.hot-update.json"
+=======
+    "main-main-e035bf81beba39334a99.js": {
+      "name": "main-main-e035bf81beba39334a99.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-e035bf81beba39334a99.js",
+      "publicPath": "/main-main-e035bf81beba39334a99.js"
+>>>>>>> 1.2
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
+<<<<<<< HEAD
       "main-main-3ba96fb6eb4d4a4ed6dd.js",
       "main.ece1eb25b67929cb58d8.hot-update.js"
     ]
@@ -162,4 +170,10 @@
   "publicPath": "/",
   "error": "ModuleNotFoundError",
   "message": "Module not found: Error: Can't resolve '@Service/getDataTime' in 'E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\frontend\\src\\scripts\\MessageForm'"
+=======
+      "main-main-e035bf81beba39334a99.js"
+    ]
+  },
+  "publicPath": "/"
+>>>>>>> 1.2
 }

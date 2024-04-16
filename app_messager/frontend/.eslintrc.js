@@ -92,9 +92,18 @@ module.exports = {
 
     "@stylistic/js/semi": ["error", "always", { "omitLastInOneLineBlock": true, }],
     "space-before-function-paren": "off",
-    "@typescript-eslint/space-before-function-paren": ["error", "never"],
+    "@typescript-eslint/space-before-function-paren": "error",
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
+    "no-return-await": "off",
+    "@typescript-eslint/return-await": "error",
+    "@typescript-eslint/no-floating-promises": "off"
   },
   "ignorePatterns": [
     "*.config.js",
