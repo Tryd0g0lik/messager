@@ -117,10 +117,17 @@ After this's \
 `Messeger_User.user = models.OneToOneField(<your_nam_table_registration_user>, on_delete= models.CASCADE, unique=True, )` Here is us only need the id it user
 
 ## History
-"this an all package was installed for the chat project from Django.". \
-"[1.1 -branch]: we can run chatting and async record messeges in the db". \
-"[1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad.". \
-"[1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
+this an all package was installed for the chat project from Django. \
+[1.1 -branch]: we can run chatting and async record messeges in the db. \
+[1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad. \
+[1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
 These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by \
 a new user file. \
-If it is fun. did not find then the user file is unique. Or not unique" 
+If it is fun. did not find then the user file is unique. Or not unique 
+
+ ### Check the key of localStorage. 
+ Key fileId be has a value:
+ - 'false' - user no sending the file;
+ - 'true' - user has sent file but has not received a file id in now time.
+ - var a number type is id file.
+ - form upload files has anime 'loader...'

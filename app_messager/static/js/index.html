@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css}}" rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-48e53093d2d861e53aec.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-e035bf81beba39334a99.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">
@@ -178,7 +178,9 @@
 
 			<div class="flex-grow-0 py-3 px-4 border-top">
 						<div id="form-files">
-
+						<div class="spinner-border" role="status">
+						  <span class="visually-hidden"></span>
+						</div>
 							{% include 'form_file.html' %}
 						</div>
 				<div class="input-group">

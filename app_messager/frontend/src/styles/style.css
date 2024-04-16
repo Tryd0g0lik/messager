@@ -43,3 +43,16 @@ body{margin-top:20px;}
 .border-top {
     border-top: 1px solid #dee2e6!important;
 }
+
+#form-files .spinner-border {
+  display: none;
+}
+
+#form-files.upload .spinner-border {
+  display: inline-block;
+  color: #007bff;
+}
+
+#form-files.upload #upload {
+  display: none;
+}

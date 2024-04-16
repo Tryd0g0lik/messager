@@ -32,6 +32,10 @@ const handlerUploadFiles = (): undefined => {
    */
   const handlerInputEvent = async (event: any): Promise<void> => {
     form = formDiv.querySelector('#upload') as HTMLFormElement;
+
+    /* For a loader anime. AnimeCode is below 1/3 */
+    const formFiles = document.getElementById('form-files');
+
     const formData = new FormData(form);
     formData.append('file', event.target.files[0]);
     console.log('SEiZE: ', event.target.files[0].size);
@@ -58,6 +62,9 @@ const handlerUploadFiles = (): undefined => {
     dataLocalJson_.fileId = true;
     localStorage.setItem('data', JSON.stringify(dataLocalJson_));
 
+    /** Loader for a display anime 2/3 */
+    formFiles?.classList.add('upload');
+
     /** upload */
     await fetch('upload/', {
       method: 'POST',
@@ -75,8 +82,10 @@ const handlerUploadFiles = (): undefined => {
           localStorage.setItem('data', JSON.stringify(dataLocalJson));
         } else {
           console.error("[upload_files > FORM]: What is wrong! ERROR - didn't received the ID file!", response.statusText);
-          return;
         }
+        /** Loader for a display anime 3/3 */
+        formFiles?.classList.remove('upload');
+
       }
       );
   };

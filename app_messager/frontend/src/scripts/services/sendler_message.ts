@@ -31,9 +31,20 @@ const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promis
   }
   await socket.dataSendNow();
 
+  /* clearning forms - message */
   const inputFormHTML = document.querySelector('input[data-id]');
   if (inputFormHTML !== null) {
     (inputFormHTML as HTMLInputElement).value = '';
+  };
+
+  /* clearning forms - file */
+  const formFiles = document.getElementById('upload');
+  if (formFiles === null) {
+    return;
+  }
+  const inputFile = formFiles?.querySelector('input[type="file"]');
+  if (inputFile !== null) {
+    (inputFile as HTMLInputElement).value = '';
   };
 };
 
