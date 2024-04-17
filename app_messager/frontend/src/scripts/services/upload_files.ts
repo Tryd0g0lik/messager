@@ -42,7 +42,6 @@ const handlerUploadFiles = (): undefined => {
     formData.append('file', event.target.files);
 
     console.log('SEiZE: ', event.target.files[0].size);
-    // debugger
 
     /**
      * Note: Size files
@@ -78,7 +77,7 @@ const handlerUploadFiles = (): undefined => {
 
     /** Loader for a display anime 2/3 */
     formFiles?.classList.add('upload');
-    // debugger
+
     /** upload */
     await fetch('upload/', {
       method: 'POST',
