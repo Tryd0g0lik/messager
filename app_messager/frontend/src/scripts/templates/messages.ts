@@ -1,16 +1,6 @@
 import { ChatMessage } from '@Interfaces';
 import time from '@Service/getDataTime';
-
-function scrollToBottom(): void {
-  const chatBox = document.querySelector('#chat');
-  if (chatBox === null) {
-    return;
-  }
-  chatBox.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth'
-  });
-}
+import scrollToBottom from './scrolling';
 
 function checkOfTime(dateTime: string): string {
   const oldDate = dateTime.split('@')[0];
@@ -22,7 +12,7 @@ function checkOfTime(dateTime: string): string {
   return d + ' ' + t;
 }
 
-function checkYourOnNotYour(userId: string | number): undefined | boolean {
+function checkerUserId(userId: string | number): undefined | boolean {
   const inputHtml = document.getElementById('messager');
   if (inputHtml === null) {
     console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputHtml"!');
@@ -104,7 +94,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     }
   }
 
-  const resultCheckUser = checkYourOnNotYour(authorId);
+  const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) {
     htmlMessage.innerHTML = `
       <div>

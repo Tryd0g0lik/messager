@@ -41,8 +41,6 @@ const handlerUploadFiles = (): undefined => {
     const formData = new FormData(form);
     formData.append('file', event.target.files);
 
-    console.log('SEiZE: ', event.target.files[0].size);
-
     /**
      * Note: Size files
      */
