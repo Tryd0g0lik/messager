@@ -1,6 +1,6 @@
 // app_messager\frontend\src\scripts\services\sendler_message.ts
 
-import time from '@Service/getDataTime';
+import time from '@Service/handlers/getDataTime';
 import { WSocket } from '@Websocket';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 

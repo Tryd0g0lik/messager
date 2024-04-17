@@ -1,34 +1,9 @@
+// app_messager\frontend\src\scripts\templates\messages.ts
+
 import { ChatMessage } from '@Interfaces';
-import time from '@Service/getDataTime';
-import scrollToBottom from './scrolling';
-
-function checkOfTime(dateTime: string): string {
-  const oldDate = dateTime.split('@')[0];
-  const t = (dateTime.split('@'))[1];
-  if (oldDate.includes(time.getNowDate())) {
-    return t;
-  };
-  const d = (dateTime.split('@'))[0];
-  return d + ' ' + t;
-}
-
-function checkerUserId(userId: string | number): undefined | boolean {
-  const inputHtml = document.getElementById('messager');
-  if (inputHtml === null) {
-    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputHtml"!');
-    return;
-  }
-  const inputUserId = inputHtml.dataset.id;
-  if (inputUserId === undefined) {
-    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputUserId"!');
-    return;
-  }
-  const userIdNumber = ((typeof userId).includes('string'))
-    ? Number(userId)
-    : userId;
-  const result = (userIdNumber === Number(inputUserId));
-  return result;
-}
+import scrollToBottom from '@Service/handlers/scrolling';
+import checkerUserId from './checkers/checkUseId';
+import checkOfTime from './checkers/checker_time';
 
 /**
  * This's function insert a new message to the chat.

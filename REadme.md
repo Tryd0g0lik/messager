@@ -138,12 +138,12 @@ this an all package was installed for the chat project from Django. \
 [1.1 -branch]: we can run chatting and async record messeges in the db. \
 [1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad. \
 [1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
-These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by \
-a new user file. \
-If it is fun. did not find then the user file is unique. Or not unique \
+These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by a new user file. \
+If did not found , it means the user file is unique. Or not unique \
 [1.2.1 -branch]: Here is added sending files. It's one sending or more files\
 Added a control weight of the file (files) from the one single message (jne user).\
-In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.
+In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.\
+Plus, [pattern timer](#timeer-of-message)
 
 
 
@@ -172,7 +172,9 @@ if ((totalSize > 64000000) || (fileSizeLarge)) {
 	....
 }
 ```
-
+## Timeer of message
+If message was sent yesterday, fos message's time has pattern a `2022-02-01 1:02:09 PM` \
+If is today, timer pattern has a `1:02:09 PM`. 
 
  ### Check the key of localStorage. 
  Key fileId be has a value:
