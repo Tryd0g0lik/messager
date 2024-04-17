@@ -17,16 +17,13 @@ const handlerGetMessageOfInput = async (e: KeyboardEvent | MouseEvent): Promise<
   const target = e.target as HTMLInputElement;
   const messages = ((target.value).length > 0) ? target.value.trim() : '';
   /* ------ Keyboard ------ */
-  // debugger
   if ((messages.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolen'))) {
     if ((e as KeyboardEvent).key === 'Enter') {
       await handlerSendlerMessageTotal(e as KeyboardEvent);
     }
     /* ------ MouseEvent ------ */
-    // buttonHTML?.removeEventListener('click', () => { handlerSendlerMessageTotal(e) });
     (buttonHTML as HTMLButtonElement).onclick = null;
     (buttonHTML as HTMLButtonElement).onclick = handlerSendlerMessageTotal;
-    // buttonHTML?.addEventListener('click', () => { handlerSendlerMessageTotal(e) });
   }
 };
 

@@ -63,16 +63,12 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     return;
   }
   let linkFilesArr: string[] = [];
-  // debugger
+
   if (filesId.length > 0) {
     /** indexes of the files inserted to the parameters from the URL */
     const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
     url.searchParams.set('ind', String(filesId));
-    // if (filesId.length > 1) {
-    //   for (let i = 1; i <= filesId.length; i++) {
-    //     url.searchParams.set(`&ind${i + 1}`, String(filesId[i]));
-    //   }
-    // }
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {

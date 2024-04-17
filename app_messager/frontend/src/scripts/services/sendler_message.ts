@@ -15,18 +15,15 @@ const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promis
   } else if (!(typeof (dataLocalJson.fileId)).includes('boolen')) {
     clearTimeout(timeItervale);
     fileIdArr = (JSON.parse(dataLocalJson.fileId)).list_indexes;
-    // debugger
   }
 
   console.log('[fileId]: ', fileIdArr);
-  // dataLocalJson.fileId = false;
-  // localStorage.setItem('data', dataLocalJson);
 
   const target = e.target as HTMLInputElement;
   const messages = target.value.trim();
   const indexUser = target.dataset.id;
   const datetime = time.getFullTime();
-  // debugger
+
   if (((typeof fileIdArr).includes('object'))) {
     socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]));
     await socket.dataSendNow();
