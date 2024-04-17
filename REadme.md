@@ -154,8 +154,8 @@ Note: this's variable used for the more than an one files
 - User can send an one or more files.
 - Each file be checked on the unique. The user can be raname self file, but unique = False if he sent the his.
 - The user can make the copy from self file and rename it. Exemple. Makes 4 copies from the one file and send its In chat message will see only one  the file
-- The user can't send a file if the one file's size  more than 10MB or the total size (all ) files > 64 MB on single massge. \
-For change a totall's size is the page: `app_messager\frontend\src\scripts\services\upload_files.ts` and code \
+- The user can't send a file if the one file's weight more than 10MB or the total weight (all ) files > 64 MB on single massge. \
+For change a totall's weight is the page: `app_messager\frontend\src\scripts\services\upload_files.ts` and code \
 ```js
 if (Object(fileArr[i]).size > 10000000) {
 	....
@@ -177,5 +177,6 @@ if ((totalSize > 64000000) || (fileSizeLarge)) {
  - form upload files has anime 'loader...'
 
 
- Проверить условия отправки собщения \
- Если добавить сообщение, а после удалить, то уходит файл который убрали 
+ 
+ // app_messager\frontend\src\scripts\services\upload_files.ts \
+ группа - общий вес файлов в чате (с двух груп) - не реализовано

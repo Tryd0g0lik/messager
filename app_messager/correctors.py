@@ -10,7 +10,6 @@ extension = ('git', 'png', 'jpg', 'jpeg', 'doc', 'pdf', 'xls', 'xls', 'xlsx',
 			                    'doc', 'docx', 'ods', 'odt')
 
 def get_timestamp_path(instance, filename):
-	# 'files/%Y/%m/%d/'
 	fn = 'files/%Y/%m/%d/' + '%s / %s' % (datetime.now().timestamp(),
 	               os.path.splitext(filename)[1])
 	return fn
@@ -50,7 +49,6 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool or str:
 				if (view in str(fs_old_list[i].link)[length_link - 5:]):
 					print('[check_unique_file]: file found with EXTENSION!', view)
 					'''check all files exclude new user file'''
-					# if ((f[-4] in str(fs_old_list[i].link)) and  (id != int(fs_old_list[i].id))):
 					if ((view in f[-4:]) and (id != int(fs_old_list[i].id))):
 
 						'''Here is check'''
@@ -60,7 +58,6 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool or str:
 							print('[check_unique_file]: File no is unique')
 							result.append(False)
 							index_old_link = i
-							# return str(fs_old_list[i].link)
 						else:
 							print('[check_unique_file]: File is unique')
 							result.append(True)
@@ -77,7 +74,6 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool or str:
 	return True
 
 def md5_chacker(link:str) -> str:
-	# link = file_model.link
 	''' check a file by the md5'''
 	hasher = hashlib.md5()
 	new_link = f'{MEDIA_ROOT}{link}'.replace("/", '\\')
