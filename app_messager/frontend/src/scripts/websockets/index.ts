@@ -93,7 +93,10 @@ export class WSocket {
     const groupId = dataTextJson.groupId;
     const dataTime = dataTextJson.eventtime;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
-    createChatMessage({ authorId, dataTime, message, groupId });
+    // debugger
+    const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
+    // console.log(`[websokets > RECIVED FILES]: ${dataJson}`);
+    createChatMessage({ authorId, dataTime, message, groupId, filesId });
   };
 
   onClose(): void {

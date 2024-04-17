@@ -26,6 +26,13 @@ from app_messager.correctors import get_timestamp_path
 User = get_user_model()
 
 class Messeger_User(models.Model):
+	'''
+	TODO: the user's messages
+
+	@:param 'user:int' id user \n
+	@:param 'status:str' for a choice '("A", "Author")' or '("NA", "NoAuthor")' \n
+	@:param 'sub_status:str' for a choices a user's character, it's '('s', "Seller")' or '('b', "Buyer")'
+		'''
 	user = models.OneToOneField(User, on_delete= models.CASCADE, unique=True, )
 	'''
 	TODO: This's the first user. It's the order's (group's)  autor
@@ -45,7 +52,15 @@ class Messeger_User(models.Model):
 	sub_status = models.CharField(choices=Sub_Status, max_length=10, )
 
 class GroupsModel(models.Model):
-	'''The group model where multiple users can share and discuss ideas'''
+	'''
+	TODO: The group model where multiple users can share and discuss ideas
+
+	@:param 'uuid:UUID' is an unique id/name group for a developer (for work internally \n
+	@:param 'name:str' is a title this's group \n
+	@:param 'members' is a user id. Two user is all of then in one group \n
+	@:param 'title_order:str' is an order application \n
+	@:param 'hide:bool' if group is display public then is True or not display
+	'''
 	uuid = models.UUIDField(default=uuid4,  )
 	name = models.CharField(max_length=30)
 	members = models.ManyToManyField(Messeger_User, related_name='members_users')
@@ -73,6 +88,15 @@ class GroupsModel(models.Model):
 
 
 class Chat_MessageModel(models.Model):
+	'''
+	TODO: midll group
+
+	@:param 'author:int' is user id \n
+	@:param 'timestamp' is a data of formation \n
+	@:param 'content:str' is a message text \n
+	@:param 'group:int' is an id group \n
+	@:param 'file:int|NoN' an id file or NoN
+	'''
 	author = models.ForeignKey(Messeger_User, on_delete=models.CASCADE, related_name="autormessage")
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
@@ -86,6 +110,10 @@ class Chat_MessageModel(models.Model):
 
 
 class FileModels(models.Model):
+	'''
+	@:param 'link:str' is a reference on file of the db \n
+	@:param 'size:float' is a file's size
+	'''
 	link = models.FileField(upload_to='%Y/%m/%d/',
 	                        verbose_name="File path name", max_length=50)
 	size = models.FloatField(null=True, blank=True)
@@ -98,7 +126,13 @@ class FileModels(models.Model):
 		super().delete(*args, **kwargs)
 class EventsModels(models.Model):
   '''
-  A model that holds all events related to a group like when a user joins the group or leaves.
+  TODO: A model that holds all events related to a group like when a user joins the group or leaves.
+
+  @:param 'group:int' is an id of the 'GroupsModel' table \n
+  @:param 'user:int' is an id of the 'Messeger_User' table \n
+  @:param 'type:int' is a type '("Left", "left")' or '("Join", "join")'. It's , \n
+  @:param 'description:str' is a text event's describing \n
+  @:param 'timestamp:datetime' is a time of event
   '''
   group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE)
   user = models.ForeignKey(Messeger_User, on_delete=models.CASCADE)

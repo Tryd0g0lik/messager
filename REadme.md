@@ -142,9 +142,40 @@ These function is checks upload files. `check_unique_file` fun., is searcher the
 a new user file. \
 If it is fun. did not find then the user file is unique. Or not unique 
 
+## Files for  message
+We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
+You can chage to the `messager\app_messager\correctors.py` \
+```py
+extension = ('git', 'png', 'jpg', 'jpeg', 'doc', 'pdf', 'xls', 'xls', 'xlsx',
+			                    'doc', 'docx', 'ods', 'odt')
+```
+Note: this's variable used for the more than an one files
+
+- User can send an one or more files.
+- Each file be checked on the unique. The user can be raname self file, but unique = False if he sent the his.
+- The user can make the copy from self file and rename it. Exemple. Makes 4 copies from the one file and send its In chat message will see only one  the file
+- The user can't send a file if the one file's size  more than 10MB or the total size (all ) files > 64 MB on single massge. \
+For change a totall's size is the page: `app_messager\frontend\src\scripts\services\upload_files.ts` and code \
+```js
+if (Object(fileArr[i]).size > 10000000) {
+	....
+}
+
+// and
+
+if ((totalSize > 64000000) || (fileSizeLarge)) {
+	....
+}
+```
+
+
  ### Check the key of localStorage. 
  Key fileId be has a value:
  - 'false' - user no sending the file;
  - 'true' - user has sent file but has not received a file id in now time.
  - var a number type is id file.
  - form upload files has anime 'loader...'
+
+
+ Проверить условия отправки собщения \
+ Если добавить сообщение, а после удалить, то уходит файл который убрали 

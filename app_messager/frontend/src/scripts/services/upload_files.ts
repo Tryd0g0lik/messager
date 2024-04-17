@@ -1,3 +1,5 @@
+// app_messager\frontend\src\scripts\services\upload_files.ts
+
 const handlerUploadFiles = (): undefined => {
 /**
  * preparing eventronment
@@ -37,18 +39,30 @@ const handlerUploadFiles = (): undefined => {
     const formFiles = document.getElementById('form-files');
 
     const formData = new FormData(form);
-    formData.append('file', event.target.files[0]);
+    formData.append('file', event.target.files);
+
     console.log('SEiZE: ', event.target.files[0].size);
     // debugger
 
     /**
-     * Note
+     * Note: Size files
      */
-    if (event.target.files[0].size > 64000000) {
+    let totalSize = 0;
+    const fileArr = Array.from(event.target.files);
+    let fileSizeLarge = false;
+    for (let i = 0; i < fileArr.length; i++) {
+      totalSize += Object(fileArr[i]).size;
+
+      if (Object(fileArr[i]).size > 10000000) {
+        fileSizeLarge = true;
+      }
+    }
+
+    if ((totalSize > 64000000) || (fileSizeLarge)) {
       const formMessegeInput = document.querySelector('#messager');
       const div = document.createElement('div');
       div.className = 'attention';
-      div.innerText = 'Your file lafge than 64 MB.';
+      div.innerText = 'Your all files from the your massage large than 64MB. Or one file is large 10MB';
       formMessegeInput?.before(div);
       return;
     } else {
@@ -64,7 +78,7 @@ const handlerUploadFiles = (): undefined => {
 
     /** Loader for a display anime 2/3 */
     formFiles?.classList.add('upload');
-
+    // debugger
     /** upload */
     await fetch('upload/', {
       method: 'POST',

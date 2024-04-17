@@ -49,11 +49,12 @@ function checkYourOnNotYour(userId: string | number): undefined | boolean {
  * @param 'message' - This's the message's text.
  * @returns html-text of a box.
  */
-export function createChatMessage({ authorId, dataTime, message, groupId = undefined }: ChatMessage): undefined {
+export async function createChatMessage({ authorId, dataTime, message, groupId = undefined, fileLink = [], filesId = [] }: ChatMessage): Promise<undefined> {
   /*
     we change the group number.
   */
   const groupNumber = document.getElementById('group');
+  console.log(`[PUBLIC > FILES]: ${filesId[0]}`);
 
   if ((groupNumber === null) || (groupId === undefined) ||
     (groupNumber.dataset.groupid === undefined) ||
@@ -61,14 +62,52 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
   ) {
     return;
   }
+  let linkFilesArr: string[] = [];
+  // debugger
+  if (filesId.length > 0) {
+    /** indexes of the files inserted to the parameters from the URL */
+    const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
+    url.searchParams.set('ind', String(filesId));
+    // if (filesId.length > 1) {
+    //   for (let i = 1; i <= filesId.length; i++) {
+    //     url.searchParams.set(`&ind${i + 1}`, String(filesId[i]));
+    //   }
+    // }
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.info('[createChatMessage > LINK]:', data);
+      const dataList = (JSON.parse(data.files)).linkList;
+      linkFilesArr = dataList.slice(0);
+    }
+  }
+
   /**
    * insert the message box in chat
    */
   const htmlChat = (groupNumber as HTMLDivElement).querySelector('#chat');
   if (htmlChat === null) { return }
   const htmlMessage = document.createElement('div');
-  // htmlMessage.className = 'pb-4';
-  // htmlMessage.setAttribute('user-id', authorId);
+  if ((message === undefined) ||
+    ((typeof message).includes('string') && (message.length === 0) && (filesId.length === 0))) {
+    return;
+  }
+
+  /*  file's links adding to the message */
+  let refer = '<ul>';
+  if (linkFilesArr.length > 0) {
+    for (let i = 0; i < linkFilesArr.length; i++) {
+      const len = linkFilesArr[i].split('/').length;
+      const urlOrigin = window.location.origin;
+      refer += `<li><a target="_blank" href="${urlOrigin}/media/${linkFilesArr[i].slice(0)}">${(linkFilesArr[i].split('/'))[len - 1]}</a></li>`;
+    }
+  }
+
   const resultCheckUser = checkYourOnNotYour(authorId);
   if (resultCheckUser !== undefined) {
     htmlMessage.innerHTML = `
@@ -82,6 +121,7 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
         ${message}
       </div>
   `;
+    htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
 
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
@@ -93,6 +133,13 @@ export function createChatMessage({ authorId, dataTime, message, groupId = undef
     const combinedHTML = oldChat + newBox;
     htmlChat.innerHTML = '';
     htmlChat.innerHTML = combinedHTML;
+
+    /*  cleaning to the datas */
+    filesId = [];
+    if (refer.length > 10) {
+      localStorage.setItem('data', JSON.stringify({ fileId: false }));
+    };
+    refer = '<ul>';
   }
   /**
    * scroll

@@ -35,18 +35,18 @@ class ChatConsumer(AsyncConsumer):
 	def send_chat_message_inDB(self, event):
 		print('============ send_chat_message_inDB ============')
 		from app_messager.models import GroupsModel
-		print('TEST 1')
-		group_all = GroupsModel.objects.all()
 		upload_files = FileModels()
 		print('TEST 2', event )
 		json_data = json.loads(event['text'])
 
 		id = 0
-		print('TEST 3', list(group_all))
-		group_all_len = len(list(group_all))
 		'''
 			Check a group number 'ID' in the 'groupId' 
 		'''
+		print('TEST 1')
+		group_all = GroupsModel.objects.all()
+		print('TEST 3', list(group_all))
+		group_all_len = len(list(group_all))
 		print('TEST 4')
 		for i in range(0, group_all_len):
 			print('TEST 5')
@@ -58,15 +58,21 @@ class ChatConsumer(AsyncConsumer):
 		data_message = json.loads(event['text'])
 		date_str = str(data_message['eventtime'])
 		chat = Chat_MessageModel()
-
-		chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
-		chat.group_id = id
-
-		chat.author_id = json_data['userId']
 		# chat.autor_id = data_message['userId']
-		print('%%%%%%', json_data)
-		if (data_message['fileIndex']):
-			chat.file_id = data_message['fileIndex']
+
+
+		if (('fileIndex' in data_message)): #  and (bool(data_message['fileIndex'])==True)
+			# chat.file_id = data_message['fileIndex']
+			for ind in range(0, len(list(data_message['fileIndex']))):
+				chat.file_id = list(data_message['fileIndex'])[ind]
+				chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
+				chat.group_id = id
+				chat.author_id = json_data['userId']
+		else:
+			chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
+			chat.group_id = id
+			chat.author_id = json_data['userId']
+
 		# print('[CONSUMER > FILE] BEFORE: EVENT', event['file'])
 		# data_file = json.loads(event['file'])
 		# upload_files.link = data_file
@@ -83,11 +89,14 @@ class ChatConsumer(AsyncConsumer):
 		self.connected_clients.remove(self.channel_name)
 
 	async def websocket_receive(self, event):
+
 		print('============ Before:  send_chat_message_inDB ============')
-		await  self.send_chat_message_inDB(event)
+		await self.send_chat_message_inDB(event)
 # сделать асинхронной  сделать загрузку файлов + Typing...
 		# Send the message to all connected clients
+
 		print('============ After: Send the message to all connected clients ============')
+
 		for client in self.connected_clients:
 			await self.channel_layer.send(client, {
 				"type": "websocket.send",

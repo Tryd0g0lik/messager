@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css}}" rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-e035bf81beba39334a99.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-a952610d326fc1e21114.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">
@@ -201,29 +201,7 @@
 </main>
 
 <script>
-						console.log("Wlocation")
-						console.log(window.location)
-						const loc = window.location;
 
-						let wsStart = 'ws://';
-						if (loc.protocol.includes('https:')) {
-							wsStart = 'wss://';
-						}
-						const endpoint = wsStart + loc.host + '/ws/chat/';
-						const socket = new WebSocket(endpoint);
-
-						socket.onmessage = (e) => {
-							sconsole.log("messega: ", e);
-						}
-						socket.onopen = (e) => {
-							console.log("open: ", e);
-						}
-						socket.onerror = (e) => {
-							console.log("error: ", e);
-						}
-						socket.onclose = (e) => {
-							console.log("close: ", e);
-						}
 </script>
 </body>
 

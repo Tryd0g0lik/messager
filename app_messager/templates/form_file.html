@@ -1,8 +1,16 @@
 
 <form action='upload/' id="upload" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div>
+<!--	 {% for entry in form %}-->
+<!--           <div>-->
+<!--                {{ entry.label_tag }}-->
+<!--           </div>-->
+<!--           <div>-->
+<!--               {{entry}}-->
+<!--           </div>-->
+<!--        {% endfor %}-->
+<!--	<div>-->
  {{ form }}
-		<input name="file" type="file" size="40">
+		<input name="file" type="file" multiple size="40">
 	</div>
 </form>

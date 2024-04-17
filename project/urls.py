@@ -26,7 +26,8 @@ from django.views.defaults import page_not_found, server_error, permission_denie
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ws/<str:room_name>/', views.chat_page, name="room"),
-    path('ws/chat/upload/', views.upload_file, name="upload_file")
+    path('ws/chat/upload/', views.upload_file, name="upload_file"),
+    re_path(r'api/chat/upload/files/', views.upload_file, name="upload_file")
 
 
     # path('chat/', views.get_message),

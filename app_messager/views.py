@@ -9,7 +9,7 @@ from django.shortcuts import render, get_object_or_404
 from project.settings import BASE_DIR, MEDIA_ROOT
 from .correctors import md5_chacker, check_unique_file
 from .models import GroupsModel, FileModels
-from .forms import UploadFileForm
+from .forms import UploadFileForm # UploadFileForm
 import os
 import websocket, json
 import hashlib
@@ -22,8 +22,8 @@ def get_message(request):
 
 def chat_page(request, room_name):
 	User = get_user_model()
-	user = User.objects.all()
-	user = User.objects.get(username ='root')
+	# user = User.objects.all()
+	user = User.objects.get(username ='root') # !!!!!!!
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	file_names_js = os.listdir(os.path.join(BASE_DIR,'app_messager\\static\\js\\'))[-1]
 	file_names_css = os.listdir(os.path.join(BASE_DIR, 'app_messager\\static\\css\\'))[-1]
@@ -49,30 +49,89 @@ def HomeView(request):
 	}
 	return render(request, template_name='chat/home.html', context=context)
 
-def upload_file(request):
+def serialize_file_models(obj):
+    if isinstance(obj, FileModels):
+        return obj.__dict__
+    return obj
+
+def upload_file(request, listIndexes = None):
+	# form_class = UploadFileForm
 	if request.method == 'POST':
-		form_file = UploadFileForm(request.POST, request.FILES)
-		if form_file.is_valid():
-			file_model = FileModels(link=request.FILES['file'], size=request.FILES['file'].size )
-			link_new_file = file_model.link
-			file_model.save()
-			id_new_file = file_model.id
+		try:
+			form_file = UploadFileForm(request.POST, request.FILES)
+			files = request.FILES.getlist('file')
+			lis_indexes = []
+			if form_file.is_valid():
+				for pic in list(files):
+					file_model = FileModels(link=pic, size=pic.size)
+					link_new_file = file_model.link
 
-			''' ------ '''
-			fs_old = FileModels.objects.all()
-			fs_old_list = list(fs_old)
-			unique_true_link = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
-			print('TYPE: ==', type(unique_true_link) == str)
-			if type(unique_true_link) == str:
-				FileModels.objects.get(id=id_new_file).delete()
-				result = FileModels.objects.filter(link=unique_true_link)
-				return JsonResponse({"index": result[0].id})
+					file_model.save()
+					id_new_file = file_model.id
+					''' ------ '''
+					fs_old = FileModels.objects.all()
+					fs_old_list = list(fs_old)
+					unique_true_link = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
+					print('TYPE: ==', type(unique_true_link) == str)
 
-			# link = file_model.link
-			# result = md5_chacker(file_model)
-			# print('[RESULT]: ', result)
-			'''An Id returning of the new file'''
-			return JsonResponse({"index": file_model.id})
+					if type(unique_true_link) == str:
+						FileModels.objects.get(id=id_new_file).delete()
+						result = [res.__dict__ for res in FileModels.objects.filter(link=unique_true_link)]
+						lis_indexes.append(result[0]['id'])
+					else:
+						result = str((file_model).id)
+
+						lis_indexes.append(result)
+				'''An Id returning of the new file'''
+				lis_indexes_copy = list(set(lis_indexes))[:]
+				result_string = json.dumps({"list_indexes": lis_indexes_copy})
+				return JsonResponse({"index": result_string})
+		except (Exception, FileExistsError):
+			print('[upload_file > POST]: There is something now that is wrong')
+	elif request.method == 'GET':
+		try:
+			if ('ind' in dict(request.GET)):
+				params_list = list((request.GET).getlist('ind'))[0].split(',')
+				params_len:int = len(params_list)
+
+				if (params_len > 0):
+					link_list = []
+					for i in range(0, params_len):
+						f_row = FileModels.objects.filter(id = int(params_list[i]))
+						link_list.append(str((list(f_row)[0]).link))
+
+					json_str = json.dumps({'linkList': link_list})
+					return JsonResponse({'files':json_str})
+		except (Exception):
+			print('[upload_file > GET]: There is something now that is wrong')
+	return JsonResponse({"test": 'testing'})
+
+# def upload_file(request):
+# 	if request.method == 'POST':
+# 		form_file = UploadFileForm(request.POST, request.FILES)
+# 		if form_file.is_valid():
+# 			file_model = FileModels(link=request.FILES['file'], size=request.FILES['file'].size )
+# 			link_new_file = file_model.link
+# 			file_model.save()
+# 			id_new_file = file_model.id
+#
+# 			''' ------ '''
+# 			fs_old = FileModels.objects.all()
+# 			fs_old_list = list(fs_old)
+# 			unique_true_link = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
+# 			print('TYPE: ==', type(unique_true_link) == str)
+# 			if type(unique_true_link) == str:
+# 				FileModels.objects.get(id=id_new_file).delete()
+# 				result = FileModels.objects.filter(link=unique_true_link)
+# 				return JsonResponse({"index": result[0].id})
+#
+# 			# link = file_model.link
+# 			# result = md5_chacker(file_model)
+# 			# print('[RESULT]: ', result)
+# 			'''An Id returning of the new file'''
+# 			return JsonResponse({"index": file_model.id})
+#
+#
 
 # @login_required
 # def GroupChatView(request, uuid):

@@ -3,20 +3,22 @@ import { WSocket } from '@Websocket';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 
 const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
-  // debugger
-  let fileId = -1;
-  const timeItervale = setTimeout(() => {
-    handlerSendlerMessageTotal(e);
-  }, 300);
+  let fileIdArr = [];
+  let timeItervale: NodeJS.Timeout;
+
   const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
   if (dataLocalJson.fileId === true) {
+    timeItervale = setTimeout(() => {
+      handlerSendlerMessageTotal(e);
+    }, 300);
     return;
   } else if (!(typeof (dataLocalJson.fileId)).includes('boolen')) {
     clearTimeout(timeItervale);
-    fileId = dataLocalJson.fileId;
+    fileIdArr = (JSON.parse(dataLocalJson.fileId)).list_indexes;
+    // debugger
   }
 
-  console.log('[fileId]: ', fileId);
+  console.log('[fileId]: ', fileIdArr);
   // dataLocalJson.fileId = false;
   // localStorage.setItem('data', dataLocalJson);
 
@@ -24,12 +26,14 @@ const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promis
   const messages = target.value.trim();
   const indexUser = target.dataset.id;
   const datetime = time.getFullTime();
-  if (fileId >= 0) {
-    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileId })]));
+  // debugger
+  if (((typeof fileIdArr).includes('object'))) {
+    socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]));
+    await socket.dataSendNow();
   } else {
     socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
+    await socket.dataSendNow();
   }
-  await socket.dataSendNow();
 
   /* clearning forms - message */
   const inputFormHTML = document.querySelector('input[data-id]');

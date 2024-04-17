@@ -5,6 +5,8 @@ export interface ChatMessage {
   dataTime: string
   message: string
   groupId?: string
+  filesId?: number[]
+  fileLink?: string[]
 }
 
 export interface WSData {
