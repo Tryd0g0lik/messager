@@ -140,7 +140,12 @@ this an all package was installed for the chat project from Django. \
 [1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
 These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by \
 a new user file. \
-If it is fun. did not find then the user file is unique. Or not unique 
+If it is fun. did not find then the user file is unique. Or not unique \
+[1.2.1 -branch]: Here is added sending files. It's one sending or more files\
+Added a control weight of the file (files) from the one single message (jne user).\
+In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.
+
+
 
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
