@@ -72,13 +72,14 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) {
     htmlMessage.innerHTML = `
-      <div>
+      <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
       </div>
       <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
+        <div class='pencil'></div>
         ${message}
       </div>
   `;
@@ -87,7 +88,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
     htmlMessage.setAttribute('data-user-id', res);
-    htmlMessage.className = 'pb-4';
+    htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const oldChat = htmlChat?.innerHTML;
     const newBox = htmlMessage.outerHTML;

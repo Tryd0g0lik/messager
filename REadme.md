@@ -172,7 +172,7 @@ if ((totalSize > 64000000) || (fileSizeLarge)) {
 	....
 }
 ```
-## Timeer of message
+## Timer of the message
 If message was sent yesterday, fos message's time has pattern a `2022-02-01 1:02:09 PM` \
 If is today, timer pattern has a `1:02:09 PM`. 
 

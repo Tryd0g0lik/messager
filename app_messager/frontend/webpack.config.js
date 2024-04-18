@@ -6,6 +6,8 @@ const BundleTracker = require('webpack-bundle-tracker');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin')
+const CopyPlugin = require("copy-webpack-plugin");
 // config.output.path = require('path').resolve('./interface/dist');
 
 module.exports = {
@@ -43,11 +45,34 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { importLoaders: 1 } },
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 1 }
+          },
           'postcss-loader',
+
         ],
 
       },
+      {
+        test: /\.svg$/,
+        type: 'asset/inline',
+        generator: {
+          // filename: '../pic/[hash][ext]'
+        },
+        use: [
+          'svgo-loader',
+          // 'svg-transform-loader'
+        ]
+      },
+      // {
+      //   test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      //   type: 'asset/resource',
+      //   generator: {
+      //     filename: '../pic/[name][ext]',
+      //   },
+      // },
+
     ]
   },
 
@@ -60,14 +85,14 @@ module.exports = {
       filename: 'webpack-stats.json'
     }),
     new Dotenv(),
+    new SpriteLoaderPlugin({
+
+    }),
     // new CopyPlugin({
     //   patterns: [
-    //     { from: './public/manifest.json', to: './', },
-    //     { from: './public/logo512.png', to: './', },
-    //     { from: './public/logo192.png', to: './', },
-    //     { from: './src/backend/src', to: './server' }
+    //     { from: './src/pic', to: '../pic', }
     //   ],
-    // }), template: '../templates/index.html',
+    // }), // template: '../templates/index.html',
     new HtmlWebpackPlugin({
       template: '../templates/index.html'
     }),

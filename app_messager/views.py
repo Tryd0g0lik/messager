@@ -26,14 +26,15 @@ def chat_page(request, room_name):
 	user = User.objects.get(username ='root') # !!!!!!!
 	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	file_names_js = os.listdir(os.path.join(BASE_DIR,'app_messager\\static\\js\\'))[-1]
-	file_names_css = os.listdir(os.path.join(BASE_DIR, 'app_messager\\static\\css\\'))[-1]
+	file_names_css = os.listdir(os.path.join(BASE_DIR, 'app_messager\\static\\css'))[-1]
+	file_names_pic = os.listdir(os.path.join(BASE_DIR, 'app_messager\\static\\pic'))[-1]
 
 	get_token(user)
 	# ws = websocket.WebSocket()
 	# ws.connect('ws://localhost:6379/ws/tableData/')
 	return render(request, 'index.html', {
 		'user_index': 3, # user.id,
-		'static_files': {'js': file_names_js, 'css': file_names_css},
+		'static_files': {'js': file_names_js, 'css': file_names_css, 'pic': file_names_pic},
 		'room_name' : room_name }
 	              )
 

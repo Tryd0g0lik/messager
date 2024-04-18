@@ -44,6 +44,7 @@ body{margin-top:20px;}
     border-top: 1px solid #dee2e6!important;
 }
 
+/* Here is files from the single message  */
 #form-files .spinner-border {
   display: none;
 }
@@ -55,4 +56,22 @@ body{margin-top:20px;}
 
 #form-files.upload #upload {
   display: none;
+}
+/* infogeraphic - a pencil of the message */
+.message {
+  position: relative;
+}
+
+.pencil {
+  display: block;
+  position: absolute;
+  width: 30px;
+  min-width: 14px;
+  height: 100%;
+  max-height: 14px;
+  z-index: 2;
+  background: url('../pic/pencil.svg') no-repeat;
+  cursor: pointer;
+  right: 57px;
+  top: 0px;
 }
