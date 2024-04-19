@@ -1,5 +1,5 @@
 import getCookie from '@Service/cookies';
-import addQuote from '@Service/chang-message';
+import addQuote from '@Service/handlers/messages/chang-message';
 
 const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
   if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
