@@ -78,3 +78,12 @@ body{margin-top:20px;}
   right: 57px;
   top: 0px;
 }
+.quote {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding-left: 50px;
+  overflow: hidden;
+  font-size: 0.9em;
+}

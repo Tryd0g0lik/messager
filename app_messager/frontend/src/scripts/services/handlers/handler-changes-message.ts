@@ -1,24 +1,25 @@
-import getCookie from "@Service/cookies";
+import getCookie from '@Service/cookies';
+import addQuote from '@Service/chang-message';
 
-const handlerPencilOfMesseg = (e: MouseEvent): Promise<void> => {
-  debugger
-  const target = e.target as HTMLDivElement;
-  const divHtml = target.parentElement.parentElement;
-  if ((divHtml === null) || ((divHtml !== null) && !('post' in divHtml.dataset))) {
+const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
+  if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
+    return;
+  }
+
+  const currentTarget = e.currentTarget as HTMLDivElement;
+  if ((currentTarget !== null) && !('post' in currentTarget.dataset)) {
     return;
   };
-  const postId = divHtml.dataset.post;
-  const userId = divHtml.dataset.id;
-  // debugger;
-
+  const postId = currentTarget.dataset.post;
+  const userId = currentTarget.dataset.id;
   const csrftoken = getCookie('csrftoken');
-  // fetch(url, {
-  //   credentials: "same-origin"
-  // });
+  const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
+
+  addQuote(message);
   const url = new URL('api/chat/patch/404/', 'http://127.0.0.1:8000/');
   // url.searchParams.set('ind', String(filesId));
   // 2024-04-18-08:25:56.059718
-  'http://127.0.0.1:8000/api/chat/patch/404/'
+  'http://127.0.0.1:8000/api/chat/patch/404/';
   debugger;
   //   const response = await fetch(url, {
 

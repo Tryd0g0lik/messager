@@ -73,7 +73,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
     htmlMessage.dataset.post = postId;
-    htmlMessage.onclick = handlerPencilOfMesseg;
     htmlMessage.innerHTML = `
       <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
@@ -83,7 +82,9 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
         <div class='pencil'></div>
+        <div class="user-message">
         ${message}
+        </div>
       </div>
   `;
     htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
@@ -107,17 +108,11 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
   }
 
-  /**
-   * Every a message's box  has an infographic 'pencil'
-   * Here is a handler
-   */
-  // const pencilArr = document.getElementsByClassName('pencil');
-
-  // if (pencilArr.length !== 0) {
-  //   for (let i = 0; i < pencilArr.length; i++) {
-  //     (pencilArr[i] as HTMLDivElement).onclick = handlerPencilOfMesseg;
-  //   };
-  // }
+  const boxMess = document.querySelector(`div[data-post="${postId}"]`);
+  debugger
+  if (boxMess !== null) {
+    (boxMess as HTMLDivElement).onclick = handlerPencilOfMesseg;
+  }
   /**
    * scroll
    */
