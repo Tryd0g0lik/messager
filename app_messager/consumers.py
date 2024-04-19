@@ -84,7 +84,7 @@ class ChatConsumer(AsyncConsumer):
 
 
 		print('[CONSUMER > is RECORD in DB] end')
-		return  {"_message": chat.timestamp}
+		return  {"_message": chat.id}
 
 	async def websocket_disconnect(self, close_code):
 		# от ключение пользователя
