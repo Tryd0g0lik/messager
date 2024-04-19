@@ -1,6 +1,7 @@
 import getCookie from "@Service/cookies";
 
-const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
+const handlerPencilOfMesseg = (e: MouseEvent): Promise<void> => {
+  debugger
   const target = e.target as HTMLDivElement;
   const divHtml = target.parentElement.parentElement;
   if ((divHtml === null) || ((divHtml !== null) && !('post' in divHtml.dataset))) {
@@ -19,16 +20,16 @@ const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
   // 2024-04-18-08:25:56.059718
   'http://127.0.0.1:8000/api/chat/patch/404/'
   debugger;
-  const response = await fetch(url, {
+  //   const response = await fetch(url, {
 
-    method: 'PATCH',
-    headers: {
-      'X-CSRFToken': getCookie('csrftoken'),
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      content: '{ "2024-4-17@4:15:10 PM": "ds" }'
-    })
-  });
+  //     method: 'PATCH',
+  //     headers: {
+  //       'X-CSRFToken': getCookie('csrftoken'),
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       content: '{ "2024-4-17@4:15:10 PM": "ds" }'
+  //     })
+  //   });
 };
 export default handlerPencilOfMesseg;

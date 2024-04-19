@@ -73,7 +73,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
     htmlMessage.dataset.post = postId;
-    debugger
+    htmlMessage.onclick = handlerPencilOfMesseg;
     htmlMessage.innerHTML = `
       <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
@@ -111,13 +111,13 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
    * Every a message's box  has an infographic 'pencil'
    * Here is a handler
    */
-  const pencilArr = document.getElementsByClassName('pencil');
+  // const pencilArr = document.getElementsByClassName('pencil');
 
-  if (pencilArr.length !== 0) {
-    for (let i = 0; i < pencilArr.length; i++) {
-      (pencilArr[i] as HTMLDivElement).onclick = handlerPencilOfMesseg;
-    };
-  }
+  // if (pencilArr.length !== 0) {
+  //   for (let i = 0; i < pencilArr.length; i++) {
+  //     (pencilArr[i] as HTMLDivElement).onclick = handlerPencilOfMesseg;
+  //   };
+  // }
   /**
    * scroll
    */
