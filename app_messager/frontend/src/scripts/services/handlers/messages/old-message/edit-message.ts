@@ -1,5 +1,6 @@
 import getCookie from '@Service/cookies';
-import addQuote from '@Service/handlers/messages/chang-message';
+import addQuote from './paste-old-message';
+import addEventlistenerToInput from '../add-handler';
 
 const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
   if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
@@ -14,6 +15,9 @@ const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
   const userId = currentTarget.dataset.id;
   const csrftoken = getCookie('csrftoken');
   const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
+
+  /* 2/3 added the event listener to the input form . It is change of the listener */
+  // addEventlistenerToInput()
 
   addQuote(message);
   const url = new URL('api/chat/patch/404/', 'http://127.0.0.1:8000/');

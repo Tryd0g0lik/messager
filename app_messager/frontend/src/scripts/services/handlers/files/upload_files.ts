@@ -1,10 +1,10 @@
 // app_messager\frontend\src\scripts\services\upload_files.ts
-import handlerInputEvent from './handlers/handler_input-file';
+import handlerInputEvent from './handler_input-file';
 
 const handlerUploadFiles = (): undefined => {
-/**
- * preparing eventronment
- */
+  /**
+   * preparing eventronment
+   */
   const formDiv = document.getElementById('form-files');
   if (formDiv === null) {
     return;

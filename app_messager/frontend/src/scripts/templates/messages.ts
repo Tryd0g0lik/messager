@@ -4,7 +4,7 @@ import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
 import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
-import handlerPencilOfMesseg from '@Service/handlers/messages/handler-changes-message';
+import handlerPencilOfMesseg from '@Service/handlers/messages/old-message/edit-message';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
