@@ -6,7 +6,7 @@ export interface ChatMessage {
   message: string
   groupId?: string
   filesId?: number[]
-  fileLink?: string[]
+  postId: string
 }
 
 export interface WSData {

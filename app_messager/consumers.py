@@ -57,30 +57,34 @@ class ChatConsumer(AsyncConsumer):
 		print('[CONSUMER > SAVED DB] BEFORE: datas record')
 		data_message = json.loads(event['text'])
 		date_str = str(data_message['eventtime'])
-		chat = Chat_MessageModel()
+
 		# chat.autor_id = data_message['userId']
 
-
-		if (('fileIndex' in data_message)): #  and (bool(data_message['fileIndex'])==True)
+		chat:object = {}
+		if (('fileIndex' in data_message)):
 			# chat.file_id = data_message['fileIndex']
 			for ind in range(0, len(list(data_message['fileIndex']))):
+				chat = Chat_MessageModel()
 				chat.file_id = list(data_message['fileIndex'])[ind]
-				chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
+				chat.content = f"{data_message['message']}" # json.dumps({f"{date_str}": f"{data_message['message']}"})
 				chat.group_id = id
 				chat.author_id = json_data['userId']
+				chat.save()
 		else:
-			chat.content = json.dumps({f"{date_str}": f"{data_message['message']}"})
+			chat = Chat_MessageModel()
+			chat.content = f"{data_message['message']}" # json.dumps({f"{date_str}": f"{data_message['message']}"})
 			chat.group_id = id
 			chat.author_id = json_data['userId']
+			chat.save()
 
-		# print('[CONSUMER > FILE] BEFORE: EVENT', event['file'])
+		print('[CONSUMER > FILE] BEFORE: EVENT', 'test')
 		# data_file = json.loads(event['file'])
 		# upload_files.link = data_file
 
-		chat.save()
+
 
 		print('[CONSUMER > is RECORD in DB] end')
-
+		return  {"_message": chat.timestamp}
 
 	async def websocket_disconnect(self, close_code):
 		# от ключение пользователя
@@ -91,16 +95,25 @@ class ChatConsumer(AsyncConsumer):
 	async def websocket_receive(self, event):
 
 		print('============ Before:  send_chat_message_inDB ============')
-		await self.send_chat_message_inDB(event)
+		data_message = await self.send_chat_message_inDB(event)
+
 # сделать асинхронной  сделать загрузку файлов + Typing...
 		# Send the message to all connected clients
 
 		print('============ After: Send the message to all connected clients ============')
+		event_json = event;
+
+		''' Get the elias a message's box from. It's will be inserted in to the html message (postId) '''
+		event_text_keys_list_new = list(json.loads(event_json['text'])) + ['postId'];
+		event_text_val_list_new = list(json.loads(event_json['text']).values()) + [str(list((data_message).values())[0]).split('+')[0]]
+		new_event_json = dict(zip(event_text_keys_list_new, event_text_val_list_new))
+		event_json['text'] = json.dumps(new_event_json)
+		new_event = event_json
 
 		for client in self.connected_clients:
 			await self.channel_layer.send(client, {
 				"type": "websocket.send",
-				"text": event.get('text',  json.dumps(event)),
+				"text": event.get('text',  json.dumps(new_event)),
 			})
 
 		for v in event.values() :

@@ -7,7 +7,7 @@ const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
   let fileIdArr = [];
   let timeItervale: NodeJS.Timeout;
-
+  // debugger
   const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
   if (dataLocalJson.fileId === true) {
     timeItervale = setTimeout(() => {

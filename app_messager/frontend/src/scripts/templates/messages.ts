@@ -4,7 +4,7 @@ import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
 import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
-
+import handlerPencilOfMesseg from '@Service/handlers/handler-changes-message';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -14,7 +14,7 @@ import checkOfTime from './checkers/checker_time';
  * @param 'message' - This's the message's text.
  * @returns html-text of a box.
  */
-export async function createChatMessage({ authorId, dataTime, message, groupId = undefined, fileLink = [], filesId = [] }: ChatMessage): Promise<undefined> {
+export async function createChatMessage({ authorId, dataTime, message, groupId = undefined, postId = '', filesId = [] }: ChatMessage): Promise<undefined> {
   /*
     we change the group number.
   */
@@ -70,9 +70,12 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   }
 
   const resultCheckUser = checkerUserId(authorId);
-  if (resultCheckUser !== undefined) {
+  if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
+    /* 'postId' - data receeiving from the db's timestamp */
+    htmlMessage.dataset.post = postId;
+    debugger
     htmlMessage.innerHTML = `
-      <div id="${dataTime}">
+      <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
@@ -87,7 +90,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
 
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-    htmlMessage.setAttribute('data-user-id', res);
+    htmlMessage.setAttribute('data-id', res); // data-user-id
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const oldChat = htmlChat?.innerHTML;
@@ -102,6 +105,18 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       localStorage.setItem('data', JSON.stringify({ fileId: false }));
     };
     refer = '<ul>';
+  }
+
+  /**
+   * Every a message's box  has an infographic 'pencil'
+   * Here is a handler
+   */
+  const pencilArr = document.getElementsByClassName('pencil');
+
+  if (pencilArr.length !== 0) {
+    for (let i = 0; i < pencilArr.length; i++) {
+      (pencilArr[i] as HTMLDivElement).onclick = handlerPencilOfMesseg;
+    };
   }
   /**
    * scroll

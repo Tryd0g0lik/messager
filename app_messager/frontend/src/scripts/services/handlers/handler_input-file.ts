@@ -43,6 +43,7 @@ const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
     /**  We talking about beginning the upload */
     const dataLocalJson_ = JSON.parse(localStorage.getItem('data') as string);
     dataLocalJson_.fileId = true;
+
     localStorage.setItem('data', JSON.stringify(dataLocalJson_));
 
     /** Loader for a display anime 2/3 */
@@ -56,9 +57,10 @@ const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
       .then(async (response) => {
         let responce: string | boolean = '';
         if (response.ok) {
+          // debugger
           const data = await response.json();
           console.info('[upload_files > FORM]:', data);
-          responce = data.index;
+          responce = data.index.slice(0);
           /** record result/ It's ID or false */
           const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
           dataLocalJson.fileId = responce;

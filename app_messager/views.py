@@ -2,23 +2,27 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_protect
+
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
+
 from project.settings import BASE_DIR, MEDIA_ROOT
 from .correctors import md5_chacker, check_unique_file
-from .models import GroupsModel, FileModels
+from .models import GroupsModel, FileModels, Chat_MessageModel
 from .forms import UploadFileForm # UploadFileForm
 import os
 import websocket, json
+
+from rest_framework import serializers
+from rest_framework.decorators import api_view
+from .serializers import Chat_MessageSerialiser
+from rest_framework.response import Response
+from rest_framework import status, generics
 import hashlib
 # Create your views here.
-def get_message(request):
-	if request.method == 'GET':
-		print('Received request a GET ')
-	elif request.method == 'POST':
-		print('Received request a POST ')
 
 def chat_page(request, room_name):
 	User = get_user_model()
@@ -89,6 +93,7 @@ def upload_file(request, listIndexes = None):
 				return JsonResponse({"index": result_string})
 		except (Exception, FileExistsError):
 			print('[upload_file > POST]: There is something now that is wrong')
+			return JsonResponse({"ERROR": Exception })
 	elif request.method == 'GET':
 		try:
 			if ('ind' in dict(request.GET)):
@@ -105,34 +110,16 @@ def upload_file(request, listIndexes = None):
 					return JsonResponse({'files':json_str})
 		except (Exception):
 			print('[upload_file > GET]: There is something now that is wrong')
-	return JsonResponse({"test": 'testing'})
+	return JsonResponse({"error": 'Here is something that wrong~!'})
 
-# def upload_file(request):
-# 	if request.method == 'POST':
-# 		form_file = UploadFileForm(request.POST, request.FILES)
-# 		if form_file.is_valid():
-# 			file_model = FileModels(link=request.FILES['file'], size=request.FILES['file'].size )
-# 			link_new_file = file_model.link
-# 			file_model.save()
-# 			id_new_file = file_model.id
+
+class UpdataMessages(generics.UpdateAPIView):
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = Chat_MessageSerialiser
 #
-# 			''' ------ '''
-# 			fs_old = FileModels.objects.all()
-# 			fs_old_list = list(fs_old)
-# 			unique_true_link = check_unique_file(id_new_file, str(link_new_file), fs_old_list)
-# 			print('TYPE: ==', type(unique_true_link) == str)
-# 			if type(unique_true_link) == str:
-# 				FileModels.objects.get(id=id_new_file).delete()
-# 				result = FileModels.objects.filter(link=unique_true_link)
-# 				return JsonResponse({"index": result[0].id})
-#
-# 			# link = file_model.link
-# 			# result = md5_chacker(file_model)
-# 			# print('[RESULT]: ', result)
-# 			'''An Id returning of the new file'''
-# 			return JsonResponse({"index": file_model.id})
-#
-#
+
+
+
 
 # @login_required
 # def GroupChatView(request, uuid):

@@ -2,6 +2,8 @@
 
 import handlerSendlerMessageTotal from '@Service/sendler_message';
 import handlerUploadFiles from '@Service/upload_files';
+import handlerPencilOfMesseg from '@Service/handlers/handler-changes-message';
+
 let APP_WS_URL = process.env.APP_WS_URL;
 
 if (APP_WS_URL === undefined) {
@@ -40,4 +42,5 @@ document.addEventListener('DOMContentLoaded', () => {
  * @return void
  */
   handlerUploadFiles();
+
 });

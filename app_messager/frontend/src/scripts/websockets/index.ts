@@ -90,13 +90,15 @@ export class WSocket {
     const dataTextJson = JSON.parse(resp);
     const message = dataTextJson.message;
     const authorId = String(dataTextJson.userId);
+    const postId = String(dataTextJson.postId);
+
     const groupId = dataTextJson.groupId;
     const dataTime = dataTextJson.eventtime;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
     // debugger
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
     // console.log(`[websokets > RECIVED FILES]: ${dataJson}`);
-    createChatMessage({ authorId, dataTime, message, groupId, filesId });
+    createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
   };
 
   onClose(): void {
