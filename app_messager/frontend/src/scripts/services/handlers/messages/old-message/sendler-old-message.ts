@@ -5,12 +5,12 @@ import eventClickManage from '../sub-handler/suhandler-click';
 import eventKeyupManage from '../sub-handler/subhandler-key';
 import changeOldPost from '../sub-handler/subhandler-old-post';
 
-const sendlerOldMessageTotal = (): void => {
+const sendlerOldMessageTotal = (h: (e: KeyboardEvent | MouseEvent) => void) => {
   const messageFormHTML = document.getElementById('message') as HTMLDivElement;
-  messageFormHTML.removeEventListener('click', eventClickManage(() => { }));
-  messageFormHTML.removeEventListener('keyup', eventKeyupManage(() => { }));
+  messageFormHTML.removeEventListener('click', eventClickManage(h));
+  messageFormHTML.removeEventListener('keyup', eventKeyupManage(h));
 
-  const result = (e: KeyboardEvent | MouseEvent): void => {
+  const result = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
     const inputHtml = (messageFormHTML).querySelector('messager') as HTMLInputElement;
     if (inputHtml === null) {
       return;
@@ -23,7 +23,7 @@ const sendlerOldMessageTotal = (): void => {
     localSJson.message = inputValue;
     localStorage.setItem('data', JSON.stringify(localSJson));
     debugger;
-    const response = changeOldPost(e); // проверить входещее событие пустышку
+    const response = await changeOldPost(e); // проверить входещее событие пустышку
     handlerSendlerMessageTotal(true);
   };
   messageFormHTML.removeEventListener('click', result);

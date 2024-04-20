@@ -24,7 +24,7 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      content: massage_
+      content: String(massage_)
     })
   });
 

@@ -9,7 +9,7 @@ const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
  * If value is 'false', than send the old message.  It's a post wich has a correcte
  * @returns Promise<void>
  */
-const handlerSendlerMessageTotal = (corrects = false) => {
+const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | MouseEvent) => Promise<void> => {
   return async (e: KeyboardEvent | MouseEvent): Promise<void> => {
     let fileIdArr = [];
     let timeItervale: NodeJS.Timeout;

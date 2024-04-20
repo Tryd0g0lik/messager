@@ -47,7 +47,7 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
   const emptyEvent = new MouseEvent('click');
 
   /* 2/3 added the event listener to the input form . It is change of the listener */
-  handlerGetMessageOfInput(sendlerOldMessageTotal());
+  handlerGetMessageOfInput(sendlerOldMessageTotal(emptyEvent));
   /* 3/3 added the event listener to the input form . It is change of the listener */
   // handlerGetMessageOfInput(handlerSendlerMessageTotal());
 };
