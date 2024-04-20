@@ -6,6 +6,7 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   localStorage.setItem('data', JSON.stringify(localSJson));
   const postId_ = localSJson.postId;
   const userId_ = localSJson.userId;
+  const massage_ = localSJson.message;
   // if (((e as MouseEvent).type === 'click') || ((e as KeyboardEvent).key === 'Enter')) {
   /* ------ Fetch ------ */
   const csrftoken = getCookie('csrftoken');
@@ -22,11 +23,15 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      content: '{ "2024-4-17@4:15:10 PM": "ds" }',
-      userId: userId_
+      content: String(massage_)
 
     })
   });
+  /* ------ LocalStorage clearing ------ */
+  ocalSJson.postId = '';
+  localSJson.userId = '';
+  localSJson.message = '';
+  localStorage.setItem('data', JSON.stringify(localSJson));
 
   debugger
   if (!response.ok) {
