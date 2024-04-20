@@ -8,6 +8,7 @@ const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promis
   let fileIdArr = [];
   let timeItervale: NodeJS.Timeout;
   // debugger
+  /* localStorage */
   const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
   if (dataLocalJson.fileId === true) {
     timeItervale = setTimeout(() => {
@@ -19,13 +20,11 @@ const handlerSendlerMessageTotal = async (e: KeyboardEvent | MouseEvent): Promis
     fileIdArr = (JSON.parse(dataLocalJson.fileId)).list_indexes;
   }
 
-  console.log('[fileId]: ', fileIdArr);
-
   const target = e.target as HTMLInputElement;
   const messages = target.value.trim();
   const indexUser = target.dataset.id;
   const datetime = time.getFullTime();
-
+  //  && (messageFormHTML as HTMLInputElement).value.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolen'))
   if (((typeof fileIdArr).includes('object'))) {
     socket.beforeSend(String([JSON.stringify({ eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]));
     await socket.dataSendNow();

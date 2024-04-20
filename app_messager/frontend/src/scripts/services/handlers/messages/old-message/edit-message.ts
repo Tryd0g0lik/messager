@@ -1,8 +1,10 @@
 import getCookie from '@Service/cookies';
 import addQuote from './paste-old-message';
 import addEventlistenerToInput from '../add-handler';
+import handlerGetMessageOfInput from '../get-messages';
 
-const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
+const handlerPencilPost = async (e: MouseEvent): Promise<void> => {
+  debugger
   if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
     return;
   }
@@ -16,25 +18,10 @@ const handlerPencilOfMesseg = async (e: MouseEvent): Promise<void> => {
   const csrftoken = getCookie('csrftoken');
   const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
 
-  /* 2/3 added the event listener to the input form . It is change of the listener */
-  // addEventlistenerToInput()
-
   addQuote(message);
-  const url = new URL('api/chat/patch/404/', 'http://127.0.0.1:8000/');
-  // url.searchParams.set('ind', String(filesId));
-  // 2024-04-18-08:25:56.059718
-  'http://127.0.0.1:8000/api/chat/patch/404/';
-  debugger;
-  //   const response = await fetch(url, {
 
-  //     method: 'PATCH',
-  //     headers: {
-  //       'X-CSRFToken': getCookie('csrftoken'),
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       content: '{ "2024-4-17@4:15:10 PM": "ds" }'
-  //     })
-  //   });
+  /* 2/3 added the event listener to the input form . It is change of the listener */
+  handlerGetMessageOfInput(sendlerOldMessageTotal);
+
 };
-export default handlerPencilOfMesseg;
+export default handlerPencilPost;

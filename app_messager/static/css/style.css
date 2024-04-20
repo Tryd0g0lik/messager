@@ -60,6 +60,7 @@ body{margin-top:20px;}
 #form-files.upload #upload {
   display: none;
 }
+
 /* infogeraphic - a pencil of the message */
 .message {
   position: relative;
@@ -78,12 +79,14 @@ body{margin-top:20px;}
   right: 57px;
   top: 0px;
 }
+/* edit post */
 .quote {
   display: flex;
   width: 100%;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  padding-left: 50px;
+  padding: 0 50px;
   overflow: hidden;
   font-size: 0.9em;
 }
+

@@ -4,7 +4,7 @@ import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
 import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
-import handlerPencilOfMesseg from '@Service/handlers/messages/old-message/edit-message';
+import handlerPencilPost from '@Service/handlers/messages/old-message/edit-message';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -105,13 +105,14 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     if (refer.length > 10) {
       localStorage.setItem('data', JSON.stringify({ fileId: false }));
     };
+    // and
     refer = '<ul>';
   }
 
   const boxMess = document.querySelector(`div[data-post="${postId}"]`);
-  debugger
+  // debugger
   if (boxMess !== null) {
-    (boxMess as HTMLDivElement).onclick = handlerPencilOfMesseg;
+    (boxMess as HTMLDivElement).onclick = handlerPencilPost;
   }
   /**
    * scroll
