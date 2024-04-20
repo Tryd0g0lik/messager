@@ -6,27 +6,33 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   localStorage.setItem('data', JSON.stringify(localSJson));
   const postId_ = localSJson.postId;
   const userId_ = localSJson.userId;
-  // if (((e as MouseEvent).type === 'click') || ((e as KeyboardEvent).key === 'Enter')) {
-  /* ------ Fetch ------ */
-  const csrftoken = getCookie('csrftoken');
-  const url = new URL(`api/chat/patch/${Number(postId_)}/`, 'http://127.0.0.1:8000/');
-  // url.searchParams.set('ind', String(filesId));
-  // }
-  // 'http://127.0.0.1:8000/api/chat/patch/404/';
+  const massage_ = localSJson.message;
+
+  /* ------ Looking to the event ------ */
   debugger;
+  if (((event as MouseEvent).type !== 'click') || ((event as KeyboardEvent).key !== 'Enter')) {
+    return {};
+  }
+  /* ------ Fetch & PATCH for one message which did user be posted & the single column ------ */
+  const url = new URL(`api/chat/patch/${Number(postId_)}/`, 'http://127.0.0.1:8000/');
+
 
   const response = await fetch(url, {
     method: 'PATCH',
-    headers: { //  
+    headers: {
       'X-CSRFToken': getCookie('csrftoken'),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      content: '{ "2024-4-17@4:15:10 PM": "ds" }',
-      userId: userId_
-
+      content: massage_
     })
   });
+
+  /* ------ LocalStorage clearing ------ */
+  localSJson.postId = '';
+  localSJson.userId = '';
+  localSJson.message = '';
+  localStorage.setItem('data', JSON.stringify(localSJson));
 
   debugger
   if (!response.ok) {

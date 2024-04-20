@@ -9,7 +9,7 @@ import eventKeyupManage from './sub-handler/subhandler-key';
  * @param 'h' is a handler function. It, a handler function that is sendler of the message from the input chat's text.
  * @param void
  */
-const handlerGetMessageOfInput = (h: (e: KeyboardEvent | MouseEvent) => void): void => {
+const handlerGetMessageOfInput = (h: () => void): void => {
   const messageFormHTML = document.getElementById('message') as HTMLDivElement;
 
   /* ------ */

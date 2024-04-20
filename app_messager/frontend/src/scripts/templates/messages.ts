@@ -28,7 +28,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     return;
   }
   let linkFilesArr: string[] = [];
-
   if (filesId.length > 0) {
     /** indexes of the files inserted to the parameters from the URL */
     const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');

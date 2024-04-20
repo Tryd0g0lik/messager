@@ -1,6 +1,7 @@
 import addQuote from './paste-quote';
 import handlerGetMessageOfInput from '../get-messages';
 import sendlerOldMessageTotal from './sendler-old-message';
+import handlerSendlerMessageTotal from '../sendler_message';
 
 const handlerPencilPost = (e: MouseEvent): undefined => {
   if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
@@ -47,5 +48,7 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
 
   /* 2/3 added the event listener to the input form . It is change of the listener */
   handlerGetMessageOfInput(sendlerOldMessageTotal(emptyEvent));
+  /* 3/3 added the event listener to the input form . It is change of the listener */
+  // handlerGetMessageOfInput(handlerSendlerMessageTotal());
 };
 export default handlerPencilPost;
