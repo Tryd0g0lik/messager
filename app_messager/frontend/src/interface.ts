@@ -1,12 +1,17 @@
 // app_messager\frontend\src\interface.ts
+interface Post {
+  postId: string
+}
 
-export interface ChatMessage {
+export interface ChatMessage extends Post {
   authorId: string
   dataTime: string
   message: string
   groupId?: string
   filesId?: number[]
-  postId: string
+}
+export interface OldData extends Post {
+  userId: string
 }
 
 export interface WSData {

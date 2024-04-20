@@ -1,24 +1,29 @@
-const sendlerOldMessageTotal = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
+import { OldData } from '@Interfaces';
+
+import handlerSendlerMessageTotal from '../sendler_message';
+import eventClickManage from '../sub-handler/suhandler-click';
+import eventKeyupManage from '../sub-handler/subhandler-key';
+import changeOldPost from '../sub-handler/subhandler-old-post';
+
+const sendlerOldMessageTotal = (h: (e: KeyboardEvent | MouseEvent) => void) => {
+  const messageFormHTML = document.getElementById('message') as HTMLDivElement;
+  messageFormHTML.removeEventListener('click', eventClickManage(h));
+  messageFormHTML.removeEventListener('keyup', eventKeyupManage(h));
+
+  const result = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
+
+  // const target = e.target as HTMLInputElement;
+  // const messages = target.value.trim();
+
+    debugger
+    const response = await changeOldPost(e);
+    handlerSendlerMessageTotal(true);
+  };
+  messageFormHTML.removeEventListener('click', result);
+  messageFormHTML.removeEventListener('keyup', result);
   debugger
-  const target = e.target as HTMLInputElement;
-  const messages = target.value.trim();
-
-  // const postId = target.post;
-
-  // const url = new URL('api/chat/patch/404/', 'http://127.0.0.1:8000/');
-  // url.searchParams.set('ind', String(filesId));
-
-  // 'http://127.0.0.1:8000/api/chat/patch/404/';
-  // debugger;
-  //   const response = await fetch(url, {
-
-  //     method: 'PATCH',
-  //     headers: {
-  //       'X-CSRFToken': getCookie('csrftoken'),
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       content: '{ "2024-4-17@4:15:10 PM": "ds" }'
-  //     })
-  //   });
+  messageFormHTML.addEventListener('click', result);
+  messageFormHTML.addEventListener('keyup', result);
 };
+
+export default sendlerOldMessageTotal;

@@ -1,5 +1,7 @@
+import { OldData } from '@Interfaces';
 import handlerUploadFiles from '../files/upload_files';
-
+import eventClickManage from './sub-handler/suhandler-click';
+import eventKeyupManage from './sub-handler/subhandler-key';
 /**
  * Here is a function. In to the entry point inserting 'h-variable' - handler. and return the handler function.
  * This function we use in more than one place and it has different handlers. \
@@ -9,47 +11,15 @@ import handlerUploadFiles from '../files/upload_files';
  */
 const handlerGetMessageOfInput = (h: (e: KeyboardEvent | MouseEvent) => void): void => {
   const messageFormHTML = document.getElementById('message') as HTMLDivElement;
-  const eventClickManage = (e: MouseEvent): void => {
-    const boxMess = e.currentTarget as HTMLDivElement;
-    if ((boxMess === null) && (e.type !== 'submit')) {
-      return;
-    }
-    const inputHtml = (boxMess).querySelector('input[type="text"]') as HTMLInputElement;
-    if (inputHtml === null) {
-      return;
-    }
 
-    (inputHtml).onclick = null;
-    const messages = ((inputHtml.value).length > 0) ? inputHtml.value.trim() : '';
-    if ((messages.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolean'))) {
-      /* ------ events clearing ------ */
-      if ((e.target as HTMLInputElement).tagName === 'INPUT') {
-        return;
-      }
-      (inputHtml).onclick = h;
-
-      /* ------ Generator event for tag input ------  */
-      const newEvent = new Event('click');
-      (inputHtml).dispatchEvent(newEvent);
-      (inputHtml).onclick = null;
-    }
-  };
   /* ------ */
   if ((messageFormHTML !== null)) {
-    messageFormHTML.removeEventListener('click', eventClickManage);
-    messageFormHTML.addEventListener('click', eventClickManage);
+    messageFormHTML.removeEventListener('click', eventClickManage(h));
+    messageFormHTML.addEventListener('click', eventClickManage(h));
     /* ------ */
-    const eventKeyupManage = (e: KeyboardEvent): void => {
-      if ((e).key === 'Enter') {
-        const target = (e.target as HTMLInputElement);
-        const messages = ((target.value).length > 0) ? target.value.trim() : '';
-        if ((messages.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolean'))) {
-          h(e);
-        }
-      };
-    };
-    messageFormHTML.removeEventListener('keyup', eventKeyupManage);
-    messageFormHTML.addEventListener('keyup', eventKeyupManage);
+
+    messageFormHTML.removeEventListener('keyup', eventKeyupManage(h));
+    messageFormHTML.addEventListener('keyup', eventKeyupManage(h));
   };
 
   /**

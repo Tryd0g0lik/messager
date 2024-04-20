@@ -118,6 +118,10 @@ export class WSocket {
       return false;
     }
   };
+
+  oldDataSendNow(): void {
+    null;
+  }
 }
 
 // WebSocets

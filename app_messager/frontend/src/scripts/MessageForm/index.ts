@@ -11,5 +11,5 @@ if (APP_WS_URL === undefined) {
 
 document.addEventListener('DOMContentLoaded', () => {
   /* 1/3 added the event listener to the input form . */
-  handlerGetMessageOfInput(handlerSendlerMessageTotal);
+  handlerGetMessageOfInput(handlerSendlerMessageTotal());
 });
