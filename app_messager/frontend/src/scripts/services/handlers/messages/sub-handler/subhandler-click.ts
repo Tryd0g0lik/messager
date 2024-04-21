@@ -16,7 +16,6 @@ const eventClickManage = (h: (e: MouseEvent) => void): (e: MouseEvent) => void =
       return;
     }
 
-    // (inputHtml).onclick = null;
     const messages = ((inputHtml.value).length > 0) ? inputHtml.value.trim() : '';
     if ((messages.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolean'))) {
       /* ------ events clearing ------ */

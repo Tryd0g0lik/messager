@@ -8,9 +8,7 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   const messageInputHtml = document.querySelector('#messager');
   const userId_ = localSJson.userId;
   const massage_ = (messageInputHtml !== null) ? (messageInputHtml as HTMLInputElement).value : 'NoN'; // !!!!! undefinde
-  // if (((e as MouseEvent).type !== 'click') || ((e as KeyboardEvent).key !== 'Enter')) {
-  //   return;
-  // }
+
   debugger;
   if (((event as MouseEvent).type !== 'click') || ((event as KeyboardEvent).key !== 'Enter')) {
     return {};
