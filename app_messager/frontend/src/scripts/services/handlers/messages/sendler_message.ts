@@ -1,5 +1,6 @@
 // app_messager\frontend\src\scripts\services\sendler_message.ts
 
+import cleanForm from '@Service/cleaner';
 import time from '@Service/handlers/getDataTime';
 import { WSocket } from '@Websocket';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
@@ -28,7 +29,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
 
     const target = e.target as HTMLInputElement;
     const curranTarget = e.currentTarget as HTMLElement;
-    debugger
+
     const messages = ((target.type).includes('submit')) ? (curranTarget.querySelector('#messager') as HTMLInputElement).value.trim() : target.value.trim();
     // const messages = target.value.trim();
     const indexUser = target.dataset.id;
@@ -52,21 +53,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       }
     }
 
-    /* clearning forms - message */
-    const inputFormHTML = document.querySelector('input[data-id]');
-    if (inputFormHTML !== null) {
-      (inputFormHTML as HTMLInputElement).value = '';
-    };
-
-    /* clearning forms - file */
-    const formFiles = document.getElementById('upload');
-    if (formFiles === null) {
-      return;
-    }
-    const inputFile = formFiles?.querySelector('input[type="file"]');
-    if (inputFile !== null) {
-      (inputFile as HTMLInputElement).value = '';
-    };
+    cleanForm();
   };
 };
 
