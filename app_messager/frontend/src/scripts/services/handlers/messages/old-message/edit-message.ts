@@ -8,17 +8,17 @@ export class Pencil {
 
   pencil: HTMLDivElement;
 
-  constructor(box: HTMLDivElement) {
-    this.box = box;
-  }
-
-  set boxPencile(pencil: HTMLDivElement): void {
+  constructor(pencil: HTMLDivElement) {
     this.pencil = pencil;
   }
 
-  get boxPencile(): typeof this.pencil {
-    return this.pencil;
-  }
+  // set boxPencile(pencil: HTMLDivElement): void {
+  //   this.pencil = pencil;
+  // }
+
+  // get boxPencile(): typeof this.pencil {
+  //   return this.pencil;
+  // }
 
   handlerPencilPost(e: MouseEvent): void {
     if (!((e.target as HTMLDivElement).className.includes('pencil'))) {

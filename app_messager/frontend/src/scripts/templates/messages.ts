@@ -97,8 +97,8 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     const oldChat = htmlChat?.innerHTML;
     const newBox = htmlMessage.outerHTML;
     const combinedHTML = oldChat + newBox;
-    htmlChat.innerHTML = '';
-    htmlChat.innerHTML = combinedHTML;
+    // htmlChat.innerHTML = '';
+    htmlChat.insertAdjacentHTML('beforeend', newBox); // = combinedHTML;
 
     /*  cleaning to the datas */
     filesId = [];
@@ -109,24 +109,25 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
-    if (boxMess === null) {
-      return;
+    if (boxMess !== null) {
+      // return;
+      const Pencil_ = new Pencil(boxMess);
+      // debugger
+
+      // Group.boxPencile = boxMess;
+      Pencil_.start();
     }
     if (boxMess === null) {
       return;
     }
     const group = document.getElementById('group');
-
-    const Group = new Pencil(group as HTMLDivElement);
-    // debugger
-    if (boxMess !== null) {
-      Group.boxPencile = boxMess;
-      Group.start();
-      // const handlerPencilPost = Group.handlerPencilPost.bind(Group);
-      // (pencil).onclick = handlerPencilPost;
-      // Group.boxPencile.onclick = Group.handlerPencilPost;
-      // (boxMess as HTMLDivElement).onclick = pencil.handlerPencilPost;
-    }
+    // if (boxMess !== null) {
+    
+    // const handlerPencilPost = Group.handlerPencilPost.bind(Group);
+    // (pencil).onclick = handlerPencilPost;
+    // Group.boxPencile.onclick = Group.handlerPencilPost;
+    // (boxMess as HTMLDivElement).onclick = pencil.handlerPencilPost;
+    // }
   }
   /**
    * scroll
