@@ -1,7 +1,7 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\old-message\edit-message.ts
 import addQuote from './paste-quote';
 import handlerGetMessageOfInput from '../get-messages';
-import sendlerOldMessageTotal from './sendler-old-message';
+import manageOldMessageTotal from './old-messages';
 
 export class Pencil {
   box: HTMLDivElement;
@@ -50,12 +50,13 @@ export class Pencil {
 
     const localS = localStorage.getItem('data');
     const localSJson = JSON.parse(localS as string);
+		// debugger
     localSJson.postId = postId_;
     localSJson.userId = userId_;
     localStorage.setItem('data', JSON.stringify(localSJson));
 
     /* 2/3 added the event listener to the input form . It is change of the listener */
-    handlerGetMessageOfInput(sendlerOldMessageTotal());
+		handlerGetMessageOfInput(manageOldMessageTotal());
   };
 
   private addEvent(): void {

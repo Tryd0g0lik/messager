@@ -13,7 +13,7 @@ import eventKeyupManage from './sub-handler/subhandler-key';
 const handlerGetMessageOfInput = (fun: ((e: KeyboardEvent | MouseEvent) => void) | (() => void)): void => {
   const messageFormHTML = document.getElementById('message') as HTMLElement;
   /*
-  * Atencion!! Here changing  html-element on the copy it. \
+  * Attencion!! Here changing  html-element on the copy it. \
   * This action be clearning from is event-listeners \
   * https://typedarray.org/remove-all-event-listeners-from-an-element/
   */

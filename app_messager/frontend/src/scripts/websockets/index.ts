@@ -1,6 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
+import builderOldMessage from '@Service/handlers/messages/old-message/paste-olde-message';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -87,6 +88,7 @@ export class WSocket {
     if (resp === null) {
       return;
     };
+
     const dataTextJson = JSON.parse(resp);
     const message = dataTextJson.message;
     const authorId = String(dataTextJson.userId);
@@ -98,7 +100,13 @@ export class WSocket {
     // debugger
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
     // console.log(`[websokets > RECIVED FILES]: ${dataJson}`);
-    createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
+    if (dataTextJson.corrects !== true) {
+      createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
+    } else {
+      const postIndex = postId;
+      const postMessage = message;
+      builderOldMessage({ postIndex, postMessage });
+    }
   };
 
   onClose(): void {
@@ -119,9 +127,9 @@ export class WSocket {
     }
   };
 
-  oldDataSendNow(): void {
-    null;
-  }
+  // oldDataSendNow(): void {
+  //   null;
+  // }
 }
 
 // WebSocets

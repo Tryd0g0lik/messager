@@ -88,7 +88,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       </div>
   `;
     htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
-
+    // debugger
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
     htmlMessage.setAttribute('data-id', res); // data-user-id
@@ -96,8 +96,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     htmlMessage.classList.add(rightLeft);
     const oldChat = htmlChat?.innerHTML;
     const newBox = htmlMessage.outerHTML;
-    const combinedHTML = oldChat + newBox;
-    // htmlChat.innerHTML = '';
     htmlChat.insertAdjacentHTML('beforeend', newBox); // = combinedHTML;
 
     /*  cleaning to the datas */
@@ -110,24 +108,12 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
     if (boxMess !== null) {
-      // return;
       const Pencil_ = new Pencil(boxMess);
-      // debugger
-
-      // Group.boxPencile = boxMess;
       Pencil_.start();
     }
     if (boxMess === null) {
       return;
     }
-    const group = document.getElementById('group');
-    // if (boxMess !== null) {
-    
-    // const handlerPencilPost = Group.handlerPencilPost.bind(Group);
-    // (pencil).onclick = handlerPencilPost;
-    // Group.boxPencile.onclick = Group.handlerPencilPost;
-    // (boxMess as HTMLDivElement).onclick = pencil.handlerPencilPost;
-    // }
   }
   /**
    * scroll
