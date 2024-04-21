@@ -1,4 +1,4 @@
-// let h = (e: MouseEvent): void => { };
+// app_messager\frontend\src\scripts\services\handlers\messages\sub-handler\subhandler-click.ts
 
 /**
  * This is only  a logic action after the event click or 'Enter' keybord.
@@ -22,13 +22,7 @@ const eventClickManage = (h: (e: MouseEvent) => void): (e: MouseEvent) => void =
       if ((e.target as HTMLInputElement).tagName === 'INPUT') {
         return;
       }
-      // (inputHtml).onclick = h;
-      debugger;
       h(e);
-      /* ------ Generator event for tag input ------  */
-      // const newEvent = new Event('click');
-      // (inputHtml).dispatchEvent(newEvent);
-      // (inputHtml).onclick = null;
     }
   };
 };

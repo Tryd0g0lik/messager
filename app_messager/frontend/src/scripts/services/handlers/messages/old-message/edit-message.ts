@@ -1,3 +1,4 @@
+// app_messager\frontend\src\scripts\services\handlers\messages\old-message\edit-message.ts
 import addQuote from './paste-quote';
 import handlerGetMessageOfInput from '../get-messages';
 import sendlerOldMessageTotal from './sendler-old-message';
@@ -27,13 +28,6 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
   const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
 
   addQuote(message);
-  // debugger
-  // const newCastomEvent = new CustomEvent('old', {
-  //   detail: {
-  //     postId: postId_,
-  //     userId: userId_
-  //   }
-  // });
   if (localStorage.getItem('data') === null) {
     console.log('[handlerPencilPost > localStorage] the "data" from the localStorage not found');
     return;
@@ -44,9 +38,7 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
   localSJson.postId = postId_;
   localSJson.userId = userId_;
   localStorage.setItem('data', JSON.stringify(localSJson));
-  /* below is simply empty the click event */
-  const emptyEvent = new MouseEvent('click');  // sendlerOldMessageTotal(emptyEvent)
-  // sendlerOldMessageTotal()
+
   /* 2/3 added the event listener to the input form . It is change of the listener */
   handlerGetMessageOfInput(sendlerOldMessageTotal());
 };

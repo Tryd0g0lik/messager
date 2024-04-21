@@ -1,4 +1,5 @@
-import { OldData } from '@Interfaces';
+// app_messager\frontend\src\scripts\services\handlers\messages\get-messages.ts
+
 import handlerUploadFiles from '../files/upload_files';
 import eventClickManage from './sub-handler/subhandler-click';
 import eventKeyupManage from './sub-handler/subhandler-key';
@@ -11,15 +12,16 @@ import eventKeyupManage from './sub-handler/subhandler-key';
  */
 const handlerGetMessageOfInput = (fun: ((e: KeyboardEvent | MouseEvent) => void) | (() => void)): void => {
   const messageFormHTML = document.getElementById('message') as HTMLElement;
+  /*
+  * Atencion!! Here changing  html-element on the copy it. \
+  * This action be clearning from is event-listeners
+  */
   const cloneMessageFormHTML = messageFormHTML.cloneNode(true);
   messageFormHTML.replaceWith(cloneMessageFormHTML);
   /* ------ */
   if ((messageFormHTML !== null)) {
-    // (cloneMessageFormHTML as HTMLElement).removeEventListener('click', eventClickManage(fun));
     (cloneMessageFormHTML as HTMLElement).addEventListener('click', eventClickManage(fun));
     /* ------ */
-
-    // (cloneMessageFormHTML as HTMLElement).removeEventListener('keyup', eventKeyupManage(fun));
     (cloneMessageFormHTML as HTMLElement).addEventListener('keyup', eventKeyupManage(fun));
   };
 

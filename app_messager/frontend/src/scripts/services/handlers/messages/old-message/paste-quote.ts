@@ -1,3 +1,5 @@
+// app_messager\frontend\src\scripts\services\handlers\messages\old-message\paste-quote.ts
+
 /**
  * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form. 
  */

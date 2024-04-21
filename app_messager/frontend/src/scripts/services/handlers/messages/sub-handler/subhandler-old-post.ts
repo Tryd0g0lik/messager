@@ -1,3 +1,5 @@
+// app_messager\frontend\src\scripts\services\handlers\messages\sub-handler\subhandler-old-post.ts
+
 import getCookie from '@Service/cookies';
 const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object> => {
   /* ------ LocalStorage ------ */
@@ -6,16 +8,9 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   localStorage.setItem('data', JSON.stringify(localSJson));
   const postId_ = localSJson.postId;
   const messageInputHtml = document.querySelector('#messager');
-  const userId_ = localSJson.userId;
-  const massage_ = (messageInputHtml !== null) ? (messageInputHtml as HTMLInputElement).value : 'NoN'; // !!!!! undefinde
-
-  debugger;
-  if (((event as MouseEvent).type !== 'click') || ((event as KeyboardEvent).key !== 'Enter')) {
-    return {};
-  }
+  const massage_ = (messageInputHtml !== null) ? (messageInputHtml as HTMLInputElement).value : 'NoN';
   /* ------ Fetch & PATCH for one message which did user be posted & the single column ------ */
   const url = new URL(`api/chat/patch/${Number(postId_)}/`, 'http://127.0.0.1:8000/');
-
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -27,18 +22,12 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
       content: String(massage_)
     })
   });
+
   /* ------ LocalStorage clearing ------ */
   localSJson.postId = '';
   localSJson.userId = '';
   localStorage.setItem('data', JSON.stringify(localSJson));
 
-  /* ------ LocalStorage clearing ------ */
-  localSJson.postId = '';
-  localSJson.userId = '';
-  localSJson.message = '';
-  localStorage.setItem('data', JSON.stringify(localSJson));
-
-  debugger
   if (!response.ok) {
     console.log('[changeOldPost > PATCH] response is not a true');
     return { response: false };
