@@ -5,8 +5,9 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   const localSJson = JSON.parse(localS as string);
   localStorage.setItem('data', JSON.stringify(localSJson));
   const postId_ = localSJson.postId;
+  const messageInputHtml = document.querySelector('#messager');
   const userId_ = localSJson.userId;
-  const massage_ = localSJson.message; // !!!!! undefinde
+  const massage_ = (messageInputHtml !== null) ? (messageInputHtml as HTMLInputElement).value : 'NoN'; // !!!!! undefinde
   // if (((e as MouseEvent).type !== 'click') || ((e as KeyboardEvent).key !== 'Enter')) {
   //   return;
   // }
@@ -31,9 +32,8 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
     })
   });
   /* ------ LocalStorage clearing ------ */
-  ocalSJson.postId = '';
+  localSJson.postId = '';
   localSJson.userId = '';
-  localSJson.message = '';
   localStorage.setItem('data', JSON.stringify(localSJson));
 
   debugger
