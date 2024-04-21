@@ -44,8 +44,9 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
   localStorage.setItem('data', JSON.stringify(localSJson));
   /* below is simply empty the click event */
   const emptyEvent = new MouseEvent('click');
-
+  // sendlerOldMessageTotal(emptyEvent)
+  // sendlerOldMessageTotal()
   /* 2/3 added the event listener to the input form . It is change of the listener */
-  handlerGetMessageOfInput(sendlerOldMessageTotal(emptyEvent));
+  handlerGetMessageOfInput(sendlerOldMessageTotal());
 };
 export default handlerPencilPost;

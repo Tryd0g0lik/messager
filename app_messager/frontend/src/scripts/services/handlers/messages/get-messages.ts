@@ -1,25 +1,26 @@
 import { OldData } from '@Interfaces';
 import handlerUploadFiles from '../files/upload_files';
-import eventClickManage from './sub-handler/suhandler-click';
+import eventClickManage from './sub-handler/subhandler-click';
 import eventKeyupManage from './sub-handler/subhandler-key';
 /**
- * Here is a function. In to the entry point inserting 'h-variable' - handler. and return the handler function.
+ * Here is a function. In to the entry point inserting 'fun-variable' - handler. and return the handler function.
  * This function we use in more than one place and it has different handlers. \
- * Itself variable 'h' is a heandler event the KeyboardEvent | MouseEvent or (KeyboardEvent && MouseEvent). \
- * @param 'h' is a handler function. It, a handler function that is sendler of the message from the input chat's text.
+ * Itself variable 'fun' is a heandler event the KeyboardEvent | MouseEvent or (KeyboardEvent && MouseEvent). \
+ * @param 'fun' is a handler function. It, a handler function that is sendler of the message from the input chat's text.
  * @param void
  */
-const handlerGetMessageOfInput = (h: (e: KeyboardEvent | MouseEvent) => void): void => {
-  const messageFormHTML = document.getElementById('message') as HTMLDivElement;
-
+const handlerGetMessageOfInput = (fun: ((e: KeyboardEvent | MouseEvent) => void) | (() => void)): void => {
+  const messageFormHTML = document.getElementById('message') as HTMLElement;
+  const cloneMessageFormHTML = messageFormHTML.cloneNode(true);
+  messageFormHTML.replaceWith(cloneMessageFormHTML);
   /* ------ */
   if ((messageFormHTML !== null)) {
-    messageFormHTML.removeEventListener('click', eventClickManage(h));
-    messageFormHTML.addEventListener('click', eventClickManage(h));
+    // (cloneMessageFormHTML as HTMLElement).removeEventListener('click', eventClickManage(fun));
+    (cloneMessageFormHTML as HTMLElement).addEventListener('click', eventClickManage(fun));
     /* ------ */
 
-    messageFormHTML.removeEventListener('keyup', eventKeyupManage(h));
-    messageFormHTML.addEventListener('keyup', eventKeyupManage(h));
+    // (cloneMessageFormHTML as HTMLElement).removeEventListener('keyup', eventKeyupManage(fun));
+    (cloneMessageFormHTML as HTMLElement).addEventListener('keyup', eventKeyupManage(fun));
   };
 
   /**
