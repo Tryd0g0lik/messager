@@ -1,6 +1,7 @@
 import addQuote from './paste-quote';
 import handlerGetMessageOfInput from '../get-messages';
 import sendlerOldMessageTotal from './sendler-old-message';
+
 import handlerSendlerMessageTotal from '../sendler_message';
 
 const handlerPencilPost = (e: MouseEvent): undefined => {
@@ -44,11 +45,9 @@ const handlerPencilPost = (e: MouseEvent): undefined => {
   localSJson.userId = userId_;
   localStorage.setItem('data', JSON.stringify(localSJson));
   /* below is simply empty the click event */
-  const emptyEvent = new MouseEvent('click');
-
+  const emptyEvent = new MouseEvent('click');  // sendlerOldMessageTotal(emptyEvent)
+  // sendlerOldMessageTotal()
   /* 2/3 added the event listener to the input form . It is change of the listener */
-  handlerGetMessageOfInput(sendlerOldMessageTotal(emptyEvent));
-  /* 3/3 added the event listener to the input form . It is change of the listener */
-  // handlerGetMessageOfInput(handlerSendlerMessageTotal());
+  handlerGetMessageOfInput(sendlerOldMessageTotal());
 };
 export default handlerPencilPost;

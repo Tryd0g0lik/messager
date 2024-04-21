@@ -4,7 +4,7 @@ import time from '@Service/handlers/getDataTime';
 import { WSocket } from '@Websocket';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 /**
- * 
+ *
  * @param 'corrects:boolean' That is 'true' then is event by send the new message. \
  * If value is 'false', than send the old message.  It's a post wich has a correcte
  * @returns Promise<void>
@@ -27,7 +27,10 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
     }
 
     const target = e.target as HTMLInputElement;
-    const messages = target.value.trim();
+    const curranTarget = e.currentTarget as HTMLElement;
+    debugger
+    const messages = ((target.type).includes('submit')) ? (curranTarget.querySelector('#messager') as HTMLInputElement).value.trim() : target.value.trim();
+    // const messages = target.value.trim();
     const indexUser = target.dataset.id;
     const datetime = time.getFullTime();
     //  && (messageFormHTML as HTMLInputElement).value.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolen'))
