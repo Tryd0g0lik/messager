@@ -53,7 +53,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   const htmlChat = (groupNumber as HTMLDivElement).querySelector('#chat');
   if (htmlChat === null) { return }
   const htmlMessage = document.createElement('div');
-  const htmlDownloaad = htmlMessage.cloneNode();
   if ((message === undefined) ||
     ((typeof message).includes('string') && (message.length === 0) && (filesId.length === 0))) {
     return;
@@ -69,7 +68,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     }
   }
   refer += '</ul>';
-
+  /* ------ message box ------ */
   const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
@@ -122,7 +121,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     const height = (boxDownload as HTMLElement).offsetHeight;
     boxMess.style.paddingTop = String(height) + 'px';
   }
-
 
   /**
    * scroll
