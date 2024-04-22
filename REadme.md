@@ -135,16 +135,30 @@ After this's \
 
 ## History
 this an all package was installed for the chat project from Django. \
-[1.1 -branch]: we can run chatting and async record messeges in the db. \
-[1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad. \
-[1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
-These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by a new user file. \
-If did not found , it means the user file is unique. Or not unique \
-[1.2.1 -branch]: Here is added sending files. It's one sending or more files\
-Added a control weight of the file (files) from the one single message (jne user).\
-In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.\
-Plus, [pattern timer](#timeer-of-message)
+[1.1 -branch]: 
+- we can run chatting and async record messeges in the db.
 
+[1.1 -branch]:
+- we have the ability having the connaction to the chat server if we us focus on another tad.
+
+[1.2 -branch]:
+- `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker`
+- These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by a new user file.
+- If did not found , it means the user file is unique. Or not unique 
+
+[1.2.1 -branch]: 
+- Here is added sending files. It's one sending or more files
+- do weight restrictions on file to the single message. It's 10MB and 64MB.
+- In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.
+- Plus, [pattern timer](#timeer-of-message)
+
+[2 -branch]: 
+- uniqueness of files checking by the 'md5' algorithm. 
+- A poste with the box html  for a download files is has a dynamic property. It's box's 'padding-top'.
+- All files located above the poste.
+- Everything post maybe open for a redaction. For opening post need press to the pencil. It's a 'svg' infographic. 
+- After press on the pencil in chat message, you can see the quote post and post itself inside the form. 
+- The new post (updated post) is updating in the db and to the chat all users.
 
 
 ## Files for  message
