@@ -1,1 +1,1 @@
-import './MessageForm/index.ts';
+import './MessageForm/index';

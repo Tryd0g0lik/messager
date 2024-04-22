@@ -1,38 +1,10 @@
-// app_messager\frontend\src\scripts\services\upload_files.ts
+// app_messager\frontend\src\scripts\services\handlers\handler_input-file.ts
 
-const handlerUploadFiles = (): undefined => {
 /**
- * preparing eventronment
+ * rules of handler
  */
-  const formDiv = document.getElementById('form-files');
-  if (formDiv === null) {
-    return;
-  }
-  let form = formDiv.querySelector('#upload') as HTMLFormElement;
-  if (form === null) {
-    return;
-  }
-
-  /** Check the key of localStorage.
-   * Key fileId be has a value:
-   * - 'false' - user no sending the file;
-   * - 'true' - user has sent file but has not received a file id in now time.
-   * - var a number type is id file.
-  */
-  const checkLockalKey = localStorage.getItem('data') !== null;
-
-  if (checkLockalKey) {
-    const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
-    dataLocalJson.fileId = false;
-    localStorage.setItem('data', JSON.stringify(dataLocalJson));
-  } else {
-    localStorage.setItem('data', JSON.stringify({ fileId: false }));
-  }
-
-  /**
-   * rules of handler
-   */
-  const handlerInputEvent = async (event: any): Promise<void> => {
+const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
+  return async (event: any): Promise<void> => {
     form = formDiv.querySelector('#upload') as HTMLFormElement;
 
     /* For a loader anime. AnimeCode is below 1/3 */
@@ -40,8 +12,6 @@ const handlerUploadFiles = (): undefined => {
 
     const formData = new FormData(form);
     formData.append('file', event.target.files);
-
-    console.log('SEiZE: ', event.target.files[0].size);
 
     /**
      * Note: Size files
@@ -73,6 +43,7 @@ const handlerUploadFiles = (): undefined => {
     /**  We talking about beginning the upload */
     const dataLocalJson_ = JSON.parse(localStorage.getItem('data') as string);
     dataLocalJson_.fileId = true;
+
     localStorage.setItem('data', JSON.stringify(dataLocalJson_));
 
     /** Loader for a display anime 2/3 */
@@ -86,9 +57,10 @@ const handlerUploadFiles = (): undefined => {
       .then(async (response) => {
         let responce: string | boolean = '';
         if (response.ok) {
+          // debugger
           const data = await response.json();
           console.info('[upload_files > FORM]:', data);
-          responce = data.index;
+          responce = data.index.slice(0);
           /** record result/ It's ID or false */
           const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
           dataLocalJson.fileId = responce;
@@ -101,9 +73,5 @@ const handlerUploadFiles = (): undefined => {
       }
       );
   };
-  /**
-   * added the event listeber
-   */
-  (form as HTMLElement).onchange = handlerInputEvent;
 };
-export default handlerUploadFiles;
+export default handlerInputEvent;

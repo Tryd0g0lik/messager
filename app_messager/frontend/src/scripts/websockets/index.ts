@@ -1,6 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
+import builderOldMessage from '@Service/handlers/messages/old-message/paste-old-message';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -87,16 +88,23 @@ export class WSocket {
     if (resp === null) {
       return;
     };
+
     const dataTextJson = JSON.parse(resp);
     const message = dataTextJson.message;
     const authorId = String(dataTextJson.userId);
+    const postId = String(dataTextJson.postId);
+
     const groupId = dataTextJson.groupId;
     const dataTime = dataTextJson.eventtime;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
-    // debugger
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
-    // console.log(`[websokets > RECIVED FILES]: ${dataJson}`);
-    createChatMessage({ authorId, dataTime, message, groupId, filesId });
+    if (dataTextJson.corrects !== true) {
+      createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
+    } else {
+      const postIndex = postId;
+      const postMessage = message;
+      builderOldMessage({ postIndex, postMessage });
+    }
   };
 
   onClose(): void {
@@ -105,11 +113,10 @@ export class WSocket {
 
   dataSendNow(): undefined | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
-    console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok', data);
-    console.log(`[websokets > OPEN > BEFORE SEND]:  ReadyState: ${this.socket.readyState}`);
+    console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok');
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
-      console.log('[websokets > OPEN > AFTER SEND]: Ok', this.socket.readyState);
+      console.log('[websokets > OPEN > AFTER SEND]: Ok');
       this.handlers.data.pop();
     } else {
       console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");
@@ -117,5 +124,3 @@ export class WSocket {
     }
   };
 }
-
-// WebSocets

@@ -1,44 +1,10 @@
+// app_messager\frontend\src\scripts\templates\messages.ts
+
 import { ChatMessage } from '@Interfaces';
-import time from '@Service/getDataTime';
-
-function scrollToBottom(): void {
-  const chatBox = document.querySelector('#chat');
-  if (chatBox === null) {
-    return;
-  }
-  chatBox.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth'
-  });
-}
-
-function checkOfTime(dateTime: string): string {
-  const oldDate = dateTime.split('@')[0];
-  const t = (dateTime.split('@'))[1];
-  if (oldDate.includes(time.getNowDate())) {
-    return t;
-  };
-  const d = (dateTime.split('@'))[0];
-  return d + ' ' + t;
-}
-
-function checkYourOnNotYour(userId: string | number): undefined | boolean {
-  const inputHtml = document.getElementById('messager');
-  if (inputHtml === null) {
-    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputHtml"!');
-    return;
-  }
-  const inputUserId = inputHtml.dataset.id;
-  if (inputUserId === undefined) {
-    console.error('[templates/messages.ts > checkYourOnNotYour]: ERROR. What something wrong with the "inputUserId"!');
-    return;
-  }
-  const userIdNumber = ((typeof userId).includes('string'))
-    ? Number(userId)
-    : userId;
-  const result = (userIdNumber === Number(inputUserId));
-  return result;
-}
+import scrollToBottom from '@Service/handlers/scrolling';
+import checkerUserId from './checkers/checkUseId';
+import checkOfTime from './checkers/checker_time';
+import { Pencil } from '@Service/handlers/messages/old-message/edit-message';
 
 /**
  * This's function insert a new message to the chat.
@@ -49,12 +15,11 @@ function checkYourOnNotYour(userId: string | number): undefined | boolean {
  * @param 'message' - This's the message's text.
  * @returns html-text of a box.
  */
-export async function createChatMessage({ authorId, dataTime, message, groupId = undefined, fileLink = [], filesId = [] }: ChatMessage): Promise<undefined> {
+export async function createChatMessage({ authorId, dataTime, message, groupId = undefined, postId = '', filesId = [] }: ChatMessage): Promise<undefined> {
   /*
     we change the group number.
   */
   const groupNumber = document.getElementById('group');
-  console.log(`[PUBLIC > FILES]: ${filesId[0]}`);
 
   if ((groupNumber === null) || (groupId === undefined) ||
     (groupNumber.dataset.groupid === undefined) ||
@@ -63,7 +28,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     return;
   }
   let linkFilesArr: string[] = [];
-
   if (filesId.length > 0) {
     /** indexes of the files inserted to the parameters from the URL */
     const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
@@ -89,6 +53,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   const htmlChat = (groupNumber as HTMLDivElement).querySelector('#chat');
   if (htmlChat === null) { return }
   const htmlMessage = document.createElement('div');
+  const htmlDownloaad = htmlMessage.cloneNode();
   if ((message === undefined) ||
     ((typeof message).includes('string') && (message.length === 0) && (filesId.length === 0))) {
     return;
@@ -103,40 +68,62 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       refer += `<li><a target="_blank" href="${urlOrigin}/media/${linkFilesArr[i].slice(0)}">${(linkFilesArr[i].split('/'))[len - 1]}</a></li>`;
     }
   }
+  refer += '</ul>';
 
-  const resultCheckUser = checkYourOnNotYour(authorId);
-  if (resultCheckUser !== undefined) {
-    htmlMessage.innerHTML = `
-      <div>
+  const resultCheckUser = checkerUserId(authorId);
+  if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
+    /* 'postId' - data receeiving from the db's timestamp */
+    htmlMessage.dataset.post = postId;
+    htmlMessage.innerHTML = (refer.length > 10) ? (`<div class="download">${refer}</div>`) : '';
+    htmlMessage.innerHTML += `
+      <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
       </div>
-      <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-        <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
+      <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+        <div class="user-name font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}
+        <div class='pencil'></div>
+        </div>
+        <div class="user-message">
         ${message}
+        </div>
       </div>
   `;
-    htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
-
+    // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-    htmlMessage.setAttribute('data-user-id', res);
-    htmlMessage.className = 'pb-4';
+    htmlMessage.setAttribute('data-id', res); 
+    htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
-    const oldChat = htmlChat?.innerHTML;
     const newBox = htmlMessage.outerHTML;
-    const combinedHTML = oldChat + newBox;
-    htmlChat.innerHTML = '';
-    htmlChat.innerHTML = combinedHTML;
+    htmlChat.insertAdjacentHTML('beforeend', newBox);
 
     /*  cleaning to the datas */
     filesId = [];
     if (refer.length > 10) {
       localStorage.setItem('data', JSON.stringify({ fileId: false }));
     };
+    // and
     refer = '<ul>';
+
+    const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
+    /* ------ pencile ------ */
+    if (boxMess !== null) {
+      const Pencil_ = new Pencil(boxMess);
+      Pencil_.start();
+    }
+    if (boxMess === null) {
+      return;
+    }
+    /* ------ doenload box ------ */
+    const boxDownload = boxMess.getElementsByClassName('download')[0];
+    /* ------ style for a box with has download class  ------ */
+    const height = (boxDownload as HTMLElement).offsetHeight;
+    boxMess.style.paddingTop = String(height) + 'px';
   }
+
+
   /**
    * scroll
    */
