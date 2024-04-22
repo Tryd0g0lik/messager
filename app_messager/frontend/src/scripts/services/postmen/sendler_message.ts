@@ -42,7 +42,6 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       console.log('[handlerSendlerMessageTotal > corrects TRUE]: something is thrang. That is "postId" not found');
       return;
     }
-    //  && (messageFormHTML as HTMLInputElement).value.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolen'))
 
     if (((typeof fileIdArr).includes('object'))) {
       if (!corrects) {
@@ -53,12 +52,12 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
         await socket.dataSendNow();
       }
     } else {
-      if (!corrects) {// номер поста
+      if (!corrects) {
         socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
         await socket.dataSendNow();
       } else {
         socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex })]));
-        await socket.dataSendNow(); // ???
+        await socket.dataSendNow();
       }
     }
 

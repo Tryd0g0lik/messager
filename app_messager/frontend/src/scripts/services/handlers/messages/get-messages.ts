@@ -15,7 +15,6 @@ const handlerGetMessageOfInput = (fun: ((e: KeyboardEvent | MouseEvent) => void)
   /*
   * Attencion!! Here changing  html-element on the copy it. \
   * This action be clearning from is event-listeners \
-  * https://typedarray.org/remove-all-event-listeners-from-an-element/
   */
   const cloneMessageFormHTML = messageFormHTML.cloneNode(true);
   messageFormHTML.replaceWith(cloneMessageFormHTML);

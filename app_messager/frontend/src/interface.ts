@@ -19,3 +19,8 @@ export interface WSData {
   close: []
   data: []
 }
+
+export interface PostCorrector {
+  postIndex: string
+  postMessage: string
+}

@@ -20,7 +20,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     we change the group number.
   */
   const groupNumber = document.getElementById('group');
-  console.log(`[PUBLIC > FILES]: ${filesId[0]}`);
 
   if ((groupNumber === null) || (groupId === undefined) ||
     (groupNumber.dataset.groupid === undefined) ||
@@ -79,7 +78,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
       </div>
-      <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+      <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
         <div class='pencil'></div>
         <div class="user-message">
@@ -88,15 +87,13 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       </div>
   `;
     htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
-    // debugger
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-    htmlMessage.setAttribute('data-id', res); // data-user-id
+    htmlMessage.setAttribute('data-id', res); 
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
-    const oldChat = htmlChat?.innerHTML;
     const newBox = htmlMessage.outerHTML;
-    htmlChat.insertAdjacentHTML('beforeend', newBox); // = combinedHTML;
+    htmlChat.insertAdjacentHTML('beforeend', newBox);
 
     /*  cleaning to the datas */
     filesId = [];
