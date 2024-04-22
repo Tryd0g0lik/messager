@@ -61,11 +61,25 @@ body{margin-top:20px;}
   display: none;
 }
 
-/* infogeraphic - a pencil of the message */
 .message {
   position: relative;
 }
+/* infogeraphic - a pencil of the message */
+.message,
+.user-name {
+  position: relative;
+}
 
+.download {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.download ul {
+  margin: 0;
+}
 .pencil {
   display: block;
   position: absolute;

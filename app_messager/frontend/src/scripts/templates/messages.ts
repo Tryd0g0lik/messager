@@ -53,6 +53,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   const htmlChat = (groupNumber as HTMLDivElement).querySelector('#chat');
   if (htmlChat === null) { return }
   const htmlMessage = document.createElement('div');
+  const htmlDownloaad = htmlMessage.cloneNode();
   if ((message === undefined) ||
     ((typeof message).includes('string') && (message.length === 0) && (filesId.length === 0))) {
     return;
@@ -67,26 +68,29 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       refer += `<li><a target="_blank" href="${urlOrigin}/media/${linkFilesArr[i].slice(0)}">${(linkFilesArr[i].split('/'))[len - 1]}</a></li>`;
     }
   }
+  refer += '</ul>';
 
   const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
     htmlMessage.dataset.post = postId;
-    htmlMessage.innerHTML = `
+    htmlMessage.innerHTML = (refer.length > 10) ? (`<div class="download">${refer}</div>`) : '';
+    htmlMessage.innerHTML += `
       <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
       </div>
       <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-        <div class="font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}</div>
+        <div class="user-name font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}
         <div class='pencil'></div>
+        </div>
         <div class="user-message">
         ${message}
         </div>
       </div>
   `;
-    htmlMessage.innerHTML += (refer.length > 10) ? (`<div class="download">${refer}</ul></div>`) : '';
+    // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
     htmlMessage.setAttribute('data-id', res); 
@@ -104,6 +108,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
+    /* ------ pencile ------ */
     if (boxMess !== null) {
       const Pencil_ = new Pencil(boxMess);
       Pencil_.start();
@@ -111,7 +116,14 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     if (boxMess === null) {
       return;
     }
+    /* ------ doenload box ------ */
+    const boxDownload = boxMess.getElementsByClassName('download')[0];
+    /* ------ style for a box with has download class  ------ */
+    const height = (boxDownload as HTMLElement).offsetHeight;
+    boxMess.style.paddingTop = String(height) + 'px';
   }
+
+
   /**
    * scroll
    */

@@ -34,15 +34,12 @@ function builderOldMessage({ postIndex, postMessage }: PostCorrector): void {
   (copyPostHtml as HTMLElement).insertAdjacentElement('beforeend', (copyBoxMessage as HTMLElement));
   (postHtml).replaceWith(copyPostHtml);
 
+  /* inserting an event listener again */
   const postHtmlUp = document.querySelector(`div[data-post="${postIndex}"]`);
-  const pencilHtmlArrUp = postHtmlUp?.getElementsByClassName('pencil');
-  if ((pencilHtmlArrUp as HTMLCollectionOf<HTMLDivElement>).length === 0) {
-    console.log('[builderOldMessage > pencilHtmlArrUp]: Something that wrong/ Here can not find the post box through an index');
+  if (postHtmlUp === null) {
     return;
   }
-  debugger
-  const pencil_ = (pencilHtmlArrUp as HTMLCollectionOf<HTMLDivElement>)[0];
-  const pencil = new Pencil(pencil_);
+  const pencil = new Pencil(postHtmlUp as HTMLDivElement);
   pencil.start();
 }
 export default builderOldMessage;

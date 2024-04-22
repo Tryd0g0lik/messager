@@ -49,7 +49,7 @@ export class Pencil {
   };
 
   private addEvent(): void {
-    const handlerPencilPost = this.handlerPencilPost.bind(this);
+    const handlerPencilPost = this.handlerPencilPost; // this.handlerPencilPost.bind(this);
     this.pencil.onclick = handlerPencilPost;
   }
 
