@@ -15,7 +15,6 @@ const addQuote = (text: string) => (fileHtml = '') => {
   quoteHtml.innerText = text;
   if (((typeof fileHtml).includes('string')) && (fileHtml.length > 0)) {
     quoteHtml.innerHTML += fileHtml;
-
   }
   inputBox?.insertAdjacentHTML('beforebegin', quoteHtml.outerHTML);
 
@@ -35,6 +34,5 @@ const addQuote = (text: string) => (fileHtml = '') => {
     const boxReffDownloadHeight = (htmlDownloadArr[0] as HTMLDivElement).offsetHeight;
     (htmlQuoteArr[0] as HTMLDivElement).style.height = String(boxReffDownloadHeight + 2) + 'px';
   };
-  // quote
 };
 export default addQuote;

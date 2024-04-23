@@ -11,6 +11,14 @@ export class Pencil extends FServices {
     super(name);
   }
 
+  getFileHtmlLi(pathnames: string[]): string {
+    let result = '';
+    for (let i = 0; i < pathnames.length; i++) {
+      result += filetepmplate(pathnames[i]);
+    }
+    return result;
+  }
+
   handlerPencilPost(e: MouseEvent): void {
     if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
       return;
@@ -49,12 +57,7 @@ export class Pencil extends FServices {
       localSJson.pathnames = pathnames;
       localStorage.setItem('data', JSON.stringify(localSJson));
       /* ------ Quoted files reference. That repeats the references from the post above */
-      let refer = '<ul>'; // receive html
-      for (let i = 0; i < pathnames.length; i++) {
-        refer += filetepmplate(pathnames[i]);
-      }
-
-      refer += '</ul>';
+      const refer = '<ul>' + this.getFileHtmlLi(pathnames) + '</ul>';
       const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : ''
       /* ------ 2/2 Quoted ------ */
       quote(refResult);

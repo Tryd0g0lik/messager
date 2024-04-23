@@ -62,8 +62,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   let refer = '<ul>';
   if (linkFilesArr.length > 0) {
     for (let i = 0; i < linkFilesArr.length; i++) {
-      // const len = linkFilesArr[i].split('/').length;
-      // const urlOrigin = window.location.origin;
       refer += filetepmplate(linkFilesArr[i]);
     }
   }

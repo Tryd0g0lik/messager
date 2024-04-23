@@ -8,7 +8,7 @@
 const eventClickManage = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {
   return (e: MouseEvent): void => {
     const boxMess = e.currentTarget as HTMLDivElement;
-    if ((boxMess === null) && (e.type !== 'submit')) {
+    if ((boxMess === null) || ((e.target as HTMLButtonElement).type !== 'submit')) {
       return;
     }
     const inputHtml = (boxMess).querySelector('input[type="text"]') as HTMLInputElement;

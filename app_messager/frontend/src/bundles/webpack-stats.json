@@ -11,16 +11,16 @@
       "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\index.html",
       "publicPath": "/index.html"
     },
-    "main-main-0b4ea8a8124537194286.js": {
-      "name": "main-main-0b4ea8a8124537194286.js",
-      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-0b4ea8a8124537194286.js",
-      "publicPath": "/main-main-0b4ea8a8124537194286.js"
+    "main-main-3ca91633b5c0ad85d0e1.js": {
+      "name": "main-main-3ca91633b5c0ad85d0e1.js",
+      "path": "E:\\OpenServer\\domains\\sorus-message\\messager\\app_messager\\static\\js\\main-main-3ca91633b5c0ad85d0e1.js",
+      "publicPath": "/main-main-3ca91633b5c0ad85d0e1.js"
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
-      "main-main-0b4ea8a8124537194286.js"
+      "main-main-3ca91633b5c0ad85d0e1.js"
     ]
   },
   "publicPath": "/"
