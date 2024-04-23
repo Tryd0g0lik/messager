@@ -1,5 +1,5 @@
 import { PostCorrector } from '@Interfaces';
-import { Pencil } from '../../../oop/edit-message';
+import { Pencil } from '../../../oop/pencils';
 /**
  * In to the enterpoint called the two parameters. \
  * Function replace the old contend to the modified (new) message.
@@ -7,10 +7,10 @@ import { Pencil } from '../../../oop/edit-message';
  * @param `postMessage`: `string` - a new message
  * @returns viod
  */
-function builderOldMessage({ postIndex, postMessage }: PostCorrector): void {
+function upOldMessage({ postIndex, postMessage }: PostCorrector): void {
   const postHtml = document.querySelector(`div[data-post="${postIndex}"]`);
   if (postHtml === null) {
-    console.log('[builderOldMessage > postHml]: Something that wrong/ Here can not find the post box through an index');
+    console.log('[upOldMessage > postHml]: Something that wrong/ Here can not find the post box through an index');
     return;
   }
 
@@ -42,4 +42,4 @@ function builderOldMessage({ postIndex, postMessage }: PostCorrector): void {
   const pencil = new Pencil(postHtmlUp as HTMLDivElement);
   pencil.start();
 }
-export default builderOldMessage;
+export default upOldMessage;

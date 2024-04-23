@@ -1,7 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
-import builderOldMessage from '@Service/handlers/messages/old-message/paste-old-message';
+import upOldMessage from '@Service/handlers/messages/old-message/paste-old-message';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -103,7 +103,7 @@ export class WSocket {
     } else {
       const postIndex = postId;
       const postMessage = message;
-      builderOldMessage({ postIndex, postMessage });
+      upOldMessage({ postIndex, postMessage });
     }
   };
 

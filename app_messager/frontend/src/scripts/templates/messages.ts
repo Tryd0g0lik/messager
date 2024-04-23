@@ -4,7 +4,7 @@ import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
 import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
-import { Pencil } from '@Service/oop/edit-message';
+import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
 /**
  * This's function insert a new message to the chat.

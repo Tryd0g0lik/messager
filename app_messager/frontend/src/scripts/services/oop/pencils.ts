@@ -1,4 +1,4 @@
-// app_messager\frontend\src\scripts\services\handlers\messages\old-message\edit-message.ts
+// app_messager\frontend\src\scripts\services\handlers\messages\old-message\pencils.ts
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input - file.ts
 import addQuote from '../handlers/messages/old-message/paste-quote';
 import handlerGetMessageOfInput from '../handlers/messages/get-messages';
