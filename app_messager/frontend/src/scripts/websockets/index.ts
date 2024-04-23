@@ -1,7 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
-import upOldMessage from '@Service/handlers/messages/old-message/paste-old-message';
+import upOldMessage from '@Service/handlers/messages/old-message/up-message';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
