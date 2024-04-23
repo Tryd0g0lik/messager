@@ -1,4 +1,4 @@
-// app_messager\frontend\src\scripts\services\handlers\handler_input-file.ts
+// app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 
 /**
  * rules of handler
@@ -75,3 +75,8 @@ const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
   };
 };
 export default handlerInputEvent;
+// создаем свое событие для:
+// - удалить файлы в чате
+//   - удалить / добавить  файлы в чате после события редактировать пост
+// свои события add и.или remove
+// вешаем в  handlerGetMessageOfInput рядом с handlerUploadFiles

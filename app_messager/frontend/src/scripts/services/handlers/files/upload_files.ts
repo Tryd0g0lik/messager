@@ -1,4 +1,4 @@
-// app_messager\frontend\src\scripts\services\upload_files.ts
+// app_messager\frontend\src\scripts\services\handlers\files\upload_files.ts
 import handlerInputEvent from './handler_input-file';
 
 const handlerUploadFiles = (): undefined => {

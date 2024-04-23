@@ -1,4 +1,5 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\old-message\edit-message.ts
+
 import addQuote from './paste-quote';
 import handlerGetMessageOfInput from '../get-messages';
 import manageOldMessageTotal from './old-messages';
@@ -49,7 +50,7 @@ export class Pencil {
   };
 
   private addEvent(): void {
-    const handlerPencilPost = this.handlerPencilPost; // this.handlerPencilPost.bind(this);
+    const handlerPencilPost = this.handlerPencilPost.bind(this); // this.handlerPencilPost; //
     this.pencil.onclick = handlerPencilPost;
   }
 
