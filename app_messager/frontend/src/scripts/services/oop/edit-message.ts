@@ -1,0 +1,75 @@
+// app_messager\frontend\src\scripts\services\handlers\messages\old-message\edit-message.ts
+// app_messager\frontend\src\scripts\services\handlers\files\handler_input - file.ts
+import addQuote from '../handlers/messages/old-message/paste-quote';
+import handlerGetMessageOfInput from '../handlers/messages/get-messages';
+import manageOldMessageTotal from '../handlers/messages/old-message/old-messages';
+import { FServices } from './file-services';
+import filetepmplate from '@htmlTemplates/file';
+
+export class Pencil extends FServices {
+  private constructor(name: HTMLDivElement) {
+    super(name);
+  }
+
+  handlerPencilPost(e: MouseEvent): void {
+    if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
+      return;
+    }
+
+    const currentTarget = e.currentTarget as HTMLDivElement;
+    if ((currentTarget !== null) && !('post' in currentTarget.dataset)) {
+      return;
+    };
+    /* get URL of files */
+    const htmlDownLoadArr = currentTarget.getElementsByClassName('download');
+    if (htmlDownLoadArr.length > 0) {
+      this.receiveHrefsFiles = htmlDownLoadArr[0] as HTMLDivElement;
+    }
+
+    /* 'message as quote' -thet is old post from the window chat */
+    const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
+    /* ------ 1/2 Quoted ------ */
+    const quote = addQuote(message);
+
+    /* ------ LocaStorage and Receive post data------ */
+    if (localStorage.getItem('data') === null) {
+      console.log('[handlerPencilPost > localStorage] the "data" from the localStorage not found');
+      return;
+    }
+
+    const dataObj = this.dataTotally();
+    if (dataObj !== undefined) {
+      const { dataPost, dataId, pathnames } = { ...dataObj };
+
+      const localS = localStorage.getItem('data');
+      const localSJson = JSON.parse(localS as string);
+      localSJson.postId = dataPost;
+      localSJson.userId = dataId;
+
+      localSJson.pathnames = pathnames;
+      localStorage.setItem('data', JSON.stringify(localSJson));
+      /* ------ Quoted files reference. That repeats the references from the post above */
+      let refer = '<ul>'; // receive html
+      for (let i = 0; i < pathnames.length; i++) {
+        refer += filetepmplate(pathnames[i]);
+      }
+
+      refer += '</ul>';
+      const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : ''
+      /* ------ 2/2 Quoted ------ */
+      quote(refResult);
+    }
+
+    /* 2/3 added the event listener to the input form . It is change of the listener */
+    handlerGetMessageOfInput(manageOldMessageTotal());
+  };
+
+  private addEvent(): void {
+    const handlerPencilPost = this.handlerPencilPost.bind(this); // this.handlerPencilPost; //
+    this.button.onclick = handlerPencilPost;
+  }
+
+  start(): void {
+    this.addEvent();
+  }
+};

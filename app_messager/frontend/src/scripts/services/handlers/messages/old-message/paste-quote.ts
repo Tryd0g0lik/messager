@@ -3,18 +3,38 @@
 /**
  * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form. 
  */
-const addQuote = (text: string): void => {
+const addQuote = (text: string) => (fileHtml = '') => {
   const inputBox = document.getElementById('messager');
   if (inputBox === null) {
     console.log('[addQuote]: Html input not found');
+    return;
   }
   /* add quote */
   const quoteHtml = document.createElement('div');
   quoteHtml.className = 'quote active';
   quoteHtml.innerText = text;
+  if (((typeof fileHtml).includes('string')) && (fileHtml.length > 0)) {
+    quoteHtml.innerHTML += fileHtml;
+
+  }
   inputBox?.insertAdjacentHTML('beforebegin', quoteHtml.outerHTML);
 
   /* add text to the input form */
   (inputBox as HTMLInputElement).value = text;
+
+  /* manage styles */
+  const boxMessage = document.getElementById('message');
+  if (boxMessage === null) {
+    console.log('[addQuote]: Html input not found');
+    return;
+  }
+  const htmlQuoteArr = boxMessage?.getElementsByClassName('quote');
+  const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
+
+  if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
+    const boxReffDownloadHeight = (htmlDownloadArr[0] as HTMLDivElement).offsetHeight;
+    (htmlQuoteArr[0] as HTMLDivElement).style.height = String(boxReffDownloadHeight + 2) + 'px';
+  };
+  // quote
 };
 export default addQuote;

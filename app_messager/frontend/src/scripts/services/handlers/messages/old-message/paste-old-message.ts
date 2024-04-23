@@ -1,5 +1,5 @@
 import { PostCorrector } from '@Interfaces';
-import { Pencil } from './edit-message';
+import { Pencil } from '../../../oop/edit-message';
 /**
  * In to the enterpoint called the two parameters. \
  * Function replace the old contend to the modified (new) message.

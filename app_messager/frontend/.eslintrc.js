@@ -103,7 +103,9 @@ module.exports = {
     ],
     "no-return-await": "off",
     "@typescript-eslint/return-await": "error",
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "error",
   },
   "ignorePatterns": [
     "*.config.js",

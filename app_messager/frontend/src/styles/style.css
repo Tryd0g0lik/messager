@@ -67,6 +67,13 @@ body{margin-top:20px;}
   position: relative;
 }
 
+.user-name {
+  text-align: end;
+}
+
+.user-message {
+  max-width: 750px;
+}
 .download {
   display: inline-block;
   position: absolute;
@@ -74,6 +81,9 @@ body{margin-top:20px;}
   right: 5px;
 }
 
+.download.repeat {
+  background-color: #fff;
+}
 .download ul {
   margin: 0;
 }
