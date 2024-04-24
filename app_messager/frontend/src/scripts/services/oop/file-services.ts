@@ -21,18 +21,14 @@ export class FServices extends Push {
 *
 * The `this.fileNameArr` it's array URLs.
 */
-  set receiveHrefsFiles(box: HTMLDivElement) {
-    const files = box.getElementsByClassName('one-file') as HTMLCollectionOf<HTMLAnchorElement>;
-    if (files.length === 0) {
-      console.log('[FService > files] Datas not found');
-    } else {
-      for (let i = 0; i < files.length; i++) {
-        if ((files[i].href).includes('media/')) {
-          const oneHref = 'media/' + files[i].href.split('media/')[1];
-          (this.fileNameArr).push(oneHref);
-        } else {
-          console.log('[FService > files] This reference not is a media file');
-        }
+  set receiveHrefsFiles(anchors: HTMLCollectionOf<HTMLAnchorElement>) {
+    const files = anchors;
+    for (let i = 0; i < files.length; i++) {
+      if ((files[i].href).includes('media/')) {
+        const oneHref = 'media/' + files[i].href.split('media/')[1];
+        (this.fileNameArr).push(oneHref);
+      } else {
+        console.log('[FService > files] This reference not is a media file');
       }
     }
   }

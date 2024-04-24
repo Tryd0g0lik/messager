@@ -68,7 +68,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
 
   /* inserting an event listener again */
   const postHtmlUp = document.querySelector(`div[data-post="${postIndex}"]`) as HTMLDivElement;
-  /* ------ 3/3 pencil ------ */
+  /* ------ 2/3 pencil ------ */
   if (postHtmlUp !== null) {
     const pencil = new Pencil(postHtmlUp);
     pencil.start();

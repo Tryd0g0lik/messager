@@ -23,21 +23,19 @@ const addQuote = (text: string) => (fileHtml = '') => {
   /* add text to the input form */
   (inputBox as HTMLInputElement).value = text;
 
-  /* manage styles */
-  const boxMessage = document.getElementById('message');
-  if (boxMessage === null) {
-    console.log('[addQuote]: Html input not found');
-    return;
-  }
-  const htmlQuoteArr = boxMessage?.getElementsByClassName('quote');
-  const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
+  // /* manage styles */
+  // const boxMessage = document.getElementById('message');
+  // if (boxMessage === null) {
+  //   console.log('[addQuote]: Html input not found');
+  //   return;
+  // }
+  // const htmlQuoteArr = boxMessage?.getElementsByClassName('quote');
+  // const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
-  if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
-    /* ------ 2/3 pencil ------ */
-    const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
-    parent.postStylesHeight(htmlQuoteArr[0] as HTMLDivElement);
-    // const boxReffDownloadHeight = (htmlDownloadArr[0] as HTMLDivElement).offsetHeight;
-    // (htmlQuoteArr[0] as HTMLDivElement).style.height = String(boxReffDownloadHeight + 2) + 'px';
-  };
+  // if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
+  //   /* ------ 2/3 pencil ------ */
+  //   const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
+  //   parent.postStylesHeight(htmlQuoteArr[0] as HTMLDivElement);
+  // };
 };
 export default addQuote;

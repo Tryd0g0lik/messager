@@ -35,7 +35,12 @@ export class Pencil extends FServices {
     /* get URL of files */
     const htmlDownLoadArr = currentTarget.getElementsByClassName('download');
     if (htmlDownLoadArr.length > 0) {
-      this.receiveHrefsFiles = htmlDownLoadArr[0] as HTMLDivElement;
+      const anchors = (htmlDownLoadArr[0] as HTMLDivElement).getElementsByClassName('one-file') as HTMLCollectionOf<HTMLAnchorElement>;
+      if (anchors.length === 0) {
+        console.log('[Pencil > handlerPencilPost] Datas not found!');
+      } else {
+        this.receiveHrefsFiles = anchors;
+      }
     }
 
     /* 'message as quote' -thet is old post from the window chat */
@@ -66,6 +71,22 @@ export class Pencil extends FServices {
       const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : '';
       /* ------ 2/2 Quoted ------ */
       quote(refResult);
+
+      /* manage styles */
+      const boxMessage = document.getElementById('message');
+      if (boxMessage === null) {
+        console.log('[addQuote]: Html input not found');
+        return;
+      }
+      const htmlQuoteArr = boxMessage?.getElementsByClassName('quote');
+      const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
+
+      if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
+        /* ------ 0/3 pencil ------ */
+        // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
+        this.element = htmlQuoteArr[0] as HTMLDivElement;
+        this.postStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
+      };
     }
 
     /* 2/3 added the event listener to the input form . It is change of the listener */
@@ -75,17 +96,6 @@ export class Pencil extends FServices {
   private addEvent(): void {
     const handlerPencilPost = this.handlerPencilPost.bind(this); // this.handlerPencilPost; //
     this.element.onclick = handlerPencilPost;
-  }
-
-  /**
-   * Then need update a style `padding-top` for a box `<div class="box-message"` that a method using
-   * @param `view`: `HTMLDivElement` child elemen. It's a source size
-   * @returns HTMLDivElement parent
-   */
-  postStylesHeight(view: HTMLDivElement): HTMLDivElement {
-    const boxReffDownloadHeight = view.offsetHeight;
-    (this.element).style.paddingTop = String(boxReffDownloadHeight + 2) + 'px';
-    return this.element;
   }
 
   start(): void {

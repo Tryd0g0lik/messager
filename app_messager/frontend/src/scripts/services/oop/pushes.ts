@@ -19,4 +19,15 @@ export class Push {
     const userId = this.element.dataset.id;
     return { dataPost: post, dataId: userId };
   }
+
+  /**
+   * Then need update a style `padding-top` for a box `<div class="box-message"` that a method using
+   * @param `view`: `HTMLDivElement` child elemen. It's a source size
+   * @returns HTMLDivElement parent
+   */
+  postStylesHeight(view: HTMLDivElement): HTMLDivElement {
+    const boxReffDownloadHeight = view.offsetHeight;
+    (this.element).style.paddingTop = String(boxReffDownloadHeight + 2) + 'px';
+    return this.element;
+  }
 }

@@ -23,10 +23,7 @@ const handlerUploadFiles = (): undefined => {
   const checkLockalKey = localStorage.getItem('data') !== null;
 
   if (checkLockalKey) {
-    // const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
-    // dataLocalJson.fileId = false;
-    // localStorage.setItem('data', JSON.stringify(dataLocalJson));
-    null
+    null;
   } else {
     localStorage.setItem('data', JSON.stringify({ fileId: false }));
   }
