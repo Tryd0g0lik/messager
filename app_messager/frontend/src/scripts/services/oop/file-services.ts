@@ -64,4 +64,8 @@ export class FServices extends Push {
     const filesArr = this.receiveHrefsFiles;
     return { dataPost: postId_, dataId: userId_, pathnames: filesArr };
   }
+
+  // removeOne() {
+
+  // }
 }

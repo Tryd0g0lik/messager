@@ -161,6 +161,15 @@ this an all package was installed for the chat project from Django. \
 - The new post (updated post) is updating in the db and to the chat all users.
 
 
+
+
+[2.2 -branch]: 
+- нажимаем на карандаш, форма получает цитирование файло, цитирование сообщений, сообщение.
+- при наличии файлов, в режиме редавтировния , над формой автоматически меняется рамер (style), чтоб разместить файлы из чата.
+- в режиме редактирования, добавляем файл(ы). При сохранении БД получает новые файлы. У Всех участиников, к старым файлам добавляются новые + обновляется пост,
+- Старый пост автоматически меняет размер  (style), чтоб разместить и новые файлы и старые файлы.
+
+
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
 You can chage to the `messager\app_messager\correctors.py` \
