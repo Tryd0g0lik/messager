@@ -1,6 +1,7 @@
 import { PostCorrector } from '@Interfaces';
 import { Pencil } from '../../../oop/pencils';
 import filetepmplate from '@htmlTemplates/file';
+import handlerFileOne from '@Service/handlers/files/deletes';
 import getLinksToFile from '@Service/links-files';
 /**
  * In to the enterpoint called the two parameters. \
@@ -81,6 +82,13 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       return;
     }
     pencil.postStylesHeight(boxDownload[0] as HTMLDivElement);
+
+    const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
+    if (htmlLi.length === 0) {
+      console.log('[upOldMessage > LI]: Something that wrong!');
+    }
+    pencil.removeAll(htmlLi);
+
     /* ------ localStorage cleaning  ------ */
     const LStorage = localStorage.getItem('data');
     if (LStorage === null) {

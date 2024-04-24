@@ -6,6 +6,7 @@ import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
+import handlerFileOne from '@Service/handlers/files/deletes';
 import getLinksToFile from '@Service/links-files';
 /**
  * This's function insert a new message to the chat.
@@ -31,7 +32,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   let linkFilesArr: string[] = [];
   if (filesId.length > 0) {
     /** indexes of the files inserted to the parameters from the URL */
-		linkFilesArr = await getLinksToFile(filesId) as string[];
+    linkFilesArr = await getLinksToFile(filesId) as string[];
   }
 
   /**
@@ -49,7 +50,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   let refer = '<ul>';
   if (linkFilesArr.length > 0) {
     for (let i = 0; i < linkFilesArr.length; i++) {
-      refer += filetepmplate(linkFilesArr[i]);
+      refer += (filetepmplate(linkFilesArr[i]));
     }
   }
   refer += '</ul>';
@@ -77,7 +78,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-		htmlMessage.setAttribute('data-id', res);
+    htmlMessage.setAttribute('data-id', res);
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const newBox = htmlMessage.outerHTML;
@@ -104,8 +105,15 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
         return;
       }
       Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
+
+      const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
+      if (htmlLi.length === 0) {
+        console.log('[createChatMessage > LI]: Something that wrong!');
+      }
+      Pencil_.removeAll(htmlLi);
     }
     if (boxMess === null) {
+      console.log('[createChatMessage > DIV]: Something that wrong!');
       return;
     }
   }

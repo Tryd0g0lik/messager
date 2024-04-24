@@ -1,4 +1,5 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
+import handlerFileOne from '@Service/handlers/files/deletes';
 import { Push } from './pushes';
 interface OllDatas {
   dataPost: string
@@ -65,7 +66,10 @@ export class FServices extends Push {
     return { dataPost: postId_, dataId: userId_, pathnames: filesArr };
   }
 
-  // removeOne() {
-
-  // }
+  removeAll(elements: HTMLCollectionOf<HTMLLIElement>): void {
+    Array.from(elements).forEach((elem: HTMLLIElement) => {
+      elem.onclick = null;
+      elem.onclick = handlerFileOne;
+    });
+  }
 }

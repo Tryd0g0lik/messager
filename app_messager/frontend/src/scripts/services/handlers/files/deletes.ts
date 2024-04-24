@@ -5,11 +5,15 @@
 // !!!!: нажимаю на песил, затем на ведро - надо обновить данные о фале в инпут
 // Что делать после инпут = удалить илм добавить ?
 
-function handlerFileOne(e: MouseEvent): void {
+function handlerFileOne(e: MouseEvent): boolean {
+  debugger
   const target = (e.target as HTMLElement);
-  if (((target.tagName).includes('div')) && ('bucke'.includes(String(target.classList)))) {
+  if ((String(target.classList).includes('bucke'))) {
     console.log('[handlerFileOne]');
+    (e.currentTarget as HTMLElement).remove();
+    return true;
   }
+  return false;
 };
 
 export default handlerFileOne;

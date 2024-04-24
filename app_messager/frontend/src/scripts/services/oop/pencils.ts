@@ -5,6 +5,7 @@ import handlerGetMessageOfInput from '../handlers/messages/get-messages';
 import manageOldMessageTotal from '../handlers/messages/old-message/old-messages';
 import { FServices } from './file-services';
 import filetepmplate from '@htmlTemplates/file';
+import handlerFileOne from '@Service/handlers/files/deletes';
 
 /* цель вывести данные в форму для редактирования */
 export class Pencil extends FServices {
@@ -18,13 +19,20 @@ export class Pencil extends FServices {
   getFileHtmlLi(pathnames: string[]): string {
     let result = '';
     for (let i = 0; i < pathnames.length; i++) {
-      result += filetepmplate(pathnames[i]);
+      const fileTemplate = filetepmplate(pathnames[i]);
+      result += fileTemplate;
     }
     return result;
   }
 
   handlerPencilPost(e: MouseEvent): void {
-    if (!((e.target as HTMLDivElement).className.includes('pencil'))) {
+    if (e.defaultPrevented) {
+      console.log('[Pencil > target] "Event used before!');
+      return;
+    }
+    const target = e.target as HTMLDivElement;
+    if (!(String(target.classList).includes('pencil'))) {
+      console.log('[Pencil > target] target is not "pencil"!');
       return;
     }
 
@@ -50,7 +58,7 @@ export class Pencil extends FServices {
 
     /* ------ LocaStorage and Receive post data------ */
     if (localStorage.getItem('data') === null) {
-      console.log('[handlerPencilPost > localStorage] the "data" from the localStorage not found');
+      console.log('[Pencil > handlerPencilPost > localStorage] the "data" from the localStorage not found');
       return;
     }
 
@@ -82,6 +90,12 @@ export class Pencil extends FServices {
       const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
       if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
+        const htmlLi = htmlDownloadArr[0].getElementsByTagName('li');
+        if (htmlLi.length === 0) {
+          console.log('[Pencil > handlerPencilPost > LI]: Something that wrong!');
+        } else {
+          this.removeAll(htmlLi);
+        }
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
         this.element = htmlQuoteArr[0] as HTMLDivElement;
