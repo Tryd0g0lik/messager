@@ -34,7 +34,6 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
   boxMessage.remove();
   (copyPostHtml as HTMLElement).classList.add('re_');
   (copyPostHtml as HTMLElement).insertAdjacentElement('beforeend', (copyBoxMessage as HTMLElement));
-  debugger
   /* ------ add a new files after redactions the old post ------ */
   if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object'))) {
     /*  file's links adding to the message */
@@ -82,6 +81,16 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       return;
     }
     pencil.postStylesHeight(boxDownload[0] as HTMLDivElement);
+    /* ------ localStorage cleaning  ------ */
+    const LStorage = localStorage.getItem('data');
+    if (LStorage === null) {
+      console.error('[createChatMessage > localStorage]: Key not found here, simply.');
+    } else {
+      const localSJson = JSON.parse(LStorage);
+      localSJson.fileId = false;
+      localSJson.pathnames = [];
+      localStorage.setItem('data', JSON.stringify(localSJson));
+    }
   }
 };
 export default upOldMessage;

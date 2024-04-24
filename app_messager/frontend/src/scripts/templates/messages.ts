@@ -103,8 +103,6 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       if (boxDownload.length === 0) {
         return;
       }
-      // const height = (boxDownload[0] as HTMLElement).offsetHeight;
-      // boxMess.style.paddingTop = String(height) + 'px';
       Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
     }
     if (boxMess === null) {
