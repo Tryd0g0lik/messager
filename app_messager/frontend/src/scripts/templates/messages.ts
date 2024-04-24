@@ -92,22 +92,24 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
-		/* ------ 1/2 pencile ------ */
+    /* ------ 1/3 pencil ------ */
     if (boxMess !== null) {
       const Pencil_ = new Pencil(boxMess);
       Pencil_.start();
+
+      /* ------ box download ------ */
+      const boxDownload = boxMess.getElementsByClassName('download');
+      /* ------ style for a box with has download class  ------ */
+      if (boxDownload.length === 0) {
+        return;
+      }
+      // const height = (boxDownload[0] as HTMLElement).offsetHeight;
+      // boxMess.style.paddingTop = String(height) + 'px';
+      Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
     }
     if (boxMess === null) {
       return;
     }
-    /* ------ doenload box ------ */
-    const boxDownload = boxMess.getElementsByClassName('download');
-    /* ------ style for a box with has download class  ------ */
-    if (boxDownload.length === 0) {
-      return;
-    }
-    const height = (boxDownload[0] as HTMLElement).offsetHeight;
-    boxMess.style.paddingTop = String(height) + 'px';
   }
 
   /**

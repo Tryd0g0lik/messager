@@ -1,6 +1,6 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\sub-handler\subhandler-click.ts
 
-import { debug } from "webpack";
+import { debug } from 'webpack';
 
 /**
  * This is only  a logic action after the event click or 'Enter' keybord.

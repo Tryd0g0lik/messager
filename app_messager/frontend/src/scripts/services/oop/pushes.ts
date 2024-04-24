@@ -3,10 +3,10 @@ interface Data {
   dataId: string | undefined
 }
 export class Push {
-  button: HTMLDivElement;
+  element: HTMLDivElement;
 
   constructor(name: HTMLDivElement) {
-    this.button = name;
+    this.element = name;
   }
 
   /**
@@ -15,8 +15,8 @@ export class Push {
    * @returns that a'data-pos' and 'data-id' --> '{ dataPost: post, dataId: userId }'
    */
   receivedDataset(): Data {
-    const post = this.button.dataset.post;
-    const userId = this.button.dataset.id;
+    const post = this.element.dataset.post;
+    const userId = this.element.dataset.id;
     return { dataPost: post, dataId: userId };
   }
 }

@@ -52,23 +52,36 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       };
       const htmlUl = htmlDownload[0].getElementsByTagName('ul');
       htmlUl[0].insertAdjacentHTML('beforeend', refer);
-    } else {
+    } else if (htmlDownload.length === 0) {
       let refer = '<ul>';
       for (let i = 0; i < linkFilesArr.length; i++) {
         refer += filetepmplate(linkFilesArr[i]);
       }
       refer += '</ul>';
+      (copyPostHtml as HTMLDivElement).insertAdjacentHTML('afterbegin', `<div class="download">${refer}</div>`);
+    } else {
+      console.log('[upOldMessage > filesIndexes > copyPostHtml]: Something that wrong!');
     }
   }
   /* ------ update all - end ------ */
+  /* ------ up-html to the display ------ */
   (postHtml).replaceWith(copyPostHtml);
 
   /* inserting an event listener again */
   const postHtmlUp = document.querySelector(`div[data-post="${postIndex}"]`) as HTMLDivElement;
-  /* ------ 2/2 pencile ------ */
+  /* ------ 3/3 pencil ------ */
   if (postHtmlUp !== null) {
     const pencil = new Pencil(postHtmlUp);
     pencil.start();
+    /* ------ up-style ------ */
+    /* ------ box download  ------ */
+    const boxDownload = postHtmlUp.getElementsByClassName('download');
+    /* ------ style for a box with has download class  ------ */
+    if (boxDownload.length === 0) {
+      console.log('[upOldMessage > boxDownload] Something that wrong!');
+      return;
+    }
+    pencil.postStylesHeight(boxDownload[0] as HTMLDivElement);
   }
-}
+};
 export default upOldMessage;

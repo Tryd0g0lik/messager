@@ -1,7 +1,9 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\old-message\paste-quote.ts
 
+import { Pencil } from '@Service/oop/pencils';
+
 /**
- * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form. 
+ * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form.
  */
 const addQuote = (text: string) => (fileHtml = '') => {
   const inputBox = document.getElementById('messager');
@@ -31,8 +33,11 @@ const addQuote = (text: string) => (fileHtml = '') => {
   const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
   if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
-    const boxReffDownloadHeight = (htmlDownloadArr[0] as HTMLDivElement).offsetHeight;
-    (htmlQuoteArr[0] as HTMLDivElement).style.height = String(boxReffDownloadHeight + 2) + 'px';
+    /* ------ 2/3 pencil ------ */
+    const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
+    parent.postStylesHeight(htmlQuoteArr[0] as HTMLDivElement);
+    // const boxReffDownloadHeight = (htmlDownloadArr[0] as HTMLDivElement).offsetHeight;
+    // (htmlQuoteArr[0] as HTMLDivElement).style.height = String(boxReffDownloadHeight + 2) + 'px';
   };
 };
 export default addQuote;
