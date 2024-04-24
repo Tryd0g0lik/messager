@@ -103,7 +103,8 @@ export class WSocket {
     } else {
       const postIndex = postId;
       const postMessage = message;
-      upOldMessage({ postIndex, postMessage });
+      /* Here '({ filesIndexes: filesId })' part is an async */
+      upOldMessage({ postIndex, postMessage })({ filesIndexes: filesId });
     }
   };
 

@@ -96,8 +96,8 @@ def upload_file(request, listIndexes = None):
 			return JsonResponse({"ERROR": Exception })
 	elif request.method == 'GET':
 		try:
-			if ('ind' in dict(request.GET)):
-				params_list = list((request.GET).getlist('ind'))[0].split(',')
+			if ('indexes' in dict(request.GET)):
+				params_list = list((request.GET).getlist('indexes'))[0].split(',')
 				params_len:int = len(params_list)
 
 				if (params_len > 0):

@@ -57,7 +57,7 @@ export class FServices extends Push {
    * `dataId` is data from the html `data-id` \
    * `files` is  URL datas from the html box `<div class='download>`
    */
-  dataTotally(): OllDatas | undefined {
+  receivedDatasetAll(): OllDatas | undefined {
     const dataset = this.receivedDataset();
     if ((dataset.dataId === undefined) || (dataset.dataPost === undefined)) {
       console.log('[FService > dataTotal] Datas not found');
@@ -66,6 +66,6 @@ export class FServices extends Push {
     const postId_ = dataset.dataPost;
     const userId_ = dataset.dataId;
     const filesArr = this.receiveHrefsFiles;
-    return { dataPost: postId_, dataId: userId_, pathnames: filesArr }
+    return { dataPost: postId_, dataId: userId_, pathnames: filesArr };
   }
 }

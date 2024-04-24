@@ -6,6 +6,7 @@ import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
+import getLinksToFile from '@Service/links-files';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -30,21 +31,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   let linkFilesArr: string[] = [];
   if (filesId.length > 0) {
     /** indexes of the files inserted to the parameters from the URL */
-    const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
-    url.searchParams.set('ind', String(filesId));
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.info('[createChatMessage > LINK]:', data);
-      const dataList = (JSON.parse(data.files)).linkList;
-      linkFilesArr = dataList.slice(0);
-    }
+		linkFilesArr = await getLinksToFile(filesId) as string[];
   }
 
   /**
@@ -90,7 +77,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-    htmlMessage.setAttribute('data-id', res); 
+		htmlMessage.setAttribute('data-id', res);
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const newBox = htmlMessage.outerHTML;
@@ -105,7 +92,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
-    /* ------ pencile ------ */
+		/* ------ 1/2 pencile ------ */
     if (boxMess !== null) {
       const Pencil_ = new Pencil(boxMess);
       Pencil_.start();

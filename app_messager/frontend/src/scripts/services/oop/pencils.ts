@@ -6,9 +6,13 @@ import manageOldMessageTotal from '../handlers/messages/old-message/old-messages
 import { FServices } from './file-services';
 import filetepmplate from '@htmlTemplates/file';
 
+/* цель вывести данные в форму для редактирования */
 export class Pencil extends FServices {
-  private constructor(name: HTMLDivElement) {
+  emptyvar: string[];
+
+  constructor(name: HTMLDivElement) {
     super(name);
+    this.emptyvar = []; // просто заглушка для eslintrc
   }
 
   getFileHtmlLi(pathnames: string[]): string {
@@ -45,7 +49,7 @@ export class Pencil extends FServices {
       return;
     }
 
-    const dataObj = this.dataTotally();
+    const dataObj = this.receivedDatasetAll();
     if (dataObj !== undefined) {
       const { dataPost, dataId, pathnames } = { ...dataObj };
 
@@ -57,8 +61,9 @@ export class Pencil extends FServices {
       localSJson.pathnames = pathnames;
       localStorage.setItem('data', JSON.stringify(localSJson));
       /* ------ Quoted files reference. That repeats the references from the post above */
+
       const refer = '<ul>' + this.getFileHtmlLi(pathnames) + '</ul>';
-      const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : ''
+      const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : '';
       /* ------ 2/2 Quoted ------ */
       quote(refResult);
     }

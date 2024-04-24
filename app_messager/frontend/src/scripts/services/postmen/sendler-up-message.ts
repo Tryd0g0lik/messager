@@ -1,4 +1,4 @@
-// app_messager\frontend\src\scripts\services\postmen\sendler-old-post.ts
+// app_messager\frontend\src\scripts\services\postmen\sendler-up-message.ts
 
 import getCookie from '@Service/cookies';
 import getTextOfInput from '@Service/message';
@@ -8,6 +8,7 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   const localSJson = JSON.parse(localS as string);
   localStorage.setItem('data', JSON.stringify(localSJson));
   const postId_ = localSJson.postId;
+  const files_ = ((typeof localSJson.fileId).includes('string')) ? JSON.parse(localSJson.fileId).list_indexes : false;
 
   const massage_ = getTextOfInput();
   /* ------ Fetch & PATCH for one message which did user be posted & the single column ------ */
