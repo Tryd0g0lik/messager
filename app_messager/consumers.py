@@ -128,15 +128,6 @@ class ChatConsumer(AsyncConsumer):
 			"type": "websocket.send",
 			"text": event.get('text', json.dumps(event)),
 		})
-# при редактировании сообщений -
-'''
-меняем сообщение + добавляем файл.
-в БД сообщение обновляеется в !?!?!?!?последней строке, а файлы добавляются  в новых строках
-'''
-
-
-
-
 
 # class UplodFileConsumer(AsyncConsumer):
 # 	connected_clients = set()

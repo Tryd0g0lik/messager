@@ -75,8 +75,3 @@ const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
   };
 };
 export default handlerInputEvent;
-// создаем свое событие для:
-// - удалить файлы в чате
-//   - удалить / добавить  файлы в чате после события редактировать пост
-// свои события add и.или remove
-// вешаем в  handlerGetMessageOfInput рядом с handlerUploadFiles
