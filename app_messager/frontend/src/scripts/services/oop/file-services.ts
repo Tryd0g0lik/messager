@@ -129,19 +129,20 @@ export class FServices extends Push {
   async deletesFetch(props: F): Promise<boolean> {
     const { postId, userId, pathname } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
-    const url = new URL(`api/v1/delete/'${Number(postId)}/`, 'http://127.0.0.1:8000/');
+    const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
     // url.searchParams.set('userId', userId);
     // url.searchParams.set('pathname', pathname as string);
     // headers: {
     //   'X-CSRFToken': getCookie('csrftoken'),
     //     'Content-Type': 'application/json'
-    // },
+    // }, mode: 'cors',
     const responce = await fetch(url, {
       method: 'DELETE',
-      mode: 'cors',
-      cache: 'no-cache'
+      cache: 'no-cache',
+      mode: 'cors'
     });
     if (responce.ok) {
+      debugger
       const resultJson = responce.json();
       console.log('[FServices > deletesFetch]: ', resultJson);
       return true;

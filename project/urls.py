@@ -28,8 +28,8 @@ urlpatterns = [
     path('ws/<str:room_name>/', views.chat_page, name="room"),
     path('ws/chat/upload/', views.upload_file, name="upload_file"),
     path(r'api/v1/chat/upload/files/', views.upload_file, name="upload_file"),
-    path(r'api/v1/chat/update/<int:pk>/', views.UpdataMessages.as_view()), # , name="requests_messages" # (([0-9]{2,4}|[-]){1,5}_[0-9:\.]{2,13})[0-9]{1,2}$'
-    re_path(r'api/v1/delete/<int:pk>/', views.DeleteMessages.as_view)
+    path(r'api/v1/chat/update/<int:pk>/', views.UpdateMessages.as_view()), # , name="requests_messages" # (([0-9]{2,4}|[-]){1,5}_[0-9:\.]{2,13})[0-9]{1,2}$'
+    path(r'api/v1/chat/delete/<int:pk>/', views.PostAPIDetailView.as_view())
     # path('chat/', views.get_message),
     # url()
 ]

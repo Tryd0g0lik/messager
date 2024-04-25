@@ -3,6 +3,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect
+from rest_framework.views import APIView
 
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
@@ -18,6 +19,7 @@ import websocket, json
 
 from rest_framework import serializers
 from rest_framework.decorators import api_view
+from rest_framework.viewsets import ModelViewSet
 from .serializers import Chat_MessageSerializer, File_MessagesSerializer
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -113,13 +115,22 @@ def upload_file(request, listIndexes = None):
 	return JsonResponse({"error": 'Here is something that wrong~!'})
 
 
-class UpdataMessages(generics.UpdateAPIView):
+
+class UpdateMessages(generics.UpdateAPIView):
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
 #
-class DeleteMessages(generics.UpdateAPIView):
-	queryset = FileModels.objects.all()
-	serializer_class = File_MessagesSerializer
+class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
+	# queryset = FileModels.objects.all()
+	# serializer_class = File_MessagesSerializer
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = Chat_MessageSerializer
+	filter_backends = []
+
+	def delete(self, request, *args, **kwargs):
+		req = request
+		return self.destroy(request, *args, **kwargs)
+
 #
 
 # def delete_file(request, *args, **kwargs):
