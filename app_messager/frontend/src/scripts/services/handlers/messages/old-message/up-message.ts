@@ -35,7 +35,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
   (copyPostHtml as HTMLElement).classList.add('re_');
   (copyPostHtml as HTMLElement).insertAdjacentElement('beforeend', (copyBoxMessage as HTMLElement));
   /* ------ add a new files after redactions the old post ------ */
-  if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object'))) {
+  if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object')) && (filesIndexes.length > 0)) {
     /*  file's links adding to the message */
     const linkFilesArr = await getLinksToFile(filesIndexes); // GET
     if (linkFilesArr === undefined) {

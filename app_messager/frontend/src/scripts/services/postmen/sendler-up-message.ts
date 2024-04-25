@@ -23,7 +23,7 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   /* ------ Fetch & PATCH for one message which did user be posted & the single column ------ */
 
   const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
-  const url = new URL(`api/chat/patch/${Number(postId_)}/`, domen);
+  const url = new URL(`api/v1/chat/update/${Number(postId_)}/`, 'http://127.0.0.1:8000/');
 
   const response = await fetch(url, {
     method: 'PATCH',

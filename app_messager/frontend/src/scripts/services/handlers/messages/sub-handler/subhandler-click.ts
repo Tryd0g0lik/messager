@@ -1,7 +1,5 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\sub-handler\subhandler-click.ts
 
-import { debug } from 'webpack';
-
 /**
  * This is only  a logic action after the event click or 'Enter' keybord.
  * @param `h`: `(e: MouseEvent) => void` is function. That is sction after the events

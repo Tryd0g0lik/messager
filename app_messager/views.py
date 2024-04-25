@@ -18,7 +18,7 @@ import websocket, json
 
 from rest_framework import serializers
 from rest_framework.decorators import api_view
-from .serializers import Chat_MessageSerialiser
+from .serializers import Chat_MessageSerializer, File_MessagesSerializer
 from rest_framework.response import Response
 from rest_framework import status, generics
 import hashlib
@@ -115,12 +115,15 @@ def upload_file(request, listIndexes = None):
 
 class UpdataMessages(generics.UpdateAPIView):
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerialiser
+	serializer_class = Chat_MessageSerializer
+#
+class DeleteMessages(generics.UpdateAPIView):
+	queryset = FileModels.objects.all()
+	serializer_class = File_MessagesSerializer
 #
 
-
-def delete_file(request, *args, **kwargs):
-	pass
+# def delete_file(request, *args, **kwargs):
+# 	pass
 
 # @login_required
 # def GroupChatView(request, uuid):

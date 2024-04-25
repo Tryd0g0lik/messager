@@ -1,0 +1,753 @@
+[33mcommit 57ce8add6c8597c08114feeb82f1ced4cb6f9176[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32m2.3[m[33m)[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 25 11:57:14 2024 +0700
+
+    pause
+
+[33mcommit ad183ec0ec177dc19674f84a17a50247f6cf4f6a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 25 11:06:39 2024 +0700
+
+    [2.3]: added `deletesFetch` and `handlerDeleteFileOne` is relocation
+
+[33mcommit 327a464d24899cdb7d2a83d44e026dd01512ca0e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 17:15:18 2024 +0700
+
+    [2.3]: from visually is deleted files
+
+[33mcommit 4c3280fb4eaf5990c4dbc019b8fbd275d163f005[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 15:29:00 2024 +0700
+
+    [2.3]: first commit
+
+[33mcommit 1a6c99001cdf7eef692ce922cfccbac9c7f97615[m[33m ([m[1;32m2.2[m[33m)[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 14:16:51 2024 +0700
+
+    [2.2]: ----
+
+[33mcommit e8f91e15f7a81d3cfcc498b9ddc4dde75afb1a73[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 14:01:43 2024 +0700
+
+    [2.2]:that location a 'postStylesHeight'method has been corrected for  style update
+
+[33mcommit ea28670dc8c8c1e104ee1be1396b59a4f7e11577[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 13:21:05 2024 +0700
+
+    [2.2]: clearned
+
+[33mcommit dc93bd033bb1fb14e6de382bcb499a1b7931b2e9[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 13:10:53 2024 +0700
+
+    [2.2]: clearned
+
+[33mcommit 9b5a1dd9d1882c4857bd7c7fa552aa6d0816a820[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 12:31:01 2024 +0700
+
+    [2.2]: style update after added the new files to the redactions the old post
+
+[33mcommit 8d4f17339411a090019d6e578e56757ca439021e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 11:14:08 2024 +0700
+
+    [2.2]: add a new files to the redactions the old post
+
+[33mcommit f60f04b946f9b02edf6592b45a0c52a613a17bcc[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 06:35:32 2024 +0700
+
+    [2.2]: 'paste-old-message.ts' rename into 'up-message.ts'
+
+[33mcommit 49e3929dcf5782dca17badffa7660160271d6577[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 06:30:32 2024 +0700
+
+    [2.2]: 'edit-message.ts' rename into the 'pencils.ts'
+
+[33mcommit 6078f3782839bfb99369b790326fbc7894fffb78[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 24 06:19:09 2024 +0700
+
+    [2.2]: correct
+
+[33mcommit da5c3caa295e2e1df65d07c8a49f03b7d3fc4957[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 23 16:33:31 2024 +0700
+
+    [2.2]: added the oop folder. received repetition references in the redakting
+
+[33mcommit 2df220d040c2dd8fb7aa44d90aed25be96b07e5a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 23 07:26:12 2024 +0700
+
+    [2.2]: ---
+
+[33mcommit 70e40c59c8a95b16b604b6757330e4302d151ffb[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 22 14:14:53 2024 +0700
+
+    [2.2]: file README was update
+
+[33mcommit d159f11e80581d3136b78e9dbcd8f8abf02bdfaa[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 22 13:24:52 2024 +0700
+
+    [2.2]: first commit
+
+[33mcommit 04569f488242bf8d965ba160f26b530b1ea174bd[m[33m ([m[1;32m2[m[33m)[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 22 13:01:45 2024 +0700
+
+    [2]: correcte a styles, teplate chat's post and  pencil functions
+
+[33mcommit 7c7b8ae5ed8f9f72f941d443f1332f6727c02447[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 22 12:07:52 2024 +0700
+
+    [2]: update \messages\old-message\paste-old-message.ts
+
+[33mcommit 69f123e89f4dbdd84d8f045c5b951cca10148fb1[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 22 05:08:31 2024 +0700
+
+    [2]:  Update the fun., changed the tree, added new files
+
+[33mcommit a26609749e8040fb525154e649a1d33faff478a3[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 15:28:13 2024 +0700
+
+    [2]: corrected app_messager\frontend\src\scripts\templates\messages.ts
+
+[33mcommit 6fbea7ad84668a8fcdb343ba00c6def7182b4883[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 15:12:48 2024 +0700
+
+    [2]: ----
+
+[33mcommit fb0ec5db815feb9292eef1bbe70f90498a8197d4[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 13:50:58 2024 +0700
+
+    [2]: added 3/3 added the event listener to the input form That 'handlerGetMessageOfInput'
+
+[33mcommit e5a02f407220b1a88ee27c58f2e67426980dd152[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 13:41:25 2024 +0700
+
+    [2]: add the fun 'cleanForm'
+
+[33mcommit 988ebd674f40956c376f52e8f0d6e7a64cb0842f[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 13:12:57 2024 +0700
+
+    [2]: corrected a merge
+
+[33mcommit 429d981da38f4a90187c3fb97485cd0a9e72353a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 12:35:09 2024 +0700
+
+    [2]: -----
+
+[33mcommit 07515c94a579850f0cd1f13d8e7997202ecc4e49[m
+Merge: cb88166 9e21601
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 12:33:41 2024 +0700
+
+    [2]: Error of the merge
+
+[33mcommit 9e2160103ac444af21bf2d5dcc37bc88128c2bdf[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 12:20:43 2024 +0700
+
+    [2.1]: corrected
+
+[33mcommit 939652cf932a9453dc02f106e6ef3d3c1b1ec521[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 21 12:13:54 2024 +0700
+
+    [2.1]: Functin redacting post. That an error was founs here.
+
+[33mcommit f84b8ef85139d6e2494979771034280dfd3c1582[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 16:33:03 2024 +0700
+
+    [2.1]: first commit
+
+[33mcommit 27a1d6ea8827a4c8c254cbd1ce42150f0b1f4dab[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 16:28:07 2024 +0700
+
+    -----
+
+[33mcommit cb881666ef4e327b966faf282a1582b27b4f52a4[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 16:24:48 2024 +0700
+
+    -----
+
+[33mcommit 4abf69809ba57746e35fd6cdeb1608722d0186a9[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 16:21:14 2024 +0700
+
+    -----
+
+[33mcommit a6a0cde8f217dd0b03f9288cba9c5a3636640971[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 15:55:33 2024 +0700
+
+    -----
+
+[33mcommit 219f7086e47fb29bf3a993651417ba389e758baa[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 15:52:57 2024 +0700
+
+    -----
+
+[33mcommit b0bbc4c5b810e2681289a26471a141831225fd3e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 15:34:10 2024 +0700
+
+    -----
+
+[33mcommit 6a40fa4e77e4e88f5a76f413b6b7389f7fdb1c4a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 15:05:49 2024 +0700
+
+    -----
+
+[33mcommit a685099de18c6af5c553fc88d3b2a3cd3d654856[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 14:02:29 2024 +0700
+
+    -----
+
+[33mcommit fed9eb9c7ff2117948c1884f99d335f49f88599a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 20 08:49:12 2024 +0700
+
+    [2]: CHANGE the tree and rewrite code of the 'frontend\src\scripts\services\handlers\messages\get-messages.ts'
+
+[33mcommit 1df9e0d2ead48b8e8ab5b99e30912a3050100e71[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 15:10:30 2024 +0700
+
+    [2]: the GLOBSL correction the project tree
+
+[33mcommit 0604e7bf92ff0a0118bd908a88aa481112f8dd9e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 14:00:28 2024 +0700
+
+    [2]: pause
+
+[33mcommit ebab96e1425026dc36ff117ff5220e7b9edf8b94[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 13:05:46 2024 +0700
+
+    [2]: here is 'addQuote ' added amd 'handler-changes-message' corrected'
+
+[33mcommit 96ae5d798f03859563d12b90f4c832eeee8d25e2[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 11:25:17 2024 +0700
+
+    [2]: added the pencil.svg
+
+[33mcommit 38e7a073de7767acd6cf680c23844b3d8c4050af[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 11:03:30 2024 +0700
+
+    [2]: corrected
+
+[33mcommit 3dc5662d52b26f45c495c0009a6615fc58a7fd15[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 10:46:59 2024 +0700
+
+    [2]: split the functions and added files
+
+[33mcommit e61588309da252b689dc3bf7032d02ebbda125cd[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 19 10:45:26 2024 +0700
+
+    [2]: corrector consumer.py
+
+[33mcommit 85a641dbdb07cad065fe599c423ace154215ba81[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 11:57:21 2024 +0700
+
+    [2]: added the pencil.svg
+
+[33mcommit c23ab747f27498c6d397fe71a0b6ba5d2a576454[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 11:51:57 2024 +0700
+
+    [2]: added the pencil.svg
+
+[33mcommit 420ab8c0af45b3c243d7d33b16c8bd4883519937[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 06:55:52 2024 +0700
+
+    [2]: split the functions
+
+[33mcommit b7a748e3e47e17fb303761dd9bd29591cafce304[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 06:15:39 2024 +0700
+
+    [2]: checker function was rename/ Before name is 'checkYourOnNotYour' and afte checkerUserId
+
+[33mcommit 264b30fac33713c6ddf3722741b39277e8f2e70c[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 06:06:14 2024 +0700
+
+    [2]: it's first commit
+
+[33mcommit a6f00cec5c53d31a6e997fb596d11762ec157b3d[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 05:57:25 2024 +0700
+
+    [master]: corrected a readme file
+
+[33mcommit 88918122c911cdf54d58cb31ad6d38c3e729e9d2[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 18 05:45:17 2024 +0700
+
+    [master]: corrected
+
+[33mcommit 4c286c1e60ec7c8907addac5952f6946250094a7[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 17 17:32:59 2024 +0700
+
+    [master]: litle cleaned the code
+
+[33mcommit d3f23b2fa2bc19acf3892ccb345d8179444dca25[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 17 17:24:31 2024 +0700
+
+    [master]: litle cleaned the code
+
+[33mcommit c5fe4b958bedc6ef18ecf913127648cfd6d47f7a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 17 17:23:01 2024 +0700
+
+    [master]: completed send messange
+
+[33mcommit 621e00a03f0234126e3e8024ccc1053cdb76c6b3[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 17 16:21:41 2024 +0700
+
+    [master]: --
+
+[33mcommit 2896880bfd056a9cb515cc0f3361a47dd6bf1714[m
+Merge: 95b79b5 d2d1573
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 16 12:00:49 2024 +0700
+
+    [master]:  after merging branches
+
+[33mcommit 95b79b53340ff0e2f6a75dc10da4e934e3809ad5[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 16 11:59:43 2024 +0700
+
+    [master]:  before merging
+
+[33mcommit d2d1573784856d8e1bc4c158781e7425d42f0e39[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 16 11:57:56 2024 +0700
+
+    [1.2]: added the loader anime to the form/ + Cleaning foerm was added
+
+[33mcommit 00541a8ffd5a1b002c306367c66e02d7822ebc4a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 16 09:15:36 2024 +0700
+
+    [1.2]: id file was received in message from the db
+
+[33mcommit b9ea5d8f562d10ebcbd0914cc573edce6449f160[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 16 08:00:15 2024 +0700
+
+    [1.2]: localStarage gat the id file
+
+[33mcommit 2203a88716c57738edffda91967df4c1ded15454[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 17:36:11 2024 +0700
+
+    [1.2]: corrected
+
+[33mcommit 942fca5876e593ef50d9cf636d829fe71a9399d6[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 17:10:07 2024 +0700
+
+    [1.2]: returned all migrations's files
+
+[33mcommit 4c13e4233e9c4ed901ee398aab6569d276dc2d18[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 17:04:37 2024 +0700
+
+    [1.2]:  md5 - checker has been corrected
+
+[33mcommit 3630f32eca2ee2769a5d54583c694509f4a15b9e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 16:34:09 2024 +0700
+
+    [1.2]: check added md5
+
+[33mcommit e71d7305525064620b18e0c4c2f5688fad202856[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 11:17:14 2024 +0700
+
+    [1.2]: get the index of the loaded file
+
+[33mcommit 5b57ac2899f35e0f4725556acc67221b93a93381[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 07:55:16 2024 +0700
+
+    [1.2]: to 'src\scripts\services\upload_files.ts' added ATTENTION  'Your file lafge than 64 MB.'
+
+[33mcommit 32f78430d0d6892cda377a9adba7f906f4836fdf[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 15 07:29:02 2024 +0700
+
+    [1.2]: save the file to the server
+
+[33mcommit 71003909e3c4d3dc737e5a16afa8db8ed7f0e18b[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 18:47:02 2024 +0700
+
+    [master] added file
+
+[33mcommit 3fb98f213aa8f1d7acd70daefbe0ccdb62d9e41a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 18:44:22 2024 +0700
+
+    [master] Readme.md corrected
+
+[33mcommit 83f65aa72d923d6034e15f3c264654a3d1da0763[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 18:39:50 2024 +0700
+
+    [master] Readme.md corrected
+
+[33mcommit afef80f3a36b3790c5b6589f6ef6a6dfd0f53f39[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 10:44:06 2024 +0700
+
+    [1.2]: 'src\scripts\MessageForm\index.ts' corrected and added '\src\scripts\services\upload_files.ts' + 'src\scripts\services\sendler_message.ts'
+
+[33mcommit 11a8db30ba919e2c61d6d67d4123df50db8c0735[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 07:52:09 2024 +0700
+
+    [1.2]: this's a first commit of the 1.2 branch
+
+[33mcommit 7b0456a9dfc0316822319be6a7fdce2d49787281[m
+Merge: 7699382 4cd19de
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 07:45:45 2024 +0700
+
+    [master]: commit after the merging
+
+[33mcommit 7699382779a49c41dea2c061842c041fb822a1b1[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 07:43:30 2024 +0700
+
+    [master]: this commit before merging
+
+[33mcommit 4cd19defa52a0405e5589681a392dd0ac625526e[m[33m ([m[1;32m1.1[m[33m)[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 07:36:31 2024 +0700
+
+    [1.1]: REadme.md has been corrected
+
+[33mcommit 8278b1820e9500c22d798d39ced449213c1a53ae[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 14 07:17:17 2024 +0700
+
+    [1.1]: 'this.socket.onbeforeunload' added in JS and a browser does not closes the connection with server.
+
+[33mcommit 19fed223f7112b8e9bf631a1d0560594bcd76bcc[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 17:45:40 2024 +0700
+
+    [1.1]:  correcteed/fixed the record  in to db
+
+[33mcommit a77017c4db7a7f241c8415b371a58ae061294956[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 16:32:24 2024 +0700
+
+    [1.1]: corrected 'classList' of the one message (post) from the chat
+
+[33mcommit 8b0c59bb0a520b9283fb666868437c1f7c9f2af8[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 13:49:50 2024 +0700
+
+    [1.1]: cleanning code
+
+[33mcommit 12a6d15c9ea4a6060e45ec66a0555e0887e0efc0[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 13:40:15 2024 +0700
+
+    [1.1]: created the time for displaying  in message chat
+
+[33mcommit 477ec8ee9d7a536bcc64ecdcf051b4d15180d895[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 10:42:06 2024 +0700
+
+    [1.1]: 'app_messager\consumers.py' corrected and 'onMessage' of 'frontend\src\scripts\websockets\index.ts'
+
+[33mcommit e78b6dd2fcece022a587bde167f4dfd50886f117[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 09:27:03 2024 +0700
+
+    [1.1]: A scroll be all time to the down
+
+[33mcommit 8967e05c85d92453c14c8ec0d32530d7f23a7f0f[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 09:13:56 2024 +0700
+
+    [1.1]: A messege has been inserted in the chat
+
+[33mcommit d6275bafd5c02eb92c1f0a635a5afb15d7e44d1a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 13 07:00:48 2024 +0700
+
+    [1.1]: corrected the webpack, tsconfig and ..
+
+[33mcommit 2d3da600186067a6446defeba531c692ab61e2ef[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 12 12:16:10 2024 +0700
+
+    [1.1]: corrected code
+
+[33mcommit a8238081a84bea2212d6d0362c615f2287cf10c9[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 12 12:00:59 2024 +0700
+
+    pause
+
+[33mcommit 1176c5ff957c23336517f80c448cce8977db8228[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 12 11:17:12 2024 +0700
+
+    [1.1]: added the 'interface.ts' file and upgrated iptions from the webpack and tsconfig.json
+
+[33mcommit 5d42cd4aeb1edfe2c1d99f5d2d14fcfb78684cd7[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 12 10:08:50 2024 +0700
+
+    [1.1]: cleanned the consumer was
+
+[33mcommit 73d19cdc34c3fb052bf42b0bae1e52138baafc08[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 18:15:05 2024 +0700
+
+    corrected
+
+[33mcommit 8e0610ae09b40083b8e96a31b5ea1d64815c44f0[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 11:48:54 2024 +0700
+
+    corrected
+
+[33mcommit 097758edf61a061c3066a028a916e812570bdf2e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 11:45:03 2024 +0700
+
+    corrected
+
+[33mcommit ecdb9ef21793b057b07c788dea9df6eeb31ec9af[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 10:39:25 2024 +0700
+
+    [1.1]: code corrected
+
+[33mcommit 68eb1e85c54c9fe24e62d7bf948258e539bb3214[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 05:20:39 2024 +0700
+
+    [master] new branches merging
+
+[33mcommit 2d5f091a959dfb7b317797262a85c2dd2afe7e30[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Thu Apr 11 05:17:25 2024 +0700
+
+    [1.1]: new migrate
+
+[33mcommit 324db6fc465a2df5b5d0477c24fee3b7cfa8e51e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 17:33:32 2024 +0700
+
+    [1.1]: abgrate tables from db
+
+[33mcommit b7de88c472db05376818a110cd30a0f9ab3a5eee[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 16:52:30 2024 +0700
+
+    [1.1]: corrected database
+
+[33mcommit d2dba81fbb1eb9b5a5b7af41367e00d2f712a2b5[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 14:29:52 2024 +0700
+
+    [1.1]: settings.py has been corrected
+
+[33mcommit 18172f58fe3c14d31ce05b402ab8a8fa9998445f[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 13:54:25 2024 +0700
+
+    [1.1]: pause
+
+[33mcommit b1b3f2ba9084e725f9d2e5f7a23a534531e52e4b[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 12:01:36 2024 +0700
+
+    [1.1]: models has been correctet for DB
+
+[33mcommit f7489a40fb3970eaf528ee3544722069521c429a[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 11:46:52 2024 +0700
+
+    [1.1]: corrected the sitting.py ' and made models for DB
+
+[33mcommit 57e9d5adc2d7f7b851b86f65d5105cdf0141084e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 11:06:36 2024 +0700
+
+    [1.1]: First commit. Models.py has been corrected. Before a migrate
+
+[33mcommit 66a7997789608f42c8c57e835ad52df49c133702[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 07:43:04 2024 +0700
+
+    [1]: the ReadMe.md has been corrected
+
+[33mcommit 95943523f6e58cfd27bb13457fd36d1883096b4e[m
+Merge: 59006b9 cea0f33
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 07:37:58 2024 +0700
+
+    [master]: merged branch
+
+[33mcommit cea0f33de939ab8dc01d6717a3f8d97ca29590a3[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 07:34:11 2024 +0700
+
+    [1]: added a new files from the frontend
+
+[33mcommit 0be5613e5c60e5826197741d29be1b2926b37d80[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Wed Apr 10 07:29:44 2024 +0700
+
+    [1]: model db of messager
+
+[33mcommit d42d1bce36433798b94a2f00d777c953682955c5[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 17:33:19 2024 +0700
+
+    [1]: A message has been received here
+
+[33mcommit 6a6f0b0bcc28e4cb15ce570933051326db393343[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 17:19:37 2024 +0700
+
+    [1]: received an response from the websocket
+
+[33mcommit 13c0ba5972c27d979e25bce884649d9bfb69bf8f[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 16:31:20 2024 +0700
+
+    [1]: Redis was re-installed
+
+[33mcommit c93a2cfd2d08f77d12c0a5b3d5f65dd50dc59e90[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 12:17:48 2024 +0700
+
+    [1]: corrected options of the webpack
+
+[33mcommit 2b437a81933dc8c006e7d999748050aca924c155[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 11:56:28 2024 +0700
+
+    [1]: recived the meta css and js files for <head>. Thay have name dinamics
+
+[33mcommit 2ddf39516793f0201bd0a889e51ea4ac3c2cb367[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Tue Apr 9 10:03:37 2024 +0700
+
+    [1]: here has been complated the handler (function) from the chat input form
+
+[33mcommit 1d78513245075881070f5196e11f2e4528190a98[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 17:32:33 2024 +0700
+
+    [1]: JS has been added  the WServer
+
+[33mcommit 899c09ec70d063140843cd700f41e22f835d8605[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 15:51:18 2024 +0700
+
+    [1]: 'websockets' folder has been added
+
+[33mcommit 57e9c2a2dfe5ff60ffa57dc8ce93225904f40c76[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 15:31:00 2024 +0700
+
+    [1]: instal the webpack and more ...
+
+[33mcommit 8234ed29ca7abedb67da89bf03e692fcfde349ba[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 11:22:08 2024 +0700
+
+    [1]: before install 'pip install django-webpack-loader==1.0.0' and settins
+
+[33mcommit ab9694290845c18b22e36d3cb6c66efd2207d46b[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 07:42:40 2024 +0700
+
+    [1]: websocket was open  BUt redis - ERR unknown command 'BZPOPMIN'
+
+[33mcommit 782341283704dc2228ec84658634d69b689958b4[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Mon Apr 8 07:25:56 2024 +0700
+
+    [1]: project was re-install on the old version
+
+[33mcommit 81340453b29f13d26826c1d13d4a48a34e1682ad[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 7 18:03:00 2024 +0700
+
+    [1]: code has been corrected
+
+[33mcommit 59006b929ae314c01e8f93bcc75d1301956ef59f[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 7 12:21:38 2024 +0700
+
+    [master]: pouse
+
+[33mcommit e97275d9b3ec29ef876a9e298555b1d6308e70f7[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sun Apr 7 07:43:12 2024 +0700
+
+    [master]: added models
+
+[33mcommit be9bd12ac30a18587881fb8d44efe9915f3c206b[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 6 14:18:18 2024 +0700
+
+    [master] static and templplates file was added
+
+[33mcommit 53f16a47c6f59cad0cffad5e1018146d2d30255e[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Sat Apr 6 10:39:25 2024 +0700
+
+    pause
+
+[33mcommit 6bd50299839fb3b44f0bd3881bc810f86ca0ad85[m
+Author: Tryd0g0lik <work80@mail.ru>
+Date:   Fri Apr 5 16:56:46 2024 +0700
+
+    [firat commit

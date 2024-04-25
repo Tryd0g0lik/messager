@@ -3,7 +3,7 @@
  * @returns `string[]` That links of files
  */
 async function getLinksToFile(arr: number[]): Promise<string[] | undefined> {
-  const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
+  const url = new URL('api/v1/chat/upload/files/', 'http://127.0.0.1:8000/');
   url.searchParams.set('indexes', String(arr));
 
   const response = await fetch(url, {
@@ -13,6 +13,7 @@ async function getLinksToFile(arr: number[]): Promise<string[] | undefined> {
     }
   });
   if (response.ok) {
+    debugger
     const data = await response.json();
     console.info('[createChatMessage > LINK]:', data);
     const dataList = (JSON.parse(data.files)).linkList;

@@ -102,6 +102,7 @@ class ChatConsumer(AsyncConsumer):
 			event_json['text'] = json.dumps(new_event_json)
 			new_event = json.dumps(event_json)
 		elif (json.loads(event['text'])['corrects'] == True) and \
+			('corrects' in json.loads(event['text'])) and ('fileIndex' in json.loads(event['text'])) and \
 			(type(json.loads(event['text'])['fileIndex']) == list) and \
 			(len(json.loads(event['text'])['fileIndex']) > 0):
 			await self.send_chat_message_inDB(event)

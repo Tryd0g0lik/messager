@@ -30,7 +30,8 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     return;
   }
   let linkFilesArr: string[] = [];
-  if (filesId.length > 0) {
+  if ((filesId !== undefined) && ((typeof filesId).includes('object')) && (filesId.length > 0)) {
+  // if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object'))) {
     /** indexes of the files inserted to the parameters from the URL */
     linkFilesArr = await getLinksToFile(filesId) as string[];
   }
