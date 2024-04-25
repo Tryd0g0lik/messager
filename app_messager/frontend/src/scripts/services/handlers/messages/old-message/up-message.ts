@@ -1,7 +1,6 @@
 import { PostCorrector } from '@Interfaces';
 import { Pencil } from '../../../oop/pencils';
 import filetepmplate from '@htmlTemplates/file';
-import handlerFileOne from '@Service/handlers/files/deletes';
 import getLinksToFile from '@Service/links-files';
 /**
  * In to the enterpoint called the two parameters. \

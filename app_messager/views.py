@@ -119,7 +119,8 @@ class UpdataMessages(generics.UpdateAPIView):
 #
 
 
-
+def delete_file(request, *args, **kwargs):
+	pass
 
 # @login_required
 # def GroupChatView(request, uuid):

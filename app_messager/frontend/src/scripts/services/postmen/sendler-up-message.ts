@@ -2,6 +2,15 @@
 
 import getCookie from '@Service/cookies';
 import getTextOfInput from '@Service/message';
+let APP_MESSAGER_SERVER_URL_ORIGEN = process.env.APP_MESSAGER_SERVER_URL_ORIGEN;
+if (APP_MESSAGER_SERVER_URL_ORIGEN === undefined) {
+  APP_MESSAGER_SERVER_URL_ORIGEN = window.location.origin;
+}
+let APP_MESSAGER_SERVER_URL_PORT = process.env.APP_MESSAGER_SERVER_URL_PORT;
+if (APP_MESSAGER_SERVER_URL_PORT === undefined) {
+  APP_MESSAGER_SERVER_URL_PORT = '8000';
+}
+
 const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object> => {
   /* ------ LocalStorage ------ */
   const localS = localStorage.getItem('data');
@@ -12,7 +21,9 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
 
   const massage_ = getTextOfInput();
   /* ------ Fetch & PATCH for one message which did user be posted & the single column ------ */
-  const url = new URL(`api/chat/patch/${Number(postId_)}/`, 'http://127.0.0.1:8000/');
+
+  const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
+  const url = new URL(`api/chat/patch/${Number(postId_)}/`, domen);
 
   const response = await fetch(url, {
     method: 'PATCH',
