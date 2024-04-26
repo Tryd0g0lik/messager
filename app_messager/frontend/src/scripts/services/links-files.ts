@@ -13,7 +13,7 @@ async function getLinksToFile(arr: number[]): Promise<string[] | undefined> {
     }
   });
   if (response.ok) {
-    debugger
+    // debugger
     const data = await response.json();
     console.info('[createChatMessage > LINK]:', data);
     const dataList = (JSON.parse(data.files)).linkList;

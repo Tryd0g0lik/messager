@@ -3,11 +3,20 @@
 import addQuote from '../handlers/messages/old-message/paste-quote';
 import handlerGetMessageOfInput from '../handlers/messages/get-messages';
 import manageOldMessageTotal from '../handlers/messages/old-message/old-messages';
-import { FServices } from './file-services';
+import { FServices } from './files';
 import filetepmplate from '@htmlTemplates/file';
 import handlerFileOne from '@Service/handlers/files/deletes';
 
-/* цель вывести данные в форму для редактирования */
+/**
+ * Methods: \
+ * `fGet` is :
+ *  - `ContentType` That is basice proporties of the fetch.  Exemple this is `{Content-Type: 'application/json'}`/
+ *  - `cache?` That is basice proporties of the fetch. Exemple this is 'no-cache' /
+ *  - `mode?` That is basice proporties of the fetch. Exemple this is `cors` 
+ *
+ * `fGet` entrypoint has `fGet(props: RequestHeaders)` where \
+ * `{ContentType: string, cache: string|undefined,  mode: string| undefined}`
+ */
 export class Pencil extends FServices {
   emptyvar: string[];
 

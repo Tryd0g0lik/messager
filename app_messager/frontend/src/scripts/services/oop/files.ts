@@ -1,5 +1,6 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 // import handlerFileOne from '@Service/handlers/files/deletes';
+import { Post } from './post';
 import { Push } from './pushes';
 import { OllDatas, F } from '@Interfaces';
 let APP_MESSAGER_SERVER_URL_ORIGEN = process.env.APP_MESSAGER_SERVER_URL_ORIGEN;
@@ -87,11 +88,12 @@ export class FServices extends Push {
    * @returns Promise<boolean>
    */
   async handlerDeleteFileOne(e: MouseEvent): Promise<boolean> {
-    debugger;
+    // debugger;
     const target = (e.target as HTMLElement);
     const currentTargetLi = (e.currentTarget as HTMLElement);
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
+    // debugger
     if ((String(target.classList).includes('bucke'))) {
       const arr = Array.from(currentTargetLi.childNodes);
       /**
@@ -112,8 +114,8 @@ export class FServices extends Push {
         userId: (dataset.id as string).slice(0),
         pathname: (dataset.pathname).slice(0)
       };
-      debugger
-      const falsetrue = await this.deletesFetch(metaRequest);
+      // debugger
+      const falsetrue = await this.deleteFetchOneFile(metaRequest);
       (currentTargetLi).remove();
       return true;
     }
@@ -126,23 +128,24 @@ export class FServices extends Push {
    * @param `props`: `{ postId: string, userId: string, pathname: string }`
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
-  async deletesFetch(props: F): Promise<boolean> {
+  async deleteFetchOneFile(props: F): Promise<boolean> {
     const { postId, userId, pathname } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
-    const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
     // url.searchParams.set('userId', userId);
     // url.searchParams.set('pathname', pathname as string);
     // headers: {
     //   'X-CSRFToken': getCookie('csrftoken'),
     //     'Content-Type': 'application/json'
     // }, mode: 'cors',
+
+    const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
     const responce = await fetch(url, {
       method: 'DELETE',
       cache: 'no-cache',
       mode: 'cors'
     });
     if (responce.ok) {
-      debugger
+      // debugger
       const resultJson = responce.json();
       console.log('[FServices > deletesFetch]: ', resultJson);
       return true;

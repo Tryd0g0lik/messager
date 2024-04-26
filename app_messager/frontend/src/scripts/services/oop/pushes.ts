@@ -1,11 +1,14 @@
+import { FRequeres } from './requeres';
+
 interface Data {
   dataPost: string | undefined
   dataId: string | undefined
 }
-export class Push {
+export class Push extends FRequeres {
   element: HTMLDivElement;
 
-  constructor(name: HTMLDivElement) {
+  constructor(name: HTMLDivElement, url = window.location.origin) {
+    super(url);
     this.element = name;
   }
 

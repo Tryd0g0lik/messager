@@ -121,15 +121,60 @@ class UpdateMessages(generics.UpdateAPIView):
 	serializer_class = Chat_MessageSerializer
 #
 class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
-	# queryset = FileModels.objects.all()
-	# serializer_class = File_MessagesSerializer
+
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer
+	serializer_class = File_MessagesSerializer
+
+
 	filter_backends = []
 
-	def delete(self, request, *args, **kwargs):
-		req = request
-		return self.destroy(request, *args, **kwargs)
+	# def get_queryset(self, *args, **kwargs):
+	# 	# instance = self.get_object()
+	# 	# serializer = self.get_serializer(instance)
+	# 	return Chat_MessageModel.objects.filter(pk = self.kwargs['pk'])
+
+
+
+	#
+	# 	filter_list = Chat_MessageModel.objects.filter(pk=message_pk);
+	# 	if (len(filter_list) > 0):
+	# 		file_id = filter_list[0].file_id
+	# 		# kwargs['pk'] = file_id
+	# 		# request.parser_context['pk'] = file_id
+	# 		# request.parser_context['kwargs'] = file_id
+	# 		content_one = (Chat_MessageModel.objects.filter(pk=message_pk)[0]).content
+	# 		content_list = Chat_MessageModel.objects.filter(content=content_one)
+	#
+	# 		if len(list(content_list)) == 1:
+	# 			filter_list[0].file_id = '[NULL]'
+	# 	return self.destroy(request, *args, **kwargs)
+	# def delete(self, request, *args, **kwargs):
+	# 	# message_pk = kwargs['pk']
+	# 	# filter_list = Chat_MessageModel.objects.filter(pk=message_pk);
+	#
+	# 	if (len(filter_list) > 0):
+	# 		file_id = filter_list[0].file_id
+	# 		kwargs['pk'] = file_id
+	# 		request.parser_context['pk'] = file_id
+	# 		request.parser_context['kwargs'] = file_id
+	# 		one_content = (Chat_MessageModel.objects.filter(pk=message_pk)[0]).content
+	# 		list_content = Chat_MessageModel.objects.filter(content=one_content)
+	# 		# file = Chat_MessageModel.objects.get(pk=message_pk).file;
+	#
+	# 		# if 'NoneType' in str(type(file)):
+	# 		# 	file.delete()
+	#
+	# 		if len(list(list_content)) > 1:
+	# 			filter_list[0].delete()
+	# 		elif len(list(list_content)) == 1:
+	# 			filter_list[0].file_id = '[NULL]'
+	#
+	# 			filter_list.save()
+
+
+
+
+		# return self.destroy(request, *args, **kwargs)
 
 #
 
