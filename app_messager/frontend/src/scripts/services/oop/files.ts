@@ -138,6 +138,7 @@ export class FServices extends Push {
     //     'Content-Type': 'application/json'
     // }, mode: 'cors',
 
+    /* ------ */
     const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
     const responce = await fetch(url, {
       method: 'DELETE',
