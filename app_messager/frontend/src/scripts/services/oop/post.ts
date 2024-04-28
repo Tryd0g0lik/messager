@@ -64,7 +64,7 @@ class Post extends FRequeres {
   }
 
   async removePostFile(props: File): Promise<boolean> {
-    const { file_id, postId, index = undefined, indexes = undefined } = { ...props };
+    const { file_id, postId } = { ...props };
     const url = new URL('api/v1/chat/delete/file/', 'http://127.0.0.1:8000/');
     const err = new Error();
     err.name = '[Post > removePostFile]';
@@ -75,11 +75,11 @@ class Post extends FRequeres {
     }
     url.searchParams.set('post_id', postId as string);
 
-    if ((index === undefined) && (indexes === undefined)) {
-      err.message = `Somethefing tha wrong! Not found an file index from post. IMDEX: ${index}, INDEXES: ${indexes}`;
-      throw err;
-    }
-    url.searchParams.append('indexes', (index !== undefined) ? index : (indexes !== undefined) ? String(indexes) : 'Null')
+    // if ((index === undefined) && (indexes === undefined)) {
+    //   err.message = `Somethefing tha wrong! Not found an file index from post. IMDEX: ${index}, INDEXES: ${indexes}`;
+    //   throw err;
+    // }
+    // url.searchParams.append('indexes', (index !== undefined) ? index : (indexes !== undefined) ? String(indexes) : 'Null')
 
     if (file_id === undefined) {
       err.message = `Somethefing tha wrong! Not found file_id: ${file_id}`;

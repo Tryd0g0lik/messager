@@ -90,6 +90,11 @@ export class FServices extends Push {
     // debugger;
     const target = (e.target as HTMLElement);
     const currentTargetLi = (e.currentTarget as HTMLElement);
+    let fileIndex = currentTargetLi.dataset.ind;
+    if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
+      fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
+    }
+    debugger
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -111,7 +116,8 @@ export class FServices extends Push {
       const metaRequest: F = {
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
-        pathname: (dataset.pathname).slice(0)
+        pathname: (dataset.pathname).slice(0),
+        fileInd: fileIndex
       };
       // debugger
       await this.deleteFetchOneFile(metaRequest);
@@ -128,7 +134,7 @@ export class FServices extends Push {
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
   async deleteFetchOneFile(props: F): Promise<boolean> {
-    const { postId, userId, pathname } = { ...props };
+    const { postId, userId, pathname, fileInd } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
     // url.searchParams.set('userId', userId);
     // url.searchParams.set('pathname', pathname as string);
@@ -139,48 +145,59 @@ export class FServices extends Push {
 
     const name = this.element;
     const post = new Post(name);
-    const responseOfOne = await post.getFetchOneProfile({ ...props });
-    console.log('[FServices > deletesFetch > getOneProfile]: ', responseOfOne);
+    // const responseOfOne = await post.getFetchOneProfile({ ...props }); ???
+    // console.log('[FServices > deletesFetch > getOneProfile]: ', responseOfOne);
 
-    const { author = undefined, content = undefined, file = undefined, group = undefined, id = undefined } = { ...responseOfOne };
+    // const { author = undefined, content = undefined, file = undefined, group = undefined, id = undefined } = { ...responseOfOne };
     debugger
     const propsAll = {
-      postId: (id !== undefined) ? id : 0,
-      message: (content !== undefined) ? content : 'Null',
-      groupId: (group !== undefined) ? group : 'Null',
-      authorId: (author !== undefined) ? author : -1
+      postId: (postId !== undefined)
+        ? ((typeof postId).includes('string')
+          ? postId
+          : String(postId))
+        : String(-1),
+      file_id: (fileInd !== undefined)
+        ? ((typeof fileInd).includes('string')
+          ? fileInd
+          : String(fileInd))
+        : String(-1)
+      // message: (content !== undefined) ? content : 'Null',
+      // groupId: (group !== undefined) ? group : 'Null',
+      // authorId: (userId !== undefined) ? userId : -1
     };
-    const responseOfAll = await post.getFetchFindProfiles(propsAll);
-    console.log('[FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll);
-    debugger;
+    // const responseOfAll = await post.getFetchFindProfiles(propsAll); ?????
+    // console.log('[FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll);
+    // debugger;
 
-    if (((typeof responseOfAll).includes('object')) && responseOfAll.length > 1) {
-      const idFiles: string[] = [];
-      (responseOfAll as object[]).forEach((item) => {
-        idFiles.push(String(item.file));
-      }); // файлы которые подвешаны на пост
-      await post.removePostFile({ file_id: file, postId: String(id), indexes: idFiles });
-    } else if (((typeof responseOfAll).includes('object')) && responseOfAll.length === 1) {
-      const idFile = String(((responseOfAll as object[])[0]).file); // файлы которые подвешаны на пост 
-      await post.removePostFile({ file_id: file, postId: String(id), index: idFile });
+    // if (((typeof responseOfAll).includes('object')) && responseOfAll.length > 1) {
+    //   const idFiles: string[] = [];
+    //   (responseOfAll as object[]).forEach((item) => {
+    //     idFiles.push(String(item.file));
+    //   }); // файлы которые подвешаны на пост
+    // await post.removePostFile({ file_id: file, postId: String(id), indexes: idFiles });
+    // await post.removePostFile({ file_id: file, postId: String(id) });
+    await post.removePostFile(propsAll);
+    // } else if (((typeof responseOfAll).includes('object')) && responseOfAll.length === 1) {
+    //   const idFile = String(((responseOfAll as object[])[0]).file); // файлы которые подвешаны на пост
+    //   await post.removePostFile({ file_id: file, postId: String(id), index: idFile });
 
-      // const response = await fetch(url, {
-      //   method: 'DELETE',
-      //   cache: 'no-cache',
-      //   mode: 'cors'
-      // });
-      // if (!response.ok as boolean) {
-      //   const err = new Error(String(response.ok));
-      //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
-      // };
-    }
-    if (!(typeof responseOfAll).includes('object') || ((responseOfAll as object[]).length < 1)) {
-      const err = new Error();
-      err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
-      err.message = 'Something that wrong with fetch. Returned an empty list!';
-      throw err;
-    // [FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll)
-    }
+    // const response = await fetch(url, {
+    //   method: 'DELETE',
+    //   cache: 'no-cache',
+    //   mode: 'cors'
+    // });
+    // if (!response.ok as boolean) {
+    //   const err = new Error(String(response.ok));
+    //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
+    // };
+    // }
+    // if (!(typeof responseOfAll).includes('object') || ((responseOfAll as object[]).length < 1)) {
+    //   const err = new Error();
+    //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
+    //   err.message = 'Something that wrong with fetch. Returned an empty list!';
+    //   throw err;
+    // // [FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll)
+    // }
     // console.log('[FServices > deletesFetch] Something that wrong!');
   }
 

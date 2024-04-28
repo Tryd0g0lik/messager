@@ -8,6 +8,7 @@ export interface File extends Post {
   index?: string
   indexes?: string[]
   file_id?: string
+  fileInd?: string
 }
 
 export interface ChatMessage extends Post {

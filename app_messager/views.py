@@ -151,31 +151,32 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):  # generics
 	# dict(request.query_params)['id_files']
 
 	def delete(self, request, *args, **kwargs):
-		query_indexes = (request.query_params).get('indexes').split(',') # quantility rows to the db there is duplicate one post
 		query_post_id = int((request.query_params).get('post_id')) # post number
 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
 
 		if (query_file_id == None or query_post_id == None):
+			print('[PostAPIDeleteFilelView > delete]: The data (post_id or file_id)  was not found in the db!')
 			return JsonResponse({'remove': False})
 		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
-		response_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id)
+		response_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id) # single post
+
+		if ((len(list(response_file_filter)) == 0) and (len(list(response_post_filter)) == 0)):
+			return JsonResponse({'remove': False})
+
+		response_content_filter = Chat_MessageModel.objects.filter(content=response_post_filter[0].content)  # more line
 		response_file_filter[0].delete()
 
-		if len(list(query_indexes)) > 1:
+
+		if len(list(response_content_filter)) > 1:
 			if (len(list(response_post_filter)) == 0):
-				print('[PostAPIDeleteFilelView > delete]: The line was not found to the db!')
+				print('[PostAPIDeleteFilelView > delete]: The line was not found in the db!')
 				return JsonResponse({'remove': False})
 			# file_id[0] = response_file_filter[0].file_id
-			response_post_filter[0].delete()
-			# for i in list(query_indexes):
-			# 	if response_post_filter[0].id == int(list(query_indexes)[i]):
-			# 		response_post_filter[0].delete()
-			# 		return JsonResponse({'remove': True}) #self.destroy(request, *args, **kwargs)
-			# 	return JsonResponse({'remove': False})
-		if len(list(query_indexes)) == 1:
-			response_file_filter[0].file_id = 'Null'
-			response_file_filter.save()
-			return JsonResponse({'remove': True}) #self.destroy(request, *args, **kwargs)
+			response_post_group = response_post_filter[0].group_id
+			response_post_author = response_post_filter[0].author_id
+			rows_list = response_content_filter.filter(author_id=response_post_author).filter(group_id=response_post_group);
+			if (len(list(rows_list)) > 1):
+				response_post_filter[0].delete()
 
 		return JsonResponse({'remove': False})
 # def get_queryset(self, *args, **kwargs):
