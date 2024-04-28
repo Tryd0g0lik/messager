@@ -58,9 +58,6 @@ export class FRequeres {
       headers: h
     });
     if (!response.ok) {
-      // const err = new Error(response.statusText);
-      // err.name = '[FRequeres > fGet] GET:';
-      // throw err;
       console.log('[FRequeres > fGet] GET: Not Found');
       return false;
     }
