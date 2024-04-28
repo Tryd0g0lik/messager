@@ -14,10 +14,9 @@ if (APP_MESSAGER_SERVER_URL_PORT === undefined) {
   APP_MESSAGER_SERVER_URL_PORT = '8000';
 }
 
-
 /**
  * Methods:
- * - `receiveHrefsFiles` It SET-function. By completed received the `readonly this.fileNameArr` it's array of the one public file. 
+ * - `receiveHrefsFiles` It SET-function. By completed received the `readonly this.fileNameArr` it's array of the one public file.
  * - `receiveHrefsFiles` It GET-function. Returns datas of  `this.fileNameArr`
  * - `receivedDatasetAll` it's array of the one public file. `{ dataPost: string, dataId: string, pathnames: string[] }`
  * - `handlerDeleteFileOne` That is a listener the action click from object `<li>..<div class="bucke">`.
@@ -59,7 +58,7 @@ export class FServices extends Push {
   }
 
   /**
-   * @returns Data type that 
+   * @returns Data type that
    * `{
       dataPost: string
       dataId: string
@@ -115,7 +114,7 @@ export class FServices extends Push {
         pathname: (dataset.pathname).slice(0)
       };
       // debugger
-      const falsetrue = await this.deleteFetchOneFile(metaRequest);
+      await this.deleteFetchOneFile(metaRequest);
       (currentTargetLi).remove();
       return true;
     }
@@ -138,21 +137,51 @@ export class FServices extends Push {
     //     'Content-Type': 'application/json'
     // }, mode: 'cors',
 
-    /* ------ */
-    const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
-    const responce = await fetch(url, {
-      method: 'DELETE',
-      cache: 'no-cache',
-      mode: 'cors'
-    });
-    if (responce.ok) {
-      // debugger
-      const resultJson = responce.json();
-      console.log('[FServices > deletesFetch]: ', resultJson);
-      return true;
+    const name = this.element;
+    const post = new Post(name);
+    const responseOfOne = await post.getFetchOneProfile({ ...props });
+    console.log('[FServices > deletesFetch > getOneProfile]: ', responseOfOne);
+
+    const { author = undefined, content = undefined, file = undefined, group = undefined, id = undefined } = { ...responseOfOne };
+    debugger
+    const propsAll = {
+      postId: (id !== undefined) ? id : 0,
+      message: (content !== undefined) ? content : 'Null',
+      groupId: (group !== undefined) ? group : 'Null',
+      authorId: (author !== undefined) ? author : -1
+    };
+    const responseOfAll = await post.getFetchFindProfiles(propsAll);
+    console.log('[FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll);
+    debugger;
+
+    if (responseOfAll.length > 1) {
+      const idFiles: string[] = [];
+      responseOfAll.forEach((item) => {
+        idFiles.push(String(item.file));
+      }); // файлы которые подвешаны на пост
+      await post.removePostFile({ file_id: file, postId: String(id), indexes: idFiles });
+    } else if (responseOfAll.length === 1) {
+      const idFile = String(responseOfAll[0].file); // файлы которые подвешаны на пост 
+      await post.removePostFile({ file_id: file, postId: String(id), index: idFile });
+
+      // const response = await fetch(url, {
+      //   method: 'DELETE',
+      //   cache: 'no-cache',
+      //   mode: 'cors'
+      // });
+      // if (!response.ok as boolean) {
+      //   const err = new Error(String(response.ok));
+      //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
+      // };
     }
-    console.log('[FServices > deletesFetch] Something that wrong!');
-    return false;
+    if (responseOfAll < 1) {
+      const err = new Error();
+      err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
+      err.message = 'Something that wrong with fetch. Returned an empty list!';
+      throw err;
+    // [FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll)
+    }
+    // console.log('[FServices > deletesFetch] Something that wrong!');
   }
 
   /**

@@ -121,14 +121,64 @@ class UpdateMessages(generics.UpdateAPIView):
 	serializer_class = Chat_MessageSerializer
 #
 class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
-
+ # FilteredListSerializer
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = File_MessagesSerializer
-
-
+	serializer_class = Chat_MessageSerializer # Chat_MessageSerializer
 	filter_backends = []
 
-	# def get_queryset(self, *args, **kwargs):
+
+class PostAPIFilterViews(generics.ListCreateAPIView):
+	def get(self, request, *args, **kwargs):
+		query_keys = request.query_params.keys()
+		query_set = request.query_params
+		profile_list = Chat_MessageModel.objects.filter(author_id = int(query_set.get('author_id')))
+
+		if 'group_id' in query_keys:
+			profile_list = profile_list.filter(group_id = int(query_set.get('group_id')))
+		if 'content' in query_keys:
+			profile_list = profile_list.filter(content = query_set.get('content'))
+
+
+		serializzer = Chat_MessageSerializer(profile_list, many=True)
+		return  Response(serializzer.data)
+
+
+class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):  # generics.RetrieveUpdateAPIView
+	# FilteredListSerializer
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = Chat_MessageSerializer  # Chat_MessageSerializer
+	filter_backends = []
+	# dict(request.query_params)['id_files']
+
+	def delete(self, request, *args, **kwargs):
+		query_indexes = (request.query_params).get('indexes').split(',') # quantility rows to the db there is duplicate one post
+		query_post_id = int((request.query_params).get('post_id')) # post number
+		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
+
+		if (query_file_id == None or query_post_id == None):
+			return JsonResponse({'remove': False})
+		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
+		response_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id)
+		response_file_filter[0].delete()
+
+		if len(list(query_indexes)) > 1:
+			if (len(list(response_post_filter)) == 0):
+				print('[PostAPIDeleteFilelView > delete]: The line was not found to the db!')
+				return JsonResponse({'remove': False})
+			# file_id[0] = response_file_filter[0].file_id
+			response_post_filter[0].delete()
+			# for i in list(query_indexes):
+			# 	if response_post_filter[0].id == int(list(query_indexes)[i]):
+			# 		response_post_filter[0].delete()
+			# 		return JsonResponse({'remove': True}) #self.destroy(request, *args, **kwargs)
+			# 	return JsonResponse({'remove': False})
+		if len(list(query_indexes)) == 1:
+			response_file_filter[0].file_id = 'Null'
+			response_file_filter.save()
+			return JsonResponse({'remove': True}) #self.destroy(request, *args, **kwargs)
+
+		return JsonResponse({'remove': False})
+# def get_queryset(self, *args, **kwargs):
 	# 	# instance = self.get_object()
 	# 	# serializer = self.get_serializer(instance)
 	# 	return Chat_MessageModel.objects.filter(pk = self.kwargs['pk'])

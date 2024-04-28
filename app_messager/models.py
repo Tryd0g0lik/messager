@@ -101,7 +101,7 @@ class Chat_MessageModel(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
 	group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
-	file = models.ForeignKey('FileModels', related_name="file_of_chat", on_delete=models.CASCADE, blank=True, null=True)
+	file = models.ForeignKey('FileModels', related_name="file_of_chat", on_delete=models.SET_NULL, blank=True, null=True)
 
 	def __str__(self) -> str:
 		date = self.timestamp.date()
