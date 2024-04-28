@@ -111,7 +111,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       if (htmlLi.length === 0) {
         console.log('[createChatMessage > LI]: Something that wrong!');
       }
-      Pencil_.removeAll(htmlLi);
+      Pencil_.handlerRemoveAdd(htmlLi);
     }
     if (boxMess === null) {
       console.log('[createChatMessage > DIV]: Something that wrong!');

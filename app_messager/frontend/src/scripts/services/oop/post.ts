@@ -1,5 +1,4 @@
 import { ChatMessage, F, File } from '@Interfaces';
-import { Pencil } from './pencils';
 import { FRequeres } from './requeres';
 
 class Post extends FRequeres {
@@ -16,15 +15,10 @@ class Post extends FRequeres {
    * @returns;
    */
   async getFetchOneProfile(props: F): Promise<object> {
-    const { postId, userId = undefined, pathname = undefined } = { ...props };
-    // const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
+    const { postId } = { ...props };
+
     const url = new URL(`api/v1/post/get/${Number(postId)}/`, 'http://127.0.0.1:8000/');
-    // if (pathname !== undefined) {
-    //   url.searchParams.set('link', pathname);
-    // }
-    // if (pathname !== undefined) {
-    //   url.searchParams.set('pathname', pathname);
-    // }
+
     this.urls = url;
     const contentType = 'application/json';
     const responce = await this.get({ contentType });
@@ -68,18 +62,12 @@ class Post extends FRequeres {
     const url = new URL('api/v1/chat/delete/file/', 'http://127.0.0.1:8000/');
     const err = new Error();
     err.name = '[Post > removePostFile]';
-    debugger
+
     if (postId === undefined) {
       err.message = `Somethefing tha wrong! Not found "postId": ${postId}`;
       throw err;
     }
     url.searchParams.set('post_id', postId as string);
-
-    // if ((index === undefined) && (indexes === undefined)) {
-    //   err.message = `Somethefing tha wrong! Not found an file index from post. IMDEX: ${index}, INDEXES: ${indexes}`;
-    //   throw err;
-    // }
-    // url.searchParams.append('indexes', (index !== undefined) ? index : (indexes !== undefined) ? String(indexes) : 'Null')
 
     if (file_id === undefined) {
       err.message = `Somethefing tha wrong! Not found file_id: ${file_id}`;

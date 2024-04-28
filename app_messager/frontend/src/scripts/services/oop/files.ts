@@ -94,7 +94,7 @@ export class FServices extends Push {
     if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
       fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
     }
-    debugger
+    // debugger
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -134,22 +134,12 @@ export class FServices extends Push {
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
   async deleteFetchOneFile(props: F): Promise<boolean> {
-    const { postId, userId, pathname, fileInd } = { ...props };
+    const { postId, fileInd } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
-    // url.searchParams.set('userId', userId);
-    // url.searchParams.set('pathname', pathname as string);
-    // headers: {
-    //   'X-CSRFToken': getCookie('csrftoken'),
-    //     'Content-Type': 'application/json'
-    // }, mode: 'cors',
 
     const name = this.element;
     const post = new Post(name);
-    // const responseOfOne = await post.getFetchOneProfile({ ...props }); ???
-    // console.log('[FServices > deletesFetch > getOneProfile]: ', responseOfOne);
-
-    // const { author = undefined, content = undefined, file = undefined, group = undefined, id = undefined } = { ...responseOfOne };
-    debugger
+    // debugger
     const propsAll = {
       postId: (postId !== undefined)
         ? ((typeof postId).includes('string')
@@ -161,44 +151,8 @@ export class FServices extends Push {
           ? fileInd
           : String(fileInd))
         : String(-1)
-      // message: (content !== undefined) ? content : 'Null',
-      // groupId: (group !== undefined) ? group : 'Null',
-      // authorId: (userId !== undefined) ? userId : -1
     };
-    // const responseOfAll = await post.getFetchFindProfiles(propsAll); ?????
-    // console.log('[FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll);
-    // debugger;
-
-    // if (((typeof responseOfAll).includes('object')) && responseOfAll.length > 1) {
-    //   const idFiles: string[] = [];
-    //   (responseOfAll as object[]).forEach((item) => {
-    //     idFiles.push(String(item.file));
-    //   }); // файлы которые подвешаны на пост
-    // await post.removePostFile({ file_id: file, postId: String(id), indexes: idFiles });
-    // await post.removePostFile({ file_id: file, postId: String(id) });
     await post.removePostFile(propsAll);
-    // } else if (((typeof responseOfAll).includes('object')) && responseOfAll.length === 1) {
-    //   const idFile = String(((responseOfAll as object[])[0]).file); // файлы которые подвешаны на пост
-    //   await post.removePostFile({ file_id: file, postId: String(id), index: idFile });
-
-    // const response = await fetch(url, {
-    //   method: 'DELETE',
-    //   cache: 'no-cache',
-    //   mode: 'cors'
-    // });
-    // if (!response.ok as boolean) {
-    //   const err = new Error(String(response.ok));
-    //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
-    // };
-    // }
-    // if (!(typeof responseOfAll).includes('object') || ((responseOfAll as object[]).length < 1)) {
-    //   const err = new Error();
-    //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
-    //   err.message = 'Something that wrong with fetch. Returned an empty list!';
-    //   throw err;
-    // // [FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll)
-    // }
-    // console.log('[FServices > deletesFetch] Something that wrong!');
   }
 
   /**
@@ -208,7 +162,7 @@ export class FServices extends Push {
    *  Click by `< html-element class="bucke">.
    * @returns avoid
    */
-  removeAll(elements: HTMLCollectionOf<HTMLLIElement>): void {
+  handlerRemoveAdd(elements: HTMLCollectionOf<HTMLLIElement>): void {
     const handlerDeleteFileOne = this.handlerDeleteFileOne.bind(this);
     Array.from(elements).forEach((elem: HTMLLIElement) => {
       elem.onclick = null;

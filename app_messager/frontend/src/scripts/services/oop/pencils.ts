@@ -27,7 +27,7 @@ export class Pencil extends FServices {
   getFileHtmlLi(pathnames: string[]): string {
     let result = '';
     for (let i = 0; i < pathnames.length; i++) {
-      const fileTemplate = filetepmplate(pathnames[i]);
+      const fileTemplate = filetepmplate([pathnames[i]]);
       result += fileTemplate;
     }
     return result;
@@ -100,10 +100,12 @@ export class Pencil extends FServices {
 
       if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
         const htmlLi = htmlDownloadArr[0].getElementsByTagName('li');
+
         if (htmlLi.length === 0) {
           console.log('[Pencil > handlerPencilPost > LI]: Something that wrong!');
         } else {
-          this.removeAll(htmlLi);
+          debugger
+          this.handlerRemoveAdd(htmlLi);
         }
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);

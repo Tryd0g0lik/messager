@@ -1,14 +1,20 @@
-import handlerFileOne from '@Service/handlers/files/deletes';
+// app_messager\frontend\src\scripts\templates\file.ts
 
-function file(ref: string): string {
+function file(ref: string[]): string {
   // (linkFilesArr[i].split('/'))[len - 1]
-  if (ref[0].includes('media/')) {
-    ref = ref[0].slice('media/'.length);
+  const liHtml = document.createElement('li');
+  if (ref.length > 1) {
+    liHtml.dataset.ind = ref[1];
   }
+  if (ref[0].includes('media/')) {
+    ref[0] = ref[0].slice('media/'.length);
+  }
+
   const urlOrigin = window.location.origin;
   const reffArrLength = ref[0].split('/').length;
-  const liHtml = document.createElement('li');
-  liHtml.dataset.ind = ref[1];
+
+
+  // debugger
   /* class="bucke" !! */
   const refLi = `<a target="_blank" class='one-file' href="${urlOrigin}/media/${ref[0]}">${ref[0].split('/')[reffArrLength - 1]}</a>
         <div class="bucke">

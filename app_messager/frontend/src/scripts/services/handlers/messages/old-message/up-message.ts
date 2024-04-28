@@ -86,7 +86,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
     if (htmlLi.length === 0) {
       console.log('[upOldMessage > LI]: Something that wrong!');
     }
-    pencil.removeAll(htmlLi);
+		pencil.handlerRemoveAdd(htmlLi);
 
     /* ------ localStorage cleaning  ------ */
     const LStorage = localStorage.getItem('data');

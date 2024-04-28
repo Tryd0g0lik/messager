@@ -82,10 +82,10 @@ export class FRequeres {
       cache: 'no-cache',
       mode: 'cors'
     });
-    debugger
+    // debugger
     if (!response.ok as boolean) {
       const err = new Error(String(response.ok));
-      err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
+      err.name = '[FServices > removeFile]';
     };
     return 'Ok';
   }
