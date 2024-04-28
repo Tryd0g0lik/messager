@@ -99,18 +99,17 @@ export class Pencil extends FServices {
       const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
       if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
-        const htmlLi = htmlDownloadArr[0].getElementsByTagName('li');
+        const htmlLiArr = htmlDownloadArr[0].getElementsByTagName('li');
 
-        if (htmlLi.length === 0) {
+        if (htmlLiArr.length === 0) {
           console.log('[Pencil > handlerPencilPost > LI]: Something that wrong!');
-        } else {
-          debugger
-          this.handlerRemoveAdd(htmlLi);
         }
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
         this.element = htmlQuoteArr[0] as HTMLDivElement;
         this.postStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
+
+        // debugger
       };
     }
 

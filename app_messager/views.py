@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect
 from rest_framework.views import APIView
 
+
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -143,40 +144,30 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 		return  Response(serializzer.data)
 
 
-class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):  # generics.RetrieveUpdateAPIView
-	# FilteredListSerializer
+class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer  # Chat_MessageSerializer
+	serializer_class = Chat_MessageSerializer
 	filter_backends = []
-	# dict(request.query_params)['id_files']
 
 	def delete(self, request, *args, **kwargs):
-		query_post_id = int((request.query_params).get('post_id')) # post number
 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
 
-		if (query_file_id == None or query_post_id == None):
-			print('[PostAPIDeleteFilelView > delete]: The data (post_id or file_id)  was not found in the db!')
-			return JsonResponse({'remove': False})
 		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
-		response_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id) # single post
 
-		if ((len(list(response_file_filter)) == 0) and (len(list(response_post_filter)) == 0)):
+		if ((len(list(response_file_filter)) == 0)):
 			return JsonResponse({'remove': False})
 
-		response_content_filter = Chat_MessageModel.objects.filter(content=response_post_filter[0].content)  # more line
-		response_file_filter[0].delete()
+		response_post_filter = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
+		response_post_group = response_post_filter[0].group_id
+		response_post_author = response_post_filter[0].author_id
 
-
+		response_content_filter = Chat_MessageModel.objects.filter(content = response_post_filter[0].content)
 		if len(list(response_content_filter)) > 1:
-			if (len(list(response_post_filter)) == 0):
-				print('[PostAPIDeleteFilelView > delete]: The line was not found in the db!')
-				return JsonResponse({'remove': False})
-			# file_id[0] = response_file_filter[0].file_id
-			response_post_group = response_post_filter[0].group_id
-			response_post_author = response_post_filter[0].author_id
 			rows_list = response_content_filter.filter(author_id=response_post_author).filter(group_id=response_post_group);
 			if (len(list(rows_list)) > 1):
 				response_post_filter[0].delete()
+
+		response_file_filter[0].delete()
 
 		return JsonResponse({'remove': False})
 # def get_queryset(self, *args, **kwargs):

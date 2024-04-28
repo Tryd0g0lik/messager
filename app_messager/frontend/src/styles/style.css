@@ -83,6 +83,7 @@ body{margin-top:20px;}
 
 .download.repeat {
   background-color: #fff;
+
 }
 .download ul {
   margin: 0;
@@ -91,6 +92,13 @@ body{margin-top:20px;}
   padding-right: 30px;
   position: relative;
   cursor: pointer;
+}
+.download.repeat li a {
+  color: #cfcfcf;
+}
+
+.download.repeat li .bucke {
+  display: none;
 }
 
 .download .bucke {
