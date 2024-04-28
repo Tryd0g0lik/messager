@@ -14,10 +14,9 @@ if (APP_MESSAGER_SERVER_URL_PORT === undefined) {
   APP_MESSAGER_SERVER_URL_PORT = '8000';
 }
 
-
 /**
  * Methods:
- * - `receiveHrefsFiles` It SET-function. By completed received the `readonly this.fileNameArr` it's array of the one public file. 
+ * - `receiveHrefsFiles` It SET-function. By completed received the `readonly this.fileNameArr` it's array of the one public file.
  * - `receiveHrefsFiles` It GET-function. Returns datas of  `this.fileNameArr`
  * - `receivedDatasetAll` it's array of the one public file. `{ dataPost: string, dataId: string, pathnames: string[] }`
  * - `handlerDeleteFileOne` That is a listener the action click from object `<li>..<div class="bucke">`.
@@ -59,7 +58,7 @@ export class FServices extends Push {
   }
 
   /**
-   * @returns Data type that 
+   * @returns Data type that
    * `{
       dataPost: string
       dataId: string
@@ -91,6 +90,11 @@ export class FServices extends Push {
     // debugger;
     const target = (e.target as HTMLElement);
     const currentTargetLi = (e.currentTarget as HTMLElement);
+    let fileIndex = currentTargetLi.dataset.ind;
+    if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
+      fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
+    }
+    // debugger
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -112,10 +116,11 @@ export class FServices extends Push {
       const metaRequest: F = {
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
-        pathname: (dataset.pathname).slice(0)
+        pathname: (dataset.pathname).slice(0),
+        fileInd: fileIndex
       };
       // debugger
-      const falsetrue = await this.deleteFetchOneFile(metaRequest);
+      await this.deleteFetchOneFile(metaRequest);
       (currentTargetLi).remove();
       return true;
     }
@@ -129,29 +134,25 @@ export class FServices extends Push {
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
   async deleteFetchOneFile(props: F): Promise<boolean> {
-    const { postId, userId, pathname } = { ...props };
+    const { postId, fileInd } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
-    // url.searchParams.set('userId', userId);
-    // url.searchParams.set('pathname', pathname as string);
-    // headers: {
-    //   'X-CSRFToken': getCookie('csrftoken'),
-    //     'Content-Type': 'application/json'
-    // }, mode: 'cors',
 
-    const url = new URL(`api/v1/chat/delete/${Number(postId)}/`, 'http://127.0.0.1:8000/');
-    const responce = await fetch(url, {
-      method: 'DELETE',
-      cache: 'no-cache',
-      mode: 'cors'
-    });
-    if (responce.ok) {
-      // debugger
-      const resultJson = responce.json();
-      console.log('[FServices > deletesFetch]: ', resultJson);
-      return true;
-    }
-    console.log('[FServices > deletesFetch] Something that wrong!');
-    return false;
+    const name = this.element;
+    const post = new Post(name);
+    // debugger
+    const propsAll = {
+      postId: (postId !== undefined)
+        ? ((typeof postId).includes('string')
+          ? postId
+          : String(postId))
+        : String(-1),
+      file_id: (fileInd !== undefined)
+        ? ((typeof fileInd).includes('string')
+          ? fileInd
+          : String(fileInd))
+        : String(-1)
+    };
+    await post.removePostFile(propsAll);
   }
 
   /**
@@ -161,7 +162,7 @@ export class FServices extends Push {
    *  Click by `< html-element class="bucke">.
    * @returns avoid
    */
-  removeAll(elements: HTMLCollectionOf<HTMLLIElement>): void {
+  handlerRemoveAdd(elements: HTMLCollectionOf<HTMLLIElement>): void {
     const handlerDeleteFileOne = this.handlerDeleteFileOne.bind(this);
     Array.from(elements).forEach((elem: HTMLLIElement) => {
       elem.onclick = null;

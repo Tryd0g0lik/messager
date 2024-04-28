@@ -1,17 +1,21 @@
 // app_messager\frontend\src\interface.ts
 interface Post {
-  postId?: string
+  postId?: string | number
 }
 
-interface File extends Post {
+export interface File extends Post {
   pathname?: string
+  index?: string
+  indexes?: string[]
+  file_id?: string
+  fileInd?: string
 }
 
 export interface ChatMessage extends Post {
-  authorId: string
-  dataTime: string
+  authorId: string | number
+  dataTime?: string
   message: string
-  groupId?: string
+  groupId?: string | number
   filesId?: number[]
 }
 export interface OldData extends Post {
@@ -37,4 +41,16 @@ export interface OllDatas {
 
 export interface F extends File {
   userId: string
+}
+
+export interface DbSLine { // DB Search Line
+  indexUser: string
+  content: string
+  indexGroup: string
+  indexLine: satring
+}
+
+export interface Data {
+  dataPost: string | undefined
+  dataId: string | undefined // id user
 }

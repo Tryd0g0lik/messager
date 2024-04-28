@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_protect
 from rest_framework.views import APIView
 
+
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -106,7 +107,7 @@ def upload_file(request, listIndexes = None):
 					link_list = []
 					for i in range(0, params_len):
 						f_row = FileModels.objects.filter(id = int(params_list[i]))
-						link_list.append(str((list(f_row)[0]).link))
+						link_list.append([str((list(f_row)[0]).link), str((list(f_row)[0]).id)]) ## link_list.append(str((list(f_row)[0]).link))
 
 					json_str = json.dumps({'linkList': link_list})
 					return JsonResponse({'files':json_str})
@@ -121,14 +122,55 @@ class UpdateMessages(generics.UpdateAPIView):
 	serializer_class = Chat_MessageSerializer
 #
 class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
-
+ # FilteredListSerializer
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = File_MessagesSerializer
-
-
+	serializer_class = Chat_MessageSerializer # Chat_MessageSerializer
 	filter_backends = []
 
-	# def get_queryset(self, *args, **kwargs):
+
+class PostAPIFilterViews(generics.ListCreateAPIView):
+	def get(self, request, *args, **kwargs):
+		query_keys = request.query_params.keys()
+		query_set = request.query_params
+		profile_list = Chat_MessageModel.objects.filter(author_id = int(query_set.get('author_id')))
+
+		if 'group_id' in query_keys:
+			profile_list = profile_list.filter(group_id = int(query_set.get('group_id')))
+		if 'content' in query_keys:
+			profile_list = profile_list.filter(content = query_set.get('content'))
+
+
+		serializzer = Chat_MessageSerializer(profile_list, many=True)
+		return  Response(serializzer.data)
+
+
+class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = Chat_MessageSerializer
+	filter_backends = []
+
+	def delete(self, request, *args, **kwargs):
+		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
+
+		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
+
+		if ((len(list(response_file_filter)) == 0)):
+			return JsonResponse({'remove': False})
+
+		response_post_filter = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
+		response_post_group = response_post_filter[0].group_id
+		response_post_author = response_post_filter[0].author_id
+
+		response_content_filter = Chat_MessageModel.objects.filter(content = response_post_filter[0].content)
+		if len(list(response_content_filter)) > 1:
+			rows_list = response_content_filter.filter(author_id=response_post_author).filter(group_id=response_post_group);
+			if (len(list(rows_list)) > 1):
+				response_post_filter[0].delete()
+
+		response_file_filter[0].delete()
+
+		return JsonResponse({'remove': False})
+# def get_queryset(self, *args, **kwargs):
 	# 	# instance = self.get_object()
 	# 	# serializer = self.get_serializer(instance)
 	# 	return Chat_MessageModel.objects.filter(pk = self.kwargs['pk'])

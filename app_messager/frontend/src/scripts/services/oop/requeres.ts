@@ -19,17 +19,23 @@ export class FRequeres {
   }
 
   /**
+   * That is a Fetch request.
    * @param `props` of `fGet` is \
    * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
-   * @returns  Promise<object>;
+   * @param `props.caches` by default is `undefined`
+   * @param `props.modes` by default is `undefined`
+   * @returns  Promise<object> or Error;
    */
-  async fGet(props: RequestHeaders): Promise<object> {
+  async get<T>(props: RequestHeaders): Promise<T | boolean> {
     const { contentType, caches = undefined, modes = undefined } = { ...props };
     const url = this.urls;
     /* ------ */
     if (url === undefined) {
-      console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
-      return Promise<{ responce: false }>;
+      const err = new Error(url);
+      err.name = '[FRequeres > fGet] GET:';
+      throw err;
+      // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
+      // return undefined;
     }
     interface LoacalLocalHead {
       'Content-Type': string
@@ -38,7 +44,7 @@ export class FRequeres {
     }
 
     /* ------ */
-    let responce: unknown | Promise<object> = {};
+    // let response: unknown | Promise<T> = {};
     const h: LoacalLocalHead = { 'Content-Type': contentType };
     if (caches !== undefined) {
       h.cache = caches;
@@ -46,15 +52,41 @@ export class FRequeres {
     if (modes !== undefined) {
       h.mode = modes;
     }
-    try {
-      responce = await fetch(url, {
-        method: 'GET',
-        headers: h
-      });
-    } catch (error: unknown | object) {
-      console.log(`[FRequeres > Request]:  Something that wrong with ERROR.message: ${(error as object).message} and ERROR.name: ${(error as object).name}`);
-    } finally {
-      return await (responce);
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: h
+    });
+    if (!response.ok) {
+      // const err = new Error(response.statusText);
+      // err.name = '[FRequeres > fGet] GET:';
+      // throw err;
+      console.log('[FRequeres > fGet] GET: Not Found');
+      return false;
     }
+    const responseJson = await response.json();
+    return responseJson;
+  }
+
+  /**
+   * `id` for a remove through URL \
+   * `api/v1/chat/delete/file/` - for a remove file \
+   * Used is `removeFile(index)` or `removeFile(undefined, index)` \
+   * @param `index` : `undefined|string' is for one file. That value default have `undefined`
+   * @param `indexes` : `undefined|number[]' is for one list files. That value default have `undefined`
+   * */
+  async removeFile(): Promise<string> {
+    const url = this.urls;
+    const response = await fetch(url, {
+      method: 'DELETE',
+      cache: 'no-cache',
+      mode: 'cors'
+    });
+    // debugger
+    if (!response.ok as boolean) {
+      const err = new Error(String(response.ok));
+      err.name = '[FServices > removeFile]';
+    };
+    return 'Ok';
   }
 }

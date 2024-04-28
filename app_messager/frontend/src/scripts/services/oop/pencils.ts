@@ -1,18 +1,17 @@
-// app_messager\frontend\src\scripts\services\handlers\messages\old-message\pencils.ts
-// app_messager\frontend\src\scripts\services\handlers\files\handler_input - file.ts
+// app_messager\frontend\src\scripts\services\oop\pencils.ts
+
 import addQuote from '../handlers/messages/old-message/paste-quote';
 import handlerGetMessageOfInput from '../handlers/messages/get-messages';
 import manageOldMessageTotal from '../handlers/messages/old-message/old-messages';
 import { FServices } from './files';
 import filetepmplate from '@htmlTemplates/file';
-import handlerFileOne from '@Service/handlers/files/deletes';
 
 /**
  * Methods: \
  * `fGet` is :
  *  - `ContentType` That is basice proporties of the fetch.  Exemple this is `{Content-Type: 'application/json'}`/
  *  - `cache?` That is basice proporties of the fetch. Exemple this is 'no-cache' /
- *  - `mode?` That is basice proporties of the fetch. Exemple this is `cors` 
+ *  - `mode?` That is basice proporties of the fetch. Exemple this is `cors`
  *
  * `fGet` entrypoint has `fGet(props: RequestHeaders)` where \
  * `{ContentType: string, cache: string|undefined,  mode: string| undefined}`
@@ -28,7 +27,7 @@ export class Pencil extends FServices {
   getFileHtmlLi(pathnames: string[]): string {
     let result = '';
     for (let i = 0; i < pathnames.length; i++) {
-      const fileTemplate = filetepmplate(pathnames[i]);
+      const fileTemplate = filetepmplate([pathnames[i]]);
       result += fileTemplate;
     }
     return result;
@@ -49,6 +48,7 @@ export class Pencil extends FServices {
     if ((currentTarget !== null) && !('post' in currentTarget.dataset)) {
       return;
     };
+
     /* get URL of files */
     const htmlDownLoadArr = currentTarget.getElementsByClassName('download');
     if (htmlDownLoadArr.length > 0) {
@@ -99,16 +99,17 @@ export class Pencil extends FServices {
       const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
       if ((htmlQuoteArr.length > 0) && (htmlDownloadArr.length > 0)) {
-        const htmlLi = htmlDownloadArr[0].getElementsByTagName('li');
-        if (htmlLi.length === 0) {
+        const htmlLiArr = htmlDownloadArr[0].getElementsByTagName('li');
+
+        if (htmlLiArr.length === 0) {
           console.log('[Pencil > handlerPencilPost > LI]: Something that wrong!');
-        } else {
-          this.removeAll(htmlLi);
         }
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
         this.element = htmlQuoteArr[0] as HTMLDivElement;
         this.postStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
+
+        // debugger
       };
     }
 

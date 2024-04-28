@@ -1,9 +1,6 @@
+import { Data } from '@Interfaces';
 import { FRequeres } from './requeres';
 
-interface Data {
-  dataPost: string | undefined
-  dataId: string | undefined
-}
 export class Push extends FRequeres {
   element: HTMLDivElement;
 
