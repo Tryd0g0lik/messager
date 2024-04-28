@@ -26,13 +26,16 @@ export class FRequeres {
    * @param `props.modes` by default is `undefined`
    * @returns  Promise<object> or Error;
    */
-  async get<T>(props: RequestHeaders): Promise<T> {
+  async get<T>(props: RequestHeaders): Promise<T | boolean> {
     const { contentType, caches = undefined, modes = undefined } = { ...props };
     const url = this.urls;
     /* ------ */
     if (url === undefined) {
-      console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
-      return undefined;
+      const err = new Error(url);
+      err.name = '[FRequeres > fGet] GET:';
+      throw err;
+      // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
+      // return undefined;
     }
     interface LoacalLocalHead {
       'Content-Type': string
@@ -55,9 +58,11 @@ export class FRequeres {
       headers: h
     });
     if (!response.ok) {
-      const err = new Error(response.statusText);
-      err.name = '[FRequeres > fGet]';
-      throw err;
+      // const err = new Error(response.statusText);
+      // err.name = '[FRequeres > fGet] GET:';
+      // throw err;
+      console.log('[FRequeres > fGet] GET: Not Found');
+      return false;
     }
     const responseJson = await response.json();
     return responseJson;

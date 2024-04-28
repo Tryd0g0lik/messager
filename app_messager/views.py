@@ -106,7 +106,7 @@ def upload_file(request, listIndexes = None):
 					link_list = []
 					for i in range(0, params_len):
 						f_row = FileModels.objects.filter(id = int(params_list[i]))
-						link_list.append(str((list(f_row)[0]).link))
+						link_list.append([str((list(f_row)[0]).link), str((list(f_row)[0]).id)]) ## link_list.append(str((list(f_row)[0]).link))
 
 					json_str = json.dumps({'linkList': link_list})
 					return JsonResponse({'files':json_str})

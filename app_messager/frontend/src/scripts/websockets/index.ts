@@ -97,6 +97,12 @@ export class WSocket {
     const groupId = dataTextJson.groupId;
     const dataTime = dataTextJson.eventtime;
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
+    if (dataTime === undefined) {
+      const err = new Error();
+      err.name = '[websokets > RECIVED MESS]';
+      err.message = 'Something that wrong by the time!';
+      throw err;
+    }
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
     if (dataTextJson.corrects !== true) {
       createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });

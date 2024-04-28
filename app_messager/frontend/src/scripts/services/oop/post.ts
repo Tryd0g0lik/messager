@@ -39,7 +39,7 @@ class Post extends FRequeres {
    * Here a pathname of URL is `api/v1/post/get/`
    * @returns;
    */
-  async getFetchFindProfiles(props: ChatMessage): Promise<object[]> {
+  async getFetchFindProfiles(props: ChatMessage): Promise<object[] | boolean> {
     const { postId, authorId, groupId = undefined, message = undefined } = { ...props };
     // const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
     const url = new URL('api/v1/post/get/', 'http://127.0.0.1:8000/');
@@ -60,7 +60,7 @@ class Post extends FRequeres {
     const contentType = 'application/json';
     const responce = await this.get({ contentType });
 
-    return responce;
+    return responce as boolean | object[];
   }
 
   async removePostFile(props: File): Promise<boolean> {

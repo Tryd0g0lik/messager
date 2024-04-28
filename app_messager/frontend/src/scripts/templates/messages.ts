@@ -6,7 +6,6 @@ import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
-import handlerFileOne from '@Service/handlers/files/deletes';
 import getLinksToFile from '@Service/links-files';
 /**
  * This's function insert a new message to the chat.
@@ -55,11 +54,12 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     }
   }
   refer += '</ul>';
+
   /* ------ message box ------ */
   const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
-    htmlMessage.dataset.post = postId;
+    htmlMessage.dataset.post = String(postId);
     htmlMessage.innerHTML = (refer.length > 10) ? (`<div class="download">${refer}</div>`) : '';
     htmlMessage.innerHTML += `
       <div >

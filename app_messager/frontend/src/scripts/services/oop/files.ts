@@ -154,14 +154,14 @@ export class FServices extends Push {
     console.log('[FServices > deletesFetch > getFetchFindProfiles]: ', responseOfAll);
     debugger;
 
-    if (responseOfAll.length > 1) {
+    if (((typeof responseOfAll).includes('object')) && responseOfAll.length > 1) {
       const idFiles: string[] = [];
-      responseOfAll.forEach((item) => {
+      (responseOfAll as object[]).forEach((item) => {
         idFiles.push(String(item.file));
       }); // файлы которые подвешаны на пост
       await post.removePostFile({ file_id: file, postId: String(id), indexes: idFiles });
-    } else if (responseOfAll.length === 1) {
-      const idFile = String(responseOfAll[0].file); // файлы которые подвешаны на пост 
+    } else if (((typeof responseOfAll).includes('object')) && responseOfAll.length === 1) {
+      const idFile = String(((responseOfAll as object[])[0]).file); // файлы которые подвешаны на пост 
       await post.removePostFile({ file_id: file, postId: String(id), index: idFile });
 
       // const response = await fetch(url, {
@@ -174,7 +174,7 @@ export class FServices extends Push {
       //   err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
       // };
     }
-    if (responseOfAll < 1) {
+    if (!(typeof responseOfAll).includes('object') || ((responseOfAll as object[]).length < 1)) {
       const err = new Error();
       err.name = '[FServices > deletesFetch > getFetchFindProfiles]';
       err.message = 'Something that wrong with fetch. Returned an empty list!';
