@@ -136,7 +136,7 @@ export class FServices extends Push {
    * @param `props`: `{ remove: boolean, postId: string, userId: string, pathname: string }`
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
-  async deleteFetchOneFile(props: F): Promise<boolean> {
+  async deleteFetchOneFile(props: F): Promise<void> {
     const { postId, fileInd } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
@@ -156,7 +156,6 @@ export class FServices extends Push {
         : String(-1)
     };
     await post.removePostFile(propsAll);
-
   }
   // async deleteFetchOneFile(prop: F): Promis<boolean> {
   //   this.deleteFetchOneFile()

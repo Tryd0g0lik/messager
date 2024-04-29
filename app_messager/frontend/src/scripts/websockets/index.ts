@@ -129,6 +129,7 @@ export class WSocket {
       console.log('[websokets > RECIVED MESS] Something that wrong by the time!');
     }
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
+    /* ------ create the message to the chat ------ */
     if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
       (dataTextJson.corrects !== true) && (authorId !== undefined) &&
       (message !== undefined) && (groupId !== undefined) &&
@@ -146,8 +147,8 @@ export class WSocket {
       (dataTextJson.remove === true)) {
       /* ------ File removing from the dysplay ------ */
       const postHtml = document.querySelector(`div[data-post="${postId}"]`);
-      debugger
       if (fileInd !== undefined) {
+        /* ------ remove the one file ------ */
         if (postHtml === null) {
           const err = new Error();
           err.name = '[websokets > RECIVED MESS]';
@@ -165,6 +166,7 @@ export class WSocket {
         dataKeys = [];
         console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
       } else if (indexes !== undefined) {
+        /* ------ remove the ALL file and single post/message  ------ */
         dataKeys = [];
         if (postHtml === null) {
           const err = new Error();
@@ -172,7 +174,16 @@ export class WSocket {
           err.message = 'Something that wrong. File not found into the dysplay!';
           throw err;
         }
+        /* ------ cleaning html ------ */
+        if ((postHtml as HTMLDivElement).hasAttribute('data-post')) {
+          (postHtml as HTMLDivElement).removeAttribute('data-post');
+        }
+        if ((postHtml as HTMLDivElement).hasAttribute('data-id')) {
+          (postHtml as HTMLDivElement).removeAttribute('data-id');
+        }
         postHtml.innerHTML = '<p class="epost remove">Your message has been deletes</p>';
+        postHtml.classList.remove('message');
+        (postHtml as HTMLDivElement).style.padding = String(0);
         dataKeys = [];
       }
     } else {
@@ -199,7 +210,7 @@ export class WSocket {
     } else if (this.socket.readyState === WebSocket.CONNECTING) {
       timout = setTimeout(() => {
         this.dataSendNow();
-      }, 2000);
+      }, 700);
     } else {
       console.info(`[websokets > CLOSE]: the WebSocket is not open In now time. CODE: ${this.socket.readyState}`);
       return false;
