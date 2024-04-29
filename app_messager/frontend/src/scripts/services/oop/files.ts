@@ -121,7 +121,7 @@ export class FServices extends Push {
         pathname: (dataset.pathname).slice(0),
         fileInd: fileIndex
       };
-      // debugger
+      /* ------ Removing the file ------ */
       await this.deleteFetchOneFile(metaRequest);
       const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
       socket.beforeSend(JSON.stringify(metaRequest));
@@ -133,7 +133,6 @@ export class FServices extends Push {
       timout = setTimeout(() => {
         socket.onClose();
       }, 6000);
-      // (currentTargetLi).remove();
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');

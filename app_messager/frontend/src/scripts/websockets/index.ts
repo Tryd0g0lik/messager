@@ -154,6 +154,7 @@ export class WSocket {
         throw err;
       }
       liHtml?.remove(); // delete
+      console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
     } else {
       const err = new Error();
       err.name = '[websokets > RECIVED MESS]';
@@ -166,13 +167,13 @@ export class WSocket {
     this.socket.close();
   }
 
-  dataSendNow(): undefined | boolean {
+  async dataSendNow(): Promise<undefined | boolean> {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok');
     let timout: NodeJS.Timeout;
     clearInterval(setTimeout);
     if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.send(data);
+      await this.socket.send(data);
       console.log('[websokets > OPEN > AFTER SEND]: Ok');
       this.handlers.data.pop();
     } else if (this.socket.readyState === WebSocket.CONNECTING) {
