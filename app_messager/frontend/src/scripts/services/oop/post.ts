@@ -41,13 +41,13 @@ class Post extends FRequeres {
     url.searchParams.set('author_id', authorId as string);
 
     if (postId !== undefined) {
-      url.searchParams.set('post_id', postId as string);
+      url.searchParams.append('post_id', postId as string);
     }
     if (groupId !== undefined) {
-      url.searchParams.set('group_id', groupId as string);
+      url.searchParams.append('group_id', groupId as string);
     }
     if (message !== undefined) {
-      url.searchParams.set('content', message);
+      url.searchParams.append('content', message);
     }
 
     this.urls = url;

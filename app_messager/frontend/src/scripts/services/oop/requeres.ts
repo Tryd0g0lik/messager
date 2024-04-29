@@ -1,3 +1,5 @@
+import getCookie from "@Service/cookies";
+
 interface RequestHeaders {
   contentType: string
   caches?: string
@@ -77,16 +79,20 @@ export class FRequeres {
    * */
   async removeFile(): Promise<string> {
     const url = this.urls;
+    // debugger
     const response = await fetch(url, {
+      'X-CSRFToken': getCookie('csrftoken'),
       method: 'DELETE',
       cache: 'no-cache',
       mode: 'cors'
     });
-    // debugger
+    /*   */
+    debugger
     if (!response.ok as boolean) {
       const err = new Error(String(response.ok));
       err.name = '[FServices > removeFile]';
+      throw err;
     };
     return 'Ok';
   }
-}
+};

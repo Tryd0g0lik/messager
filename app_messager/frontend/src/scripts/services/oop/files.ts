@@ -3,6 +3,7 @@
 import { Post } from './post';
 import { Push } from './pushes';
 import { OllDatas, F } from '@Interfaces';
+import { WSocket } from '@Websocket';
 let APP_MESSAGER_SERVER_URL_ORIGEN = process.env.APP_MESSAGER_SERVER_URL_ORIGEN;
 let APP_MESSAGER_SERVER_URL_PORT = process.env.APP_MESSAGER_SERVER_URL_PORT;
 
@@ -121,7 +122,11 @@ export class FServices extends Push {
       };
       // debugger
       await this.deleteFetchOneFile(metaRequest);
-      (currentTargetLi).remove();
+      /* ----------------------------------------------------------------- */
+      // const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
+      // socket.beforeSend(JSON.stringify(metaRequest));
+
+      // (currentTargetLi).remove();
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');

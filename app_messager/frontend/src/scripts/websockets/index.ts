@@ -49,7 +49,7 @@ export class WSocket {
     this.handlers = {
       open: [],
       close: [],
-      data: []
+      data: [],
     };
   }
 
@@ -79,6 +79,7 @@ export class WSocket {
   onMessage = (e: any): void => {
     console.log('-------------------');
     const dataJson = JSON.parse(e.data);
+    debugger
     const resp = (dataJson.text !== undefined)
       ? dataJson.text
       : ((e.data as string).includes('groupId')

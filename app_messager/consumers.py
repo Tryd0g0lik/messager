@@ -107,7 +107,9 @@ class ChatConsumer(AsyncConsumer):
 			(len(json.loads(event['text'])['fileIndex']) > 0):
 			await self.send_chat_message_inDB(event)
 			new_event = event_json['text']
-
+		elif (('remove' in list(json.loads(event['text']).keys()) ) and \
+		      (json.loads(event['text'])['remove'] == True)):
+			new_event = event_json['text']
 		else:
 			new_event = event_json['text']
 
