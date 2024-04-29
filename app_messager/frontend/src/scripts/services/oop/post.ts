@@ -1,5 +1,6 @@
 import { ChatMessage, F, File } from '@Interfaces';
 import { Requires } from './requires';
+import { FServices } from './files';
 
 class Post extends Requires {
   emptyvar: string[] = [];
@@ -87,8 +88,67 @@ class Post extends Requires {
     return false;
   }
 
-  async removePost(props: File): Promise<boolean> {
+  /* One post is removing  */
+  handlerPostRemove(e: MouseEvent): void {
+    if (e.defaultPrevented) {
+      console.log('[Post > handlerPostRemove] "Event used before!');
+      return;
+    }
 
+    const target = e.target as HTMLDivElement;
+    // if ((target.tagName === null) || ((target.tagName !== null) && !(target.tagName).includes('::after')) ||
+    //   (((target.parentElement === null) || (target.parentElement === undefined)) ||
+    //     ((target.parentElement !== null) && !(target.parentElement.hasAttribute('post'))))) {
+    //   return;
+    // }
+    if ((!(target.tagName.toLowerCase()).includes('div')) ||
+      (target.dataset.post === undefined)) {
+      return;
+    }
+
+    /* receives indexes of files from the one post */
+    const indexesArr: string[] = [];
+    // const download = target.parentElement.getElementsByClassName('download');
+    const download = target.getElementsByClassName('download');
+    if (download.length !== 0) {
+      const lihtml = download[0].getElementsByTagName('li');
+      if (lihtml.length > 0) {
+        Array.from(lihtml).forEach((item) => {
+          if ((item?.dataset.ind !== undefined)) {
+            const index = item.dataset.ind;
+            indexesArr.push(index);
+          }
+        });
+      }
+    }
+    // const metaRequest: F = {
+    //   remove: true,
+    //   postId: (target.parentElement.getAttribute('post') as string).slice(0),
+    //   userId: (target.parentElement.getAttribute('id') as string).slice(0)
+    // };
+    debugger;
+    const metaRequest: F = {
+      remove: true,
+      postId: (target.dataset.post).slice(0),
+      userId: (target.dataset.id as string).slice(0)
+    };
+
+    if (indexesArr.length > 0) {
+      const service = new FServices(target.parentElement as HTMLDivElement);
+
+      indexesArr.forEach((item) => {
+        metaRequest.fileInd = item;
+        service.deleteFetchOneFile(metaRequest);
+      });
+    }
+
+    // if (!(String(target.classList).includes('pencil'))) {
+    //   console.log('[Pencil > target] target is not "pencil"!');
+    //   return;
+    // }
   }
+  // async removePost(props: File): Promise<boolean> {
+
+  // }
 }
 export { Post };
