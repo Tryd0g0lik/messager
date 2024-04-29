@@ -113,12 +113,12 @@ export class FServices extends Push {
         }
       }
 
-      dataset.pathname = path;
+      // dataset.pathname = path;
       const metaRequest: F = {
         remove: true,
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
-        pathname: (dataset.pathname).slice(0),
+        // pathname: (dataset.pathname).slice(0),
         fileInd: fileIndex
       };
       /* ------ Removing the file ------ */
