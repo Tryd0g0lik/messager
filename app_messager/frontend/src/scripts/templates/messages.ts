@@ -4,8 +4,9 @@ import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
 import checkerUserId from './checkers/checkUseId';
 import checkOfTime from './checkers/checker_time';
-import { Pencil } from '@Service/handlers/messages/old-message/edit-message';
-
+import { Pencil } from '@Service/oop/pencils';
+import filetepmplate from './file';
+import getLinksToFile from '@Service/links-files';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -28,23 +29,10 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     return;
   }
   let linkFilesArr: string[] = [];
-  if (filesId.length > 0) {
+  if ((filesId !== undefined) && ((typeof filesId).includes('object')) && (filesId.length > 0)) {
+  // if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object'))) {
     /** indexes of the files inserted to the parameters from the URL */
-    const url = new URL('api/chat/upload/files/', 'http://127.0.0.1:8000/');
-    url.searchParams.set('ind', String(filesId));
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.info('[createChatMessage > LINK]:', data);
-      const dataList = (JSON.parse(data.files)).linkList;
-      linkFilesArr = dataList.slice(0);
-    }
+    linkFilesArr = await getLinksToFile(filesId) as string[];
   }
 
   /**
@@ -63,17 +51,16 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   let refer = '<ul>';
   if (linkFilesArr.length > 0) {
     for (let i = 0; i < linkFilesArr.length; i++) {
-      const len = linkFilesArr[i].split('/').length;
-      const urlOrigin = window.location.origin;
-      refer += `<li><a target="_blank" href="${urlOrigin}/media/${linkFilesArr[i].slice(0)}">${(linkFilesArr[i].split('/'))[len - 1]}</a></li>`;
+      refer += (filetepmplate(linkFilesArr[i]));
     }
   }
   refer += '</ul>';
 
+  /* ------ message box ------ */
   const resultCheckUser = checkerUserId(authorId);
   if (resultCheckUser !== undefined) { // dataTime.replace(/[: @]/g, '-')
     /* 'postId' - data receeiving from the db's timestamp */
-    htmlMessage.dataset.post = postId;
+    htmlMessage.dataset.post = String(postId);
     htmlMessage.innerHTML = (refer.length > 10) ? (`<div class="download">${refer}</div>`) : '';
     htmlMessage.innerHTML += `
       <div >
@@ -93,7 +80,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
-    htmlMessage.setAttribute('data-id', res); 
+    htmlMessage.setAttribute('data-id', res);
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const newBox = htmlMessage.outerHTML;
@@ -108,21 +95,30 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     refer = '<ul>';
 
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
-    /* ------ pencile ------ */
+    /* ------ 1/3 pencil ------ */
     if (boxMess !== null) {
       const Pencil_ = new Pencil(boxMess);
       Pencil_.start();
+
+      /* ------ box download ------ */
+      const boxDownload = boxMess.getElementsByClassName('download');
+      /* ------ style for a box with has download class  ------ */
+      if (boxDownload.length === 0) {
+        return;
+      }
+      Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
+
+      const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
+      if (htmlLi.length === 0) {
+        console.log('[createChatMessage > LI]: Something that wrong!');
+      }
+      Pencil_.handlerRemoveAdd(htmlLi);
     }
     if (boxMess === null) {
+      console.log('[createChatMessage > DIV]: Something that wrong!');
       return;
     }
-    /* ------ doenload box ------ */
-    const boxDownload = boxMess.getElementsByClassName('download')[0];
-    /* ------ style for a box with has download class  ------ */
-    const height = (boxDownload as HTMLElement).offsetHeight;
-    boxMess.style.paddingTop = String(height) + 'px';
   }
-
 
   /**
    * scroll

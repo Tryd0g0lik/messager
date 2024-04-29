@@ -35,6 +35,12 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
     const messages = getTextOfInput();
     const indexUser = target.dataset.id;
     const datetime = time.getFullTime();
+    const lstorage = localStorage.getItem('data');
+    const pathnamesArr: string[] = ((lstorage !== undefined) && ((lstorage as string).length > 10))
+      ? (JSON.parse(lstorage as string).pathnames)
+      : [];
+    // !!hдобавлен 'pathnames' из цитаты добавить еще файлы которые выбираем в момент редактирования!!!!!!!!!!!!!
+    // Есть id файлов при редактировании
     const postIndex = (localStorage.getItem('data') !== null)
       ? (JSON.parse(localStorage.getItem('data') as string).postId)
       : (-1);
@@ -44,11 +50,12 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
     }
 
     if (((typeof fileIdArr).includes('object'))) {
+      /* if 'corrects' is 'true' that is message edit */
       if (!corrects) {
         socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]));
         await socket.dataSendNow();
       } else {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex })]));
+        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]));
         await socket.dataSendNow();
       }
     } else {
@@ -56,7 +63,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
         socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
         await socket.dataSendNow();
       } else {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex })]));
+        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]));
         await socket.dataSendNow();
       }
     }

@@ -92,7 +92,8 @@ class ChatConsumer(AsyncConsumer):
 		event_json = event;
 		new_event: str = ''
 		print('============ Before:  send_chat_message_inDB ============')
-		if json.loads(event['text'])['corrects'] != True:
+		if (('corrects' in list(json.loads(event['text']).keys())) and \
+			(json.loads(event['text'])['corrects'] != True)):
 			data_message = await self.send_chat_message_inDB(event)
 			''' Get the elias a message's box from. It's will be inserted in to the html message (postId) '''
 			event_text_keys_list_new = list(json.loads(event_json['text'])) + ['postId'];
@@ -101,9 +102,20 @@ class ChatConsumer(AsyncConsumer):
 			new_event_json = dict(zip(event_text_keys_list_new, event_text_val_list_new))
 			event_json['text'] = json.dumps(new_event_json)
 			new_event = json.dumps(event_json)
-		else:
+
+		elif (('corrects' in list(json.loads(event['text']).keys())) and \
+		      (json.loads(event['text'])['corrects'] == True) and \
+			('corrects' in json.loads(event['text'])) and ('fileIndex' in json.loads(event['text'])) and \
+			(type(json.loads(event['text'])['fileIndex']) == list) and \
+			(len(json.loads(event['text'])['fileIndex']) > 0)):
+			await self.send_chat_message_inDB(event)
+			new_event = event_json['text']
+		elif (('remove' in list(json.loads(event['text']).keys())) and \
+		      (json.loads(event['text'])['remove'])):
 			new_event = event_json['text']
 
+		else:
+			new_event = event_json['text']
 		# сделать асинхронной  сделать загрузку файлов + Typing...
 		# Send the message to all connected clients
 		for client in self.connected_clients:

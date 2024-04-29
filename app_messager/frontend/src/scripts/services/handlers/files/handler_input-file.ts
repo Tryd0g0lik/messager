@@ -1,4 +1,4 @@
-// app_messager\frontend\src\scripts\services\handlers\handler_input-file.ts
+// app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 
 /**
  * rules of handler

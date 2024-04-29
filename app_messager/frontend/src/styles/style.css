@@ -67,15 +67,53 @@ body{margin-top:20px;}
   position: relative;
 }
 
+.user-name {
+  text-align: end;
+}
+
+.user-message {
+  max-width: 750px;
+}
 .download {
   display: inline-block;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 5px;
 }
 
+.download.repeat {
+  background-color: #fff;
+
+}
 .download ul {
   margin: 0;
+}
+.download ul li {
+  padding-right: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.download.repeat li a {
+  color: #cfcfcf;
+}
+
+.download.repeat li .bucke {
+  display: none;
+}
+
+.download div.bucke {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.download .bucke {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.download div .bucke {
+  right: 25%;
+  top: 24%;
 }
 .pencil {
   display: block;

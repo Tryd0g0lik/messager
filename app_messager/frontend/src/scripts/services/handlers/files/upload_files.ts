@@ -1,4 +1,5 @@
-// app_messager\frontend\src\scripts\services\upload_files.ts
+// app_messager\frontend\src\scripts\services\handlers\files\upload_files.ts
+
 import handlerInputEvent from './handler_input-file';
 
 const handlerUploadFiles = (): undefined => {
@@ -23,9 +24,7 @@ const handlerUploadFiles = (): undefined => {
   const checkLockalKey = localStorage.getItem('data') !== null;
 
   if (checkLockalKey) {
-    const dataLocalJson = JSON.parse(localStorage.getItem('data') as string);
-    dataLocalJson.fileId = false;
-    localStorage.setItem('data', JSON.stringify(dataLocalJson));
+    null;
   } else {
     localStorage.setItem('data', JSON.stringify({ fileId: false }));
   }

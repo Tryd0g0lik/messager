@@ -1,13 +1,30 @@
 // app_messager\frontend\src\interface.ts
 interface Post {
+<<<<<<< HEAD
   postId: string
 }
 
 export interface ChatMessage extends Post {
   authorId: string
   dataTime: string
+=======
+  postId?: string | number
+}
+
+export interface File extends Post {
+  pathname?: string
+  index?: string
+  indexes?: string[]
+  file_id?: string
+  fileInd?: string
+}
+
+export interface ChatMessage extends Post {
+  authorId: string | number
+  dataTime?: string
+>>>>>>> 2.3
   message: string
-  groupId?: string
+  groupId?: string | number
   filesId?: number[]
 }
 export interface OldData extends Post {
@@ -23,4 +40,27 @@ export interface WSData {
 export interface PostCorrector {
   postIndex: string
   postMessage: string
+}
+
+export interface OllDatas {
+  pathnames: string[]
+  dataPost: string
+  dataId: string
+}
+
+export interface F extends File {
+  userId: string
+  remove?: boolean
+}
+
+export interface DbSLine { // DB Search Line
+  indexUser: string
+  content: string
+  indexGroup: string
+  indexLine: string
+}
+
+export interface Data {
+  dataPost: string | undefined
+  dataId: string | undefined // id user
 }

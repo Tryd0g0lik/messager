@@ -1,7 +1,7 @@
 // app_messager\frontend\src\scripts\websockets\index.ts
 
 import { WSData } from '@Interfaces';
-import builderOldMessage from '@Service/handlers/messages/old-message/paste-old-message';
+import upOldMessage from '@Service/handlers/messages/old-message/up-message';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -30,7 +30,7 @@ export class WSocket {
 
     this.socket.addEventListener('message', (e: any) => {
       console.info(`[WSocket > MESSAGE]: WebSocket - message was received; MESSAGE: ${e.target.url}`);
-
+      // debugger;
       this.onMessage(e);
     });
 
@@ -81,29 +81,84 @@ export class WSocket {
     const dataJson = JSON.parse(e.data);
     const resp = (dataJson.text !== undefined)
       ? dataJson.text
-      : ((e.data as string).includes('groupId')
-        ? e.data as string
-        : null
+      : ((!(e.data as string).includes('remove') &&
+        (e.data as string).includes('groupId'))
+        ? (e.data as string)
+        : (e.data as string).includes('remove')
+          ? (e.data as string)
+          : null
       );
+
     if (resp === null) {
       return;
     };
 
     const dataTextJson = JSON.parse(resp);
-    const message = dataTextJson.message;
-    const authorId = String(dataTextJson.userId);
-    const postId = String(dataTextJson.postId);
+    const dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
+    let message;
+    if ((dataKeys.filter((item) => item.includes('message'))).length > 0) {
+      message = dataTextJson.message;
+    }
+    let authorId;
+    if ((dataKeys.filter((item) => item.includes('userId'))).length > 0) {
+      authorId = String(dataTextJson.userId);
+    }
+    let postId;
+    if ((dataKeys.filter((item) => item.includes('postId'))).length > 0) {
+      postId = String(dataTextJson.postId);
+    }
 
-    const groupId = dataTextJson.groupId;
-    const dataTime = dataTextJson.eventtime;
+    let groupId;
+    if ((dataKeys.filter((item) => item.includes('groupId'))).length > 0) {
+      groupId = dataTextJson.groupId;
+    }
+    let dataTime;
+    if ((dataKeys.filter((item) => item.includes('eventtime'))).length > 0) {
+      dataTime = dataTextJson.eventtime;
+    }
+    let fileInd;
+    if ((dataKeys.filter((item) => item.includes('fileInd'))).length > 0) {
+      fileInd = dataTextJson.fileInd;
+    }
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
+    if (dataTime === undefined) {
+      console.log('[websokets > RECIVED MESS] Something that wrong by the time!');
+    }
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
-    if (dataTextJson.corrects !== true) {
+    if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
+      (dataTextJson.corrects !== true) && (authorId !== undefined) &&
+      (message !== undefined) && (groupId !== undefined) &&
+      (postId !== undefined) && (filesId !== undefined)) {
       createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
-    } else {
+    } else if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
+      (postId !== undefined) && (message !== undefined)) {
       const postIndex = postId;
       const postMessage = message;
-      builderOldMessage({ postIndex, postMessage });
+      /* ------ Here '({ filesIndexes: filesId })' part is an async ------ */
+      upOldMessage({ postIndex, postMessage })({ filesIndexes: filesId });
+    } else if (((dataKeys.filter((item) => item.includes('remove'))).length > 0) &&
+      (dataTextJson.remove === true) && (fileInd !== undefined)) {
+      /* ------ File removing from the dysplay ------ */
+      const postHtml = document.querySelector(`div[data-post="${postId}"]`);
+      if (postHtml === null) {
+        const err = new Error();
+        err.name = '[websokets > RECIVED MESS]';
+        err.message = 'Something that wrong. Post not found into the dysplay!';
+        throw err;
+      }
+      const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
+      if (postHtml === null) {
+        const err = new Error();
+        err.name = '[websokets > RECIVED MESS]';
+        err.message = 'Something that wrong. File not found into the dysplay!';
+        throw err;
+      }
+      liHtml?.remove(); // delete
+    } else {
+      const err = new Error();
+      err.name = '[websokets > RECIVED MESS]';
+      err.message = "Something that wrong. Can't found datas!";
+      throw err;
     }
   };
 
@@ -114,12 +169,18 @@ export class WSocket {
   dataSendNow(): undefined | boolean {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok');
+    let timout: NodeJS.Timeout;
+    clearInterval(setTimeout);
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
       console.log('[websokets > OPEN > AFTER SEND]: Ok');
       this.handlers.data.pop();
+    } else if (this.socket.readyState === WebSocket.CONNECTING) {
+      timout = setTimeout(() => {
+        this.dataSendNow();
+      }, 2000);
     } else {
-      console.info("[websokets > CLOSE ERROR]:  In Now time can't send message to the WebSocket.WebSocket is closed");
+      console.info(`[websokets > CLOSE]: the WebSocket is not open In now time. CODE: ${this.socket.readyState}`);
       return false;
     }
   };
