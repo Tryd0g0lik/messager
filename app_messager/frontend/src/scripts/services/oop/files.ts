@@ -122,10 +122,6 @@ export class FServices extends Push {
       };
       // debugger
       await this.deleteFetchOneFile(metaRequest);
-      /* ----------------------------------------------------------------- */
-      // const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
-      // socket.beforeSend(JSON.stringify(metaRequest));
-
       // (currentTargetLi).remove();
       return true;
     }

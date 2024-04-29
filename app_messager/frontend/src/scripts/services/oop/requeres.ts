@@ -60,9 +60,6 @@ export class FRequeres {
       headers: h
     });
     if (!response.ok) {
-      // const err = new Error(response.statusText);
-      // err.name = '[FRequeres > fGet] GET:';
-      // throw err;
       console.log('[FRequeres > fGet] GET: Not Found');
       return false;
     }
@@ -83,6 +80,9 @@ export class FRequeres {
     const response = await fetch(url, {
       'X-CSRFToken': getCookie('csrftoken'),
       method: 'DELETE',
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
       cache: 'no-cache',
       mode: 'cors'
     });

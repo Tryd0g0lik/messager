@@ -59,7 +59,7 @@ class Post extends FRequeres {
 
   async removePostFile(props: File): Promise<boolean> {
     const { file_id, postId } = { ...props };
-    const url = new URL('api/v1/chat/delete/file/', 'http://127.0.0.1:8000/');
+    const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
     const err = new Error();
     err.name = '[Post > removePostFile]';
 
