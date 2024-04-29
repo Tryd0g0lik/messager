@@ -144,6 +144,7 @@ body{margin-top:20px;}
 
 /* Remove a single post */
 div.message::after {
+  cursor: pointer;
   content: 'X';
   display: inline-block;
   position: absolute;
@@ -158,3 +159,4 @@ div.message::after {
   margin: 0;
   line-height: 1;
 }
+

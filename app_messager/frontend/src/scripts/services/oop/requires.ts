@@ -1,4 +1,4 @@
-import getCookie from "@Service/cookies";
+import getCookie from '@Service/cookies';
 
 interface RequestHeaders {
   contentType: string
@@ -14,7 +14,7 @@ interface RequestHeaders {
  * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
 }`
  */
-export class FRequeres {
+export class Requires {
   urls: string | object;
   constructor(url: string | object) {
     this.urls = url;
@@ -70,11 +70,11 @@ export class FRequeres {
   /**
    * `id` for a remove through URL \
    * `api/v1/chat/delete/file/` - for a remove file \
-   * Used is `removeFile(index)` or `removeFile(undefined, index)` \
+   * Used is `remove(index)` or `remove(undefined, index)` \
    * @param `index` : `undefined|string' is for one file. That value default have `undefined`
    * @param `indexes` : `undefined|number[]' is for one list files. That value default have `undefined`
    * */
-  async removeFile(): Promise<string> {
+  async remove(): Promise<string> {
     const url = this.urls;
     // debugger
     const response = await fetch(url, {
@@ -89,7 +89,7 @@ export class FRequeres {
     /*   */
     if (!response.ok as boolean) {
       const err = new Error(String(response.ok));
-      err.name = '[FServices > removeFile]';
+      err.name = '[FServices > remove]';
       throw err;
     };
     return 'Ok';

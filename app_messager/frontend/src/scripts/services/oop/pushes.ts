@@ -1,7 +1,7 @@
 import { Data } from '@Interfaces';
-import { FRequeres } from './requeres';
+import { Requires } from './requires';
 
-export class Push extends FRequeres {
+export class Push extends Requires {
   element: HTMLDivElement;
 
   constructor(name: HTMLDivElement, url = window.location.origin) {

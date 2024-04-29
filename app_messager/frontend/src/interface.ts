@@ -1,13 +1,5 @@
 // app_messager\frontend\src\interface.ts
 interface Post {
-<<<<<<< HEAD
-  postId: string
-}
-
-export interface ChatMessage extends Post {
-  authorId: string
-  dataTime: string
-=======
   postId?: string | number
 }
 
@@ -22,7 +14,6 @@ export interface File extends Post {
 export interface ChatMessage extends Post {
   authorId: string | number
   dataTime?: string
->>>>>>> 2.3
   message: string
   groupId?: string | number
   filesId?: number[]

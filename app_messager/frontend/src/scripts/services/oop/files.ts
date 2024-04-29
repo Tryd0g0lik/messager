@@ -126,11 +126,11 @@ export class FServices extends Push {
       const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
       socket.beforeSend(JSON.stringify(metaRequest));
       socket.dataSendNow();
-      let timout: NodeJS.Timeout;
-      if (timout !== undefined) {
-        clearTimeout(timout);
+      let timeout: NodeJS.Timeout;
+      if (timeout !== undefined) {
+        clearTimeout(timeout);
       }
-      timout = setTimeout(() => {
+      timeout = setTimeout(() => {
         socket.onClose();
       }, 6000);
       return true;
@@ -141,7 +141,7 @@ export class FServices extends Push {
 
   /**
    * In entrypoint receive the proporties a `props`  and making request for the delete data
-   * @param `props`: `{ postId: string, userId: string, pathname: string }`
+   * @param `props`: `{ remove: boolean, postId: string, userId: string, pathname: string }`
    * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
    */
   async deleteFetchOneFile(props: F): Promise<boolean> {
@@ -165,6 +165,9 @@ export class FServices extends Push {
     };
     await post.removePostFile(propsAll);
   }
+  // async deleteFetchOneFile(prop: F): Promis<boolean> {
+  //   this.deleteFetchOneFile()
+  // }
 
   /**
    * Entry point has a one paramenter. That `elements`, his get an object collection fron the `[<li>..<div class="bucke">]`.
