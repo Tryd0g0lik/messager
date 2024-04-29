@@ -126,6 +126,13 @@ export class FServices extends Push {
       const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
       socket.beforeSend(JSON.stringify(metaRequest));
       socket.dataSendNow();
+      let timout: NodeJS.Timeout;
+      if (timout !== undefined) {
+        clearTimeout(timout);
+      }
+      timout = setTimeout(() => {
+        socket.onClose();
+      }, 6000);
       // (currentTargetLi).remove();
       return true;
     }

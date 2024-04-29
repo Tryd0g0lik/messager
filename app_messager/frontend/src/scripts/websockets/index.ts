@@ -153,8 +153,7 @@ export class WSocket {
         err.message = 'Something that wrong. File not found into the dysplay!';
         throw err;
       }
-      liHtml?.remove();
-      this.onClose();
+      liHtml?.remove(); // delete
     } else {
       const err = new Error();
       err.name = '[websokets > RECIVED MESS]';
