@@ -135,20 +135,8 @@ After this's \
 
 ## History
 this an all package was installed for the chat project from Django. \
-<<<<<<< HEAD
-[1.1 -branch]: we can run chatting and async record messeges in the db. \
-[1.1 -branch]: we have the ability having the connaction to the chat server if we us focus on another tad. \
-[1.2 -branch]: `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker` \
-These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by a new user file. \
-If did not found , it means the user file is unique. Or not unique \
-[1.2.1 -branch]: Here is added sending files. It's one sending or more files\
-Added a control weight of the file (files) from the one single message (jne user).\
-In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.\
-Plus, [pattern timer](#timeer-of-message)
-=======
 [1.1 -branch]: 
 - we can run chatting and async record messeges in the db.
->>>>>>> 2.3
 
 [1.1 -branch]:
 - we have the ability having the connaction to the chat server if we us focus on another tad.
@@ -173,14 +161,15 @@ Plus, [pattern timer](#timeer-of-message)
 - The new post (updated post) is updating in the db and to the chat all users.
 
 
-
-
 [2.2 -branch]: 
 - нажимаем на карандаш, форма получает цитирование файло, цитирование сообщений, сообщение.
 - при наличии файлов, в режиме редавтировния , над формой автоматически меняется рамер (style), чтоб разместить файлы из чата.
-- в режиме редактирования, добавляем файл(ы). При сохранении БД получает новые файлы. У Всех участиников, к старым файлам добавляются новые + обновляется пост,
+- в режиме редактирования, добавляем файл(ы). При сохранении БД получает новые файлы. 
+- У Всех участиников, к старым файлам добавляются новые + обновляется пост,
 - Старый пост автоматически меняет размер  (style), чтоб разместить и новые файлы и старые файлы.
 
+[2.3 - brach]: 
+- Everyone a file has the bucket. Click by the bucket to deleted file from the server and all clients.
 
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
