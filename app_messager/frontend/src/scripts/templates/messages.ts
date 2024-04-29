@@ -94,13 +94,14 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     };
     // and
     refer = '<ul>';
-    /* ------ add a listener (heandler event ) for event the post delete  ------ */
+    /* ------ add a listener (heandler event ) for event the post one and files will be remove  ------ */
     const x = document.getElementById('chat');
     if (x === undefined) {
       console.log("[createChatMessage > DIV]: Here button 'X' no found. It's for remove the single post !");
       return;
     }
     const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
+    url.searchParams.delete('fileInd');
     const post = new Post(url);
     const handlerPostRemove = post.handlerPostRemove.bind(post);
     (x as HTMLDivElement).onclick = handlerPostRemove;

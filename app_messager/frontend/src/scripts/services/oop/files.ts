@@ -1,5 +1,6 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 // import handlerFileOne from '@Service/handlers/files/deletes';
+import remove from '@Service/removes';
 import { Post } from './post';
 import { Push } from './pushes';
 import { OllDatas, F } from '@Interfaces';
@@ -123,16 +124,7 @@ export class FServices extends Push {
       };
       /* ------ Removing the file ------ */
       await this.deleteFetchOneFile(metaRequest);
-      const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
-      socket.beforeSend(JSON.stringify(metaRequest));
-      socket.dataSendNow();
-      let timeout: NodeJS.Timeout;
-      if (timeout !== undefined) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => {
-        socket.onClose();
-      }, 6000);
+      remove(metaRequest);
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');
@@ -164,6 +156,7 @@ export class FServices extends Push {
         : String(-1)
     };
     await post.removePostFile(propsAll);
+
   }
   // async deleteFetchOneFile(prop: F): Promis<boolean> {
   //   this.deleteFetchOneFile()

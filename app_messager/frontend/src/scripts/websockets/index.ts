@@ -94,7 +94,7 @@ export class WSocket {
     };
 
     const dataTextJson = JSON.parse(resp);
-    const dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
+    let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
     let message;
     if ((dataKeys.filter((item) => item.includes('message'))).length > 0) {
       message = dataTextJson.message;
@@ -120,6 +120,10 @@ export class WSocket {
     if ((dataKeys.filter((item) => item.includes('fileInd'))).length > 0) {
       fileInd = dataTextJson.fileInd;
     }
+    let indexes;
+    if ((dataKeys.filter((item) => item.includes('indexes'))).length > 0) {
+      indexes = dataTextJson.indexes;
+    }
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
     if (dataTime === undefined) {
       console.log('[websokets > RECIVED MESS] Something that wrong by the time!');
@@ -130,31 +134,47 @@ export class WSocket {
       (message !== undefined) && (groupId !== undefined) &&
       (postId !== undefined) && (filesId !== undefined)) {
       createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
+      dataKeys = [];
     } else if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
       (postId !== undefined) && (message !== undefined)) {
       const postIndex = postId;
       const postMessage = message;
       /* ------ Here '({ filesIndexes: filesId })' part is an async ------ */
       upOldMessage({ postIndex, postMessage })({ filesIndexes: filesId });
+      dataKeys = [];
     } else if (((dataKeys.filter((item) => item.includes('remove'))).length > 0) &&
-      (dataTextJson.remove === true) && (fileInd !== undefined)) {
+      (dataTextJson.remove === true)) {
       /* ------ File removing from the dysplay ------ */
       const postHtml = document.querySelector(`div[data-post="${postId}"]`);
-      if (postHtml === null) {
-        const err = new Error();
-        err.name = '[websokets > RECIVED MESS]';
-        err.message = 'Something that wrong. Post not found into the dysplay!';
-        throw err;
+      debugger
+      if (fileInd !== undefined) {
+        if (postHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. Post not found into the dysplay!';
+          throw err;
+        }
+        const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
+        if (postHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. File not found into the dysplay!';
+          throw err;
+        }
+        liHtml?.remove(); // delete
+        dataKeys = [];
+        console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
+      } else if (indexes !== undefined) {
+        dataKeys = [];
+        if (postHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. File not found into the dysplay!';
+          throw err;
+        }
+        postHtml.innerHTML = '<p class="epost remove">Your message has been deletes</p>';
+        dataKeys = [];
       }
-      const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
-      if (postHtml === null) {
-        const err = new Error();
-        err.name = '[websokets > RECIVED MESS]';
-        err.message = 'Something that wrong. File not found into the dysplay!';
-        throw err;
-      }
-      liHtml?.remove(); // delete
-      console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
     } else {
       const err = new Error();
       err.name = '[websokets > RECIVED MESS]';
