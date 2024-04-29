@@ -104,10 +104,19 @@ body{margin-top:20px;}
   display: none;
 }
 
+.download div.bucke {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
 .download .bucke {
   position: absolute;
   top: 0;
   right: 0;
+}
+.download div .bucke {
+  right: 25%;
+  top: 24%;
 }
 .pencil {
   display: block;

@@ -87,7 +87,6 @@ export class FRequeres {
       mode: 'cors'
     });
     /*   */
-    debugger
     if (!response.ok as boolean) {
       const err = new Error(String(response.ok));
       err.name = '[FServices > removeFile]';

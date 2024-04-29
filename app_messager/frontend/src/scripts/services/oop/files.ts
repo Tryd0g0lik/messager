@@ -115,6 +115,7 @@ export class FServices extends Push {
 
       dataset.pathname = path;
       const metaRequest: F = {
+        remove: true,
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
         pathname: (dataset.pathname).slice(0),
@@ -122,6 +123,9 @@ export class FServices extends Push {
       };
       // debugger
       await this.deleteFetchOneFile(metaRequest);
+      const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
+      socket.beforeSend(JSON.stringify(metaRequest));
+      socket.dataSendNow();
       // (currentTargetLi).remove();
       return true;
     }
