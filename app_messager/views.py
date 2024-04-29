@@ -145,6 +145,7 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 
 
 class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
+	authentication_classes=[] #!!!  not touch
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
 	filter_backends = []

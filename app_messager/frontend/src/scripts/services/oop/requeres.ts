@@ -1,3 +1,5 @@
+import getCookie from "@Service/cookies";
+
 interface RequestHeaders {
   contentType: string
   caches?: string
@@ -76,6 +78,9 @@ export class FRequeres {
     const url = this.urls;
     const response = await fetch(url, {
       method: 'DELETE',
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
       cache: 'no-cache',
       mode: 'cors'
     });

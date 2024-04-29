@@ -121,7 +121,7 @@ export class FServices extends Push {
       };
       // debugger
       await this.deleteFetchOneFile(metaRequest);
-      (currentTargetLi).remove();
+      // (currentTargetLi).remove();
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');
