@@ -87,7 +87,7 @@ class GroupsModel(models.Model):
 		self.save()
 
 class SubGroupsModel(models.Model):
-	uuid = models.UUIDField(default=uuid4, unique=True )
+	uuid = models.UUIDField(default=uuid4, unique=True)
 
 class Chat_MessageModel(models.Model):
 	'''
@@ -104,7 +104,7 @@ class Chat_MessageModel(models.Model):
 	content = models.TextField()
 	group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
 	file = models.ForeignKey('FileModels', related_name="file_of_chat", on_delete=models.SET_NULL, blank=True, null=True)
-	subgroup = models.ForeignKey(SubGroupsModel, on_delete=models.CASCADE)
+	subgroup = models.ForeignKey(SubGroupsModel, on_delete=models.CASCADE, related_name='subgroup_message')
 	def __str__(self) -> str:
 		date = self.timestamp.date()
 		time = self.timestamp.time()

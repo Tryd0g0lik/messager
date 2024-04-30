@@ -59,8 +59,9 @@ class Post extends Requires {
   //   return responce as boolean | object[];
   // }
 
-  async removePostFile(props: File): Promise<boolean> {
-    const { file_id, postId } = { ...props };
+  async removePostFile(props: F): Promise<boolean> {
+    const { file_id, postId, ...data } = { ...props };
+
     const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
     const err = new Error();
     err.name = '[Post > removePostFile]';
@@ -76,6 +77,12 @@ class Post extends Requires {
       throw err;
     }
     url.searchParams.append('file_id', file_id);
+    // debugger
+    if ((data === undefined) || ((data !== undefined) && (data.postRemove === undefined))) {
+      console.log('[Post > removePostFile]: May be somethefing tha wrong! Not found postRemove');
+    } else {
+      url.searchParams.append('postRemove', String(data.postRemove as boolean));
+    }
 
     this.urls = url;
 
@@ -119,9 +126,10 @@ class Post extends Requires {
     }
 
     const metaRequest: F = {
-      remove: true,
+      remove: true, // that is a file remove
       postId: (target.dataset.post).slice(0),
-      userId: (target.dataset.id as string).slice(0)
+      userId: (target.dataset.id as string).slice(0),
+      postRemove: true
     };
 
     if (indexesArr.length > 0) {
@@ -134,6 +142,7 @@ class Post extends Requires {
         this.removePostFile(props);
       });
       metaRequest.fileInd = undefined;
+      metaRequest.postRemove = false;
       metaRequest.indexes = indexesArr;
       wsRemove(metaRequest);
     }

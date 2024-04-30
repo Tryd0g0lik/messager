@@ -42,6 +42,7 @@ export interface OllDatas {
 export interface F extends File {
   userId: string
   remove?: boolean
+  postRemove?: boolean
 }
 
 export interface DbSLine { // DB Search Line

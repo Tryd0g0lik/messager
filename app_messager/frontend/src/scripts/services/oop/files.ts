@@ -137,7 +137,7 @@ export class FServices extends Push {
    * @returns `props`
    */
   checkProps(props: F) {
-    const { postId, fileInd } = { ...props };
+    const { postId, fileInd, ...data } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
     // const name = this.element;
@@ -153,7 +153,10 @@ export class FServices extends Push {
         ? ((typeof fileInd).includes('string')
           ? fileInd
           : String(fileInd))
-        : String(-1)
+        : String(-1),
+      postRemove: (data?.postRemove !== undefined)
+        ? data.postRemove
+        : false
     };
     // await post.removePostFile(propsAll);
     return propsAll;

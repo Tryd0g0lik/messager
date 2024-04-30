@@ -152,7 +152,7 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 
 	def delete(self, request, *args, **kwargs):
 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
-
+		query_posrt_bool = bool(request.query_params.get('postRemove')); # if True that is a post remove, or not
 		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
 
 		if ((len(list(response_file_filter)) == 0)):
@@ -160,14 +160,14 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 
 		response_post_filter = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
 		response_post_group = response_post_filter[0].group_id
-		response_post_author = response_post_filter[0].author_id
 
-		response_content_filter = Chat_MessageModel.objects.filter(content = response_post_filter[0].content)
-		if len(list(response_content_filter)) > 1:
-			rows_list = response_content_filter.filter(author_id=response_post_author).filter(group_id=response_post_group);
+		response_subgroup_id_filter = Chat_MessageModel.objects.filter(subgroup_id = response_post_filter[0].subgroup_id)
+		if len(list(response_subgroup_id_filter)) > 1:
+			rows_list = response_subgroup_id_filter.filter(group_id=response_post_group);
 			if (len(list(rows_list)) > 1):
 				response_post_filter[0].delete()
-
+		elif (query_posrt_bool == True):
+			response_subgroup_id_filter[0].subgroup.delete()
 		response_file_filter[0].delete()
 
 		return JsonResponse({'remove': False})
