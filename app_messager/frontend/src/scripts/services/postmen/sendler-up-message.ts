@@ -10,7 +10,7 @@ let APP_MESSAGER_SERVER_URL_PORT = process.env.APP_MESSAGER_SERVER_URL_PORT;
 if (APP_MESSAGER_SERVER_URL_PORT === undefined) {
   APP_MESSAGER_SERVER_URL_PORT = '8000';
 }
-
+к старому посту надо подвешать индекс одного из файлов при редактировании
 const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object> => {
   /* ------ LocalStorage ------ */
   const localS = localStorage.getItem('data');
@@ -42,6 +42,6 @@ const changeOldPost = async (event: KeyboardEvent | MouseEvent): Promise<object>
   }
   const reresponseJson = await response.json();
   return reresponseJson as object;
-};
+}
 
 export default changeOldPost;

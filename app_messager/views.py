@@ -68,6 +68,7 @@ def upload_file(request, listIndexes = None):
 		try:
 			form_file = UploadFileForm(request.POST, request.FILES)
 			files = request.FILES.getlist('file')
+			# old_post_id = request.POST.get('postId');
 			lis_indexes = []
 			if form_file.is_valid():
 				for pic in list(files):
