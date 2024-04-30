@@ -1,6 +1,6 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 // import handlerFileOne from '@Service/handlers/files/deletes';
-import remove from '@Service/removes';
+import wsRemove from '@Service/removes';
 import { Post } from './post';
 import { Push } from './pushes';
 import { OllDatas, F } from '@Interfaces';
@@ -123,8 +123,8 @@ export class FServices extends Push {
         fileInd: fileIndex
       };
       /* ------ Removing the file ------ */
-      await this.deleteFetchOneFile(metaRequest);
-      remove(metaRequest);
+      await this.checkProps(metaRequest);
+      wsRemove(metaRequest);
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');
@@ -132,16 +132,16 @@ export class FServices extends Push {
   };
 
   /**
-   * In entrypoint receive the proporties a `props`  and making request for the delete data
+   * In entrypoint receive the proporties a `props`  and return object
    * @param `props`: `{ remove: boolean, postId: string, userId: string, pathname: string }`
-   * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
+   * @returns `props`
    */
-  async deleteFetchOneFile(props: F): Promise<void> {
+  checkProps(props: F) {
     const { postId, fileInd } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
-    const name = this.element;
-    const post = new Post(name);
+    // const name = this.element;
+    // const post = new Post(name);
     // debugger
     const propsAll = {
       postId: (postId !== undefined)
@@ -155,7 +155,8 @@ export class FServices extends Push {
           : String(fileInd))
         : String(-1)
     };
-    await post.removePostFile(propsAll);
+    // await post.removePostFile(propsAll);
+    return propsAll;
   }
   // async deleteFetchOneFile(prop: F): Promis<boolean> {
   //   this.deleteFetchOneFile()

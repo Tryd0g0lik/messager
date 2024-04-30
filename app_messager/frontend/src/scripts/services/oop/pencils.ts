@@ -107,9 +107,7 @@ export class Pencil extends FServices {
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
         this.element = htmlQuoteArr[0] as HTMLDivElement;
-        this.postStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
-
-        // debugger
+        this.managePostStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
       };
     }
 

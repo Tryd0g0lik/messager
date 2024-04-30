@@ -111,9 +111,9 @@ body{margin-top:20px;}
   top: 0;
   right: 0;
 }
-.download div .bucke {
-  right: 25%;
-  top: 24%;
+.download div.bucke {
+  background-position: center;
+  background: url('../pic/bucke.svg') no-repeat;
 }
 .pencil {
   display: block;

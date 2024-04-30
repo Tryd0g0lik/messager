@@ -1,7 +1,7 @@
 import { ChatMessage, F, File } from '@Interfaces';
 import { Requires } from './requires';
 import { FServices } from './files';
-import remove from '@Service/removes';
+import wsRemove from '@Service/removes';
 
 class Post extends Requires {
   emptyvar: string[] = [];
@@ -80,7 +80,8 @@ class Post extends Requires {
     this.urls = url;
 
     let response = '';
-    response = await this.remove();
+    // debugger
+    response = await this.removeFile();
 
     if (((typeof response).includes('string')) && (response.includes('OK'))) {
       return true;
@@ -95,7 +96,7 @@ class Post extends Requires {
       console.log('[Post > handlerPostRemove] "Event used before!');
       return;
     }
-
+    // debugger  
     const target = e.target as HTMLDivElement;
     if ((!(target.tagName.toLowerCase()).includes('div')) ||
       (target.dataset.post === undefined)) {
@@ -126,14 +127,15 @@ class Post extends Requires {
     if (indexesArr.length > 0) {
       /* ------ Removing files ------ */
       const service = new FServices(target.parentElement as HTMLDivElement);
-
       indexesArr.forEach((item) => {
         metaRequest.fileInd = item;
-        service.deleteFetchOneFile(metaRequest);
+        const props = service.checkProps(metaRequest);
+
+        this.removePostFile(props);
       });
       metaRequest.fileInd = undefined;
       metaRequest.indexes = indexesArr;
-      remove(metaRequest);
+      wsRemove(metaRequest);
     }
   }
 }

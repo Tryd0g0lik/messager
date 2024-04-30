@@ -119,7 +119,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       if (boxDownload.length === 0) {
         return;
       }
-      Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
+      Pencil_.managePostStylesHeight(boxDownload[0] as HTMLDivElement);
 
       const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
       if (htmlLi.length === 0) {

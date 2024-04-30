@@ -80,7 +80,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       console.log('[upOldMessage > boxDownload] Something that wrong!');
       return;
     }
-    pencil.postStylesHeight(boxDownload[0] as HTMLDivElement);
+		pencil.managePostStylesHeight(boxDownload[0] as HTMLDivElement);
 
     const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
     if (htmlLi.length === 0) {

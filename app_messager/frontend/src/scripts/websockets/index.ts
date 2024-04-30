@@ -2,6 +2,8 @@
 
 import { WSData } from '@Interfaces';
 import upOldMessage from '@Service/handlers/messages/old-message/up-message';
+import { Post } from '@Service/oop/post';
+import { Push } from '@Service/oop/pushes';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -146,7 +148,8 @@ export class WSocket {
     } else if (((dataKeys.filter((item) => item.includes('remove'))).length > 0) &&
       (dataTextJson.remove === true)) {
       /* ------ File removing from the dysplay ------ */
-      const postHtml = document.querySelector(`div[data-post="${postId}"]`);
+      const postHtml = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
+      const push = new Push(postHtml);
       if (fileInd !== undefined) {
         /* ------ remove the one file ------ */
         if (postHtml === null) {
@@ -155,6 +158,7 @@ export class WSocket {
           err.message = 'Something that wrong. Post not found into the dysplay!';
           throw err;
         }
+        // debugger
         const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
         if (postHtml === null) {
           const err = new Error();
@@ -163,6 +167,8 @@ export class WSocket {
           throw err;
         }
         liHtml?.remove(); // delete
+        const divHtml = postHtml.querySelector('.download') as HTMLDivElement;
+        push.managePostStylesHeight(divHtml);
         dataKeys = [];
         console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
       } else if (indexes !== undefined) {
@@ -175,15 +181,15 @@ export class WSocket {
           throw err;
         }
         /* ------ cleaning html ------ */
-        if ((postHtml as HTMLDivElement).hasAttribute('data-post')) {
-          (postHtml as HTMLDivElement).removeAttribute('data-post');
+        if ((postHtml).hasAttribute('data-post')) {
+          (postHtml).removeAttribute('data-post');
         }
-        if ((postHtml as HTMLDivElement).hasAttribute('data-id')) {
-          (postHtml as HTMLDivElement).removeAttribute('data-id');
+        if ((postHtml).hasAttribute('data-id')) {
+          (postHtml).removeAttribute('data-id');
         }
         postHtml.innerHTML = '<p class="epost remove">Your message has been deletes</p>';
         postHtml.classList.remove('message');
-        (postHtml as HTMLDivElement).style.padding = String(0);
+        (postHtml).removeAttribute('style'); // padding = String(0);
         dataKeys = [];
       }
     } else {
@@ -201,14 +207,16 @@ export class WSocket {
   async dataSendNow(): Promise<undefined | boolean> {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok');
-    let timout: NodeJS.Timeout;
-    clearInterval(setTimeout);
+    let timeout: NodeJS.Timeout;
+    if (timeout !== undefined) {
+      clearInterval(timeout);
+    }
     if (this.socket.readyState === WebSocket.OPEN) {
       await this.socket.send(data);
       console.log('[websokets > OPEN > AFTER SEND]: Ok');
       this.handlers.data.pop();
     } else if (this.socket.readyState === WebSocket.CONNECTING) {
-      timout = setTimeout(() => {
+      timeout = setTimeout(() => {
         this.dataSendNow();
       }, 700);
     } else {

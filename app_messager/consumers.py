@@ -55,6 +55,8 @@ class ChatConsumer(AsyncConsumer):
 		# chat.autor_id = data_message['userId']
 
 		chat:object = {}
+		SubGroupsModel().save()
+		sub_group_id =SubGroupsModel.objects.last().id
 		if ('fileIndex' in data_message):
 			# chat.file_id = data_message['fileIndex']
 			for ind in range(0, len(list(data_message['fileIndex']))):
@@ -63,6 +65,7 @@ class ChatConsumer(AsyncConsumer):
 				chat.content = f"{data_message['message']}" # json.dumps({f"{date_str}": f"{data_message['message']}"})
 				chat.group_id = id
 				chat.author_id = json_data['userId']
+				chat.subgroup_id=sub_group_id
 				chat.save()
 
 		elif ('fileIndex' not in data_message) :
@@ -70,6 +73,7 @@ class ChatConsumer(AsyncConsumer):
 			chat.content = f"{data_message['message']}" # json.dumps({f"{date_str}": f"{data_message['message']}"})
 			chat.group_id = id
 			chat.author_id = json_data['userId']
+			chat.subgroup_id = sub_group_id
 			chat.save()
 
 		print('[CONSUMER > FILE] BEFORE: EVENT', 'test')

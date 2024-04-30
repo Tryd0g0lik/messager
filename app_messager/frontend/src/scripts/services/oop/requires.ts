@@ -70,15 +70,14 @@ export class Requires {
   /**
    * `id` for a remove through URL \
    * `api/v1/chat/delete/file/` - for a remove file \
-   * Used is `remove(index)` or `remove(undefined, index)` \
+   * Used is `removeFile(index)` or `removeFile(undefined, index)` \
    * @param `index` : `undefined|string' is for one file. That value default have `undefined`
    * @param `indexes` : `undefined|number[]' is for one list files. That value default have `undefined`
    * */
-  async remove(): Promise<string> {
+  async removeFile(): Promise<string> {
     const url = this.urls;
     // debugger
     const response = await fetch(url, {
-      'X-CSRFToken': getCookie('csrftoken'),
       method: 'DELETE',
       'X-CSRFToken': getCookie('csrftoken'),
       'Content-Type': 'application/json',
@@ -86,10 +85,11 @@ export class Requires {
       cache: 'no-cache',
       mode: 'cors'
     });
+    // debugger
     /*   */
     if (!response.ok as boolean) {
       const err = new Error(String(response.ok));
-      err.name = '[FServices > remove]';
+      err.name = '[FServices > removeFile]';
       throw err;
     };
     return 'Ok';

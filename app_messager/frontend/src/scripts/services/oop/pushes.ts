@@ -23,11 +23,28 @@ export class Push extends Requires {
   /**
    * Then need update a style `padding-top` for a box `<div class="box-message"` that a method using
    * @param `view`: `HTMLDivElement` child elemen. It's a source size
+   * Here is:\
+   * - 'parent' is a `<div data-post="<that a post's number >" class="message">`;
+   * - 'child' is `<div class="download">`
    * @returns HTMLDivElement parent
    */
-  postStylesHeight(view: HTMLDivElement): HTMLDivElement {
+  managePostStylesHeight(view: HTMLDivElement): HTMLDivElement {
     const boxReffDownloadHeight = view.offsetHeight;
     (this.element).style.paddingTop = String(boxReffDownloadHeight + 2) + 'px';
     return this.element;
   }
+
+  /**
+   * This method for manage the style 'paddaing-top'.
+   * @param `view` All child elements from the parent. \
+   * Here is:\
+   * - 'parent' is a `<div data-post="<that a post's number >" class="message">`;
+   * - 'child' is `<div class="download">`
+   * @returns
+   */
+  // removePostStylesHeight(view: HTMLDivElement): HTMLDivElement {
+  //   const boxReffDownloadHeight = view.offsetHeight;
+  //   (this.element).style.paddingTop = String(boxReffDownloadHeight + 2) + 'px';
+  //   return this.element;
+  // }
 }
