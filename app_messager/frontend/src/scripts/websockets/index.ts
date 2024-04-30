@@ -97,7 +97,7 @@ export class WSocket {
 
     const dataTextJson = JSON.parse(resp);
     let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
-    let message;
+    let message; 
     if ((dataKeys.filter((item) => item.includes('message'))).length > 0) {
       message = dataTextJson.message;
     }
@@ -105,7 +105,7 @@ export class WSocket {
     if ((dataKeys.filter((item) => item.includes('userId'))).length > 0) {
       authorId = String(dataTextJson.userId);
     }
-    let postId;
+    let postId; 
     if ((dataKeys.filter((item) => item.includes('postId'))).length > 0) {
       postId = String(dataTextJson.postId);
     }
@@ -118,11 +118,11 @@ export class WSocket {
     if ((dataKeys.filter((item) => item.includes('eventtime'))).length > 0) {
       dataTime = dataTextJson.eventtime;
     }
-    let fileInd;
+    let fileInd; // That is an index one file
     if ((dataKeys.filter((item) => item.includes('fileInd'))).length > 0) {
       fileInd = dataTextJson.fileInd;
     }
-    let indexes;
+    let indexes; // That is an array file indexes
     if ((dataKeys.filter((item) => item.includes('indexes'))).length > 0) {
       indexes = dataTextJson.indexes;
     }
@@ -130,7 +130,13 @@ export class WSocket {
     if (dataTime === undefined) {
       console.log('[websokets > RECIVED MESS] Something that wrong by the time!');
     }
+    let postRemove; // 'true' is a remove an one post or not
+    if (dataKeys.filter(((item) => item.includes('postRemove'))).length > 0) {
+      postRemove = dataTextJson.postRemove;
+    }
+
     const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
+    // debugger
     /* ------ create the message to the chat ------ */
     if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
       (dataTextJson.corrects !== true) && (authorId !== undefined) &&
@@ -171,7 +177,7 @@ export class WSocket {
         push.managePostStylesHeight(divHtml);
         dataKeys = [];
         console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
-      } else if (indexes !== undefined) {
+      } else if ((indexes !== undefined) || (postRemove === true)) {
         /* ------ remove the ALL file and single post/message  ------ */
         dataKeys = [];
         if (postHtml === null) {

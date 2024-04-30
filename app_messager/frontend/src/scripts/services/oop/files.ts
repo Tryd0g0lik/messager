@@ -96,7 +96,7 @@ export class FServices extends Push {
     if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
       fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
     }
-    // debugger
+    debugger;
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -123,7 +123,8 @@ export class FServices extends Push {
         fileInd: fileIndex
       };
       /* ------ Removing the file ------ */
-      await this.checkProps(metaRequest);
+      const props = await this.checkProps(metaRequest);
+      this.removing(props);
       wsRemove(metaRequest);
       return true;
     }
@@ -136,7 +137,7 @@ export class FServices extends Push {
    * @param `props`: `{ remove: boolean, postId: string, userId: string, pathname: string }`
    * @returns `props`
    */
-  checkProps(props: F) {
+  checkProps(props: F): object {
     const { postId, fileInd, ...data } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
@@ -164,6 +165,46 @@ export class FServices extends Push {
   // async deleteFetchOneFile(prop: F): Promis<boolean> {
   //   this.deleteFetchOneFile()
   // }
+
+  async removing(props: F): Promise<boolean> {
+    const { file_id, postId, ...data } = { ...props };
+
+    const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
+    const err = new Error();
+    err.name = '[Post > removePostFile]';
+
+    if (postId === undefined) {
+      err.message = `Somethefing tha wrong! Not found "postId": ${postId}`;
+      throw err;
+    }
+    url.searchParams.set('post_id', postId as string);
+
+    if (file_id !== undefined) {
+      // err.message = `Somethefing tha wrong! Not found file_id: ${file_id}`;
+      // throw err;
+      url.searchParams.append('file_id', file_id);
+    }
+
+    // debugger
+    if ((data === undefined) || ((data !== undefined) && (data.postRemove === undefined))) {
+      console.log('[Post > removePostFile]: May be somethefing tha wrong! Not found postRemove');
+    } else {
+      url.searchParams.append('postRemove', String(data.postRemove as boolean));
+    }
+
+    this.urls = url;
+
+    let response = '';
+    // debugger
+    response = await this.delete();
+
+    if (((typeof response).includes('string')) && (response.includes('OK'))) {
+      return true;
+    }
+
+    return false;
+  }
+
 
   /**
    * Entry point has a one paramenter. That `elements`, his get an object collection fron the `[<li>..<div class="bucke">]`.

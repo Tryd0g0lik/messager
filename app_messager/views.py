@@ -144,6 +144,7 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 		return  Response(serializzer.data)
 
 
+## Single post/message removes
 class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 	authentication_classes=[] #!!!  not touch
 	queryset = Chat_MessageModel.objects.all()
@@ -152,10 +153,16 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 
 	def delete(self, request, *args, **kwargs):
 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
+		query_post_id = int(request.query_params.get('post_id'))
 		query_posrt_bool = bool(request.query_params.get('postRemove')); # if True that is a post remove, or not
 		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
+		esponse_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id)
 
 		if ((len(list(response_file_filter)) == 0)):
+			if ((len(list(esponse_post_filter)) > 0) and query_posrt_bool == True):
+				esponse_post_filter[0].subgroup.delete()
+				esponse_post_filter[0].delete()
+				return JsonResponse({'remove': True})
 			return JsonResponse({'remove': False})
 
 		response_post_filter = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
@@ -166,8 +173,6 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 			rows_list = response_subgroup_id_filter.filter(group_id=response_post_group);
 			if (len(list(rows_list)) > 1):
 				response_post_filter[0].delete()
-		elif (query_posrt_bool == True):
-			response_subgroup_id_filter[0].subgroup.delete()
 		response_file_filter[0].delete()
 
 		return JsonResponse({'remove': False})

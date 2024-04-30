@@ -74,7 +74,7 @@ export class Requires {
    * @param `index` : `undefined|string' is for one file. That value default have `undefined`
    * @param `indexes` : `undefined|number[]' is for one list files. That value default have `undefined`
    * */
-  async removeFile(): Promise<string> {
+  async delete(): Promise<string> {
     const url = this.urls;
     // debugger
     const response = await fetch(url, {

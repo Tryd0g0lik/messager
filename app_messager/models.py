@@ -86,7 +86,16 @@ class GroupsModel(models.Model):
 		self.event_set.create(type="Left", user=user)
 		self.save()
 
+
 class SubGroupsModel(models.Model):
+	'''
+	TODO: This table is stores unique sub-index.
+	For exemple, an one row that is index of the row's group. \
+	Rows group is one or more than one rows where similar message/content but not similar files.  \
+	When user sending an one message with one or more files
+
+	'''
+
 	uuid = models.UUIDField(default=uuid4, unique=True)
 
 class Chat_MessageModel(models.Model):

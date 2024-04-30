@@ -17,7 +17,7 @@ function file(ref: string[]): string {
   // debugger
   /* class="bucke" !! */
   const refLi = `<a target="_blank" class='one-file' href="${urlOrigin}/media/${ref[0]}">${ref[0].split('/')[reffArrLength - 1]}</a>
-        <div class="bucke">
+        <div data-bucke="true" class="bucke">
         </div>`;
   liHtml.innerHTML = refLi;
   return liHtml.outerHTML;
