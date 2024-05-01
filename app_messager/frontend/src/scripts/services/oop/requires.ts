@@ -22,26 +22,14 @@ export class Requires {
     const url = this.urls;
     if (url === undefined) {
       const err = new Error(url);
-      err.name = '[FRequeres > fGet] GET:';
+      err.name = '[FRequeres > fGet] POST:';
       throw err;
-      // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
-      // return undefined;
     }
-    // if (contentType !== undefined) {
-    //   h.cache = contentType;
-    // }  contentType = undefined,
+
     const h = {
       'X-CSRFToken': getCookie('csrftoken'),
       'Content-Type': contentType
     };
-
-    // if (caches !== undefined) {
-    //   h.cache = caches;
-    // }
-
-    // if (modes !== undefined) {
-    //   h.mode = modes;
-    // }
 
     const response = await fetch(url, {
       method: 'POST',

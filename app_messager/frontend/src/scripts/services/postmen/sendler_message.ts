@@ -15,6 +15,7 @@ const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | MouseEvent) => Promise<void> => {
   return async (e: KeyboardEvent | MouseEvent): Promise<void> => {
     const url = new URL('api/v1/chat/make/post/', 'http://127.0.0.1:8000/');
+
     const requires = new Requires(url);
 
     let fileIdArr = [];
@@ -58,26 +59,26 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       // Возможно  Почистить localStorage - после
       if (!corrects) {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]);
-        requires.post({ context: dataStr });
-        // socket.beforeSend(dataStr);
-        // await socket.dataSendNow();
+        const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(String([JSON.stringify(queryset.data)]));
+        await socket.dataSendNow();
       } else {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]);
-        requires.post({ context: dataStr });
-        // socket.beforeSend(dataStr);
-        // await socket.dataSendNow();
+        // const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(dataStr);
+        await socket.dataSendNow();
       }
     } else {
       if (!corrects) {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]);
-        requires.post({ context: dataStr });
-        // socket.beforeSend(dataStr);
-        // await socket.dataSendNow();
+        const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(String([JSON.stringify(queryset.data)]));
+        await socket.dataSendNow();
       } else {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]);
-        requires.post({ context: dataStr });
-        // socket.beforeSend(dataStr);
-        // await socket.dataSendNow();
+        // const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(dataStr);
+        await socket.dataSendNow();
       }
     }
 

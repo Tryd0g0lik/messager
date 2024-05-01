@@ -133,6 +133,13 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
 	def post(self, request, *args, **kwargs):
+		'''
+		TODO: Create a new post
+		:param request:
+		:param args:
+		:param kwargs:
+		:return:
+		'''
 		from app_messager.models import SubGroupsModel, GroupsModel
 		json_data = dict(request.data)
 		queryset_corrects = ''
@@ -176,16 +183,10 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 			if (str(list(group_all)[i].uuid) in str(queryset_groupId)):
 				id = list(group_all)[i].id
 
-		print('[CONSUMER > SAVED DB] BEFORE: datas record')
-		# data_message = json.loads(event['text'])
-		# date_str = str(queryset_eventtime)
-		# corrects_bool = bool(queryset_corrects)
-
-		# chat.autor_id = data_message['userId']
-
 		chat: object = {}
+		file = []
 		if ('fileIndex' in json_data or ('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
-			file = []
+
 			if 'file' in json_data:
 				file = json_data['file']
 				if len(file[0]) == 0:
@@ -202,66 +203,20 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 			chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId,file_id=None, subgroup_id = queryset_subgroup_id)
 			chat.save()
 		resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
-		kwargs = {"id":resp['id'],
-		          'author_id':resp['author_id'],
-		          'message':resp['content'],
-		          'group_id':resp['group_id'],
-		          'file_id': resp['file_id'],
-		          'subgroup_id': resp['subgroup_id']
-		          }
+		# "id":resp['id'],
+		kwargs = {
+			'corrects': queryset_corrects,
+	    'userId':resp['author_id'],
+	    'message':resp['content'],
+	    'groupId':resp['group_id'],
+			"postId": resp['id'],
+			"eventtime":queryset_eventtime,
+			'fileIndex':file,
+			'indexes':file,
+	    'fileInd': resp['file_id'],
+	    'subgroup_id': resp['subgroup_id']
+	    }
 		return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
-		# resp = request.query_set.get(*args, **kwargs)
-		# print('resp: ', resp)
-
-	# 	from app_messager.models import GroupsModel
-	# 	json_data = json.loads(event['text'])
-	#
-	# 	id = 0
-	# 	'''
-	# 		Check a group number 'ID' in the 'groupId'
-	# 	'''
-	# 	group_all = GroupsModel.objects.all()
-	# 	group_all_len = len(list(group_all))
-	# 	for i in range(0, group_all_len):
-	# 		if (str(list(group_all)[i].uuid) == json_data['groupId']):
-	# 			id = list(group_all)[i].id
-	#
-	# 	# print('[CONSUMER > SAVED DB] BEFORE: datas record')
-	# 	# data_message = json.loads(event['text'])
-	# 	# date_str = str(data_message['eventtime'])
-	# 	# corrects_bool = bool(data_message['corrects'])
-	# 	#
-	# 	# # chat.autor_id = data_message['userId']
-	# 	#
-	# 	# chat: object = {}
-	# 	# SubGroupsModel().save()
-	# 	# sub_group_id = SubGroupsModel.objects.last().id
-	# 	# if ('fileIndex' in data_message):
-	# 	# 	# chat.file_id = data_message['fileIndex']
-	# 	# 	for ind in range(0, len(list(data_message['fileIndex']))):
-	# 	# 		chat = Chat_MessageModel()
-	# 	# 		chat.file_id = list(data_message['fileIndex'])[ind]
-	# 	# 		chat.content = f"{data_message['message']}"  # json.dumps({f"{date_str}": f"{data_message['message']}"})
-	# 	# 		chat.group_id = id
-	# 	# 		chat.author_id = json_data['userId']
-	# 	# 		chat.subgroup_id = sub_group_id
-	# 	# 		chat.save()
-	# 	#
-	# 	# elif ('fileIndex' not in data_message):
-	# 	# 	chat = Chat_MessageModel()
-	# 	# 	chat.content = f"{data_message['message']}"  # json.dumps({f"{date_str}": f"{data_message['message']}"})
-	# 	# 	chat.group_id = id
-	# 	# 	chat.author_id = json_data['userId']
-	# 	# 	chat.subgroup_id = sub_group_id
-	# 	# 	chat.save()
-	# 	#
-	# 	# print('[CONSUMER > FILE] BEFORE: EVENT', 'test')
-	# 	# # data_file = json.loads(event['file'])
-	# 	# # upload_files.link = data_file
-	# 	#
-	# 	# print('[CONSUMER > is RECORD in DB] end')
-	# 	# return {"_message": chat.id}
-
 
 	# def get(self, request, *args, **kwargs):
 	# 	query_keys = request.query_params.keys()
