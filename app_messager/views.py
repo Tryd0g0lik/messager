@@ -195,14 +195,21 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 				file = json_data['fileIndex']
 
 			for ind in range(0, len(list(file))):
-				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId[0], file_id=int(list(file)[ind]), subgroup_id = queryset_subgroup_id)
+				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId, file_id=int(list(file)[ind]), subgroup_id = queryset_subgroup_id)
 				chat.save()
 
 		elif ('fileIndex' not in json_data): # data_message
 			chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId,file_id=None, subgroup_id = queryset_subgroup_id)
 			chat.save()
-		# kwargs = Chat_MessageModel.objects.get(pk=chat.id).__dict__
-		return JsonResponse({"create_post": True})# self.create(request, *args, **kwargs)
+		resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
+		kwargs = {"id":resp['id'],
+		          'author_id':resp['author_id'],
+		          'message':resp['content'],
+		          'group_id':resp['group_id'],
+		          'file_id': resp['file_id'],
+		          'subgroup_id': resp['subgroup_id']
+		          }
+		return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
 		# resp = request.query_set.get(*args, **kwargs)
 		# print('resp: ', resp)
 

@@ -55,7 +55,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
 
     if (((typeof fileIdArr).includes('object'))) {
       /* if 'corrects' is 'true' that is message edit */
-
+      // Возможно  Почистить localStorage - после
       if (!corrects) {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]);
         requires.post({ context: dataStr });

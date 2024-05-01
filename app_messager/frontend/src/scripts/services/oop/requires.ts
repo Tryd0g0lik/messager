@@ -17,7 +17,7 @@ export class Requires {
   }
 
   async post(props: RequestHeaders): Promise<object | boolean> {
-    const { caches = 'no-cache', contentType = undefined, ...data } = { ...props };
+    const { caches = 'no-cache', contentType = 'application/json; charset=utf-8', ...data } = { ...props };
 
     const url = this.urls;
     if (url === undefined) {
@@ -27,13 +27,17 @@ export class Requires {
       // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
       // return undefined;
     }
-    if (contentType !== undefined) {
-      h.cache = contentType;
-    }
-    const h: LoacalLocalHead = { 'Content-Type': contentType };
-    if (caches !== undefined) {
-      h.cache = caches;
-    }
+    // if (contentType !== undefined) {
+    //   h.cache = contentType;
+    // }  contentType = undefined,
+    const h = {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': contentType
+    };
+
+    // if (caches !== undefined) {
+    //   h.cache = caches;
+    // }
 
     // if (modes !== undefined) {
     //   h.mode = modes;
@@ -41,7 +45,7 @@ export class Requires {
 
     const response = await fetch(url, {
       method: 'POST',
-      // headers: h,
+      headers: h,
       body: data.context
     });
 
