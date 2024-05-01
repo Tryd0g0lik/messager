@@ -1,10 +1,6 @@
 import getCookie from '@Service/cookies';
+import { LoacalLocalHead, RequestHeaders } from '@Interfaces';
 
-interface RequestHeaders {
-  contentType: string
-  caches?: string
-  modes?: string
-}
 /**
  * `ContentType` That is basice proporties of the fetch.  Exemple this is `{Content-Type: 'application/json'}`/
  * `caches?` That is basice proporties of the fetch. Exemple this is 'no-caches' /
@@ -20,12 +16,50 @@ export class Requires {
     this.urls = url;
   }
 
+  async post(props: RequestHeaders): Promise<object | boolean> {
+    const { caches = 'no-cache', contentType = undefined, ...data } = { ...props };
+
+    const url = this.urls;
+    if (url === undefined) {
+      const err = new Error(url);
+      err.name = '[FRequeres > fGet] GET:';
+      throw err;
+      // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
+      // return undefined;
+    }
+    if (contentType !== undefined) {
+      h.cache = contentType;
+    }
+    const h: LoacalLocalHead = { 'Content-Type': contentType };
+    if (caches !== undefined) {
+      h.cache = caches;
+    }
+
+    // if (modes !== undefined) {
+    //   h.mode = modes;
+    // }
+
+    const response = await fetch(url, {
+      method: 'POST',
+      // headers: h,
+      body: data.context
+    });
+
+    if (!response.ok) {
+      console.log('[FRequeres > post] POST: Not Found');
+      return false;
+    }
+
+    const responseJson = await response.json();
+    return responseJson as object;
+  }
+
   /**
    * That is a Fetch request.
    * @param `props` of `fGet` is \
    * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
    * @param `props.caches` by default is `undefined`
-   * @param `props.modes` by default is `undefined`
+   * @param `props.modes` by default is `'application/json;charset=utf-8'`
    * @returns  Promise<object> or Error;
    */
   async get<T>(props: RequestHeaders): Promise<T | boolean> {
@@ -38,11 +72,6 @@ export class Requires {
       throw err;
       // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
       // return undefined;
-    }
-    interface LoacalLocalHead {
-      'Content-Type': string
-      cache?: string
-      mode?: string
     }
 
     /* ------ */
@@ -60,7 +89,7 @@ export class Requires {
       headers: h
     });
     if (!response.ok) {
-      console.log('[FRequeres > fGet] GET: Not Found');
+      console.log('[FRequeres > get] GET: Not Found');
       return false;
     }
     const responseJson = await response.json();

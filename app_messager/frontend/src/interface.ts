@@ -56,3 +56,17 @@ export interface Data {
   dataPost: string | undefined
   dataId: string | undefined // id user
 }
+
+// Request Fetch
+export interface LoacalLocalHead {
+  'Content-Type': string
+  cache?: string
+  mode?: string
+}
+
+export interface RequestHeaders {
+  contentType?: string
+  caches?: string
+  modes?: string
+  context?: string
+}

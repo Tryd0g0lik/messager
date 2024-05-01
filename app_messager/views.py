@@ -130,19 +130,145 @@ class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.Retri
 
 
 class PostAPIFilterViews(generics.ListCreateAPIView):
-	def get(self, request, *args, **kwargs):
-		query_keys = request.query_params.keys()
-		query_set = request.query_params
-		profile_list = Chat_MessageModel.objects.filter(author_id = int(query_set.get('author_id')))
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = Chat_MessageSerializer
+	def post(self, request, *args, **kwargs):
+		from app_messager.models import SubGroupsModel, GroupsModel
+		json_data = dict(request.data)
+		queryset_corrects = ''
+		if 'corrects' in json_data:
+			queryset_corrects =json_data['corrects']
 
-		if 'group_id' in query_keys:
-			profile_list = profile_list.filter(group_id = int(query_set.get('group_id')))
-		if 'content' in query_keys:
-			profile_list = profile_list.filter(content = query_set.get('content'))
+		queryset_eventtime = ''
+		if 'eventtime' in json_data:
+			queryset_eventtime=json_data['eventtime']
+
+		queryset_message = ''
+		if 'eventtime' in json_data:
+			queryset_message=json_data['message']
+		elif 'content' in json_data:
+			queryset_message = json_data['content'][0]
+
+		queryset_userId = -1
+		if 'userId' in json_data:
+			queryset_userId=int(json_data['userId'])
+		else:
+			queryset_userId = int(json_data['author'][0])
+
+		if 'groupId' in json_data:
+			queryset_groupId=json_data['groupId']
+		else:
+			queryset_groupId = GroupsModel.objects.get(pk=int(json_data['group'][0])).uuid
+
+		subgroup = SubGroupsModel();
+		subgroup.save()
+		queryset_subgroup_id = SubGroupsModel.objects.last().id
+
+		print('============ send_chat_message_inDB ============')
+		group_all = GroupsModel.objects.all()
+		group_all_len = len(list(group_all))
+
+		id = 0
+		# 	'''
+		# 		Check a group number 'ID' in the 'groupId'
+		# 	'''
+		for i in range(0, group_all_len):
+			if (str(list(group_all)[i].uuid) in str(queryset_groupId)):
+				id = list(group_all)[i].id
+
+		print('[CONSUMER > SAVED DB] BEFORE: datas record')
+		# data_message = json.loads(event['text'])
+		# date_str = str(queryset_eventtime)
+		# corrects_bool = bool(queryset_corrects)
+
+		# chat.autor_id = data_message['userId']
+
+		chat: object = {}
+		if ('fileIndex' in json_data or ('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
+			file = []
+			if 'file' in json_data:
+				file = json_data['file']
+				if len(file[0]) == 0:
+					file = []
+			# chat.file_id = data_message['fileIndex']
+			elif 'fileIndex' in json_data:
+				file = json_data['fileIndex']
+
+			for ind in range(0, len(list(file))):
+				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId[0], file_id=int(list(file)[ind]), subgroup_id = queryset_subgroup_id)
+				chat.save()
+
+		elif ('fileIndex' not in json_data): # data_message
+			chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId,file_id=None, subgroup_id = queryset_subgroup_id)
+			chat.save()
+		# kwargs = Chat_MessageModel.objects.get(pk=chat.id).__dict__
+		return JsonResponse({"create_post": True})# self.create(request, *args, **kwargs)
+		# resp = request.query_set.get(*args, **kwargs)
+		# print('resp: ', resp)
+
+	# 	from app_messager.models import GroupsModel
+	# 	json_data = json.loads(event['text'])
+	#
+	# 	id = 0
+	# 	'''
+	# 		Check a group number 'ID' in the 'groupId'
+	# 	'''
+	# 	group_all = GroupsModel.objects.all()
+	# 	group_all_len = len(list(group_all))
+	# 	for i in range(0, group_all_len):
+	# 		if (str(list(group_all)[i].uuid) == json_data['groupId']):
+	# 			id = list(group_all)[i].id
+	#
+	# 	# print('[CONSUMER > SAVED DB] BEFORE: datas record')
+	# 	# data_message = json.loads(event['text'])
+	# 	# date_str = str(data_message['eventtime'])
+	# 	# corrects_bool = bool(data_message['corrects'])
+	# 	#
+	# 	# # chat.autor_id = data_message['userId']
+	# 	#
+	# 	# chat: object = {}
+	# 	# SubGroupsModel().save()
+	# 	# sub_group_id = SubGroupsModel.objects.last().id
+	# 	# if ('fileIndex' in data_message):
+	# 	# 	# chat.file_id = data_message['fileIndex']
+	# 	# 	for ind in range(0, len(list(data_message['fileIndex']))):
+	# 	# 		chat = Chat_MessageModel()
+	# 	# 		chat.file_id = list(data_message['fileIndex'])[ind]
+	# 	# 		chat.content = f"{data_message['message']}"  # json.dumps({f"{date_str}": f"{data_message['message']}"})
+	# 	# 		chat.group_id = id
+	# 	# 		chat.author_id = json_data['userId']
+	# 	# 		chat.subgroup_id = sub_group_id
+	# 	# 		chat.save()
+	# 	#
+	# 	# elif ('fileIndex' not in data_message):
+	# 	# 	chat = Chat_MessageModel()
+	# 	# 	chat.content = f"{data_message['message']}"  # json.dumps({f"{date_str}": f"{data_message['message']}"})
+	# 	# 	chat.group_id = id
+	# 	# 	chat.author_id = json_data['userId']
+	# 	# 	chat.subgroup_id = sub_group_id
+	# 	# 	chat.save()
+	# 	#
+	# 	# print('[CONSUMER > FILE] BEFORE: EVENT', 'test')
+	# 	# # data_file = json.loads(event['file'])
+	# 	# # upload_files.link = data_file
+	# 	#
+	# 	# print('[CONSUMER > is RECORD in DB] end')
+	# 	# return {"_message": chat.id}
 
 
-		serializzer = Chat_MessageSerializer(profile_list, many=True)
-		return  Response(serializzer.data)
+	# def get(self, request, *args, **kwargs):
+	# 	query_keys = request.query_params.keys()
+	# 	query_set = request.query_params
+	# 	profile_list = Chat_MessageModel.objects.filter(author_id = int(query_set.get('author_id')))
+	#
+	# 	if 'group_id' in query_keys:
+	# 		profile_list = profile_list.filter(group_id = int(query_set.get('group_id')))
+	# 	if 'content' in query_keys:
+	# 		profile_list = profile_list.filter(content = query_set.get('content'))
+	#
+	#
+	# 	serializzer = Chat_MessageSerializer(profile_list, many=True)
+	# 	return  Response(serializzer.data)
 
 
 ## Single post/message removes
