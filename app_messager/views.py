@@ -126,7 +126,7 @@ class UpdateMessages(generics.UpdateAPIView):
 		queryset_data = request.data
 		queryse_post_id = kwargs['pk']
 		queryset_file =  request.data['filesId'] if 'filesId' in request.data else []
-		queryset_contents = request.data['content']
+		queryset_contents = request.data['content'] if 'content' in request.data else ''
 		new_list_indexes = []
 		chat = Chat_MessageModel.objects.filter(pk=queryse_post_id)
 		chat_list = Chat_MessageModel.objects.filter(subgroup_id=chat[0].subgroup_id)
@@ -215,13 +215,8 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 		'''
 		from app_messager.models import SubGroupsModel, GroupsModel
 		json_data = dict(request.data)
-		queryset_corrects = ''
-		if 'corrects' in json_data:
-			queryset_corrects =json_data['corrects']
-
-		queryset_eventtime = ''
-		if 'eventtime' in json_data:
-			queryset_eventtime=json_data['eventtime']
+		queryset_corrects =json_data['corrects'] if 'corrects' in json_data else ''
+		queryset_eventtime=json_data['eventtime'] if 'eventtime' in json_data else ''
 
 		queryset_message = ''
 		if 'eventtime' in json_data:
@@ -229,16 +224,11 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 		elif 'content' in json_data:
 			queryset_message = json_data['content'][0]
 
-		queryset_userId = -1
-		if 'userId' in json_data:
-			queryset_userId=int(json_data['userId'])
-		else:
-			queryset_userId = int(json_data['author'][0])
+		queryset_userId=int(json_data['userId']) if 'userId' in json_data else \
+			int(json_data['author'][0])
 
-		if 'groupId' in json_data:
-			queryset_groupId=json_data['groupId']
-		else:
-			queryset_groupId = GroupsModel.objects.get(pk=int(json_data['group'][0])).uuid
+		queryset_groupId=json_data['groupId'] if 'groupId' in json_data else \
+			GroupsModel.objects.get(pk=int(json_data['group'][0])).uuid
 
 		subgroup = SubGroupsModel();
 		subgroup.save()
@@ -258,7 +248,8 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 
 		chat: object = {}
 		file = []
-		if ('fileIndex' in json_data or ('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
+		if ('fileIndex' in json_data or \
+			('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
 
 			if 'file' in json_data:
 				file = json_data['file']
@@ -269,11 +260,16 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 				file = json_data['fileIndex']
 
 			for ind in range(0, len(list(file))):
-				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId, file_id=int(list(file)[ind]), subgroup_id = queryset_subgroup_id)
+				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
+				                         author_id = queryset_userId,
+				                         file_id=int(list(file)[ind]),
+				                         subgroup_id = queryset_subgroup_id)
 				chat.save()
 
 		elif ('fileIndex' not in json_data): # data_message
-			chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id, author_id = queryset_userId,file_id=None, subgroup_id = queryset_subgroup_id)
+			chat = Chat_MessageModel(content = f"{queryset_message}",
+			                         group_id = id, author_id = queryset_userId,
+			                         file_id=None, subgroup_id = queryset_subgroup_id)
 			chat.save()
 		resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
 		# "id":resp['id'],
