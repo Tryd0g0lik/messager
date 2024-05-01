@@ -115,4 +115,36 @@ export class Requires {
     };
     return 'Ok';
   }
+
+  async patch(props): Promise<object | boolean> {
+    const { contents = undefined, files = [] } = { ...props };
+    const url = this.urls;
+    const obj = ((contents !== undefined) && ((files === undefined) || ((typeof files).includes('object') && (files.length === 0))))
+      ? { content: String(contents) }
+      : ((((files !== undefined) && ((typeof files).includes('object') && (files.length > 0))) && (contents === undefined)) && ((typeof files).includes('objects')))
+        ? { filesId: files }
+        : (((files !== undefined) && ((typeof files).includes('object') && (files.length > 0))) && (contents !== undefined))
+          ? { filesId: files, content: String(contents) }
+          : null;
+    const err = new Error();
+    err.name = '[Requires > patch]';
+    if (obj === null) {
+      err.message = 'Something that wrong!';
+      throw err;
+    }
+
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    });
+
+    if (!response.ok) {
+      err.message = 'Something that wrong with "response"!';
+    }
+    return response;
+  }
 };

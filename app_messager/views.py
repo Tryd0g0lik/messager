@@ -121,12 +121,85 @@ def upload_file(request, listIndexes = None):
 class UpdateMessages(generics.UpdateAPIView):
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
+
+	def patch(self, request, *args, **kwargs):
+		queryset_data = request.data
+		queryse_post_id = kwargs['pk']
+		queryset_file =  request.data['filesId'] if 'filesId' in request.data else []
+		queryset_contents = request.data['content']
+		new_list_indexes = []
+		chat = Chat_MessageModel.objects.filter(pk=queryse_post_id)
+		chat_list = Chat_MessageModel.objects.filter(subgroup_id=chat[0].subgroup_id)
+
+		if (len(queryset_file) > 0):
+			if (len(chat) == 0):
+				JsonResponse({'update': False})
+			file_id = None
+
+			if len(chat_list) > 1:
+				file_id = chat_list[0].file_id
+
+
+			check = False # row does not has a file
+			if (file_id != None and len(chat_list) > 0):
+				check = True # row is a file
+				for i in range(0, len(queryset_file)): # drop the file_id duplicate
+					for ind in range(0, len(chat_list)):
+						if (int(queryset_file[i]) == chat_list[ind]):
+							new_list_indexes.append(queryset_file.pop(i))
+							chat_list.pop(ind)
+							i -=1
+							ind -=1
+
+			response_i = -1
+			chat_copy = chat[:]
+			if (check == True):
+				for i in range(0, len(queryset_file)):
+
+					Chat_MessageModel(
+						content= queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
+						author_id= chat_copy[0].author_id,
+						file_id= int(queryset_file[0]),
+						group_id = chat_copy[0].group_id,
+						subgroup_id= chat_copy[0].subgroup_id,
+					).save()
+					new_list_indexes.append(queryset_file.pop(0))
+
+
+			elif (check == False):
+				chat[0].file_id = int(queryset_file[0])
+				chat[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
+				chat[0].save()
+				new_list_indexes.append(queryset_file.pop(0))
+
+				for i in range(0, len(queryset_file)):
+					Chat_MessageModel(
+						content=queryset_contents if queryset_contents != chat[0].content else chat[0].content,
+						author_id=chat[0].author_id,
+						file_id=int(queryset_file[0]),
+						group_id=chat[0].group_id,
+						subgroup_id=chat[0].subgroup_id,
+					).save()
+					new_list_indexes.append(queryset_file.pop(0))
+
+
+
+
+
+		else:
+			for i in range(0, len(chat_list)):
+				chat_list[i].content = queryset_contents
+				chat_list[i].save()
+
+		request.pk = kwargs['pk']
+		return  JsonResponse(request)
+		# return self.partial_update(request, *args, **kwargs)
 #
 class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
  # FilteredListSerializer
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer # Chat_MessageSerializer
-	filter_backends = []
+	list_backends = []
 
 
 class PostAPIFilterViews(generics.ListCreateAPIView):
@@ -238,31 +311,31 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 	authentication_classes=[] #!!!  not touch
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
-	filter_backends = []
+	list_backends = []
 
 	def delete(self, request, *args, **kwargs):
 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
 		query_post_id = int(request.query_params.get('post_id'))
-		query_posrt_bool = bool(request.query_params.get('postRemove')); # if True that is a post remove, or not
-		response_file_filter = FileModels.objects.filter(pk=  query_file_id)
-		esponse_post_filter = Chat_MessageModel.objects.filter(pk=query_post_id)
+		query_post_bool = bool(request.query_params.get('postRemove')); # if True that is a post remove, or not
+		response_file_list = FileModels.objects.filter(pk=  query_file_id)
+		response_post_list = Chat_MessageModel.objects.filter(pk=query_post_id)
 
-		if ((len(list(response_file_filter)) == 0)):
-			if ((len(list(esponse_post_filter)) > 0) and query_posrt_bool == True):
-				esponse_post_filter[0].subgroup.delete()
-				esponse_post_filter[0].delete()
+		if ((len(list(response_file_list)) == 0)):
+			if ((len(list(response_post_list)) > 0) and query_post_bool == True):
+				response_post_list[0].subgroup.delete()
+				response_post_list[0].delete()
 				return JsonResponse({'remove': True})
 			return JsonResponse({'remove': False})
 
-		response_post_filter = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
-		response_post_group = response_post_filter[0].group_id
+		response_post_list = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
+		response_post_group = response_post_list[0].group_id
 
-		response_subgroup_id_filter = Chat_MessageModel.objects.filter(subgroup_id = response_post_filter[0].subgroup_id)
-		if len(list(response_subgroup_id_filter)) > 1:
-			rows_list = response_subgroup_id_filter.filter(group_id=response_post_group);
+		response_subgroup_id_list = Chat_MessageModel.objects.filter(subgroup_id = response_post_list[0].subgroup_id)
+		if len(list(response_subgroup_id_list)) > 1:
+			rows_list = response_subgroup_id_list.filter(group_id=response_post_group);
 			if (len(list(rows_list)) > 1):
-				response_post_filter[0].delete()
-		response_file_filter[0].delete()
+				response_post_list[0].delete()
+		response_file_list[0].delete()
 
 		return JsonResponse({'remove': False})
 # def get_queryset(self, *args, **kwargs):
@@ -273,9 +346,9 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 
 
 	#
-	# 	filter_list = Chat_MessageModel.objects.filter(pk=message_pk);
-	# 	if (len(filter_list) > 0):
-	# 		file_id = filter_list[0].file_id
+	# 	list_list = Chat_MessageModel.objects.filter(pk=message_pk);
+	# 	if (len(list_list) > 0):
+	# 		file_id = list_list[0].file_id
 	# 		# kwargs['pk'] = file_id
 	# 		# request.parser_context['pk'] = file_id
 	# 		# request.parser_context['kwargs'] = file_id
@@ -283,14 +356,14 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 	# 		content_list = Chat_MessageModel.objects.filter(content=content_one)
 	#
 	# 		if len(list(content_list)) == 1:
-	# 			filter_list[0].file_id = '[NULL]'
+	# 			list_list[0].file_id = '[NULL]'
 	# 	return self.destroy(request, *args, **kwargs)
 	# def delete(self, request, *args, **kwargs):
 	# 	# message_pk = kwargs['pk']
-	# 	# filter_list = Chat_MessageModel.objects.filter(pk=message_pk);
+	# 	# list_list = Chat_MessageModel.objects.filter(pk=message_pk);
 	#
-	# 	if (len(filter_list) > 0):
-	# 		file_id = filter_list[0].file_id
+	# 	if (len(list_list) > 0):
+	# 		file_id = list_list[0].file_id
 	# 		kwargs['pk'] = file_id
 	# 		request.parser_context['pk'] = file_id
 	# 		request.parser_context['kwargs'] = file_id
@@ -302,11 +375,11 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 	# 		# 	file.delete()
 	#
 	# 		if len(list(list_content)) > 1:
-	# 			filter_list[0].delete()
+	# 			list_list[0].delete()
 	# 		elif len(list(list_content)) == 1:
-	# 			filter_list[0].file_id = '[NULL]'
+	# 			list_list[0].file_id = '[NULL]'
 	#
-	# 			filter_list.save()
+	# 			list_list.save()
 
 
 

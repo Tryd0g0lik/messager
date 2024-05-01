@@ -95,7 +95,7 @@ export class WSocket {
     if (resp === null) {
       return;
     };
-
+    debugger
     const dataTextJson = JSON.parse(resp);
     // let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
     let dataKeys = Array.from(Object.keys(dataTextJson));

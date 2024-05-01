@@ -49,7 +49,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
     const postIndex = (localStorage.getItem('data') !== null)
       ? (JSON.parse(localStorage.getItem('data') as string).postId)
       : (-1);
-    if (postIndex < 0) {
+    if ((!(typeof postIndex).includes('string')) && postIndex < 0) {
       console.log('[handlerSendlerMessageTotal > corrects TRUE]: something is thrang. That is "postId" not found');
       return;
     }
@@ -65,6 +65,9 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       } else {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]);
         // const queryset = await requires.post({ context: dataStr });
+        // const url = new URL(`api/v1/chat/update/${postIndex}/`, 'http://127.0.0.1:8000/');
+        // const requires = new Requires(url);
+        // requires.patch({ files: fileIdArr });
         socket.beforeSend(dataStr);
         await socket.dataSendNow();
       }
@@ -72,6 +75,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       if (!corrects) {
         const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]);
         const queryset = await requires.post({ context: dataStr });
+        debugger
         socket.beforeSend(String([JSON.stringify(queryset.data)]));
         await socket.dataSendNow();
       } else {
