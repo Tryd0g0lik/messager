@@ -136,19 +136,17 @@ class UpdateMessages(generics.UpdateAPIView):
 		:param kwargs:
 		:return:
 		'''
-		queryset_data = request.data
 		queryse_post_id = kwargs['pk']
-		queryset_file =  request.data['filesId'] if 'filesId' in request.data else []
+		queryset_file =  request.data['filesId'] if 'filesId' in request.data else [] # list a file's indexes
 		queryset_contents = request.data['content'] if 'content' in request.data else ''
 		new_list_indexes = []
-		# chat = Chat_MessageModel.objects.filter(pk=queryse_post_id)
+		'''receive an all rows. If a row > 1  then we have files from single post'''
 		chat_list = Chat_MessageModel.objects.filter(subgroup_id=queryse_post_id)
-		# chat_list = Chat_MessageModel.objects.filter(subgroup_id=chat[0].subgroup_id)
 
 		if (len(chat_list) == 0):
 			JsonResponse({'update': False})
 
-		# if (chat_list[0].file_id == None):
+		'''simply a metadata for patch'''
 		if (len(queryset_file) > 0):
 			if (chat_list[0].file_id == None):
 				file_id = None
@@ -156,10 +154,11 @@ class UpdateMessages(generics.UpdateAPIView):
 				file_id = chat_list[0].file_id
 
 
-			check = False # row does not has a file
+			check = False # row does not has a file in message/post from db (That metadata)
 			if (file_id != None and len(chat_list) > 0):
-				check = True # row is a file
-				for i in range(0, len(queryset_file)): # drop the file_id duplicate
+				check = True # in row is a file
+				''' drop the file_id duplicate from еру received list'''
+				for i in range(0, len(queryset_file)):
 					for ind in range(0, len(chat_list)):
 						if (int(queryset_file[i]) == chat_list[ind]):
 							new_list_indexes.append(queryset_file.pop(i))
@@ -172,6 +171,7 @@ class UpdateMessages(generics.UpdateAPIView):
 			if (check == True):
 				for i in range(0, len(queryset_file)):
 					if queryset_contents != chat_copy[0].content:
+						'''rewrites content/message of db's old row'''
 						for i in range(0, len(chat_list)):
 							chat_list[i].content = queryset_contents if queryset_contents != chat_copy[i].content else chat_copy[i].content
 							chat_list[i].save()
@@ -211,10 +211,9 @@ class UpdateMessages(generics.UpdateAPIView):
 		return  JsonResponse(request)
 		# return self.partial_update(request, *args, **kwargs)
 #
-class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView): # generics.RetrieveUpdateAPIView
- # FilteredListSerializer
+class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer # Chat_MessageSerializer
+	serializer_class = Chat_MessageSerializer
 	list_backends = []
 
 
@@ -340,12 +339,11 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 			return JsonResponse({'remove': False})
 
 		response_post_list = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
-		response_post_group = response_post_list[0].group_id
 
 		response_subgroup_id_list = Chat_MessageModel.objects \
 			.filter(subgroup_id = response_post_list[0].subgroup_id)
 		if len(list(response_subgroup_id_list)) >= 1:
-			rows_list = response_subgroup_id_list #.filter(group_id=response_post_group);
+			rows_list = response_subgroup_id_list
 			if (len(list(rows_list)) > 1):
 				response_post_list[0].delete()
 		response_file_list[0].delete()
