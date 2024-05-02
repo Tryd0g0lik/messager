@@ -1,10 +1,6 @@
 import getCookie from '@Service/cookies';
+import { LoacalLocalHead, RequestHeaders } from '@Interfaces';
 
-interface RequestHeaders {
-  contentType: string
-  caches?: string
-  modes?: string
-}
 /**
  * `ContentType` That is basice proporties of the fetch.  Exemple this is `{Content-Type: 'application/json'}`/
  * `caches?` That is basice proporties of the fetch. Exemple this is 'no-caches' /
@@ -20,12 +16,42 @@ export class Requires {
     this.urls = url;
   }
 
+  async post(props: RequestHeaders): Promise<object | boolean> {
+    const { caches = 'no-cache', contentType = 'application/json; charset=utf-8', ...data } = { ...props };
+
+    const url = this.urls;
+    if (url === undefined) {
+      const err = new Error(url);
+      err.name = '[FRequeres > fGet] POST:';
+      throw err;
+    }
+
+    const h = {
+      'X-CSRFToken': getCookie('csrftoken'),
+      'Content-Type': contentType
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: h,
+      body: data.context
+    });
+
+    if (!response.ok) {
+      console.log('[FRequeres > post] POST: Not Found');
+      return false;
+    }
+
+    const responseJson = await response.json();
+    return responseJson as object;
+  }
+
   /**
    * That is a Fetch request.
    * @param `props` of `fGet` is \
    * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
    * @param `props.caches` by default is `undefined`
-   * @param `props.modes` by default is `undefined`
+   * @param `props.modes` by default is `'application/json;charset=utf-8'`
    * @returns  Promise<object> or Error;
    */
   async get<T>(props: RequestHeaders): Promise<T | boolean> {
@@ -38,11 +64,6 @@ export class Requires {
       throw err;
       // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
       // return undefined;
-    }
-    interface LoacalLocalHead {
-      'Content-Type': string
-      cache?: string
-      mode?: string
     }
 
     /* ------ */
@@ -60,7 +81,7 @@ export class Requires {
       headers: h
     });
     if (!response.ok) {
-      console.log('[FRequeres > fGet] GET: Not Found');
+      console.log('[FRequeres > get] GET: Not Found');
       return false;
     }
     const responseJson = await response.json();
@@ -93,5 +114,37 @@ export class Requires {
       throw err;
     };
     return 'Ok';
+  }
+
+  async patch(props): Promise<object | boolean> {
+    const { contents = undefined, files = [] } = { ...props };
+    const url = this.urls;
+    const obj = ((contents !== undefined) && ((files === undefined) || ((typeof files).includes('object') && (files.length === 0))))
+      ? { content: String(contents) }
+      : ((((files !== undefined) && ((typeof files).includes('object') && (files.length > 0))) && (contents === undefined)) && ((typeof files).includes('objects')))
+        ? { filesId: files }
+        : (((files !== undefined) && ((typeof files).includes('object') && (files.length > 0))) && (contents !== undefined))
+          ? { filesId: files, content: String(contents) }
+          : null;
+    const err = new Error();
+    err.name = '[Requires > patch]';
+    if (obj === null) {
+      err.message = 'Something that wrong!';
+      throw err;
+    }
+
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    });
+
+    if (!response.ok) {
+      err.message = 'Something that wrong with "response"!';
+    }
+    return response;
   }
 };

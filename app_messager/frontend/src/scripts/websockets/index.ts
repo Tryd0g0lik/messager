@@ -80,9 +80,10 @@ export class WSocket {
 
   onMessage = (e: any): void => {
     console.log('-------------------');
+
     const dataJson = JSON.parse(e.data);
-    const resp = (dataJson.text !== undefined)
-      ? dataJson.text
+    const resp = (dataJson !== undefined)
+      ? dataJson
       : ((!(e.data as string).includes('remove') &&
         (e.data as string).includes('groupId'))
         ? (e.data as string)
@@ -96,8 +97,9 @@ export class WSocket {
     };
 
     const dataTextJson = JSON.parse(resp);
-    let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
-    let message; 
+    // let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
+    let dataKeys = Array.from(Object.keys(dataTextJson));
+    let message;
     if ((dataKeys.filter((item) => item.includes('message'))).length > 0) {
       message = dataTextJson.message;
     }
@@ -105,7 +107,7 @@ export class WSocket {
     if ((dataKeys.filter((item) => item.includes('userId'))).length > 0) {
       authorId = String(dataTextJson.userId);
     }
-    let postId; 
+    let postId;
     if ((dataKeys.filter((item) => item.includes('postId'))).length > 0) {
       postId = String(dataTextJson.postId);
     }
@@ -135,7 +137,7 @@ export class WSocket {
       postRemove = dataTextJson.postRemove;
     }
 
-    const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
+    const filesId = (dataTextJson.fileIndex !== undefined) ? dataTextJson.fileIndex : [];
     // debugger
     /* ------ create the message to the chat ------ */
     if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
@@ -166,7 +168,7 @@ export class WSocket {
         }
         // debugger
         const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
-        if (postHtml === null) {
+        if (liHtml === null) {
           const err = new Error();
           err.name = '[websokets > RECIVED MESS]';
           err.message = 'Something that wrong. File not found into the dysplay!';
