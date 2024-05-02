@@ -68,9 +68,11 @@ def check_unique_file(id:int, f:str, fs_old_list:list)->bool or str:
 	if ((len(unique_result) > 1)
 		or (((len(unique_result) == 1) and (unique_result[0] == False)))
 	and type(index_old_link) != str):
+		# link from the old file
 		return str(fs_old_list[index_old_link].link)
 
 	print('[check_unique_file]: END return unique')
+	# Tell that a file is unique
 	return True
 
 def md5_chacker(link:str) -> str:

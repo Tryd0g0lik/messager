@@ -1,6 +1,7 @@
 venv
 .*
 **/__pycache__
+*/__pycache__
 node_modules
 **/node_modules
 **/yarn.lock
@@ -9,11 +10,6 @@ node_modules
 !**/.editorconfig
 !**/.eslintignore
 !**/.eslintrc.js
-<<<<<<< HEAD
-!**/app_messager/frontend/.env
-
-=======
 !**/frontend/.env
->>>>>>> 1.2.1
 *public.png
 **/media/*

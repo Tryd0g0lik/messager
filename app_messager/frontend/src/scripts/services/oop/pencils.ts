@@ -60,9 +60,9 @@ export class Pencil extends FServices {
       }
     }
 
-    /* 'message as quote' -thet is old post from the window chat */
+    /* 'message as quote' -that is old post from the window chat */
     const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
-    /* ------ 1/2 Quoted ------ */
+    /* ------ 1/3 Quoted ------ */
     const quote = addQuote(message);
 
     /* ------ LocaStorage and Receive post data------ */
@@ -82,12 +82,15 @@ export class Pencil extends FServices {
 
       localSJson.pathnames = pathnames;
       localStorage.setItem('data', JSON.stringify(localSJson));
+
+      /* ------ 1/3 Quoted ------ */
+      const newQuote = quote(dataPost);
       /* ------ Quoted files reference. That repeats the references from the post above */
 
       const refer = '<ul>' + this.getFileHtmlLi(pathnames) + '</ul>';
       const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : '';
-      /* ------ 2/2 Quoted ------ */
-      quote(refResult);
+      /* ------ 2/3 Quoted ------ */
+      newQuote(refResult);
 
       /* manage styles */
       const boxMessage = document.getElementById('message');
@@ -95,6 +98,7 @@ export class Pencil extends FServices {
         console.log('[addQuote]: Html input not found');
         return;
       }
+      // above the inpute form
       const htmlQuoteArr = boxMessage?.getElementsByClassName('quote');
       const htmlDownloadArr = boxMessage?.getElementsByClassName('download');
 
@@ -107,7 +111,7 @@ export class Pencil extends FServices {
         /* ------ 0/3 pencil ------ */
         // const parent = new Pencil(htmlQuoteArr[0] as HTMLDivElement);
         this.element = htmlQuoteArr[0] as HTMLDivElement;
-        this.postStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
+        this.managePostStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
       };
     }
 

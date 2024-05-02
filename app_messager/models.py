@@ -87,6 +87,17 @@ class GroupsModel(models.Model):
 		self.save()
 
 
+class SubGroupsModel(models.Model):
+	'''
+	TODO: This table is stores unique sub-index.
+	For exemple, an one row that is index of the row's group. \
+	Rows group is one or more than one rows where similar message/content but not similar files.  \
+	When user sending an one message with one or more files
+
+	'''
+
+	uuid = models.UUIDField(default=uuid4, unique=True)
+
 class Chat_MessageModel(models.Model):
 	'''
 	TODO: midll group
@@ -101,8 +112,8 @@ class Chat_MessageModel(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
 	group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
-	file = models.ForeignKey('FileModels', related_name="file_of_chat", on_delete=models.SET_NULL, blank=True, null=True)
-
+	file = models.ForeignKey('FileModels', related_name="filechat", on_delete=models.SET_NULL, blank=True, null=True)
+	subgroup = models.ForeignKey(SubGroupsModel, on_delete=models.CASCADE, related_name='subgroup')
 	def __str__(self) -> str:
 		date = self.timestamp.date()
 		time = self.timestamp.time()

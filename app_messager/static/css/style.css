@@ -114,9 +114,9 @@ body{margin-top:20px;}
   top: 0;
   right: 0;
 }
-.download div .bucke {
-  right: 25%;
-  top: 24%;
+.download div.bucke {
+  background-position: center;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYnVja2UgYmkgYmktYnVja2V0Ij48cGF0aCBkPSJNMi41MjIgNUgyYS41LjUgMCAwIDAtLjQ5NC41NzRsMS4zNzIgOS4xNDlBMS41IDEuNSAwIDAgMCA0LjM2IDE2aDcuMjc4YTEuNSAxLjUgMCAwIDAgMS40ODMtMS4yNzdsMS4zNzMtOS4xNDlBLjUuNSAwIDAgMCAxNCA1aC0uNTIyQTUuNSA1LjUgMCAwIDAgMi41MjIgNW0xLjAwNSAwYTQuNSA0LjUgMCAwIDEgOC45NDUgMHptOS44OTIgMS0xLjI4NiA4LjU3NGEuNS41IDAgMCAxLS40OTQuNDI2SDQuMzZhLjUuNSAwIDAgMS0uNDk0LS40MjZMMi41OCA2aDEwLjgzOHoiLz48L3N2Zz4=) no-repeat;
 }
 .pencil {
   display: block;
@@ -140,5 +140,23 @@ body{margin-top:20px;}
   padding: 0 50px;
   overflow: hidden;
   font-size: 0.9em;
+}
+
+/* Remove a single post */
+div.message::after {
+  cursor: pointer;
+  content: 'X';
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #f0eded;
+  min-height: 20px;
+  max-height: 20px;
+  height: 100%;
+  width: 20px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
 }
 

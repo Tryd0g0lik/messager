@@ -2,6 +2,8 @@
 
 import { WSData } from '@Interfaces';
 import upOldMessage from '@Service/handlers/messages/old-message/up-message';
+import { Post } from '@Service/oop/post';
+import { Push } from '@Service/oop/pushes';
 import { createChatMessage } from '@htmlTemplates/messages';
 
 /**
@@ -78,9 +80,10 @@ export class WSocket {
 
   onMessage = (e: any): void => {
     console.log('-------------------');
+
     const dataJson = JSON.parse(e.data);
-    const resp = (dataJson.text !== undefined)
-      ? dataJson.text
+    const resp = (dataJson !== undefined)
+      ? dataJson
       : ((!(e.data as string).includes('remove') &&
         (e.data as string).includes('groupId'))
         ? (e.data as string)
@@ -94,7 +97,8 @@ export class WSocket {
     };
 
     const dataTextJson = JSON.parse(resp);
-    const dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
+    // let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
+    let dataKeys = Array.from(Object.keys(dataTextJson));
     let message;
     if ((dataKeys.filter((item) => item.includes('message'))).length > 0) {
       message = dataTextJson.message;
@@ -116,44 +120,86 @@ export class WSocket {
     if ((dataKeys.filter((item) => item.includes('eventtime'))).length > 0) {
       dataTime = dataTextJson.eventtime;
     }
-    let fileInd;
+    let fileInd; // That is an index one file
     if ((dataKeys.filter((item) => item.includes('fileInd'))).length > 0) {
       fileInd = dataTextJson.fileInd;
+    }
+    let indexes; // That is an array file indexes
+    if ((dataKeys.filter((item) => item.includes('indexes'))).length > 0) {
+      indexes = dataTextJson.indexes;
     }
     console.log(`[websokets > RECIVED MESS]: ${dataJson}`);
     if (dataTime === undefined) {
       console.log('[websokets > RECIVED MESS] Something that wrong by the time!');
     }
-    const filesId = (dataJson.fileIndex !== undefined) ? dataJson.fileIndex : [];
+    let postRemove; // 'true' is a remove an one post or not
+    if (dataKeys.filter(((item) => item.includes('postRemove'))).length > 0) {
+      postRemove = dataTextJson.postRemove;
+    }
+
+    const filesId = (dataTextJson.fileIndex !== undefined) ? dataTextJson.fileIndex : [];
+    // debugger
+    /* ------ create the message to the chat ------ */
     if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
       (dataTextJson.corrects !== true) && (authorId !== undefined) &&
       (message !== undefined) && (groupId !== undefined) &&
       (postId !== undefined) && (filesId !== undefined)) {
       createChatMessage({ authorId, dataTime, message, groupId, postId, filesId });
+      dataKeys = [];
     } else if (((dataKeys.filter((item) => item.includes('remove'))).length === 0) &&
       (postId !== undefined) && (message !== undefined)) {
       const postIndex = postId;
       const postMessage = message;
       /* ------ Here '({ filesIndexes: filesId })' part is an async ------ */
       upOldMessage({ postIndex, postMessage })({ filesIndexes: filesId });
+      dataKeys = [];
     } else if (((dataKeys.filter((item) => item.includes('remove'))).length > 0) &&
-      (dataTextJson.remove === true) && (fileInd !== undefined)) {
+      (dataTextJson.remove === true)) {
       /* ------ File removing from the dysplay ------ */
-      const postHtml = document.querySelector(`div[data-post="${postId}"]`);
-      if (postHtml === null) {
-        const err = new Error();
-        err.name = '[websokets > RECIVED MESS]';
-        err.message = 'Something that wrong. Post not found into the dysplay!';
-        throw err;
+      const postHtml = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
+      const push = new Push(postHtml);
+      if (fileInd !== undefined) {
+        /* ------ remove the one file ------ */
+        if (postHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. Post not found into the dysplay!';
+          throw err;
+        }
+        // debugger
+        const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
+        if (liHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. File not found into the dysplay!';
+          throw err;
+        }
+        liHtml?.remove(); // delete
+        const divHtml = postHtml.querySelector('.download') as HTMLDivElement;
+        push.managePostStylesHeight(divHtml);
+        dataKeys = [];
+        console.log('[websokets > > RECIVED MESS > Removing files]: OK! ');
+      } else if ((indexes !== undefined) || (postRemove === true)) {
+        /* ------ remove the ALL file and single post/message  ------ */
+        dataKeys = [];
+        if (postHtml === null) {
+          const err = new Error();
+          err.name = '[websokets > RECIVED MESS]';
+          err.message = 'Something that wrong. File not found into the dysplay!';
+          throw err;
+        }
+        /* ------ cleaning html ------ */
+        if ((postHtml).hasAttribute('data-post')) {
+          (postHtml).removeAttribute('data-post');
+        }
+        if ((postHtml).hasAttribute('data-id')) {
+          (postHtml).removeAttribute('data-id');
+        }
+        postHtml.innerHTML = '<p class="epost remove">Your message has been deletes</p>';
+        postHtml.classList.remove('message');
+        (postHtml).removeAttribute('style'); // padding = String(0);
+        dataKeys = [];
       }
-      const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
-      if (postHtml === null) {
-        const err = new Error();
-        err.name = '[websokets > RECIVED MESS]';
-        err.message = 'Something that wrong. File not found into the dysplay!';
-        throw err;
-      }
-      liHtml?.remove(); // delete
     } else {
       const err = new Error();
       err.name = '[websokets > RECIVED MESS]';
@@ -166,19 +212,21 @@ export class WSocket {
     this.socket.close();
   }
 
-  dataSendNow(): undefined | boolean {
+  async dataSendNow(): Promise<undefined | boolean> {
     const data = (this.readyState.data.slice(0) as string[])[0];
     console.log('[websokets > OPEN > BEFORE SEND]: Message was a pass - Ok');
-    let timout: NodeJS.Timeout;
-    clearInterval(setTimeout);
+    let timeout: NodeJS.Timeout;
+    if (timeout !== undefined) {
+      clearInterval(timeout);
+    }
     if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.send(data);
+      await this.socket.send(data);
       console.log('[websokets > OPEN > AFTER SEND]: Ok');
       this.handlers.data.pop();
     } else if (this.socket.readyState === WebSocket.CONNECTING) {
-      timout = setTimeout(() => {
+      timeout = setTimeout(() => {
         this.dataSendNow();
-      }, 2000);
+      }, 700);
     } else {
       console.info(`[websokets > CLOSE]: the WebSocket is not open In now time. CODE: ${this.socket.readyState}`);
       return false;

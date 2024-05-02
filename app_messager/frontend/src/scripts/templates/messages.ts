@@ -7,6 +7,7 @@ import checkOfTime from './checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
 import getLinksToFile from '@Service/links-files';
+import { Post } from '@Service/oop/post';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -93,7 +94,19 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     };
     // and
     refer = '<ul>';
+    /* ------ add a listener (heandler event ) for event the post one and files will be remove  ------ */
+    const x = document.getElementById('chat');
+    if (x === undefined) {
+      console.log("[createChatMessage > DIV]: Here button 'X' no found. It's for remove the single post !");
+      return;
+    }
+    const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
+    url.searchParams.delete('fileInd');
+    const post = new Post(url);
+    const handlerPostRemove = post.handlerPostRemove.bind(post);
+    (x as HTMLDivElement).onclick = handlerPostRemove;
 
+    /* ------ */
     const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
     /* ------ 1/3 pencil ------ */
     if (boxMess !== null) {
@@ -106,7 +119,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       if (boxDownload.length === 0) {
         return;
       }
-      Pencil_.postStylesHeight(boxDownload[0] as HTMLDivElement);
+      Pencil_.managePostStylesHeight(boxDownload[0] as HTMLDivElement);
 
       const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
       if (htmlLi.length === 0) {
@@ -114,10 +127,10 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
       }
       Pencil_.handlerRemoveAdd(htmlLi);
     }
-    if (boxMess === null) {
-      console.log('[createChatMessage > DIV]: Something that wrong!');
-      return;
-    }
+    // if (boxMess === null) {
+    //   console.log('[createChatMessage > DIV]: Something that wrong!');
+    //   return;
+    // }
   }
 
   /**

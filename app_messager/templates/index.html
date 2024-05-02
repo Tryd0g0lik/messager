@@ -4,7 +4,7 @@
 {% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
-<!-- {% bootstrap_javascript jquery='full' %} -->
+{% bootstrap_javascript jquery='full' %}
 {% load render_bundle from webpack_loader %}
 
 
@@ -199,10 +199,11 @@
 	</div>
 		</div>
 </main>
-
-<script>
-
-</script>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	Launch demo modal
+</button> -->
+{% include 'modal_delete.html' %}
 </body>
 
 </html>

@@ -4,9 +4,11 @@ import filetepmplate from '@htmlTemplates/file';
 import getLinksToFile from '@Service/links-files';
 /**
  * In to the enterpoint called the two parameters. \
- * Function replace the old contend to the modified (new) message.
- * @param `postIndex`: `string` - a box number for modified the old post
- * @param `postMessage`: `string` - a new message
+ * Function replace the old contend to the update (new) message.
+ * @param `postIndex`: `string` - a box number for update the old post
+ * @param `postMessage`: `string` - a update message
+ * @params `filesIndexes`: `string[]` - that is an array of files indexes. Then through these indexes \
+ * will be found a file's pathnames everything.
  * @returns viod
  */
 const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ filesIndexes }: { filesIndexes: number[] }): void => {
@@ -62,8 +64,8 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       console.log('[upOldMessage > filesIndexes > copyPostHtml]: Something that wrong!');
     }
   }
-  /* ------ update all - end ------ */
-  /* ------ up-html to the display ------ */
+  /* ------ update all - the end ------ */
+  /* ------ update-html to the display ------ */
   (postHtml).replaceWith(copyPostHtml);
 
   /* inserting an event listener again */
@@ -72,7 +74,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
   if (postHtmlUp !== null) {
     const pencil = new Pencil(postHtmlUp);
     pencil.start();
-    /* ------ up-style ------ */
+    /* ------ update-style ------ */
     /* ------ box download  ------ */
     const boxDownload = postHtmlUp.getElementsByClassName('download');
     /* ------ style for a box with has download class  ------ */
@@ -80,7 +82,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
       console.log('[upOldMessage > boxDownload] Something that wrong!');
       return;
     }
-    pencil.postStylesHeight(boxDownload[0] as HTMLDivElement);
+		pencil.managePostStylesHeight(boxDownload[0] as HTMLDivElement);
 
     const htmlLi = (boxDownload[0] as HTMLDivElement).getElementsByTagName('li');
     if (htmlLi.length === 0) {

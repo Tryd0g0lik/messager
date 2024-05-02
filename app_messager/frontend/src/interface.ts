@@ -1,13 +1,5 @@
 // app_messager\frontend\src\interface.ts
 interface Post {
-<<<<<<< HEAD
-  postId: string
-}
-
-export interface ChatMessage extends Post {
-  authorId: string
-  dataTime: string
-=======
   postId?: string | number
 }
 
@@ -22,7 +14,6 @@ export interface File extends Post {
 export interface ChatMessage extends Post {
   authorId: string | number
   dataTime?: string
->>>>>>> 2.3
   message: string
   groupId?: string | number
   filesId?: number[]
@@ -51,6 +42,7 @@ export interface OllDatas {
 export interface F extends File {
   userId: string
   remove?: boolean
+  postRemove?: boolean
 }
 
 export interface DbSLine { // DB Search Line
@@ -63,4 +55,18 @@ export interface DbSLine { // DB Search Line
 export interface Data {
   dataPost: string | undefined
   dataId: string | undefined // id user
+}
+
+// Request Fetch
+export interface LoacalLocalHead {
+  'Content-Type': string
+  cache?: string
+  mode?: string
+}
+
+export interface RequestHeaders {
+  contentType?: string
+  caches?: string
+  modes?: string
+  context?: string
 }

@@ -111,9 +111,9 @@ body{margin-top:20px;}
   top: 0;
   right: 0;
 }
-.download div .bucke {
-  right: 25%;
-  top: 24%;
+.download div.bucke {
+  background-position: center;
+  background: url('../pic/bucke.svg') no-repeat;
 }
 .pencil {
   display: block;
@@ -137,4 +137,22 @@ body{margin-top:20px;}
   padding: 0 50px;
   overflow: hidden;
   font-size: 0.9em;
+}
+
+/* Remove a single post */
+div.message::after {
+  cursor: pointer;
+  content: 'X';
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #f0eded;
+  min-height: 20px;
+  max-height: 20px;
+  height: 100%;
+  width: 20px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
 }

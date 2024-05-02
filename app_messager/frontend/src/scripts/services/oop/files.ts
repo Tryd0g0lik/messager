@@ -1,5 +1,6 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 // import handlerFileOne from '@Service/handlers/files/deletes';
+import wsRemove from '@Service/removes';
 import { Post } from './post';
 import { Push } from './pushes';
 import { OllDatas, F } from '@Interfaces';
@@ -95,7 +96,7 @@ export class FServices extends Push {
     if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
       fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
     }
-    // debugger
+
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -113,27 +114,26 @@ export class FServices extends Push {
         }
       }
 
-      dataset.pathname = path;
       const metaRequest: F = {
         remove: true,
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
-        pathname: (dataset.pathname).slice(0),
         fileInd: fileIndex
       };
-      // debugger
-      await this.deleteFetchOneFile(metaRequest);
-      const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/delete/');
-      socket.beforeSend(JSON.stringify(metaRequest));
-      socket.dataSendNow();
-      let timout: NodeJS.Timeout;
-      if (timout !== undefined) {
-        clearTimeout(timout);
+      /* ------ Modal Window Removing the file one ------ */
+      const modalHTML = document.querySelector('#modal_remove .change_remove');
+      if (modalHTML === null) {
+        console.log('[modal not faoun]');
+        return false;
       }
-      timout = setTimeout(() => {
-        socket.onClose();
-      }, 6000);
-      // (currentTargetLi).remove();
+
+      (modalHTML as HTMLElement).onclick = async () => {
+        const closeHTML = document.querySelector('#modal_remove  .close');
+        const props = await this.checkProps(metaRequest);
+        this.removing(props);
+        wsRemove(metaRequest);
+        (closeHTML as HTMLElement).click();
+      };
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');
@@ -141,17 +141,14 @@ export class FServices extends Push {
   };
 
   /**
-   * In entrypoint receive the proporties a `props`  and making request for the delete data
-   * @param `props`: `{ postId: string, userId: string, pathname: string }`
-   * @returns Promise<boolean> is a`true` that request passed Ok. If `false` - something that wrong to the request.
+   * In entrypoint receive the proporties a `props`  and return object
+   * @param `props`: `{ remove: boolean, postId: string, userId: string, pathname: string }`
+   * @returns `props`
    */
-  async deleteFetchOneFile(props: F): Promise<boolean> {
-    const { postId, fileInd } = { ...props };
+  checkProps(props: F): object {
+    const { postId, fileInd, ...data } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
-    const name = this.element;
-    const post = new Post(name);
-    // debugger
     const propsAll = {
       postId: (postId !== undefined)
         ? ((typeof postId).includes('string')
@@ -162,9 +159,50 @@ export class FServices extends Push {
         ? ((typeof fileInd).includes('string')
           ? fileInd
           : String(fileInd))
-        : String(-1)
+        : String(-1),
+      postRemove: (data?.postRemove !== undefined)
+        ? data.postRemove
+        : false
     };
-    await post.removePostFile(propsAll);
+    return propsAll;
+  }
+
+  async removing(props: F): Promise<boolean> {
+    const { file_id, postId, ...data } = { ...props };
+
+    const url = new URL('api/v1/chat/delete/files/', 'http://127.0.0.1:8000/');
+    const err = new Error();
+    err.name = '[Post > removePostFile]';
+
+    if (postId === undefined) {
+      err.message = `Somethefing tha wrong! Not found "postId": ${postId}`;
+      throw err;
+    }
+    url.searchParams.set('post_id', postId as string);
+
+    if (file_id !== undefined) {
+      // err.message = `Somethefing tha wrong! Not found file_id: ${file_id}`;
+      // throw err;
+      url.searchParams.append('file_id', file_id);
+    }
+
+
+    if ((data === undefined) || ((data !== undefined) && (data.postRemove === undefined))) {
+      console.log('[Post > removePostFile]: May be somethefing tha wrong! Not found postRemove');
+    } else {
+      url.searchParams.append('postRemove', String(data.postRemove as boolean));
+    }
+
+    this.urls = url;
+
+    let response = '';
+    response = await this.delete();
+
+    if (((typeof response).includes('string')) && (response.includes('OK'))) {
+      return true;
+    }
+
+    return false;
   }
 
   /**

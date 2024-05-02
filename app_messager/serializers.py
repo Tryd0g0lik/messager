@@ -7,7 +7,7 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Chat_MessageModel
-		fields = ['id', 'author', 'content', 'group', 'file']
+		fields = ['id', 'author', 'content', 'group', 'file', 'subgroup_id']
 
 
 

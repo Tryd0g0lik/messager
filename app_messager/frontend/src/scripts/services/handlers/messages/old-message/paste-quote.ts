@@ -3,9 +3,11 @@
 import { Pencil } from '@Service/oop/pencils';
 
 /**
- * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form.
+ * @param 'text:string' Here we paste the old message for editing. Edition in the bottom input form. \
+ * @params ''postInd' it's index of row wich now editing. \
+ * @param 'fileHtml' That HTML where inside the files's references.
  */
-const addQuote = (text: string) => (fileHtml = '') => {
+const addQuote = (text: string) => (postInd: string | undefined = undefined) => (fileHtml = '') => {
   const inputBox = document.getElementById('messager');
   if (inputBox === null) {
     console.log('[addQuote]: Html input not found');
@@ -17,6 +19,9 @@ const addQuote = (text: string) => (fileHtml = '') => {
   quoteHtml.innerText = text;
   if (((typeof fileHtml).includes('string')) && (fileHtml.length > 0)) {
     quoteHtml.innerHTML += fileHtml;
+  }
+  if (postInd !== undefined) {
+    quoteHtml.setAttribute('data-post', postInd);
   }
   inputBox?.insertAdjacentHTML('beforebegin', quoteHtml.outerHTML);
 

@@ -4,7 +4,7 @@
 {% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
-<!-- {% bootstrap_javascript jquery='full' %} -->
+{% bootstrap_javascript jquery='full' %}
 {% load render_bundle from webpack_loader %}
 
 
@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css }} " rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-1b01ec1cc322f7c395cb.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-972337094edb8161007a.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">
@@ -199,10 +199,11 @@
 	</div>
 		</div>
 </main>
-
-<script>
-
-</script>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	Launch demo modal
+</button> -->
+{% include 'modal_delete.html' %}
 </body>
 
 </html>

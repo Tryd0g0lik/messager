@@ -3,6 +3,7 @@
 import cleanForm from '@Service/cleaner';
 import time from '@Service/handlers/getDataTime';
 import getTextOfInput from '@Service/message';
+import { Requires } from '@Service/oop/requires';
 import { WSocket } from '@Websocket';
 const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
 /**
@@ -13,6 +14,10 @@ const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
  */
 const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | MouseEvent) => Promise<void> => {
   return async (e: KeyboardEvent | MouseEvent): Promise<void> => {
+    const url = new URL('api/v1/chat/make/post/', 'http://127.0.0.1:8000/');
+
+    const requires = new Requires(url);
+
     let fileIdArr = [];
     let timeItervale: NodeJS.Timeout;
 
@@ -44,26 +49,39 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
     const postIndex = (localStorage.getItem('data') !== null)
       ? (JSON.parse(localStorage.getItem('data') as string).postId)
       : (-1);
-    if (postIndex < 0) {
+    if ((!(typeof postIndex).includes('string')) && postIndex < 0) {
       console.log('[handlerSendlerMessageTotal > corrects TRUE]: something is thrang. That is "postId" not found');
       return;
     }
 
     if (((typeof fileIdArr).includes('object'))) {
       /* if 'corrects' is 'true' that is message edit */
+      // Возможно  Почистить localStorage - после
       if (!corrects) {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]));
+        const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]);
+        const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(String([JSON.stringify(queryset.data)]));
         await socket.dataSendNow();
       } else {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]));
+        const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]);
+        // const queryset = await requires.post({ context: dataStr });
+        // const url = new URL(`api/v1/chat/update/${postIndex}/`, 'http://127.0.0.1:8000/');
+        // const requires = new Requires(url);
+        // requires.patch({ files: fileIdArr });
+        socket.beforeSend(dataStr);
         await socket.dataSendNow();
       }
     } else {
       if (!corrects) {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]));
+        const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]);
+        const queryset = await requires.post({ context: dataStr });
+
+        socket.beforeSend(String([JSON.stringify(queryset.data)]));
         await socket.dataSendNow();
       } else {
-        socket.beforeSend(String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]));
+        const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]);
+        // const queryset = await requires.post({ context: dataStr });
+        socket.beforeSend(dataStr);
         await socket.dataSendNow();
       }
     }

@@ -1,6 +1,7 @@
 // app_messager\frontend\src\scripts\services\handlers\files\handler_input-file.ts
 
 /**
+ * handler form : `<form action="upload/" id="upload" method="post"> ` \
  * rules of handler
  */
 const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
@@ -12,7 +13,13 @@ const handlerInputEvent = (formDiv: HTMLDivElement, form: HTMLFormElement) => {
 
     const formData = new FormData(form);
     formData.append('file', event.target.files);
-
+    /* ------  below received the postId ------ */
+    if (localStorage.getItem('data') !== null) {
+      const lstorageResult = JSON.parse((localStorage).getItem('data') as string).postId;
+      if (lstorageResult !== undefined) {
+        formData.append('postId', lstorageResult);
+      }
+    }
     /**
      * Note: Size files
      */
