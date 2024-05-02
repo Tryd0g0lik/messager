@@ -22,9 +22,6 @@ class ChatConsumer(AsyncConsumer):
 		:return:
 		'''
 		test = {"type": "websocket.accept"}
-		for v in event.values() :
-			print('websocket K: ', v)
-		print('websocket_CONNECTe: ', json.dumps(event))
 		await self.send(test)
 
 		# Add the channel_layer instance to the connected_clients set
@@ -70,7 +67,11 @@ class ChatConsumer(AsyncConsumer):
 			new_event = event_json['text']
 		# сделать асинхронной  сделать загрузку файлов + Typing...
 		# Send the message to all connected clients
+		checker_on_dublecate = []
 		for client in self.connected_clients:
+			if client in checker_on_dublecate:
+				continue
+			checker_on_dublecate.append(client)
 			await self.channel_layer.send(client, {
 				"type": "websocket.send",
 				"text": json.dumps(event.get('text',  new_event)),

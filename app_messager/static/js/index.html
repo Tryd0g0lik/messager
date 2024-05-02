@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css }} " rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-8468a19bb626a54cb003.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-e3c6a3ce83cf055deebc.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">
@@ -199,10 +199,11 @@
 	</div>
 		</div>
 </main>
-
-<script>
-
-</script>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	Launch demo modal
+</button> -->
+{% include 'modal_delete.html' %}
 </body>
 
 </html>
