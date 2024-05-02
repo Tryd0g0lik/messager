@@ -6,9 +6,7 @@ function file(ref: string[]): string {
   /* 
   class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
   */
-  // liHtml.className = 'btn btn-primary';
-  // liHtml.dataset.toggle = 'modal';
-  // liHtml.dataset.target = '#exampleModal';
+
   if (ref.length > 1) {
     liHtml.dataset.ind = ref[1];
   }
@@ -21,7 +19,7 @@ function file(ref: string[]): string {
 
   /* class="bucke" !! */
   const refLi = `<a target="_blank" class='one-file' href="${urlOrigin}/media/${ref[0]}">${ref[0].split('/')[reffArrLength - 1]}</a>
-        <div data-bucke="true" class="bucke">
+        <div data-target="#exampleModal" data-toggle="modal" data-bucke="true" class="bucke btn btn-primary">
         </div>`;
   liHtml.innerHTML = refLi;
   return liHtml.outerHTML;

@@ -96,7 +96,7 @@ export class FServices extends Push {
     if (!(currentTargetLi.tagName.toLowerCase()).includes('li')) {
       fileIndex = (currentTargetLi.parentElement as HTMLElement).dataset.ind;
     }
-    debugger;
+
     const dataset = (((currentTargetLi.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement).dataset;
     let path = '' as string;
     // debugger
@@ -114,18 +114,26 @@ export class FServices extends Push {
         }
       }
 
-      // dataset.pathname = path;
       const metaRequest: F = {
         remove: true,
         postId: (dataset.post as string).slice(0),
         userId: (dataset.id as string).slice(0),
-        // pathname: (dataset.pathname).slice(0),
         fileInd: fileIndex
       };
-      /* ------ Removing the file ------ */
-      const props = await this.checkProps(metaRequest);
-      this.removing(props);
-      wsRemove(metaRequest);
+      /* ------ Modal Window Removing the file one ------ */
+      const modalHTML = document.querySelector('#modal_remove .change_remove');
+      if (modalHTML === null) {
+        console.log('[modal not faoun]');
+        return false;
+      }
+
+      (modalHTML as HTMLElement).onclick = async () => {
+        const closeHTML = document.querySelector('#modal_remove  .close');
+        const props = await this.checkProps(metaRequest);
+        this.removing(props);
+        wsRemove(metaRequest);
+        (closeHTML as HTMLElement).click();
+      };
       return true;
     }
     console.log('[FServices > handlerDeleteFileOne] Something that wrong!');
@@ -141,9 +149,6 @@ export class FServices extends Push {
     const { postId, fileInd, ...data } = { ...props };
     const domen = ((APP_MESSAGER_SERVER_URL_ORIGEN as string).split(':').length > 2) ? APP_MESSAGER_SERVER_URL_ORIGEN : APP_MESSAGER_SERVER_URL_ORIGEN + ':' + APP_MESSAGER_SERVER_URL_PORT;
 
-    // const name = this.element;
-    // const post = new Post(name);
-    // debugger
     const propsAll = {
       postId: (postId !== undefined)
         ? ((typeof postId).includes('string')
@@ -159,12 +164,8 @@ export class FServices extends Push {
         ? data.postRemove
         : false
     };
-    // await post.removePostFile(propsAll);
     return propsAll;
   }
-  // async deleteFetchOneFile(prop: F): Promis<boolean> {
-  //   this.deleteFetchOneFile()
-  // }
 
   async removing(props: F): Promise<boolean> {
     const { file_id, postId, ...data } = { ...props };
@@ -204,7 +205,6 @@ export class FServices extends Push {
 
     return false;
   }
-
 
   /**
    * Entry point has a one paramenter. That `elements`, his get an object collection fron the `[<li>..<div class="bucke">]`.

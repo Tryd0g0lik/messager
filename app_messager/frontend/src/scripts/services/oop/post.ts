@@ -66,7 +66,7 @@ class Post extends Requires {
       console.log('[Post > handlerPostRemove] "Event used before!');
       return;
     }
-    debugger  
+
     const target = e.target as HTMLDivElement;
     if ((!(target.tagName.toLowerCase()).includes('div')) ||
       (target.dataset.post === undefined)) {

@@ -4,7 +4,7 @@
 {% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
-<!-- {% bootstrap_javascript jquery='full' %} -->
+{% bootstrap_javascript jquery='full' %}
 {% load render_bundle from webpack_loader %}
 
 
@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css }} " rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-e3c6a3ce83cf055deebc.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-893bd533661ab1d4adb6.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">

@@ -7,7 +7,7 @@ import handlerGetMessageOfInput from '../get-messages';
 const manageOldMessageTotal = (): (e: KeyboardEvent | MouseEvent) => void => {
   const rewriteContentAsy = async (e: KeyboardEvent | MouseEvent): Promise<void> => {
     await changeOldPost(e);
-    debugger
+
     const handler = await handlerSendlerMessageTotal(true);
     await handler(e);
     // /* ------ LocalStorage clearing ------ */

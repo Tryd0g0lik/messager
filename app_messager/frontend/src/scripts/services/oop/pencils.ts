@@ -114,7 +114,7 @@ export class Pencil extends FServices {
         this.managePostStylesHeight(htmlDownloadArr[0] as HTMLDivElement);
       };
     }
-    debugger
+
     /* 2/3 added the event listener to the input form . It is change of the listener */
     handlerGetMessageOfInput(manageOldMessageTotal());
   };
