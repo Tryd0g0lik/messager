@@ -215,6 +215,9 @@ this an all package was installed for the chat project from Django. \
 [2.3 - brach]: 
 - Everyone a file has the bucket. Click by the bucket to deleted file from the server and all clients.
 
+[2.3 - brach]: 
+- interfaces the rewrite message, plus a delte one file, delete all files, delte single message and modal window was added to the interface"
+
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
 You can chage to the `messager\app_messager\correctors.py` \
