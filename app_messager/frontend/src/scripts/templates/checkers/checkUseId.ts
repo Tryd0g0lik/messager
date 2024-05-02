@@ -1,5 +1,9 @@
 // app_messager\frontend\src\scripts\templates\checkers\checkUseId.ts
-
+/**
+ * @param userId ориентируется на user id б он же \
+ * data-id из  #messager[data-id]. ?!?!?!?!?!?!?!?!?
+ * @returns
+ */
 export default function checkerUserId(userId: string | number): undefined | boolean {
   const inputHtml = document.getElementById('messager');
   if (inputHtml === null) {

@@ -82,8 +82,8 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
     const res = authorId;
     htmlMessage.setAttribute('data-id', res);
-    htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
+    htmlMessage.className = 'pb-4 message';
     const newBox = htmlMessage.outerHTML;
     htmlChat.insertAdjacentHTML('beforeend', newBox);
 
