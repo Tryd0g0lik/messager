@@ -2,7 +2,7 @@
 
 import { Searcher } from './oop/search';
 import './style.css';
-
+/* ------ Search ------ */
 document.addEventListener('DOMContentLoaded', () => {
   const topsearch = document.querySelector('#searchup');
   if (topsearch !== null) {

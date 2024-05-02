@@ -1,4 +1,4 @@
-// frontend\src\scripts\MessageForm\index.ts
+// app_messager\frontend\src\scripts\chat\index.ts
 
 import handlerSendlerMessageTotal from '@Service/postmen/sendler_message';
 import handlerGetMessageOfInput from '@Service/handlers/messages/get-messages';
