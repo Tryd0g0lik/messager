@@ -80,7 +80,7 @@ export class WSocket {
 
   onMessage = (e: any): void => {
     console.log('-------------------');
-    debugger;
+
     const dataJson = JSON.parse(e.data);
     const resp = (dataJson !== undefined)
       ? dataJson
@@ -95,7 +95,7 @@ export class WSocket {
     if (resp === null) {
       return;
     };
-    debugger
+
     const dataTextJson = JSON.parse(resp);
     // let dataKeys = Array.from(Object.keys(JSON.parse(e.data)));
     let dataKeys = Array.from(Object.keys(dataTextJson));
@@ -168,7 +168,7 @@ export class WSocket {
         }
         // debugger
         const liHtml = postHtml.querySelector(`li[data-ind="${fileInd}"]`);
-        if (postHtml === null) {
+        if (liHtml === null) {
           const err = new Error();
           err.name = '[websokets > RECIVED MESS]';
           err.message = 'Something that wrong. File not found into the dysplay!';

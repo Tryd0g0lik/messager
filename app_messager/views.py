@@ -63,6 +63,12 @@ def serialize_file_models(obj):
     return obj
 
 def upload_file(request, listIndexes = None):
+	'''
+	TODO: That is upload files
+	:param request:
+	:param listIndexes:
+	:return:
+	'''
 	# form_class = UploadFileForm
 	if request.method == 'POST':
 		try:
@@ -123,20 +129,30 @@ class UpdateMessages(generics.UpdateAPIView):
 	serializer_class = Chat_MessageSerializer
 
 	def patch(self, request, *args, **kwargs):
+		'''
+		TODO: rewrite chat text/message and files add
+		:param request:
+		:param args:
+		:param kwargs:
+		:return:
+		'''
 		queryset_data = request.data
 		queryse_post_id = kwargs['pk']
 		queryset_file =  request.data['filesId'] if 'filesId' in request.data else []
 		queryset_contents = request.data['content'] if 'content' in request.data else ''
 		new_list_indexes = []
-		chat = Chat_MessageModel.objects.filter(pk=queryse_post_id)
-		chat_list = Chat_MessageModel.objects.filter(subgroup_id=chat[0].subgroup_id)
+		# chat = Chat_MessageModel.objects.filter(pk=queryse_post_id)
+		chat_list = Chat_MessageModel.objects.filter(subgroup_id=queryse_post_id)
+		# chat_list = Chat_MessageModel.objects.filter(subgroup_id=chat[0].subgroup_id)
 
+		if (len(chat_list) == 0):
+			JsonResponse({'update': False})
+
+		# if (chat_list[0].file_id == None):
 		if (len(queryset_file) > 0):
-			if (len(chat) == 0):
-				JsonResponse({'update': False})
-			file_id = None
-
-			if len(chat_list) > 1:
+			if (chat_list[0].file_id == None):
+				file_id = None
+			else:
 				file_id = chat_list[0].file_id
 
 
@@ -152,14 +168,18 @@ class UpdateMessages(generics.UpdateAPIView):
 							ind -=1
 
 			response_i = -1
-			chat_copy = chat[:]
+			chat_copy = chat_list[:]
 			if (check == True):
 				for i in range(0, len(queryset_file)):
+					if queryset_contents != chat_copy[0].content:
+						for i in range(0, len(chat_list)):
+							chat_list[i].content = queryset_contents if queryset_contents != chat_copy[i].content else chat_copy[i].content
+							chat_list[i].save()
 
 					Chat_MessageModel(
 						content= queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
 						author_id= chat_copy[0].author_id,
-						file_id= int(queryset_file[0]),
+						file_id= int(queryset_file[0]) if len(queryset_file) > 0 else None,
 						group_id = chat_copy[0].group_id,
 						subgroup_id= chat_copy[0].subgroup_id,
 					).save()
@@ -167,24 +187,20 @@ class UpdateMessages(generics.UpdateAPIView):
 
 
 			elif (check == False):
-				chat[0].file_id = int(queryset_file[0])
-				chat[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
-				chat[0].save()
+				chat_list[0].file_id = int(queryset_file[0]) if len(queryset_file) > 0 else None
+				chat_list[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content
+				chat_list[0].save()
 				new_list_indexes.append(queryset_file.pop(0))
 
 				for i in range(0, len(queryset_file)):
 					Chat_MessageModel(
-						content=queryset_contents if queryset_contents != chat[0].content else chat[0].content,
-						author_id=chat[0].author_id,
+						content=queryset_contents if queryset_contents != chat_list[0].content else chat_list[0].content,
+						author_id=chat_list[0].author_id,
 						file_id=int(queryset_file[0]),
-						group_id=chat[0].group_id,
-						subgroup_id=chat[0].subgroup_id,
+						group_id=chat_list[0].group_id,
+						subgroup_id=chat_list[0].subgroup_id,
 					).save()
 					new_list_indexes.append(queryset_file.pop(0))
-
-
-
-
 
 		else:
 			for i in range(0, len(chat_list)):
@@ -278,7 +294,7 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 	    'userId':resp['author_id'],
 	    'message':resp['content'],
 	    'groupId':resp['group_id'],
-			"postId": resp['id'],
+			"postId": resp['subgroup_id'],
 			"eventtime":queryset_eventtime,
 			'fileIndex':file,
 			'indexes':file,
@@ -314,7 +330,7 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 		query_post_id = int(request.query_params.get('post_id'))
 		query_post_bool = bool(request.query_params.get('postRemove')); # if True that is a post remove, or not
 		response_file_list = FileModels.objects.filter(pk=  query_file_id)
-		response_post_list = Chat_MessageModel.objects.filter(pk=query_post_id)
+		response_post_list = Chat_MessageModel.objects.filter(subgroup_id=query_post_id)
 
 		if ((len(list(response_file_list)) == 0)):
 			if ((len(list(response_post_list)) > 0) and query_post_bool == True):
@@ -326,9 +342,10 @@ class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
 		response_post_list = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
 		response_post_group = response_post_list[0].group_id
 
-		response_subgroup_id_list = Chat_MessageModel.objects.filter(subgroup_id = response_post_list[0].subgroup_id)
-		if len(list(response_subgroup_id_list)) > 1:
-			rows_list = response_subgroup_id_list.filter(group_id=response_post_group);
+		response_subgroup_id_list = Chat_MessageModel.objects \
+			.filter(subgroup_id = response_post_list[0].subgroup_id)
+		if len(list(response_subgroup_id_list)) >= 1:
+			rows_list = response_subgroup_id_list #.filter(group_id=response_post_group);
 			if (len(list(rows_list)) > 1):
 				response_post_list[0].delete()
 		response_file_list[0].delete()
