@@ -196,7 +196,6 @@ export class FServices extends Push {
     this.urls = url;
 
     let response = '';
-    // debugger
     response = await this.delete();
 
     if (((typeof response).includes('string')) && (response.includes('OK'))) {

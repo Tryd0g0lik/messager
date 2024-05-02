@@ -67,7 +67,6 @@ export class Requires {
     }
 
     /* ------ */
-    // let response: unknown | Promise<T> = {};
     const h: LoacalLocalHead = { 'Content-Type': contentType };
     if (caches !== undefined) {
       h.cache = caches;
@@ -90,10 +89,8 @@ export class Requires {
 
   /**
    * `id` for a remove through URL \
-   * `api/v1/chat/delete/file/` - for a remove file \
-   * Used is `removeFile(index)` or `removeFile(undefined, index)` \
-   * @param `index` : `undefined|string' is for one file. That value default have `undefined`
-   * @param `indexes` : `undefined|number[]' is for one list files. That value default have `undefined`
+   * `api/v1/chat/delete/file/` - for a remove file and an one message \
+   * Used is `removeFile()` \
    * */
   async delete(): Promise<string> {
     const url = this.urls;
