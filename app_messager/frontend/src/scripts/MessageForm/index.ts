@@ -10,13 +10,6 @@ if (APP_WS_URL === undefined) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* 1/3 added the event listener to the input form . */
+  /* ------ 1/3 added the event listener to the input form . ------ */
   handlerGetMessageOfInput(handlerSendlerMessageTotal());
 });
-/* 
-handlerSendlerMessageTotal
-!! ключ группы изменить на динамический !!
-далее
-Форма input не работает Enter
-
-*/ 

@@ -1,0 +1,83 @@
+/* Search */
+#searchup {
+  position: relative;
+  max-width: 40px;
+}
+
+
+#searchup .button-search {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: url('./pic/search.svg') no-repeat center #f8f9fa;
+  width: 29px;
+  height: 29px;
+  min-height: 29px;
+  max-height: 29px;
+  z-index: 3;
+  border: 0;
+  /*  1px solid #dee2e6; */
+  border-radius: 18px;
+  border-style: inset;
+  box-shadow: -2px -1px inset;
+  padding: 0;
+  cursor: pointer;
+}
+
+.button-search+div,
+#searchup.active .button-search {
+  display: none;
+}
+
+.active .button-search+div,
+#searchup.active+div {
+  display: block;
+}
+
+#searchup.active .form-group {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
+#searchup label {
+  flex: none;
+}
+
+#searchup.active label {
+  display: inline-block;
+}
+
+#searchup label,
+#searchup input,
+#searchup .button-search+div {
+  padding: 0;
+  margin: 0;
+}
+
+
+#searchup .button-search+div,
+#searchup.active label,
+#searchup .form-group,
+#searchup input[type="search"] {
+  width: 250px;
+  max-width: 250px;
+  box-sizing: border-box;
+}
+
+#searchup,
+#searchup form,
+#searchup form>div,
+#searchup form,
+label {
+  min-height: 38px;
+  max-height: 38px;
+  height: 100%;
+}
+
+#searchup.active input {
+  margin: 0 !important;
+}

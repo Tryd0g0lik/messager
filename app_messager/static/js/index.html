@@ -15,7 +15,7 @@
 <script src="{% static 'js/' %}{{static_files.js}}"></script>
 <link href="{% static 'css/' %}{{static_files.css }} " rel="stylesheet" />
 <title>Chat Room</title>
-<script defer src="/main-main-838aa938ee08965b7ddb.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
+<script defer src="/main-main-990c5360c32437f562c8.js"></script><link href="/../css/style.css" rel="stylesheet"></head>
 <body>
 {{ room_name|json_script:"room-name" }}
 <main class="content">
@@ -123,7 +123,7 @@
 				<div id="group" data-groupid='7a3a744a-64ab-492b-89bf-9ee7c72b91f1' class="col-12 col-lg-7 col-xl-9">
 
 				<div class="py-2 px-4 border-bottom d-none d-lg-block">
-							<div class="d-flex align-items-center py-1">
+					<div class="d-flex align-items-center py-1">
 
 								<div class="position-relative">
 									<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
@@ -134,7 +134,7 @@
 									<div class="text-muted small"><em>Typing...</em></div>
 								</div>
 								<div id="searchup">
-									{% include 'search_form.html' %}
+									{% include 'top_search.html' %}
 								</div>
 								<div>
 									<button class="btn btn-primary btn-lg mr-1 px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -158,8 +158,8 @@
 											<circle cx="5" cy="12" r="1"></circle>
 										</svg></button>
 								</div>
-							</div>
-						</div>
+					</div>
+				</div>
 
 				<div class="position-relative">
 						<div id="chat" class="chat-messages p-4">
