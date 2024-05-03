@@ -1,8 +1,13 @@
 // app_messager\frontend\src\scripts\services\handlers\messages\sub-handler\subhandler-click.ts
 
 /**
- * This is only  a logic action after the event click or 'Enter' keybord.
- * @param `h`: `(e: MouseEvent) => void` is function. That is sction after the events
+ * Then we have a common box for form or itself form and this's form has single:
+ * - level of the input `<input type="text">`.
+ * - level of the button (submit) `<button type="submit">`.
+ * Exemple, this we can see to the chat or searcher.
+ * @param `h`: `(e: MouseEvent) => void` is function wich will beginning \
+ * to work after the click by the button.
+ *
  * @returns void
  */
 const eventClickManage = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {

@@ -1,12 +1,17 @@
-export class Searcher {
-  elements: HTMLElement;
+import { EInput } from './inputs';
 
-  constructor(element: HTMLElement) {
-    this.elements = element;
+export class Searher extends EInput {
+  arr = [];
+
+  constructor(element: HTMLDivElement | HTMLFormElement) {
+    super(element);
+    this.arr = [];
+    const handlerClick = this.heandlerClick.bind(this);
+    (this.element).onclick = handlerClick;
   }
 
   private addStyle(): void {
-    (this.elements).classList.add('active');
+    (this.element).classList.add('active');
   }
 
   heandlerClick(e: MouseEvent): void {
