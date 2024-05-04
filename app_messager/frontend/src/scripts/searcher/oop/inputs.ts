@@ -21,24 +21,29 @@ export class EInput {
   * to work after the click by the button.
   * @returns void
   */
-  eventClickManage = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {
+  manageClick = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {
     return async (e: MouseEvent): Promise<void> => {
+
       const boxMess = e.currentTarget as HTMLDivElement;
-      if ((boxMess === null) || ((e.target as HTMLButtonElement).type !== 'submit')) {
+      if (boxMess === null) {
         return;
       }
+
       const inputHtml = (boxMess).querySelector('input[type="text"]') as HTMLInputElement;
       if (inputHtml === null) {
         return;
       }
-
       const messages = ((inputHtml.value).length > 0) ? inputHtml.value.trim() : '';
-      if ((messages.length > 0) || (!(typeof (JSON.parse(localStorage.getItem('data') as string).fileId)).includes('boolean'))) {
+
+      if (messages.length > 0) {
         /* ------ events clearing ------ */
         if ((e.target as HTMLInputElement).tagName === 'INPUT') {
           return;
         }
-        h(e);
+        if ((e.target as HTMLButtonElement).type === 'submit') {
+          e.stopPropagation();
+          h(e);
+        }
       }
     };
   };
@@ -50,8 +55,10 @@ export class EInput {
   * @returns void
   */
   manageKeyup(h: (e: KeyboardEvent) => void) {
+
     return (e: KeyboardEvent): void => {
       if ((e).key === 'Enter') {
+        e.stopPropagation();
         const target = (e.target as HTMLInputElement);
         const searchWord = ((target.value).length > 0) ? target.value.trim() : '';
         if (searchWord.length > 0) {

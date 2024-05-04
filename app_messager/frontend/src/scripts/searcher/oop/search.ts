@@ -19,6 +19,33 @@ export class Searher extends EInput {
 
     if ((target !== null) && (((target.className).length > 0) && (String((target).className)).includes('button-search'))) {
       this.addStyle();
+      this.addHandlaers(e);
     };
   };
+  // 21.мая
+  // форма 057
+  // 21.мая 9 утра
+  // квота заблокирована. справка на рукм - какого числа отправили
+
+  addHandlaers(e: MouseEvent | KeyboardEvent) {
+    const currentTarget = e.currentTarget as HTMLElement;
+    const boxCommonHtml = currentTarget.querySelector('label[for="inputSearch"]');
+    const manageKeyup = this.manageKeyup.bind(this);
+    const manageClick = this.manageClick.bind(this);
+    const subhandlerContentOfInput = this.subhandlerContentOfInput.bind(this);
+
+    if ((boxCommonHtml !== null)) {
+      /* ------ remove ------ */
+      // (boxCommonHtml as HTMLElement).removeEventListener('click', manageClick(subhandlerContentOfInput));
+      (boxCommonHtml as HTMLElement).removeEventListener('keyup', manageKeyup(subhandlerContentOfInput));
+
+      /* ------ insert ------ */
+      // (boxCommonHtml as HTMLElement).addEventListener('click', manageClick(subhandlerContentOfInput));
+      (boxCommonHtml as HTMLElement).addEventListener('keydown', manageKeyup(subhandlerContentOfInput));
+    };
+  }
+
+  subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
+    debugger;
+  }
 }
