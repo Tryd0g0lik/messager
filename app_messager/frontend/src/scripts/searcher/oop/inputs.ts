@@ -1,3 +1,6 @@
+import { LoacalLocalHead, RequestHeaders } from "@Interfaces";
+import getCookie from "@Service/cookies";
+
 /**
 * Then we have a common box for form or the form itself and this's form has single:
 * - `eventClickManage` method to the field of the input `<input type="text">`.
@@ -11,8 +14,10 @@
 */
 export class EInput {
   element: HTMLDivElement | HTMLFormElement;
+  urls: string | object;
   constructor(element: HTMLDivElement | HTMLFormElement) {
     this.element = element;
+    this.urls = '';
   }
 
   /**
@@ -58,7 +63,8 @@ export class EInput {
 
     return (e: KeyboardEvent): void => {
       if ((e).key === 'Enter') {
-        e.stopPropagation();
+        e.preventDefault();
+
         const target = (e.target as HTMLInputElement);
         const searchWord = ((target.value).length > 0) ? target.value.trim() : '';
         if (searchWord.length > 0) {
@@ -66,5 +72,49 @@ export class EInput {
         }
       };
     };
+  };
+
+  /**
+     * That is a Fetch request.
+     * @param `props` of `fGet` is \
+     * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
+     * @param `props.caches` by default is `undefined`
+     * @param `props.modes` by default is `'application/json;charset=utf-8'`
+     * @returns  Promise<object> or Error;
+     */
+  async get<T>(props: RequestHeaders): Promise<T | boolean> {
+    const { contentType, caches = undefined, modes = undefined } = { ...props };
+    /* ------ */
+    const url = this.urls;
+    if (url === undefined) {
+      const err = new Error(url);
+      err.name = '[EInput > get] GET:';
+      throw err;
+      // console.log('[FRequeres > fGet]:  Something that wrong with URL -> ', url);
+      // return undefined;
+    }
+
+    /* ------ */
+    const h: LoacalLocalHead = {
+      'Content-Type': contentType,
+      'X-CSRFToken': getCookie('csrftoken')
+    };
+    if (caches !== undefined) {
+      h.cache = caches;
+    }
+    if (modes !== undefined) {
+      h.mode = modes;
+    }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: h
+    });
+    if (!response.ok) {
+      console.log('[EInput > get] GET: Not Found');
+      return false;
+    }
+    const responseJson = await response.json();
+    return responseJson;
   }
 }

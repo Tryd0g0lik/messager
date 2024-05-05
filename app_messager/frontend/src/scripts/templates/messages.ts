@@ -2,8 +2,8 @@
 
 import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
-import checkerUserId from './checkers/checkUseId';
-import checkOfTime from './checkers/checker_time';
+import checkerUserId from '../checkers/checkUseId';
+import checkOfTime from '../checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
 import getLinksToFile from '@Service/links-files';

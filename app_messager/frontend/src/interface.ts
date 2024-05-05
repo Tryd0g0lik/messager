@@ -12,7 +12,8 @@ export interface File extends Post {
 }
 
 export interface ChatMessage extends Post {
-  authorId: string | number
+  searcher: any
+    : string | number
   dataTime?: string
   message: string
   groupId?: string | number

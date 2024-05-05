@@ -220,6 +220,23 @@ class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
 class PostAPIFilterViews(generics.ListCreateAPIView):
 	queryset = Chat_MessageModel.objects.all()
 	serializer_class = Chat_MessageSerializer
+
+	def get(self, request, *args, **kwargs):
+		queryset = request.query_params['searcher']
+		new_data = Chat_MessageModel.objects.filter(content__contains = queryset)
+		args = []
+		for i in range(0, len(list(new_data))):
+			new_data_dict = new_data[i].__dict__
+			kwargs = {
+				'authorId': new_data_dict['author_id'],
+				'message': new_data_dict['content'],
+				'groupId': new_data_dict['group_id'],
+				"postId": new_data_dict['subgroup_id'],
+				'dataTime':new_data_dict['timestamp']
+			}
+			args.append(kwargs);
+		r = {'searcher': args}
+		return JsonResponse(r) # self.list(request, args, **kwargs)
 	def post(self, request, *args, **kwargs):
 		'''
 		TODO: Create a new post
