@@ -25,10 +25,6 @@ export class Searher extends EInput {
       this.addHandlaers(e);
     };
   };
-  // 21.мая
-  // форма 057
-  // 21.мая 9 утра
-  // квота заблокирована. справка на рукм - какого числа отправили
 
   addHandlaers(e: MouseEvent | KeyboardEvent) {
     const currentTarget = e.currentTarget as HTMLElement;
@@ -110,12 +106,10 @@ export class Searher extends EInput {
   `;
       const res = ((typeof authorId).includes('string')) ? authorId : String(authorId);
       htmlMessage.setAttribute('data-id', res as string);
-      // const res = authorId;
-      // htmlMessage.setAttribute('data-id', res);
+
       htmlMessage.className = 'pb-4 message';
       htmlMessage.classList.add(rightLeft);
-      // const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
-      // htmlMessage.classList.add(rightLeft);
+
       const newBox = htmlMessage.outerHTML;
       chatHtml.innerHTML += newBox;
     });

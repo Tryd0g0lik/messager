@@ -29,7 +29,7 @@ export class EInput {
   manageClick = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {
     return async (e: MouseEvent): Promise<void> => {
       const target = (e.target as HTMLDivElement);
-      debugger
+
       if (target === undefined) {
         return;
       }
@@ -53,10 +53,9 @@ export class EInput {
         if ((e.target as HTMLInputElement).tagName === 'INPUT') {
           return;
         }
-        // if ((e.target as HTMLButtonElement).type === 'submit') {
+
         e.stopPropagation();
         h(e);
-        // }
       }
     };
   };
