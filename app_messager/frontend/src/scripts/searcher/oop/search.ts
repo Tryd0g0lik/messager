@@ -46,7 +46,7 @@ export class Searher extends EInput {
 
   async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
     const target = e.target as HTMLInputElement;
-    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]')
+    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]');
     let value_;
     if (target.tagName === 'INPUT') {
       value_ = target.value;
@@ -96,7 +96,7 @@ export class Searher extends EInput {
       <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
-        <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
+        <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime as string)}</div>
       </div>
       <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="user-name font-weight-bold mb-1">${(resultCheckUser as boolean) ? 'You' : 'NOT your'}
