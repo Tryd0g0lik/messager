@@ -73,11 +73,12 @@ export class Searher extends EInput {
       throw err;
     }
     chatHtml.innerHTML = '';
-    debugger;
+    // debugger;
     const htmlMessage = document.createElement('div');
     Array.from(props).forEach((item) => {
       const { postId, authorId, message, groupId, dataTime } = { ...item };
       const resultCheckUser = checkerUserId(authorId);
+      // debugger
       htmlMessage.dataset.post = String(postId);
       htmlMessage.innerHTML += `
       <div >
