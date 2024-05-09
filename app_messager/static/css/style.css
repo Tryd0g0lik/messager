@@ -191,11 +191,11 @@ div.message::after {
   cursor: pointer;
 }
 
-.button-search+div,
-#searchup.active .button-search {
+.button-search+div {
   display: none;
 }
 
+/* #searchup.active .button-search */
 .active .button-search+div,
 #searchup.active+div {
   display: block;
@@ -246,4 +246,6 @@ label {
 
 #searchup.active input {
   margin: 0 !important;
+  padding-right: 29px;
 }
+

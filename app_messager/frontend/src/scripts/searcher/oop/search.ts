@@ -39,22 +39,33 @@ export class Searher extends EInput {
 
     if ((boxCommonHtml !== null)) {
       /* ------ remove ------ */
-      // (boxCommonHtml as HTMLElement).removeEventListener('click', manageClick(subhandlerContentOfInput));
+      (boxCommonHtml as HTMLElement).removeEventListener('click', manageClick(subhandlerContentOfInput));
       (boxCommonHtml as HTMLElement).removeEventListener('keyup', manageKeyup(subhandlerContentOfInput));
 
       /* ------ insert ------ */
-      // (boxCommonHtml as HTMLElement).addEventListener('click', manageClick(subhandlerContentOfInput));
+      (boxCommonHtml as HTMLElement).addEventListener('click', manageClick(subhandlerContentOfInput));
       (boxCommonHtml as HTMLElement).addEventListener('keydown', manageKeyup(subhandlerContentOfInput));
     };
   }
 
   async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
     const target = e.target as HTMLInputElement;
-    if (target.tagName !== 'INPUT') {
-      return;
+    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]')
+    let value_;
+    if (target.tagName === 'INPUT') {
+      value_ = target.value;
+    } else if ((currentInput !== null) && (currentInput.tagName === 'INPUT')) {
+      value_ = (currentInput as HTMLInputElement).value;
     }
 
-    const value = target.value;
+    if (value_ === undefined) {
+      const err = new Error();
+      err.name = '[Searher > subhandlerContentOfInput]';
+      err.message = "Something what wrong! Not found the imput's value.";
+      throw err;
+    }
+
+    const value = value_.slice(0);
     const url = new URL('api/v1/search/get/', 'http://127.0.0.1:8000/');
     url.searchParams.set('searcher', value);
     this.urls = url;
@@ -74,11 +85,13 @@ export class Searher extends EInput {
     }
     chatHtml.innerHTML = '';
     // debugger;
-    const htmlMessage = document.createElement('div');
+
     Array.from(props).forEach((item) => {
+      const htmlMessage = document.createElement('div');
       const { postId, authorId, message, groupId, dataTime } = { ...item };
       const resultCheckUser = checkerUserId(authorId);
-      // debugger
+      const rightLeft: string = ((resultCheckUser as boolean) ? 'chat-message-right' : 'chat-message-left') as string;
+
       htmlMessage.dataset.post = String(postId);
       htmlMessage.innerHTML += `
       <div >
@@ -100,6 +113,7 @@ export class Searher extends EInput {
       // const res = authorId;
       // htmlMessage.setAttribute('data-id', res);
       htmlMessage.className = 'pb-4 message';
+      htmlMessage.classList.add(rightLeft);
       // const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
       // htmlMessage.classList.add(rightLeft);
       const newBox = htmlMessage.outerHTML;

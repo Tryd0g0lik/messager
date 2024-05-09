@@ -1,5 +1,5 @@
-import { LoacalLocalHead, RequestHeaders } from "@Interfaces";
-import getCookie from "@Service/cookies";
+import { LoacalLocalHead, RequestHeaders } from '@Interfaces';
+import getCookie from '@Service/cookies';
 
 /**
 * Then we have a common box for form or the form itself and this's form has single:
@@ -28,13 +28,21 @@ export class EInput {
   */
   manageClick = (h: (e: MouseEvent) => void): (e: MouseEvent) => void => {
     return async (e: MouseEvent): Promise<void> => {
+      const target = (e.target as HTMLDivElement);
+      debugger
+      if (target === undefined) {
+        return;
+      }
+      if (!String(target.classList).includes('button-search')) {
+        return;
+      }
 
       const boxMess = e.currentTarget as HTMLDivElement;
       if (boxMess === null) {
         return;
       }
 
-      const inputHtml = (boxMess).querySelector('input[type="text"]') as HTMLInputElement;
+      const inputHtml = (boxMess).querySelector('input[type="search"]') as HTMLInputElement;
       if (inputHtml === null) {
         return;
       }
@@ -45,10 +53,10 @@ export class EInput {
         if ((e.target as HTMLInputElement).tagName === 'INPUT') {
           return;
         }
-        if ((e.target as HTMLButtonElement).type === 'submit') {
-          e.stopPropagation();
-          h(e);
-        }
+        // if ((e.target as HTMLButtonElement).type === 'submit') {
+        e.stopPropagation();
+        h(e);
+        // }
       }
     };
   };
