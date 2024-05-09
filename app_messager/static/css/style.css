@@ -248,4 +248,7 @@ label {
   margin: 0 !important;
   padding-right: 29px;
 }
+.serch div.message::after {
+  display: none;
+}
 

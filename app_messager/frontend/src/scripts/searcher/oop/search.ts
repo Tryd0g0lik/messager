@@ -76,12 +76,14 @@ export class Searher extends EInput {
 
   template(props: ChatMessage[]): void {
     const chatHtml = document.getElementById('chat');
+
     if (chatHtml === null) {
       const err = new Error();
       err.name = '[EInput > get]';
       err.message = 'Something what wrong! Not found "#chat"';
       throw err;
     }
+    chatHtml.classList.add('serch');
     chatHtml.innerHTML = '';
     // debugger;
 
@@ -100,7 +102,6 @@ export class Searher extends EInput {
       </div>
       <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="user-name font-weight-bold mb-1">${(resultCheckUser as boolean) ? 'You' : 'NOT your'}
-        <div class='pencil'></div>
         </div>
         <div class="user-message">
         ${message}
