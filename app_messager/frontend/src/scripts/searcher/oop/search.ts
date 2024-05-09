@@ -61,6 +61,9 @@ export class Searher extends EInput {
       throw err;
     }
 
+    if (value_.length < 3) {
+      return;
+    }
     const value = value_.slice(0);
     const url = new URL('api/v1/search/get/', 'http://127.0.0.1:8000/');
     url.searchParams.set('searcher', value);
