@@ -40,7 +40,7 @@
         "src/scripts/templates/*"
       ],
       "@Service/*": [
-        "src/scripts/services/*"
+        "src/scripts/chat/*"
       ]
       // "@img/*": [
       //   "src/frontend/src/img/*",
@@ -55,7 +55,7 @@
       //   "./src/frontend/src/components/site/*"
       // ],
       // "@service/*": [
-      //   "./src/frontend/src/services/*"
+      //   "./src/frontend/src/chat/*"
       // ],
       // "@reduxs/*": [
       //   "./src/frontend/src/reduxs/*",

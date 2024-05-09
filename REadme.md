@@ -218,6 +218,11 @@ this an all package was installed for the chat project from Django. \
 [2.3 - brach]: 
 - interfaces the rewrite message, plus a delte one file, delete all files, delte single message and modal window was added to the interface"
 
+[3 - brach]: 
+- search by click
+- or search by Enter
+- search by text  where is a value more than 2 symbol
+
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
 You can chage to the `messager\app_messager\correctors.py` \
@@ -259,27 +264,11 @@ If is today, timer pattern has a `1:02:09 PM`.
  // app_messager\frontend\src\scripts\services\upload_files.ts \
  группа - общий вес файлов в чате (с двух груп) - не реализовано \
 
-# backend при редактировании сообщений 
-  - меняем сообщение + добавляем файл. \
-в БД сообщение обновляеется в !?!?!?!?последней строке, а файлы добавляются  в новых строка
 
-# frontend
-форма не отправляет сообщения (в режиме редактирования ) если текст = ноль, а файл есть
-
-# удаление
-// !!!!: нажимаю на песил, затем на ведро - надо обновить данные о фале в инпут
-// Что делать после инпут = удалить илм добавить ?
-------
- Похоже нужен класс по удалению
-
-  снимая ссылку, с родидельского дива снять post - id 
-  
-  pathnameArr получили[ссылки, pos - id] - > идем в базу данных
-  ищем файл по ссылке.
-  снимаем id файла
-  по id файлf ищем сообщения.
-  снимаем ID сообшения каждого
-  отфильтровать по тексту сообщения, по id файла - получаем список добублей
-  список отсортировать -> все дубли удалить -> оставив сообщение с максимальным значением(этот id должен светиться на фронте])
-  ...
-  в БД 
+// app_messager\frontend\src\scripts\templates\messages.ts
+```html
+<div class="user-name font-weight-bold mb-1">${(resultCheckUser) ? 'You' : 'NOT your'}
+<div class='pencil'></div>
+</div>
+```
+Взамен `'NOT your'` необходимо вставить имя пользователя

@@ -33,7 +33,7 @@ export class Pencil extends FServices {
     return result;
   }
 
-  handlerPencilPost(e: MouseEvent): void {
+  handlerPencilToPost(e: MouseEvent): void {
     if (e.defaultPrevented) {
       console.log('[Pencil > target] "Event used before!');
       return;
@@ -49,7 +49,18 @@ export class Pencil extends FServices {
       return;
     };
 
-    /* get URL of files */
+    const postId_ = currentTarget.dataset.post;
+    if (postId_ === undefined) {
+      console.log('[handlerPencilPost > currentTarget] Datas not found');
+      return;
+    }
+    const userId_ = currentTarget.dataset.id;
+    if (userId_ === undefined) {
+      console.log('[handlerPencilPost > currentTarget] Datas not found');
+      return;
+    }
+
+    /* ------ get URL of files ------ */
     const htmlDownLoadArr = currentTarget.getElementsByClassName('download');
     if (htmlDownLoadArr.length > 0) {
       const anchors = (htmlDownLoadArr[0] as HTMLDivElement).getElementsByClassName('one-file') as HTMLCollectionOf<HTMLAnchorElement>;
@@ -60,12 +71,12 @@ export class Pencil extends FServices {
       }
     }
 
-    /* 'message as quote' -that is old post from the window chat */
+    /* ------ 'message as quote' -that is old post from the window chat ------ */
     const message = (currentTarget.getElementsByClassName('user-message')[0] as HTMLElement).innerText;
     /* ------ 1/3 Quoted ------ */
     const quote = addQuote(message);
 
-    /* ------ LocaStorage and Receive post data------ */
+    /* ------ LocaStorage and Receive post data ------ */
     if (localStorage.getItem('data') === null) {
       console.log('[Pencil > handlerPencilPost > localStorage] the "data" from the localStorage not found');
       return;
@@ -85,14 +96,14 @@ export class Pencil extends FServices {
 
       /* ------ 1/3 Quoted ------ */
       const newQuote = quote(dataPost);
-      /* ------ Quoted files reference. That repeats the references from the post above */
+      /* ------ Quoted files reference. That repeats the references from the post above ------ */
 
       const refer = '<ul>' + this.getFileHtmlLi(pathnames) + '</ul>';
       const refResult = (refer.length > 10) ? (`<div class="download repeat">${refer}</div>`) : '';
       /* ------ 2/3 Quoted ------ */
       newQuote(refResult);
 
-      /* manage styles */
+      /* ------ manage styles ------ */
       const boxMessage = document.getElementById('message');
       if (boxMessage === null) {
         console.log('[addQuote]: Html input not found');
@@ -115,12 +126,12 @@ export class Pencil extends FServices {
       };
     }
 
-    /* 2/3 added the event listener to the input form . It is change of the listener */
+    /* ------ 2/3 added the event listener to the input form . It is change of the listener ------ */
     handlerGetMessageOfInput(manageOldMessageTotal());
   };
 
   private addEvent(): void {
-    const handlerPencilPost = this.handlerPencilPost.bind(this); // this.handlerPencilPost; //
+    const handlerPencilPost = this.handlerPencilToPost.bind(this); // this.handlerPencilPost; //
     this.element.onclick = handlerPencilPost;
   }
 

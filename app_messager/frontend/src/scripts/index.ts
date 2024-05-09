@@ -1,1 +1,2 @@
-import './MessageForm/index';
+import './chat/index';
+import './searcher/index';

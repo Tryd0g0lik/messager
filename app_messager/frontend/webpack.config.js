@@ -144,7 +144,7 @@ module.exports = {
       '@Websocket': path.resolve(__dirname, "src/scripts/websockets/index.ts"),
       "@Interfaces": path.resolve(__dirname, "src/interface.ts"),
       "@htmlTemplates": path.resolve(__dirname, "src/scripts/templates"),
-      "@Service": path.resolve(__dirname, "src/scripts/services"),
+      "@Service": path.resolve(__dirname, "src/scripts/chat"),
     }
   },
 

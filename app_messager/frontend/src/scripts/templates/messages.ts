@@ -2,12 +2,13 @@
 
 import { ChatMessage } from '@Interfaces';
 import scrollToBottom from '@Service/handlers/scrolling';
-import checkerUserId from './checkers/checkUseId';
-import checkOfTime from './checkers/checker_time';
+import checkerUserId from '../checkers/checkUseId';
+import checkOfTime from '../checkers/checker_time';
 import { Pencil } from '@Service/oop/pencils';
 import filetepmplate from './file';
 import getLinksToFile from '@Service/links-files';
 import { Post } from '@Service/oop/post';
+import getPostOfIndex from './single-post';
 /**
  * This's function insert a new message to the chat.
  * @param `userId` - thi's user id of the user who is senter
@@ -80,8 +81,10 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
   `;
     // const styleForDownloadBox
     const rightLeft: string = ((resultCheckUser) ? 'chat-message-right' : 'chat-message-left') as string;
-    const res = authorId;
-    htmlMessage.setAttribute('data-id', res);
+    const res = ((typeof authorId).includes('string')) ? authorId : String(authorId);
+    htmlMessage.setAttribute('data-id', res as string);
+    // const res = authorId;
+    // htmlMessage.setAttribute('data-id', res);
     htmlMessage.className = 'pb-4 message';
     htmlMessage.classList.add(rightLeft);
     const newBox = htmlMessage.outerHTML;
@@ -107,7 +110,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     (x as HTMLDivElement).onclick = handlerPostRemove;
 
     /* ------ */
-    const boxMess = document.querySelector(`div[data-post="${postId}"]`) as HTMLDivElement;
+    const boxMess = getPostOfIndex(postId);
     /* ------ 1/3 pencil ------ */
     if (boxMess !== null) {
       const Pencil_ = new Pencil(boxMess);

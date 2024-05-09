@@ -1,5 +1,7 @@
+// app_messager\frontend\src\scripts\services\handlers\messages\old-message\paste-old-message.ts
 import { PostCorrector } from '@Interfaces';
-import { Pencil } from './edit-message';
+import { Pencil } from '@Service/oop/pencils';
+import getPostOfIndex from '@htmlTemplates/single-post';
 /**
  * In to the enterpoint called the two parameters. \
  * Function replace the old contend to the modified (new) message.
@@ -8,11 +10,7 @@ import { Pencil } from './edit-message';
  * @returns viod
  */
 function builderOldMessage({ postIndex, postMessage }: PostCorrector): void {
-  const postHtml = document.querySelector(`div[data-post="${postIndex}"]`);
-  if (postHtml === null) {
-    console.log('[builderOldMessage > postHml]: Something that wrong/ Here can not find the post box through an index');
-    return;
-  }
+  const postHtml = getPostOfIndex(postIndex);
 
   /* ------ get the boxes ------ */
   const copyPostHtml = (postHtml as HTMLElement).cloneNode(true);
@@ -35,11 +33,8 @@ function builderOldMessage({ postIndex, postMessage }: PostCorrector): void {
   (postHtml).replaceWith(copyPostHtml);
 
   /* inserting an event listener again */
-  const postHtmlUp = document.querySelector(`div[data-post="${postIndex}"]`);
-  if (postHtmlUp === null) {
-    return;
-  }
-  const pencil = new Pencil(postHtmlUp as HTMLDivElement);
+  const postHtmlUp = getPostOfIndex(postIndex);
+  const pencil = new Pencil(postHtmlUp);
   pencil.start();
 }
 export default builderOldMessage;

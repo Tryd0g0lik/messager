@@ -2,6 +2,7 @@ import { PostCorrector } from '@Interfaces';
 import { Pencil } from '../../../oop/pencils';
 import filetepmplate from '@htmlTemplates/file';
 import getLinksToFile from '@Service/links-files';
+import getPostOfIndex from '@htmlTemplates/single-post';
 /**
  * In to the enterpoint called the two parameters. \
  * Function replace the old contend to the update (new) message.
@@ -12,11 +13,7 @@ import getLinksToFile from '@Service/links-files';
  * @returns viod
  */
 const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ filesIndexes }: { filesIndexes: number[] }): void => {
-  const postHtml = document.querySelector(`div[data-post="${postIndex}"]`);
-  if (postHtml === null) {
-    console.log('[upOldMessage > postHml]: Something that wrong/ Here can not find the post box through an index');
-    return;
-  }
+  const postHtml = getPostOfIndex(postIndex);
 
   /* ------ get the boxes ------ */
   const copyPostHtml = (postHtml as HTMLElement).cloneNode(true);
@@ -38,7 +35,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
   (copyPostHtml as HTMLElement).insertAdjacentElement('beforeend', (copyBoxMessage as HTMLElement));
   /* ------ add a new files after redactions the old post ------ */
   if ((filesIndexes !== undefined) && ((typeof filesIndexes).includes('object')) && (filesIndexes.length > 0)) {
-    /*  file's links adding to the message */
+    /*  ------ file's links adding to the message ------ */
     const linkFilesArr = await getLinksToFile(filesIndexes); // GET
     if (linkFilesArr === undefined) {
       console.log("[upOldMessage > linkFilesArr]: Something that wrong! Here can not received link's array");
@@ -69,7 +66,7 @@ const upOldMessage = ({ postIndex, postMessage }: PostCorrector) => async ({ fil
   (postHtml).replaceWith(copyPostHtml);
 
   /* inserting an event listener again */
-  const postHtmlUp = document.querySelector(`div[data-post="${postIndex}"]`) as HTMLDivElement;
+  const postHtmlUp = getPostOfIndex(postIndex);
   /* ------ 2/3 pencil ------ */
   if (postHtmlUp !== null) {
     const pencil = new Pencil(postHtmlUp);

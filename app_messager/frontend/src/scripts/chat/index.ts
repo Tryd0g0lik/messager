@@ -1,4 +1,4 @@
-// frontend\src\scripts\MessageForm\index.ts
+// app_messager\frontend\src\scripts\chat\index.ts
 
 import handlerSendlerMessageTotal from '@Service/postmen/sendler_message';
 import handlerGetMessageOfInput from '@Service/handlers/messages/get-messages';
@@ -10,13 +10,6 @@ if (APP_WS_URL === undefined) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* 1/3 added the event listener to the input form . */
+  /* ------ 1/3 added the event listener to the input form . ------ */
   handlerGetMessageOfInput(handlerSendlerMessageTotal());
 });
-/* 
-handlerSendlerMessageTotal
-!! ключ группы изменить на динамический !!
-далее
-Форма input не работает Enter
-
-*/ 
