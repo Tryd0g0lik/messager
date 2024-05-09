@@ -219,7 +219,9 @@ this an all package was installed for the chat project from Django. \
 - interfaces the rewrite message, plus a delte one file, delete all files, delte single message and modal window was added to the interface"
 
 [3 - brach]: 
-- `app_messager\frontend\src\scripts\searcher` || `Searher.addHandlaers` - `Enter` после ввода текста для поиска
+- search by click
+- or search by Enter
+- search by text  where is a value more than 2 symbol
 
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
