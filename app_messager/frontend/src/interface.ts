@@ -18,6 +18,10 @@ export interface ChatMessage extends Post {
   groupId?: string | number
   filesId?: number[]
 }
+
+export interface S {
+  searcher: ChatMessage[]
+}
 export interface OldData extends Post {
   userId: string
 }

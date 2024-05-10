@@ -252,3 +252,24 @@ label {
   display: none;
 }
 
+/* #searchup.active dashbord */
+.step-links {
+  width: 100%;
+}
+
+div#pages ul {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  gap: 2.3%;
+}
+
+div#pages ul li {
+  list-style-type: none;
+}
+
+#pages a {
+  cursor: pointer;
+}
