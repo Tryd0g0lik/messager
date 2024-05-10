@@ -60,18 +60,27 @@ export class Paginations {
   template(): string {
     const boxPagination = document.createElement('div');
     const dashbordnumer = this.dashbordnumer();
+    const listLen = (this.list).length;
 
     boxPagination.className = 'pagination';
-    const page = 1;
-    /*
-    {% if page_obj.has_previous %}
-            <a href="?${page = 1}">&laquo; first</a>
-            <a href="?page={{page_obj.previous_page_number}}">previous</a>
-        {% endif %}
-        <div class="current">
-        */
-    boxPagination.innerHTML = `<div class="step-links">
+    /* <div class="current"> */
+    boxPagination.innerHTML = `
+    <div class="previous previous">
+      <ul>
+        <li><a href="?page=1">&laquo; first</a></li>
+        <li><a href="?page=false">previous</a></li>
+      </ul>
+    </div>
+
+    <div class="step-links">
       ${String(dashbordnumer)}
+    </div>
+
+    <div class="previous last">
+      <ul>
+        <li><a href="?page=true">next</a></li>
+        <li><a href="?page=${listLen}">last &raquo;</a></li>
+      </ul>
     </div>`;
     /*
     </div>

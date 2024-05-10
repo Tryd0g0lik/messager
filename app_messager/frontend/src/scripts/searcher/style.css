@@ -91,19 +91,29 @@ label {
   width: 100%;
 }
 
-div#pages ul {
+.pagination ul {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   align-content: stretch;
   gap: 2.3%;
+  padding: 0;
 }
 
-div#pages ul li {
+.pagination ul li {
   list-style-type: none;
 }
 
 #pages a {
   cursor: pointer;
+}
+.pagination>div:first-child ul li:first-child,
+.pagination>div:last-child ul li:last-child {
+  width: 42px;
+}
+
+.pagination>div:first-child ul:first-child,
+.pagination>div:last-child ul:last-child {
+  gap: 10px;
 }
