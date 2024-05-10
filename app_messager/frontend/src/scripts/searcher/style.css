@@ -82,3 +82,42 @@ label {
   margin: 0 !important;
   padding-right: 29px;
 }
+.serch div.message::after {
+  display: none;
+}
+
+/* #searchup.active dashbord */
+.step-links {
+  width: 100%;
+}
+
+.pagination ul {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  gap: 2.3%;
+  padding: 0;
+}
+
+.pagination ul li {
+  list-style-type: none;
+}
+
+.pagination li.active {
+  border: 0;
+  border-bottom: 1px solid #cfcfcf;
+}
+#pages a {
+  cursor: pointer;
+}
+.pagination>div:first-child ul li:first-child,
+.pagination>div:last-child ul li:last-child {
+  width: 42px;
+}
+
+.pagination>div:first-child ul:first-child,
+.pagination>div:last-child ul:last-child {
+  gap: 10px;
+}

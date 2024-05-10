@@ -223,6 +223,9 @@ this an all package was installed for the chat project from Django. \
 - or search by Enter
 - search by text  where is a value more than 2 symbol
 
+[3.1 - brach]: 
+ - pagination for serach
+
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
 You can chage to the `messager\app_messager\correctors.py` \

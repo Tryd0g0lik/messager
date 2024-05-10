@@ -1,14 +1,19 @@
 import checkerUserId from '../../checkers/checkUseId';
 import { EInput } from './inputs';
 import checkOfTime from '../../checkers/checker_time';
-import { ChatMessage } from '@Interfaces';
+import { ChatMessage, S } from '@Interfaces';
+import { Paginations } from './paginations';
 
 export class Searher extends EInput {
-  arr = [];
+  arr: ChatMessage[];
 
+  offset: number;
+
+  chatHtml: HTMLDivElement | null;
   constructor(element: HTMLDivElement | HTMLFormElement) {
     super(element);
     this.arr = [];
+    this.offset = 12;
     const handlerClick = this.heandlerClick.bind(this);
     (this.element).onclick = handlerClick;
   }
@@ -44,9 +49,23 @@ export class Searher extends EInput {
     };
   }
 
+  /* ------ получаем контейре чата ------ */
+  getChatBox(): HTMLDivElement {
+    const chatHtml = document.getElementById('chat');
+
+    if (chatHtml === null) {
+      const err = new Error();
+      err.name = '[EInput > get]';
+      err.message = 'Something what wrong! Not found "#chat"';
+      throw err;
+    }
+    return chatHtml;
+  }
+
+  /* обработчик формы поиска ------ */
   async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
     const target = e.target as HTMLInputElement;
-    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]')
+    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]');
     let value_;
     if (target.tagName === 'INPUT') {
       value_ = target.value;
@@ -70,20 +89,63 @@ export class Searher extends EInput {
     this.urls = url;
     const contentType = 'application/json;charset=utf-8';
     const caches = 'no-cahe';
-    const responseJson = await this.get({ contentType, caches }) as ChatMessage;
-    this.template(responseJson.searcher);
+    const responseJson = await this.get({ contentType, caches }) as S;
+
+    this.arr = responseJson.searcher; // received an array of db search result
+    const beforeNum = 0;
+    const offset = this.offset;
+
+    const basisPage = (this.arr).slice(beforeNum, offset);
+    this.template(basisPage);
+    /* ----- Pagintions ----- */
+    const pagination = new Paginations((this.arr).slice(0));
+    const dashbord = pagination.start();
+    const chatHtml = this.getChatBox(); // get html-div box of the DOM
+    chatHtml.insertAdjacentHTML('afterend', dashbord);
+
+    const handlerStyle = (e: MouseEvent): void => { // style for an active link from the pagiation
+      const current = e.currentTarget as HTMLElement;
+      const target_ = e.target as HTMLElement;
+
+      if (!current.classList.contains('pagination')) {
+        return;
+      }
+
+      const li = current.querySelector('li.active');
+      if (li !== null) {
+        li.classList.remove('active');
+      }
+
+      if (target_.tagName === 'A') {
+        (target_.parentNode as HTMLLIElement).classList.add('active');
+      };
+    };
+
+    const p = (document).querySelector('.pagination');
+    if (p === null) {
+      return;
+    }
+    (p as HTMLDivElement).onclick = handlerStyle;
+
+    const anchors = p.querySelectorAll('li');
+    if (anchors.length === 0) {
+      return;
+    };
+
+    /* ------ that is inserting the handler for a click by pagination ------ */
+    const template = this.template.bind(this);
+    const handlerClick = pagination.handlerClick.bind(pagination);
+    for (let i = 0; i < anchors.length; i++) {
+      (anchors[i]).addEventListener('click', handlerClick(template));
+    }
   }
 
+  /* ------ шаблон результатов поиска ------ */
   template(props: ChatMessage[]): void {
-    const chatHtml = document.getElementById('chat');
-    if (chatHtml === null) {
-      const err = new Error();
-      err.name = '[EInput > get]';
-      err.message = 'Something what wrong! Not found "#chat"';
-      throw err;
-    }
+    const chatHtml = this.getChatBox();
+
+    chatHtml.classList.add('serch');
     chatHtml.innerHTML = '';
-    // debugger;
 
     Array.from(props).forEach((item) => {
       const htmlMessage = document.createElement('div');
@@ -96,17 +158,15 @@ export class Searher extends EInput {
       <div >
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
-        <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>
+        <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime as string)}</div>
       </div>
       <div class="box-message flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
         <div class="user-name font-weight-bold mb-1">${(resultCheckUser as boolean) ? 'You' : 'NOT your'}
-        <div class='pencil'></div>
         </div>
         <div class="user-message">
         ${message}
         </div>
-      </div>
-  `;
+      </div>`;
       const res = ((typeof authorId).includes('string')) ? authorId : String(authorId);
       htmlMessage.setAttribute('data-id', res as string);
 
