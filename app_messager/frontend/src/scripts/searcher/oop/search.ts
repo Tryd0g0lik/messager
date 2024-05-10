@@ -62,45 +62,11 @@ export class Searher extends EInput {
     return chatHtml;
   }
 
-  /* обработчик формы поиска ------ */
-  async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
-    const target = e.target as HTMLInputElement;
-    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]');
-    let value_;
-    if (target.tagName === 'INPUT') {
-      value_ = target.value;
-    } else if ((currentInput !== null) && (currentInput.tagName === 'INPUT')) {
-      value_ = (currentInput as HTMLInputElement).value;
-    }
-
-    if (value_ === undefined) {
-      const err = new Error();
-      err.name = '[Searher > subhandlerContentOfInput]';
-      err.message = "Something what wrong! Not found the imput's value.";
-      throw err;
-    }
-
-    if (value_.length < 3) {
-      return;
-    }
-    const value = value_.slice(0);
-    const url = new URL('api/v1/search/get/', 'http://127.0.0.1:8000/');
-    url.searchParams.set('searcher', value);
-    this.urls = url;
-    const contentType = 'application/json;charset=utf-8';
-    const caches = 'no-cahe';
-    const responseJson = await this.get({ contentType, caches }) as S;
-
-    this.arr = responseJson.searcher; // received an array of db search result
-    const beforeNum = 0;
-    const offset = this.offset;
-
-    const basisPage = (this.arr).slice(beforeNum, offset);
-    this.template(basisPage);
+  paginations(chatHtml): void {
     /* ----- Pagintions ----- */
-    const pagination = new Paginations((this.arr).slice(0));
+    const pagination = new Paginations((this.arr).slice(0), chatHtml);
     const dashbord = pagination.start();
-    const chatHtml = this.getChatBox(); // get html-div box of the DOM
+
     chatHtml.insertAdjacentHTML('afterend', dashbord);
 
     const handlerStyle = (e: MouseEvent): void => { // style for an active link from the pagiation
@@ -138,6 +104,45 @@ export class Searher extends EInput {
     for (let i = 0; i < anchors.length; i++) {
       (anchors[i]).addEventListener('click', handlerClick(template));
     }
+  }
+
+  /* обработчик формы поиска ------ */
+  async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
+    const target = e.target as HTMLInputElement;
+    const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]');
+    let value_;
+    if (target.tagName === 'INPUT') {
+      value_ = target.value;
+    } else if ((currentInput !== null) && (currentInput.tagName === 'INPUT')) {
+      value_ = (currentInput as HTMLInputElement).value;
+    }
+
+    if (value_ === undefined) {
+      const err = new Error();
+      err.name = '[Searher > subhandlerContentOfInput]';
+      err.message = "Something what wrong! Not found the imput's value.";
+      throw err;
+    }
+
+    if (value_.length < 3) {
+      return;
+    }
+    const value = value_.slice(0);
+    const url = new URL('api/v1/search/get/', 'http://127.0.0.1:8000/');
+    url.searchParams.set('searcher', value);
+    this.urls = url;
+    const contentType = 'application/json;charset=utf-8';
+    const caches = 'no-cahe';
+    const responseJson = await this.get({ contentType, caches }) as S;
+
+    this.arr = responseJson.searcher; // received an array of db search result
+    const beforeNum = 0;
+    const offset = this.offset;
+
+    const basisPage = (this.arr).slice(beforeNum, offset);
+    this.template(basisPage);
+    const chatHtml = this.getChatBox(); // get html-div box of the DOM
+    this.paginations(chatHtml);
   }
 
   /* ------ шаблон результатов поиска ------ */

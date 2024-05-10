@@ -2,14 +2,20 @@ import { ChatMessage } from '@Interfaces';
 let numPageOld = 0;
 const range = 12;
 
+/**
+ * @params 'list' - список сообщений
+ * @params 'box' - контейнер хронящий информацию для пагинации. Контейнер должен иметь id
+ */
 export class Paginations {
   private readonly list: ChatMessage[];
 
   page: string;
-  constructor(list: ChatMessage[]) {
+  constructor(list: ChatMessage[], box: HTMLDivElement) {
     this.list = list;
     this.page = '';
-    const paginationOld = document.querySelectorAll('.pagination');
+
+    const boxs: HTMLElement = box;
+    const paginationOld = document.querySelectorAll(`${boxs.id} .pagination`);
     Array.from(paginationOld).forEach((item) => {
       item.remove();
     });
