@@ -271,6 +271,10 @@ label {
   list-style-type: none;
 }
 
+.pagination li.active {
+  border: 0;
+  border-bottom: 1px solid #cfcfcf;
+}
 #pages a {
   cursor: pointer;
 }
@@ -283,3 +287,4 @@ label {
 .pagination>div:last-child ul:last-child {
   gap: 10px;
 }
+

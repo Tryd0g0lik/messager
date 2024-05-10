@@ -12,6 +12,7 @@ export class Searher extends EInput {
   chatHtml: HTMLDivElement | null;
   constructor(element: HTMLDivElement | HTMLFormElement) {
     super(element);
+    this.arr = [];
     this.offset = 12;
     const handlerClick = this.heandlerClick.bind(this);
     (this.element).onclick = handlerClick;
@@ -48,8 +49,10 @@ export class Searher extends EInput {
     };
   }
 
+  /* ------ получаем контейре чата ------ */
   getChatBox(): HTMLDivElement {
     const chatHtml = document.getElementById('chat');
+
     if (chatHtml === null) {
       const err = new Error();
       err.name = '[EInput > get]';
@@ -59,6 +62,7 @@ export class Searher extends EInput {
     return chatHtml;
   }
 
+  /* обработчик формы поиска ------ */
   async subhandlerContentOfInput(e: MouseEvent | KeyboardEvent): void {
     const target = e.target as HTMLInputElement;
     const currentInput = (e.currentTarget as HTMLDivElement).querySelector('input[type="search"]');
@@ -90,7 +94,6 @@ export class Searher extends EInput {
     this.arr = responseJson.searcher; // received an array of db search result
     const beforeNum = 0;
     const offset = this.offset;
-    const arr = (this.arr).slice(0);
 
     const basisPage = (this.arr).slice(beforeNum, offset);
     this.template(basisPage);
@@ -100,18 +103,44 @@ export class Searher extends EInput {
     const chatHtml = this.getChatBox(); // get html-div box of the DOM
     chatHtml.insertAdjacentHTML('afterend', dashbord);
 
-    const anchors = (document).querySelectorAll('#pages li');
+    const handlerStyle = (e: MouseEvent): void => { // style for an active link from the pagiation
+      const current = e.currentTarget as HTMLElement;
+      const target_ = e.target as HTMLElement;
+
+      if (!current.classList.contains('pagination')) {
+        return;
+      }
+
+      const li = current.querySelector('li.active');
+      if (li !== null) {
+        li.classList.remove('active');
+      }
+
+      if (target_.tagName === 'A') {
+        (target_.parentNode as HTMLLIElement).classList.add('active');
+      };
+    };
+
+    const p = (document).querySelector('.pagination');
+    if (p === null) {
+      return;
+    }
+    (p as HTMLDivElement).onclick = handlerStyle;
+
+    const anchors = p.querySelectorAll('li');
     if (anchors.length === 0) {
       return;
     };
 
+    /* ------ that is inserting the handler for a click by pagination ------ */
     const template = this.template.bind(this);
     const handlerClick = pagination.handlerClick.bind(pagination);
     for (let i = 0; i < anchors.length; i++) {
-      (anchors[i] as HTMLLIElement).addEventListener('click', handlerClick(template));
+      (anchors[i]).addEventListener('click', handlerClick(template));
     }
   }
 
+  /* ------ шаблон результатов поиска ------ */
   template(props: ChatMessage[]): void {
     const chatHtml = this.getChatBox();
 
