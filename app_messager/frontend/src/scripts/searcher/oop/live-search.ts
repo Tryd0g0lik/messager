@@ -66,8 +66,8 @@ export class LiveSearcher extends Searher {
       const box = fun.htmlBoxLocation('.position-relative');
       const location = fun.htmlBoxLocation('input[type="search"]');
       if (location !== undefined || box !== undefined) {
-        div.style.left = String(location.left) + 'px';
-        div.style.top = String(box.top + 39) + 'px';
+        div.style.left = String((location as DOMRect).left) + 'px';
+        div.style.top = String((box as DOMRect).top + 39) + 'px';
       }
       if (res !== null) {
         res.insertAdjacentHTML('afterend', div.outerHTML);
@@ -95,7 +95,7 @@ export class LiveSearcher extends Searher {
     }
 
     const li = document.createElement('li');
-    li.innerHTML = `<span>${wordFilt[0]}</span><span><a href="/#${postId}">mess</a></span>`;
+    li.innerHTML = `<span>${wordFilt[0]}</span><span><a href="/#${postId}">go to message</a></span>`;
     return li.outerHTML;
   }
 
