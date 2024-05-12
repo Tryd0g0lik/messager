@@ -121,3 +121,33 @@ label {
 .pagination>div:last-child ul:last-child {
   gap: 10px;
 }
+
+/* ------ prompt of search's result ------ */
+.prompting {
+  position: absolute;
+  top: 40px;
+  left: calc(100% / 2 - 35%);
+  background-color: #fff;
+  z-index: 2
+}
+
+.d-flex.align-items-center.py-1 {
+  position: relative;
+}
+
+.prompting ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+}
+
+.prompting li {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.prompting li span:last-of-type {
+  font-size: 0.7em;
+}
