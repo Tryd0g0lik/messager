@@ -303,6 +303,7 @@ label {
 
 .prompting ul {
   display: flex;
+  padding-left: 0;
   flex-direction: column;
   flex-wrap: nowrap;
   align-content: flex-start;
@@ -311,9 +312,11 @@ label {
 .prompting li {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: space-between;
   gap: 5px;
 }
 
 .prompting li span:last-of-type {
   font-size: 0.7em;
 }
+

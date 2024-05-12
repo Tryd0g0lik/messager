@@ -18,6 +18,7 @@ export class LiveSearcher extends Searher {
     this.words = '';
 
     const htmlElement = fun.detectionElement('input[type="search"]');
+    const window = fun.detectionElement('body');
     if (htmlElement === null) {
       this.errors('[LiveSearcher > htmlElement]');
     }
@@ -30,6 +31,12 @@ export class LiveSearcher extends Searher {
     const target = e.target as HTMLElement;
     if ((e.type.includes('keyup') && (!(e.key).includes('Enter'))) && ((target.tagName).includes('INPUT'))) {
       this.words = (target as HTMLInputElement).value;
+
+      /* ------ */
+      const clear = this.clear.bind(this);
+      window.removeEventListener('resize', () => { clear('.prompting') });
+      window.addEventListener('resize', () => { clear('.prompting') });
+
       if (this.words.length < 3) {
         this.clear('.prompting');
         return;
@@ -54,16 +61,18 @@ export class LiveSearcher extends Searher {
       const div = document.createElement('div');
       div.className = 'prompting';
       div.innerHTML = `<ul>${htmlLi}</ul>`;
-      const res = fun.detectionElement('#searchup');
+      /* ------ */
+      const res = fun.detectionElement('body');
+      const box = fun.htmlBoxLocation('.position-relative');
       const location = fun.htmlBoxLocation('input[type="search"]');
-      if (location !== undefined) {
+      if (location !== undefined || box !== undefined) {
         div.style.left = String(location.left) + 'px';
+        div.style.top = String(box.top + 39) + 'px';
       }
       if (res !== null) {
         res.insertAdjacentHTML('afterend', div.outerHTML);
       }
     } else if (((e.key).includes('Escape')) || ((e.key).includes('Enter'))) {
-      debugger
       this.clear('.prompting');
     }
   }
@@ -77,7 +86,7 @@ export class LiveSearcher extends Searher {
   };
 
   private templateresult(prop: ChatMessage): string | undefined {
-    const { authorId, message, postId } = prop;
+    const { message, postId } = prop;
     const wordArr = message.split(' ');
     const swords = this.words;
     const wordFilt = wordArr.filter((item) => item.includes(swords));
@@ -107,7 +116,6 @@ export class LiveSearcher extends Searher {
     err.name = name;
     throw err;
   }
-
 }
 
 // const { searcher } = datas;
