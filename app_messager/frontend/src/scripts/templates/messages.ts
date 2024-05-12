@@ -65,7 +65,7 @@ export async function createChatMessage({ authorId, dataTime, message, groupId =
     htmlMessage.dataset.post = String(postId);
     htmlMessage.innerHTML = (refer.length > 10) ? (`<div class="download">${refer}</div>`) : '';
     htmlMessage.innerHTML += `
-      <div >
+      <div ><a name="${postId}"></a>
         <img src=" https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman"
           width="40" height="40" />
         <div class="text-muted small text-nowrap mt-2">${checkOfTime(dataTime)}</div>

@@ -82,12 +82,14 @@ export class EInput {
   };
 
   /**
-     * That is a Fetch request.
+     * That is a Fetch request. \
+     * Evently point is `{ contentType, caches = undefined, modes = undefined }` by default.
+     * All params insert into the URL `\?searcher = < your word/phrases for a serch >`. 
      * @param `props` of `fGet` is \
      * `{ContentType: string, caches: string|undefined,  modes: string| undefined}`
      * @param `props.caches` by default is `undefined`
      * @param `props.modes` by default is `'application/json;charset=utf-8'`
-     * @returns  Promise<object> or Error;
+     * @returns  Promise< JSON  > or Error;
      */
   async get<T>(props: RequestHeaders): Promise<T | boolean> {
     const { contentType, caches = undefined, modes = undefined } = { ...props };
