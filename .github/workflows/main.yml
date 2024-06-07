@@ -61,10 +61,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
 
-      - name: Upload artifact_
-        uses: actions/upload-pages-artifact@v3.0.1
-        with:
-          path: 'app_messager/static/js'
+#      - name: Upload artifact_
+#        uses: actions/upload-pages-artifact@v3.0.1
+#        with:
+#          path: 'app_messager/static/js'
 
       - name: Run Start
         run: |
