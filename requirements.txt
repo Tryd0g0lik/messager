@@ -33,7 +33,7 @@ hiredis==2.3.2
 hyperlink==21.0.0
 idna==3.6
 incremental==22.10.0
-json5==0.9.24
+json5>=0.9.24
 msgpack==1.0.8
 Pillow==10.1.0
 polib==1.2.0
