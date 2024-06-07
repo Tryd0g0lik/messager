@@ -6,6 +6,7 @@ permissions:
   pages: write
   id-token: write
   deployments: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,11 +35,11 @@ jobs:
       # - name: Install dependencies
       #   run: cd src/app/frontend && yarn run build:dev
       - name: Install dependencies
-        run: cd app_messager/frontend & yarn install
+        run: cd app_messager/frontend && yarn install
       
         
       - name: Build-All
-        run: cd ../app_messager/frontend & yarn run build:dev
+        run: cd app_messager/frontend && yarn run build:dev
         
 
       - name: Setup Pages
