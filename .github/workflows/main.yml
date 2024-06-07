@@ -39,9 +39,7 @@ jobs:
           
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run Start
-        run: |
-            python manage.py runserver
+
       # действие проверяет содержимое хранилища, в котором
       # размещен вызывающий рабочий процесс, а не вызываемый рабочий процесс.
       # For a Javascript
@@ -67,7 +65,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: 'app_messager/static/js'
-        
+
+      - name: Run Start
+        run: |
+          python manage.py runserver
 
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v1
