@@ -26,10 +26,7 @@
     // "allowImportingTsExtensions": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "paths": {
-      // "@type": [
-      //   "src/frontend/src/interfaces.ts"
-      // ],
+    "paths": {,
       "@Websocket": [
         "src/scripts/websockets/index.ts"
       ],
@@ -42,24 +39,6 @@
       "@Service/*": [
         "src/scripts/chat/*"
       ]
-      // "@img/*": [
-      //   "src/frontend/src/img/*",
-      // ],
-      // "@svgs/*": [
-      //   "src/frontend/src/svgs/*",
-      // ],
-      // "@pages/*": [
-      //   "./src/frontend/src/components/pages/*"
-      // ],
-      // "@site/*": [
-      //   "./src/frontend/src/components/site/*"
-      // ],
-      // "@service/*": [
-      //   "./src/frontend/src/chat/*"
-      // ],
-      // "@reduxs/*": [
-      //   "./src/frontend/src/reduxs/*",
-      // ]
     }
   },
   "exclude": [
