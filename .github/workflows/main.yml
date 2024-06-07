@@ -34,7 +34,7 @@ jobs:
       # - name: Install dependencies
       #   run: cd src/app/frontend && yarn run build:dev
       - name: Install dependencies
-        run: yarn install
+        run: cd app_messager/frontend & yarn install
       
         
       - name: Build-All
