@@ -66,9 +66,9 @@ jobs:
 #        with:
 #          path: 'app_messager/static/js'
 
-      - name: Run Start
-        run: |
-          python manage.py runserver
+#      - name: Run Start
+#        run: |
+#          python manage.py runserver
 
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v1
