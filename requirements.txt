@@ -34,7 +34,7 @@ hyperlink==21.0.0
 idna==3.6
 incremental==22.10.0
 
-msgpack==1.0.8
+
 Pillow==10.1.0
 polib==1.2.0
 promise==2.3
