@@ -86,7 +86,6 @@ class GroupsModel(models.Model):
 		self.event_set.create(type="Left", user=user)
 		self.save()
 
-
 class SubGroupsModel(models.Model):
 	'''
 	TODO: This table is stores unique sub-index.
