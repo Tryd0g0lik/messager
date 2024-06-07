@@ -38,7 +38,7 @@ jobs:
       
         
       - name: Build-All
-        run: yarn run build:dev
+        run: cd .. & yarn run build:dev
         
 
       - name: Setup Pages
