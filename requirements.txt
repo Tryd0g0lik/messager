@@ -41,8 +41,7 @@ promise==2.3
 psycopg2-binary==2.9.9
 
 
-pycparser==2.22
-PyJWT==2.8.0
+
 pyOpenSSL==24.1.0
 python-dotenv==1.0.1
 pytz==2023.3.post1
