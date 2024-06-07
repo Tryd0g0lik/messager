@@ -34,12 +34,11 @@ jobs:
       # - name: Install dependencies
       #   run: cd src/app/frontend && yarn run build:dev
       - name: Install dependencies
-        run: yarn install 'app_messager/frontend/package.json'
-
+        run: yarn install
       
         
       - name: Build-All
-        run: yarn run build:dev
+        run: cd app_messager/frontend & yarn run build:dev
         
 
       - name: Setup Pages
