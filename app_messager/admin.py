@@ -7,5 +7,5 @@ from .models import *
 admin.site.register(Messeger_User)
 admin.site.register(Chat_MessageModel)
 admin.site.register(EventsModels)
-admin.site.register(GroupsModel)
+# admin.site.register(GroupsModel)
 admin.site.register(FileModels)

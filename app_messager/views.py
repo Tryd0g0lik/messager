@@ -14,7 +14,7 @@ from django.shortcuts import render, get_object_or_404
 
 from project.settings import BASE_DIR, MEDIA_ROOT
 from .correctors import md5_chacker, check_unique_file
-from .models import GroupsModel, FileModels, Chat_MessageModel
+from .models import FileModels, Chat_MessageModel # GroupsModel
 from .forms import UploadFileForm # UploadFileForm
 import os
 import websocket, json
