@@ -61,7 +61,8 @@ class GroupsModel(models.Model):
 	@:param 'title_order:str' is an order application \n
 	@:param 'hide:bool' if group is display public then is True or not display
 	'''
-	uuid = models.UUIDField(default=uuid4,  )
+
+	uuid = models.UUIDField(default=uuid4)
 	name = models.CharField(max_length=30)
 	members = models.ManyToManyField(Messeger_User, related_name='members_users')
 	title_order = models.CharField(max_length=50)
