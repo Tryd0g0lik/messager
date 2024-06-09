@@ -10,3 +10,5 @@ from app_messager.models import Chat_MessageModel, SubGroupsModel, GroupsModel, 
 # 	testapi = TestApi()
 #
 # 	testapi.test_api() # api_url="api/v1/search/get/"
+def test_checking():
+	assert 2 == 2
