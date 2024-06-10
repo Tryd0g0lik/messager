@@ -111,9 +111,9 @@ class Chat_MessageModel(models.Model):
 	author = models.ForeignKey(Messeger_User, on_delete=models.CASCADE, related_name="autormessage")
 	timestamp = models.DateTimeField(auto_now_add=True)
 	content = models.TextField()
-	# group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
+	group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE, related_name="groupmessage")
 	file = models.ForeignKey('FileModels', related_name="filechat", on_delete=models.SET_NULL, blank=True, null=True)
-	# subgroup = models.ForeignKey(SubGroupsModel, on_delete=models.CASCADE, related_name='subgroup')
+	subgroup = models.ForeignKey(SubGroupsModel, on_delete=models.CASCADE, related_name='subgroup')
 	def __str__(self) -> str:
 		date = self.timestamp.date()
 		time = self.timestamp.time()
@@ -145,7 +145,7 @@ class EventsModels(models.Model):
   @:param 'description:str' is a text event's describing \n
   @:param 'timestamp:datetime' is a time of event
   '''
-  # group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE)
+  group = models.ForeignKey(GroupsModel, on_delete=models.CASCADE)
   user = models.ForeignKey(Messeger_User, on_delete=models.CASCADE)
   CHOICES = [
       ("Join", "join"),
