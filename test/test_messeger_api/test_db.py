@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
-from app_messager.models import Messeger_User, GroupsModel, SubGroupsModel, Chat_MessageModel
+from app_messager.models import Messeger_User,SubGroupsModel, Chat_MessageModel
 from django.contrib.auth import get_user_model
 
 '''
@@ -28,16 +28,16 @@ class TestApi:
 		author = Messeger_User.objects.filter(id=1)
 
 		print(f'[STEP 2]:  "autor: was got{True}')
-		GroupsModel.objects.create(hide=False,
-		                                   uuid="3e154e33-5989-4c27-9e28-c179f57c20e7",
-		                                   name='First test name group',
-		                                   title_order='First Title order:')
-		group = GroupsModel.objects.filter(id=1)
+		# GroupsModel.objects.create(hide=False,
+		#                                    uuid="3e154e33-5989-4c27-9e28-c179f57c20e7",
+		#                                    name='First test name group',
+		#                                    title_order='First Title order:')
+		# group = GroupsModel.objects.filter(id=1)
 
 		SubGroupsModel.objects.create(uuid="4144eda1-9f35-4ce1-ad62-2bf68cb48cda")
 		subgroup = SubGroupsModel.objects.filter(id=1)
 
-		Chat_MessageModel.objects.create(content="That is a test's content", author=author[0], group=group[0],
+		Chat_MessageModel.objects.create(content="That is a test's content", author=author[0],
 		                                 subgroup=subgroup[0])
 		print(f'TRUE: {True}')
 		try:

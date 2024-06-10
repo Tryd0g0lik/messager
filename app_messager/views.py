@@ -50,10 +50,10 @@ def chat_page(request, room_name):
 # @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
-	groups = GroupsModel.objects.all()
+	# groups = GroupsModel.objects.all()
 	user = request.user
 	context = {
-		'groups': groups,
+		# 'groups': groups,
 		'user': user
 	}
 	return render(request, template_name='chat/home.html', context=context)
