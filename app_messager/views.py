@@ -14,7 +14,7 @@ from django.shortcuts import render, get_object_or_404
 
 from project.settings import BASE_DIR, MEDIA_ROOT
 from .correctors import md5_chacker, check_unique_file
-from .models import FileModels, Chat_MessageModel # GroupsModel
+from .models import GroupsModel, FileModels, Chat_MessageModel
 from .forms import UploadFileForm # UploadFileForm
 import os
 import websocket, json
@@ -50,10 +50,10 @@ def chat_page(request, room_name):
 # @login_required
 def HomeView(request):
 	'''The homepage where all groups are listed'''
-	# groups = GroupsModel.objects.all()
+	groups = GroupsModel.objects.all()
 	user = request.user
 	context = {
-		# 'groups': groups,
+		'groups': groups,
 		'user': user
 	}
 	return render(request, template_name='chat/home.html', context=context)
