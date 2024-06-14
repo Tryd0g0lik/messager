@@ -1,4 +1,5 @@
 from datetime import datetime
+from http import HTTPStatus
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
@@ -27,6 +28,7 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 import hashlib
 # Create your views here.
+from django.http import HttpResponse
 
 def chat_page(request, room_name):
 	User = get_user_model()
@@ -223,6 +225,7 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 	serializer_class = Chat_MessageSerializer
 
 	def get(self, request, *args, **kwargs):
+		self.status_code = HTTPStatus.OK
 		queryset = request.query_params['searcher']
 		new_data = Chat_MessageModel.objects.filter(content__contains = queryset)
 		args = []
@@ -236,8 +239,8 @@ class PostAPIFilterViews(generics.ListCreateAPIView):
 				'dataTime':new_data_dict['timestamp']
 			}
 			args.append(kwargs);
-		r = {'searcher': args}
-		return JsonResponse(r) # self.list(request, args, **kwargs)
+		self.r = {'searcher': args, 'status_code': 200}
+		return JsonResponse(self.r) # self.list(request, args, **kwargs)
 	def post(self, request, *args, **kwargs):
 		'''
 		TODO: Create a new post
