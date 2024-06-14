@@ -141,7 +141,7 @@ export class Searher extends EInput {
     const caches = 'no-cahe';
     const responseJson = await this.get({ contentType, caches }) as S;
 
-    this.arr = responseJson.searcher; // received an array of db search result
+    this.arr = JSON.parse(responseJson as unknown as string).searcher; // received an array of db search result
     const beforeNum = 0;
     const offset = this.offset;
 

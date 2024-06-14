@@ -124,6 +124,6 @@ export class EInput {
       return false;
     }
     const responseJson = await response.json();
-    return responseJson;
+    return responseJson
   }
 }
