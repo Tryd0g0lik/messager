@@ -24,6 +24,7 @@ from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.viewsets import ModelViewSet
 from .serializers import Chat_MessageSerializer, File_MessagesSerializer
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework import status, generics
 import hashlib
@@ -64,7 +65,7 @@ def serialize_file_models(obj):
         return obj.__dict__
     return obj
 
-def upload_file(request, listIndexes = None):
+def upload_file(request,*args, **kwargs):
 	'''
 	TODO: That is upload files
 	:param request:
@@ -227,7 +228,7 @@ class PostAPIFilterViews(ModelViewSet):
 		print(self)
 		return queryset
 
-	def get(self, request, *args, **kwargs):
+	def get(self, request, format=None):
 
 		queryset = request.query_params['searcher']
 		new_data = Chat_MessageModel.objects.filter(content__contains = queryset)
