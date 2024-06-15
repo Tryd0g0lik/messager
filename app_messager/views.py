@@ -21,7 +21,7 @@ import os
 import websocket, json
 
 from rest_framework import serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, action
 from rest_framework.viewsets import ModelViewSet
 from .serializers import Chat_MessageSerializer, File_MessagesSerializer
 from rest_framework.mixins import RetrieveModelMixin
@@ -216,19 +216,24 @@ class UpdateMessages(generics.UpdateAPIView):
 #
 class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer
+
 	list_backends = []
 
 
-class PostAPIFilterViews(ModelViewSet):
+class PostAPIFilterViews(ModelViewSet): # ModelViewSet
 	queryset = Chat_MessageModel.objects.all()
+	# serializer_class = Chat_MessageSerializer
 	serializer_class = Chat_MessageSerializer
-	def get_queryset(self):
-		queryset = Chat_MessageModel.objects.all()
-		print(self)
-		return queryset
+
+	# def get_queryset(self):
+	# 	queryset = Chat_MessageModel.objects.all()
+	# 	print(self)
+	# 	return queryset
+
 
 	def get(self, request, format=None):
+		if request.method != 'GET':
+			return
 
 		queryset = request.query_params['searcher']
 		new_data = Chat_MessageModel.objects.filter(content__contains = queryset)
@@ -246,19 +251,18 @@ class PostAPIFilterViews(ModelViewSet):
 		r = JSONRenderer().render({'searcher': args})
 
 		return Response(r)
-	def post(self, request, *args, **kwargs):
-		'''
-		TODO: Create a new post
-		:param request:
-		:param args:
-		:param kwargs:
-		:return:
-		'''
-		from app_messager.models import SubGroupsModel, GroupsModel
-		json_data = dict(request.data)
+
+	def post(self, request):
+		if request.method != 'POST':
+			return
+		serializer_class = Chat_MessageSerializer(data=request.data)
+		serializer_class.is_valid(raise_exception=True)
+		serializer_class.save()
+		json_data = serializer_class.data
+		# message = Chat_MessageSerializer(Chat_MessageModel)
 		queryset_corrects =json_data['corrects'] if 'corrects' in json_data else ''
 		queryset_eventtime=json_data['eventtime'] if 'eventtime' in json_data else ''
-
+		#
 		queryset_message = ''
 		if 'eventtime' in json_data:
 			queryset_message=json_data['message']
@@ -271,9 +275,9 @@ class PostAPIFilterViews(ModelViewSet):
 		queryset_groupId=json_data['groupId'] if 'groupId' in json_data else \
 			GroupsModel.objects.get(pk=int(json_data['group'][0])).uuid
 
-		subgroup = SubGroupsModel();
-		subgroup.save()
-		queryset_subgroup_id = SubGroupsModel.objects.last().id
+		# subgroup = SubGroupsModel();
+		# subgroup.save()
+		# queryset_subgroup_id = SubGroupsModel.objects.last().id
 
 		print('============ send_chat_message_inDB ============')
 		group_all = GroupsModel.objects.all()
@@ -300,19 +304,19 @@ class PostAPIFilterViews(ModelViewSet):
 			elif 'fileIndex' in json_data:
 				file = json_data['fileIndex']
 
-			for ind in range(0, len(list(file))):
-				chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
-				                         author_id = queryset_userId,
-				                         file_id=int(list(file)[ind]),
-				                         subgroup_id = queryset_subgroup_id)
-				chat.save()
+			# for ind in range(0, len(list(file))):
+			# 	chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
+			# 	                         author_id = queryset_userId,
+			# 	                         file_id=int(list(file)[ind]),
+			# 	                         subgroup_id = queryset_subgroup_id)
+			# 	chat.save()
 
-		elif ('fileIndex' not in json_data): # data_message
-			chat = Chat_MessageModel(content = f"{queryset_message}",
-			                         group_id = id, author_id = queryset_userId,
-			                         file_id=None, subgroup_id = queryset_subgroup_id)
-			chat.save()
-		resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
+		# elif ('fileIndex' not in json_data): # data_message
+		# 	chat = Chat_MessageModel(content = f"{queryset_message}",
+		# 	                         group_id = id, author_id = queryset_userId,
+		# 	                         file_id=None, subgroup_id = queryset_subgroup_id)
+		# 	chat.save()
+		# resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
 		# "id":resp['id'],
 		kwargs = {
 			'corrects': queryset_corrects,
@@ -326,7 +330,104 @@ class PostAPIFilterViews(ModelViewSet):
 	    'fileInd': resp['file_id'],
 	    'subgroup_id': resp['subgroup_id']
 	    }
-		return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
+		# 	return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
+
+		return  Response({'data':serializer_class.data })
+
+	# def get_serializer_class(self):
+	#
+	# 	if self.request.user.is_staff:
+	# 		return Chat_MessageSerializer
+	# 	return Chat_MessageSerializer
+
+
+
+	# @action(methods=['POST'], detail=False)
+	# def post(self, request, *args, **kwargs):
+	# 	if request.method != 'POST':
+	# 		return
+	# 	from rest_framework.reverse import reverse
+	# 	print(reverse('getchat'))
+	# 	'''
+	# 	TODO: Create a new post
+	# 	:param request:
+	# 	:param args:
+	# 	:param kwargs:
+	# 	:return:
+	# 	'''
+	# 	from app_messager.models import SubGroupsModel, GroupsModel
+	# 	json_data = dict(request.data)
+	# 	queryset_corrects =json_data['corrects'] if 'corrects' in json_data else ''
+	# 	queryset_eventtime=json_data['eventtime'] if 'eventtime' in json_data else ''
+	#
+	# 	queryset_message = ''
+	# 	if 'eventtime' in json_data:
+	# 		queryset_message=json_data['message']
+	# 	elif 'content' in json_data:
+	# 		queryset_message = json_data['content'][0]
+	#
+	# 	queryset_userId=int(json_data['userId']) if 'userId' in json_data else \
+	# 		int(json_data['author'][0])
+	#
+	# 	queryset_groupId=json_data['groupId'] if 'groupId' in json_data else \
+	# 		GroupsModel.objects.get(pk=int(json_data['group'][0])).uuid
+	#
+	# 	subgroup = SubGroupsModel();
+	# 	subgroup.save()
+	# 	queryset_subgroup_id = SubGroupsModel.objects.last().id
+	#
+	# 	print('============ send_chat_message_inDB ============')
+	# 	group_all = GroupsModel.objects.all()
+	# 	group_all_len = len(list(group_all))
+	#
+	# 	id = 0
+	# 	# 	'''
+	# 	# 		Check a group number 'ID' in the 'groupId'
+	# 	# 	'''
+	# 	for i in range(0, group_all_len):
+	# 		if (str(list(group_all)[i].uuid) in str(queryset_groupId)):
+	# 			id = list(group_all)[i].id
+	#
+	# 	chat: object = {}
+	# 	file = []
+	# 	if ('fileIndex' in json_data or \
+	# 		('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
+	#
+	# 		if 'file' in json_data:
+	# 			file = json_data['file']
+	# 			if len(file[0]) == 0:
+	# 				file = []
+	# 		# chat.file_id = data_message['fileIndex']
+	# 		elif 'fileIndex' in json_data:
+	# 			file = json_data['fileIndex']
+	#
+	# 		for ind in range(0, len(list(file))):
+	# 			chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
+	# 			                         author_id = queryset_userId,
+	# 			                         file_id=int(list(file)[ind]),
+	# 			                         subgroup_id = queryset_subgroup_id)
+	# 			chat.save()
+	#
+	# 	elif ('fileIndex' not in json_data): # data_message
+	# 		chat = Chat_MessageModel(content = f"{queryset_message}",
+	# 		                         group_id = id, author_id = queryset_userId,
+	# 		                         file_id=None, subgroup_id = queryset_subgroup_id)
+	# 		chat.save()
+	# 	resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
+	# 	# "id":resp['id'],
+	# 	kwargs = {
+	# 		'corrects': queryset_corrects,
+	#     'userId':resp['author_id'],
+	#     'message':resp['content'],
+	#     'groupId':resp['group_id'],
+	# 		"postId": resp['subgroup_id'],
+	# 		"eventtime":queryset_eventtime,
+	# 		'fileIndex':file,
+	# 		'indexes':file,
+	#     'fileInd': resp['file_id'],
+	#     'subgroup_id': resp['subgroup_id']
+	#     }
+	# 	return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
 
 	# def get(self, request, *args, **kwargs):
 	# 	query_keys = request.query_params.keys()

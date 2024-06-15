@@ -27,6 +27,7 @@ from django.views.defaults import page_not_found, server_error, permission_denie
 
 from project.rest_routers import router
 
+
 # r = DefaultRouter()
 # r.register()
 urlpatterns = [
@@ -40,7 +41,7 @@ urlpatterns = [
     # path(r'api/v1/chat/update/<int:pk>/', views.UpdateMessages.as_view()),# update the one post # , name="requests_messages" # (([0-9]{2,4}|[-]){1,5}_[0-9:\.]{2,13})[0-9]{1,2}$'
     # path(r'api/v1/chat/delete/files/', views.PostAPIDeleteFilelView.as_view()),
 ]
-
+print(router.urls, '\n')
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
