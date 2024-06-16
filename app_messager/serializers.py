@@ -11,7 +11,13 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 		model = Chat_MessageModel
 		fields = ['id', 'author', 'content', 'group', 'file', 'subgroup_id']
 
+
 	def to_internal_value(self, data):
+		'''
+		was made changes the key of dictionary for view the relevant-datas
+		:param data: entrypoint
+		:return: new datas relevant
+		'''
 		group = data.pop('groupId')
 		author = data.pop('userId')
 

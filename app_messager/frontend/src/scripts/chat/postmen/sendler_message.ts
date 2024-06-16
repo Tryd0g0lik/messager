@@ -58,9 +58,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       /* if 'corrects' is 'true' that is message edit */
       // Возможно  Почистить localStorage - после
       if (!corrects) {
-        // const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr })]);
         const dataStr = JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr });
-        // const dataStr = { corrects, eventtime: datetime, message: messages, author: indexUser, group: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr };
         const queryset = await requires.post({ context: dataStr });
         if (queryset === false) {
           return;
@@ -68,9 +66,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
         socket.beforeSend(String([JSON.stringify(queryset.data)]));
         await socket.dataSendNow();
       } else {
-        // const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr })]);
         const dataStr = JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr });
-        // const dataStr = { corrects, eventtime: datetime, message: messages, author: indexUser, group: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', fileIndex: fileIdArr, postId: postIndex, pathnames: pathnamesArr };
         const queryset = await requires.post({ context: dataStr });
         // const url = new URL(`api/v1/chat/update/${postIndex}/`, 'http://127.0.0.1:8000/');
         // const requires = new Requires(url);
@@ -80,9 +76,7 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       }
     } else {
       if (!corrects) {
-        // const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' })]);
         const dataStr = JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' });
-        // const dataStr = { corrects, eventtime: datetime, message: messages, author: indexUser, group: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1' };
         const queryset = await requires.post({ context: dataStr });
         if (queryset === false) {
           return;
@@ -92,7 +86,6 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
       } else {
         // const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]);
         const dataStr = JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr });
-        // const dataStr = { corrects, eventtime: datetime, message: messages, author: indexUser, group: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr };
         const queryset = await requires.post({ context: dataStr });
         socket.beforeSend(dataStr);
         await socket.dataSendNow();

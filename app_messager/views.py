@@ -287,22 +287,22 @@ class PostAPIFilterViews(ModelViewSet): # ModelViewSet
 		# 	'''
 		# 		Check a group number 'ID' in the 'groupId'
 		# 	'''
-		for i in range(0, group_all_len):
-			if (str(list(group_all)[i].uuid) in str(queryset_groupId)):
-				id = list(group_all)[i].id
-
-		chat: object = {}
-		file = []
-		if ('fileIndex' in json_data or \
-			('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
-
-			if 'file' in json_data:
-				file = json_data['file']
-				if len(file[0]) == 0:
-					file = []
-			# chat.file_id = data_message['fileIndex']
-			elif 'fileIndex' in json_data:
-				file = json_data['fileIndex']
+		# for i in range(0, group_all_len):
+		# 	if (str(list(group_all)[i].uuid) in str(queryset_groupId)):
+		# 		id = list(group_all)[i].id
+		#
+		# chat: object = {}
+		# file = []
+		# if ('fileIndex' in json_data or \
+		# 	('file' in json_data and len(json_data['file'][0]) != 0)): # data_message
+		#
+		# 	if 'file' in json_data:
+		# 		file = json_data['file']
+		# 		if len(file[0]) == 0:
+		# 			file = []
+		# 	# chat.file_id = data_message['fileIndex']
+		# 	elif 'fileIndex' in json_data:
+		# 		file = json_data['fileIndex']
 
 		# 	for ind in range(0, len(list(file))):
 		# 		chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
