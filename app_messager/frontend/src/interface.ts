@@ -11,7 +11,7 @@ export interface File extends Post {
   fileInd?: string
 }
 
-export interface ChatMessage extends Post {
+export interface requires extends Post {
   authorId: string | number
   dataTime?: string
   message: string
@@ -22,7 +22,7 @@ export interface ChatMessage extends Post {
 export interface S {
   searcher: ChatMessage[]
 }
-export interface OldData extends Post {
+requiresexport interface OldData extends Post {
   userId: string
 }
 

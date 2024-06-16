@@ -127,97 +127,97 @@ def upload_file(request,*args, **kwargs):
 
 
 
-class UpdateMessages(generics.UpdateAPIView):
-	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer
-
-	def patch(self, request, *args, **kwargs):
-		'''
-		TODO: rewrite chat text/message and files add
-		:param request:
-		:param args:
-		:param kwargs:
-		:return:
-		'''
-		queryse_post_id = kwargs['pk']
-		queryset_file =  request.data['filesId'] if 'filesId' in request.data else [] # list a file's indexes
-		queryset_contents = request.data['content'] if 'content' in request.data else ''
-		new_list_indexes = []
-		'''receive an all rows. If a row > 1  then we have files from single post'''
-		chat_list = Chat_MessageModel.objects.filter(subgroup_id=queryse_post_id)
-
-		if (len(chat_list) == 0):
-			JsonResponse({'update': False})
-
-		'''simply a metadata for patch'''
-		if (len(queryset_file) > 0):
-			if (chat_list[0].file_id == None):
-				file_id = None
-			else:
-				file_id = chat_list[0].file_id
-
-
-			check = False # row does not has a file in message/post from db (That metadata)
-			if (file_id != None and len(chat_list) > 0):
-				check = True # in row is a file
-				''' drop the file_id duplicate from еру received list'''
-				for i in range(0, len(queryset_file)):
-					for ind in range(0, len(chat_list)):
-						if (int(queryset_file[i]) == chat_list[ind]):
-							new_list_indexes.append(queryset_file.pop(i))
-							chat_list.pop(ind)
-							i -=1
-							ind -=1
-
-			response_i = -1
-			chat_copy = chat_list[:]
-			if (check == True):
-				for i in range(0, len(queryset_file)):
-					if queryset_contents != chat_copy[0].content:
-						'''rewrites content/message of db's old row'''
-						for i in range(0, len(chat_list)):
-							chat_list[i].content = queryset_contents if queryset_contents != chat_copy[i].content else chat_copy[i].content
-							chat_list[i].save()
-
-					Chat_MessageModel(
-						content= queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
-						author_id= chat_copy[0].author_id,
-						file_id= int(queryset_file[0]) if len(queryset_file) > 0 else None,
-						group_id = chat_copy[0].group_id,
-						subgroup_id= chat_copy[0].subgroup_id,
-					).save()
-					new_list_indexes.append(queryset_file.pop(0))
-
-
-			elif (check == False):
-				chat_list[0].file_id = int(queryset_file[0]) if len(queryset_file) > 0 else None
-				chat_list[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content
-				chat_list[0].save()
-				new_list_indexes.append(queryset_file.pop(0))
-
-				for i in range(0, len(queryset_file)):
-					Chat_MessageModel(
-						content=queryset_contents if queryset_contents != chat_list[0].content else chat_list[0].content,
-						author_id=chat_list[0].author_id,
-						file_id=int(queryset_file[0]),
-						group_id=chat_list[0].group_id,
-						subgroup_id=chat_list[0].subgroup_id,
-					).save()
-					new_list_indexes.append(queryset_file.pop(0))
-
-		else:
-			for i in range(0, len(chat_list)):
-				chat_list[i].content = queryset_contents
-				chat_list[i].save()
-
-		request.pk = kwargs['pk']
-		return  JsonResponse(request)
-		# return self.partial_update(request, *args, **kwargs)
+# class UpdateMessages(generics.UpdateAPIView):
+# 	queryset = Chat_MessageModel.objects.all()
+# 	serializer_class = Chat_MessageSerializer
 #
-class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
-	queryset = Chat_MessageModel.objects.all()
-
-	list_backends = []
+# 	def patch(self, request, *args, **kwargs):
+# 		'''
+# 		TODO: rewrite chat text/message and files add
+# 		:param request:
+# 		:param args:
+# 		:param kwargs:
+# 		:return:
+# 		'''
+# 		queryse_post_id = kwargs['pk']
+# 		queryset_file =  request.data['filesId'] if 'filesId' in request.data else [] # list a file's indexes
+# 		queryset_contents = request.data['content'] if 'content' in request.data else ''
+# 		new_list_indexes = []
+# 		'''receive an all rows. If a row > 1  then we have files from single post'''
+# 		chat_list = Chat_MessageModel.objects.filter(subgroup_id=queryse_post_id)
+#
+# 		if (len(chat_list) == 0):
+# 			JsonResponse({'update': False})
+#
+# 		'''simply a metadata for patch'''
+# 		if (len(queryset_file) > 0):
+# 			if (chat_list[0].file_id == None):
+# 				file_id = None
+# 			else:
+# 				file_id = chat_list[0].file_id
+#
+#
+# 			check = False # row does not has a file in message/post from db (That metadata)
+# 			if (file_id != None and len(chat_list) > 0):
+# 				check = True # in row is a file
+# 				''' drop the file_id duplicate from еру received list'''
+# 				for i in range(0, len(queryset_file)):
+# 					for ind in range(0, len(chat_list)):
+# 						if (int(queryset_file[i]) == chat_list[ind]):
+# 							new_list_indexes.append(queryset_file.pop(i))
+# 							chat_list.pop(ind)
+# 							i -=1
+# 							ind -=1
+#
+# 			response_i = -1
+# 			chat_copy = chat_list[:]
+# 			if (check == True):
+# 				for i in range(0, len(queryset_file)):
+# 					if queryset_contents != chat_copy[0].content:
+# 						'''rewrites content/message of db's old row'''
+# 						for i in range(0, len(chat_list)):
+# 							chat_list[i].content = queryset_contents if queryset_contents != chat_copy[i].content else chat_copy[i].content
+# 							chat_list[i].save()
+#
+# 					Chat_MessageModel(
+# 						content= queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
+# 						author_id= chat_copy[0].author_id,
+# 						file_id= int(queryset_file[0]) if len(queryset_file) > 0 else None,
+# 						group_id = chat_copy[0].group_id,
+# 						subgroup_id= chat_copy[0].subgroup_id,
+# 					).save()
+# 					new_list_indexes.append(queryset_file.pop(0))
+#
+#
+# 			elif (check == False):
+# 				chat_list[0].file_id = int(queryset_file[0]) if len(queryset_file) > 0 else None
+# 				chat_list[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content
+# 				chat_list[0].save()
+# 				new_list_indexes.append(queryset_file.pop(0))
+#
+# 				for i in range(0, len(queryset_file)):
+# 					Chat_MessageModel(
+# 						content=queryset_contents if queryset_contents != chat_list[0].content else chat_list[0].content,
+# 						author_id=chat_list[0].author_id,
+# 						file_id=int(queryset_file[0]),
+# 						group_id=chat_list[0].group_id,
+# 						subgroup_id=chat_list[0].subgroup_id,
+# 					).save()
+# 					new_list_indexes.append(queryset_file.pop(0))
+#
+# 		else:
+# 			for i in range(0, len(chat_list)):
+# 				chat_list[i].content = queryset_contents
+# 				chat_list[i].save()
+#
+# 		request.pk = kwargs['pk']
+# 		return  JsonResponse(request)
+# 		# return self.partial_update(request, *args, **kwargs)
+#
+# class PostAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+# 	queryset = Chat_MessageModel.objects.all()
+#
+# 	list_backends = []
 
 
 class PostAPIFilterViews(ModelViewSet): # ModelViewSet
@@ -304,13 +304,13 @@ class PostAPIFilterViews(ModelViewSet): # ModelViewSet
 			elif 'fileIndex' in json_data:
 				file = json_data['fileIndex']
 
-			# for ind in range(0, len(list(file))):
-			# 	chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
-			# 	                         author_id = queryset_userId,
-			# 	                         file_id=int(list(file)[ind]),
-			# 	                         subgroup_id = queryset_subgroup_id)
-			# 	chat.save()
-
+		# 	for ind in range(0, len(list(file))):
+		# 		chat = Chat_MessageModel(content = f"{queryset_message}", group_id = id,
+		# 		                         author_id = queryset_userId,
+		# 		                         file_id=int(list(file)[ind]),
+		# 		                         subgroup_id = queryset_subgroup_id)
+		# 		chat.save()
+		#
 		# elif ('fileIndex' not in json_data): # data_message
 		# 	chat = Chat_MessageModel(content = f"{queryset_message}",
 		# 	                         group_id = id, author_id = queryset_userId,
@@ -319,16 +319,16 @@ class PostAPIFilterViews(ModelViewSet): # ModelViewSet
 		# resp = Chat_MessageModel.objects.get(pk=chat.id).__dict__
 		# "id":resp['id'],
 		kwargs = {
-			'corrects': queryset_corrects,
-	    'userId':resp['author_id'],
-	    'message':resp['content'],
-	    'groupId':resp['group_id'],
-			"postId": resp['subgroup_id'],
-			"eventtime":queryset_eventtime,
-			'fileIndex':file,
-			'indexes':file,
-	    'fileInd': resp['file_id'],
-	    'subgroup_id': resp['subgroup_id']
+			# 'corrects': queryset_corrects,
+	    # 'userId':resp['author_id'],
+	    # 'message':resp['content'],
+	    # 'groupId':resp['group_id'],
+			# "postId": resp['subgroup_id'],
+			# "eventtime":queryset_eventtime,
+			# 'fileIndex':file,
+			# 'indexes':file,
+	    # 'fileInd': resp['file_id'],
+	    # 'subgroup_id': resp['subgroup_id']
 	    }
 		# 	return JsonResponse({'data': kwargs})# self.create(request, *args, **kwargs)
 
@@ -445,127 +445,36 @@ class PostAPIFilterViews(ModelViewSet): # ModelViewSet
 
 
 ## Single post/message removes
-class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
-	authentication_classes=[] #!!!  not touch
-	queryset = Chat_MessageModel.objects.all()
-	serializer_class = Chat_MessageSerializer
-	list_backends = []
-
-	def delete(self, request, *args, **kwargs):
-		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
-		query_post_id = int(request.query_params.get('post_id'))
-		query_post_bool = 'true' in request.query_params.get('postRemove'); # if True that is a post remove, or not
-		response_file_list = FileModels.objects.filter(pk=  query_file_id)
-		response_post_list = Chat_MessageModel.objects.filter(subgroup_id=query_post_id)
-
-		# if ((len(list(response_file_list)) == 0)):
-		if ((len(list(response_post_list)) > 0) and query_post_bool == True):
-			response_post_list[0].subgroup.delete()
-			response_post_list[0].delete()
-			return JsonResponse({'remove': True})
-			# return JsonResponse({'remove': False})
-
-		response_post_list = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
-
-		response_subgroup_id_list = Chat_MessageModel.objects \
-			.filter(subgroup_id = response_post_list[0].subgroup_id)
-		if len(list(response_subgroup_id_list)) >= 1:
-			rows_list = response_subgroup_id_list
-			if (len(list(rows_list)) > 1):
-				response_post_list[0].delete()
-
-		response_file_list[0].delete()
-
-		return JsonResponse({'remove': False})
-# def get_queryset(self, *args, **kwargs):
-	# 	# instance = self.get_object()
-	# 	# serializer = self.get_serializer(instance)
-	# 	return Chat_MessageModel.objects.filter(pk = self.kwargs['pk'])
-
-
-
-	#
-	# 	list_list = Chat_MessageModel.objects.filter(pk=message_pk);
-	# 	if (len(list_list) > 0):
-	# 		file_id = list_list[0].file_id
-	# 		# kwargs['pk'] = file_id
-	# 		# request.parser_context['pk'] = file_id
-	# 		# request.parser_context['kwargs'] = file_id
-	# 		content_one = (Chat_MessageModel.objects.filter(pk=message_pk)[0]).content
-	# 		content_list = Chat_MessageModel.objects.filter(content=content_one)
-	#
-	# 		if len(list(content_list)) == 1:
-	# 			list_list[0].file_id = '[NULL]'
-	# 	return self.destroy(request, *args, **kwargs)
-	# def delete(self, request, *args, **kwargs):
-	# 	# message_pk = kwargs['pk']
-	# 	# list_list = Chat_MessageModel.objects.filter(pk=message_pk);
-	#
-	# 	if (len(list_list) > 0):
-	# 		file_id = list_list[0].file_id
-	# 		kwargs['pk'] = file_id
-	# 		request.parser_context['pk'] = file_id
-	# 		request.parser_context['kwargs'] = file_id
-	# 		one_content = (Chat_MessageModel.objects.filter(pk=message_pk)[0]).content
-	# 		list_content = Chat_MessageModel.objects.filter(content=one_content)
-	# 		# file = Chat_MessageModel.objects.get(pk=message_pk).file;
-	#
-	# 		# if 'NoneType' in str(type(file)):
-	# 		# 	file.delete()
-	#
-	# 		if len(list(list_content)) > 1:
-	# 			list_list[0].delete()
-	# 		elif len(list(list_content)) == 1:
-	# 			list_list[0].file_id = '[NULL]'
-	#
-	# 			list_list.save()
-
-
-
-
-		# return self.destroy(request, *args, **kwargs)
-
+# class PostAPIDeleteFilelView(generics.RetrieveUpdateDestroyAPIView):
+# 	authentication_classes=[] #!!!  not touch
+# 	queryset = Chat_MessageModel.objects.all()
+# 	serializer_class = Chat_MessageSerializer
+# 	list_backends = []
 #
-
-# def delete_file(request, *args, **kwargs):
-# 	pass
-
-# @login_required
-# def GroupChatView(request, uuid):
-# 	'''The view for a group where all messages and events are sent to the frontend'''
+# 	def delete(self, request, *args, **kwargs):
+# 		query_file_id = int( request.query_params.get('file_id')) # one the file for delete
+# 		query_post_id = int(request.query_params.get('post_id'))
+# 		query_post_bool = 'true' in request.query_params.get('postRemove'); # if True that is a post remove, or not
+# 		response_file_list = FileModels.objects.filter(pk=  query_file_id)
+# 		response_post_list = Chat_MessageModel.objects.filter(subgroup_id=query_post_id)
 #
-# 	group = get_object_or_404(GroupsModel, uuid=uuid)
-# 	if request.user not in group.members.all():
-# 		return HttpResponseForbidden('You are not a member of this group.\
-#                                        Kindly use the join button')
+# 		# if ((len(list(response_file_list)) == 0)):
+# 		if ((len(list(response_post_list)) > 0) and query_post_bool == True):
+# 			response_post_list[0].subgroup.delete()
+# 			response_post_list[0].delete()
+# 			return JsonResponse({'remove': True})
+# 			# return JsonResponse({'remove': False})
 #
-# 	messages = group.message_set.all()
-# 	'''
-# 	messages are the message the members
-# 	of a group send to the group
-# 	'''
+# 		response_post_list = Chat_MessageModel.objects.filter(file_id=query_file_id)# more line
 #
-# 	events = group.event_set.all()
-# 	'''
-# 	events are the messages that indicates
-# 	that a user joined or left the group.
-# 	They will be sent automatically when a user join or leave the group
-# 	'''
+# 		response_subgroup_id_list = Chat_MessageModel.objects \
+# 			.filter(subgroup_id = response_post_list[0].subgroup_id)
+# 		if len(list(response_subgroup_id_list)) >= 1:
+# 			rows_list = response_subgroup_id_list
+# 			if (len(list(rows_list)) > 1):
+# 				response_post_list[0].delete()
 #
-# 	# Combine the events and messages for a group
-# 	message_and_event_list = [*messages, *events]
+# 		response_file_list[0].delete()
 #
-# 	# Sort the combination by the timestamp so that they are listed in order
-# 	sorted_message_event_list = sorted(message_and_event_list, key=lambda x: x.timestamp)
-#
-# 	# get the list of all group members
-# 	group_members = group.members.all()
-#
-# 	context = {
-# 		'message_and_event_list': sorted_message_event_list,
-# 		'group_members': group_members,
-# 	}
-#
-# 	return render(request, template_name='chat/groupchat.html', context=context)
-
-# FILES_ROOT = os.path.join(BASE_DIR, 'app_messager/media')
+# 		return JsonResponse({'remove': False})
+# #
