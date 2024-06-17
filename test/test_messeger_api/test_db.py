@@ -57,12 +57,15 @@ def test_api(client):
 		# Act
 		db_()
 
-		response = client.get("http://127.0.0.1:8000/api/ws/chat/")
+		response = client.get("http://127.0.0.1:8000/api/v1/get/")
 		# Assert
 		assert response.status_code == 200
 		data = response.json()
 		print(f'DATA: {data}')
-		assert 3 == 0
-		assert len(data) == 0
+
+
+		assert len(data) == 1
+		assert data[0]['subgroup_id'] == 1
+
 	except Exception as e:
 		print(f'Err: {e}')
