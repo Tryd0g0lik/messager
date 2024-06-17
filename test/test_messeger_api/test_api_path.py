@@ -37,6 +37,11 @@ def db_():
 
 @mark.django_db
 def test_api(client):
+	'''
+	There is testing for an API GET for ALL list
+	:param client:
+	:return:
+	'''
 	try:
 		# Act
 		db_()
@@ -45,12 +50,22 @@ def test_api(client):
 		# Assert
 		assert response.status_code == 200
 		data = response.json()
-		print(f'DATA: {data}')
-
-
 		assert len(data) == 1
 		assert data[0]['subgroup_id'] == 1
 
+	except Exception as e:
+		print(f'Err: {e}')
+
+@mark.django_db
+def test_api_one_position(client):
+	'''
+	There is testing for an API GET. It's for the one position from the ALL list
+	:param client:
+	:return:
+	'''
+	try:
+		# Act
+		db_()
 		response = client.get("http://127.0.0.1:8000/api/v1/get/1/")
 		# Assert
 		assert response.status_code == 200
