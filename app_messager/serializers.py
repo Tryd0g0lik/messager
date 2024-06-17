@@ -45,15 +45,17 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 			return json_data
 
 	def to_representation(self, instance):
+		'''
+		There is converting to the JSON template for a websocket of frontend
+		:param instance: geting the validate's datas after writing to the database
+		:return: json
+		'''
 		subgroup = SubGroupsModel();
 		subgroup.save()
 
 		json_data = super().to_representation(instance)
 		message = Chat_MessageModel.objects.filter(subgroup_id= json_data['subgroup_id'])
-		file = json_data['file']
 
-		# representation['subgroup_id'] = queryset_subgroup_id
-		# JSONRenderer().render
 		kwargs = {
 			'indexes': json_data['id'],
 			'corrects': False,  # queryset_corrects,
@@ -61,8 +63,8 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 			'message': json_data['content'],
 			'groupId': json_data['group'],
 			"postId": json_data['id'],
-			"eventtime": message[0].timestamp, # self.initial_data['eventtime'],
-			# 'fileIndex':None,
+			"eventtime": message[0].timestamp,
+
 
 			'fileInd': json_data['file'] if json_data['file'] != None else '',
 			'subgroup_id': json_data['subgroup_id']
