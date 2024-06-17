@@ -1,9 +1,8 @@
 import pytest
 from django.contrib.auth.models import User
-
 from app_messager.models import Messeger_User, SubGroupsModel, Chat_MessageModel, GroupsModel
 import asyncio
-from asgiref.sync import sync_to_async
+
 from pytest import mark
 loop: asyncio.AbstractEventLoop
 
@@ -13,18 +12,6 @@ loop: asyncio.AbstractEventLoop
 	 "6b8b22c4-ace6-4306-a113-7cdd04e6f723", "That is a test's content" )
 '''
 
-
-# class TestApi:
-	# loop: asyncio.AbstractEventLoop
-
-
-	# @pytest.mark.django_db
-	# @pytest.fixture(scope='session')
-# @pytest.mark.asyncio(scope="module")
-# @pytest.mark.usefixtures("django_db_setup")
-
-# @sync_to_async()
-# @asyncio_fixture
 def db_():
 	User.objects.create_user("admin")
 	user = User.objects.filter(id=1)
@@ -47,10 +34,7 @@ def db_():
 
 	Chat_MessageModel.objects.create(group_id=groups[0].id, content="That is a test's content", author_id=author[0].id,
 	                                 subgroup_id=subgroup[0].id)
-# @mark.asyncio
-# @mark.asyncio
 
-# @mark.sync_to_async
 @mark.django_db
 def test_api(client):
 	try:
@@ -66,6 +50,15 @@ def test_api(client):
 
 		assert len(data) == 1
 		assert data[0]['subgroup_id'] == 1
+
+		response = client.get("http://127.0.0.1:8000/api/v1/get/1/")
+		# Assert
+		assert response.status_code == 200
+		data = response.json()
+		print(f'DATA: {data}')
+
+		assert len(data) == 1
+		assert data[0]['id'] == 1
 
 	except Exception as e:
 		print(f'Err: {e}')

@@ -27,9 +27,6 @@ from django.views.defaults import page_not_found, server_error, permission_denie
 
 from project.rest_routers import router
 
-
-# r = DefaultRouter()
-# r.register()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ws/<str:room_name>/', views.chat_page, name="room"),
