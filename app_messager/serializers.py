@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.renderers import JSONRenderer
 
 from app_messager.models import Chat_MessageModel, FileModels, SubGroupsModel, GroupsModel
 from  django.db.models.fields import CharField
@@ -40,19 +41,44 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 			subgroup.save()
 			queryset_subgroup_id = SubGroupsModel.objects.last().id
 			validated_data['subgroup_id'] = queryset_subgroup_id
+			json_data = Chat_MessageModel.objects.create(**validated_data)
 			#
+			# kwargs = {
+			# 		'corrects': False, # queryset_corrects,
+			#     'userId':json_data.author_id,
+			#     'message':json_data.content,
+			#     'groupId':json_data.group_id,
+			# 		"postId": json_data.id,
+			# 		"eventtime": str(json_data.timestamp),# queryset_eventtime,
+			# 		# 'fileIndex':None,
+			# 		# 'indexes':None,
+			#     'fileInd': json_data.file_id,
+			#     'subgroup_id': json_data.subgroup_id
+		  #   }
 
 
+			return json_data
+	def to_representation(self, instance):
+		subgroup = SubGroupsModel();
+		subgroup.save()
+		queryset_subgroup_id = SubGroupsModel.objects.last().id
 
-			return Chat_MessageModel.objects.create(**validated_data)
-	# def to_representation(self, instance):
-	# 	subgroup = SubGroupsModel();
-	# 	subgroup.save()
-	# 	queryset_subgroup_id = SubGroupsModel.objects.last().id
-	#
-	# 	representation = super().to_representation(instance)
-	# 	representation['subgroup_id'] = queryset_subgroup_id
-	# 	return representation
+		json_data = super().to_representation(instance)
+		# representation['subgroup_id'] = queryset_subgroup_id
+		# JSONRenderer().render
+		kwargs = {
+			'corrects': False,  # queryset_corrects,
+			'userId': json_data['author'],
+			'message': json_data['content'],
+			'groupId': json_data['group'],
+			"postId": json_data['id'],
+			"eventtime": self.initial_data['eventtime'],
+			# 'fileIndex':None,
+			# 'indexes':None,
+			'fileInd': json_data['file'],
+			'subgroup_id': json_data['subgroup_id']
+		}
+		return kwargs
 
 		
 class File_MessagesSerializer(serializers.ListSerializer):

@@ -81,7 +81,8 @@ const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | Mouse
         if (queryset === false) {
           return;
         };
-        socket.beforeSend(String([JSON.stringify(queryset.data)]));
+        // socket.beforeSend(String([JSON.stringify(queryset.data)]));
+        socket.beforeSend(String([JSON.stringify(queryset)]));
         await socket.dataSendNow();
       } else {
         // const dataStr = String([JSON.stringify({ corrects, eventtime: datetime, message: messages, userId: indexUser, groupId: '7a3a744a-64ab-492b-89bf-9ee7c72b91f1', postId: postIndex, pathnames: pathnamesArr })]);
