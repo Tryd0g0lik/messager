@@ -42,40 +42,29 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 			queryset_subgroup_id = SubGroupsModel.objects.last().id
 			validated_data['subgroup_id'] = queryset_subgroup_id
 			json_data = Chat_MessageModel.objects.create(**validated_data)
-			#
-			# kwargs = {
-			# 		'corrects': False, # queryset_corrects,
-			#     'userId':json_data.author_id,
-			#     'message':json_data.content,
-			#     'groupId':json_data.group_id,
-			# 		"postId": json_data.id,
-			# 		"eventtime": str(json_data.timestamp),# queryset_eventtime,
-			# 		# 'fileIndex':None,
-			# 		# 'indexes':None,
-			#     'fileInd': json_data.file_id,
-			#     'subgroup_id': json_data.subgroup_id
-		  #   }
-
-
 			return json_data
+
 	def to_representation(self, instance):
 		subgroup = SubGroupsModel();
 		subgroup.save()
-		queryset_subgroup_id = SubGroupsModel.objects.last().id
 
 		json_data = super().to_representation(instance)
+		message = Chat_MessageModel.objects.filter(subgroup_id= json_data['subgroup_id'])
+		file = json_data['file']
+
 		# representation['subgroup_id'] = queryset_subgroup_id
 		# JSONRenderer().render
 		kwargs = {
+			'indexes': json_data['id'],
 			'corrects': False,  # queryset_corrects,
 			'userId': json_data['author'],
 			'message': json_data['content'],
 			'groupId': json_data['group'],
 			"postId": json_data['id'],
-			"eventtime": self.initial_data['eventtime'],
+			"eventtime": message[0].timestamp, # self.initial_data['eventtime'],
 			# 'fileIndex':None,
-			# 'indexes':None,
-			'fileInd': json_data['file'],
+
+			'fileInd': json_data['file'] if json_data['file'] != None else '',
 			'subgroup_id': json_data['subgroup_id']
 		}
 		return kwargs
