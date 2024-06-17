@@ -14,7 +14,7 @@ const socket = new WSocket('ws://127.0.0.1:8000/ws/chat/');
  */
 const handlerSendlerMessageTotal = (corrects = false): (e: KeyboardEvent | MouseEvent) => Promise<void> => {
   return async (e: KeyboardEvent | MouseEvent): Promise<void> => {
-    const url = new URL('http://127.0.0.1:8000/api/v1/search/'); /* 'api/v1/chat/make/post/' */
+    const url = new URL('http://127.0.0.1:8000/api/v1/get/'); /* 'api/v1/chat/make/post/' */
 
     const requires = new Requires(url);
 

@@ -1,33 +1,20 @@
-from datetime import datetime
-
-from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.views.decorators.csrf import csrf_protect
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer
-from rest_framework.views import APIView
 
 
 from sesame.utils import get_token
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-
-from project.settings import BASE_DIR, MEDIA_ROOT
 from .correctors import md5_chacker, check_unique_file
 from .models import GroupsModel, FileModels, Chat_MessageModel
 from .forms import UploadFileForm # UploadFileForm
 import os
 import websocket, json
 
-from rest_framework import serializers
-from rest_framework.decorators import api_view, action
 from rest_framework.viewsets import ModelViewSet
 from .serializers import Chat_MessageSerializer, File_MessagesSerializer
-from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.response import Response
-from rest_framework import status, generics
-import hashlib
 # Create your views here.
 
 def chat_page(request, room_name):
@@ -220,16 +207,9 @@ def upload_file(request,*args, **kwargs):
 # 	list_backends = []
 
 
-class PostAPIFilterViews(ModelViewSet): # ModelViewSet
+class PostAPIFilterViews(ModelViewSet):
 	queryset = Chat_MessageModel.objects.all()
-	# serializer_class = Chat_MessageSerializer
 	serializer_class = Chat_MessageSerializer
-
-	# def get_queryset(self):
-	# 	queryset = Chat_MessageModel.objects.all()
-	# 	print(self)
-	# 	return queryset
-
 
 	def get(self, request, format=None):
 		if request.method != 'GET':
