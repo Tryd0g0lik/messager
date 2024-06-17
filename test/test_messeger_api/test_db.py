@@ -57,7 +57,7 @@ def test_api(client):
 		# Act
 		db_()
 
-		response = client.get("api/v1/search/get/")
+		response = client.get("http://127.0.0.1:8000/api/ws/chat/")
 		# Assert
 		assert response.status_code == 200
 		data = response.json()
