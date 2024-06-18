@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from rest_framework import status
 from rest_framework.renderers import JSONRenderer
 
 
@@ -13,7 +14,7 @@ import os
 import websocket, json
 
 from rest_framework.viewsets import ModelViewSet
-from .serializers import Chat_MessageSerializer, File_MessagesSerializer
+from .serializers import Chat_MessageSerializer, File_MessagesSerializer, MessageUpdateSerializer
 from rest_framework.response import Response
 # Create your views here.
 
@@ -232,6 +233,33 @@ class PostAPIFilterViews(ModelViewSet):
 
 		return Response(r)
 
+
+class MessageUpdateViews(ModelViewSet):
+	queryset = Chat_MessageModel.objects.all()
+	serializer_class = MessageUpdateSerializer
+
+	def update(self, request, *args, **kwargs):
+		pk = kwargs.get('pk', None)
+		if not pk:
+			return Response({'error': "Method PATCH not allowed"})
+
+		try:
+			instance = Chat_MessageModel.objects.filter(pk=pk)
+		except Chat_MessageModel.DoesNotExist:
+			return Response({'error': "Object not found"}, status=status.HTTP_404_NOT_FOUND)
+		# serializer = MessageUpdateSerializer()
+		# serializer.is_valid(raise_axception = True)
+		content = request.data.pop('message')
+		request.data['content'] = content
+		pass
+		# serializer.update(validated_data=request.data, instance=instance[0])
+		serializer = self.get_serializer(instance[0], data=request.data, partial=True)
+		# serializer.save()
+
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	# def update(self, request, *args, **kwargs):
 	# 	pass
 	# def update(self, request, *args, **kwargs):

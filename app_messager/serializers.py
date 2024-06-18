@@ -1,9 +1,14 @@
 import re
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
+from rest_framework.views import APIView
 
 from app_messager.models import Chat_MessageModel, FileModels, SubGroupsModel, GroupsModel
 from  django.db.models.fields import CharField
+
+
+
+
 # "{"corrects":false,"eventtime":"2024-6-16@7:13:44 AM","message":"sssss","userId":"3","groupId":"7a3a744a-64ab-492b-89bf-9ee7c72b91f1"}"
 class Chat_MessageSerializer(serializers.ModelSerializer):
 	print('------------------')
@@ -81,31 +86,17 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 		}
 		return kwargs
 
+class MessageUpdateSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Chat_MessageModel
+		# fields = ['__All__']
+		fields = ['id', 'author', 'content', 'group', 'file', 'subgroup_id']
+	# class Meta:
+
 	# def update(self, instance, validated_data):
-		# raise_errors_on_nested_writes('update', self, validated_data)
-		# info = model_meta.get_field_info(instance)
-
-		# Simply set each attribute on the instance, and then save it.
-		# Note that unlike `.create()` we don't need to treat many-to-many
-		# relationships as being a special case. During updates we already
-		# have an instance pk for the relationships to be associated with.
-		# m2m_fields = []
-		# for attr, value in validated_data.items():
-		# 	if attr in info.relations and info.relations[attr].to_many:
-		# 		m2m_fields.append((attr, value))
-		# 	else:
-		# 		setattr(instance, attr, value)
-		#
-		# instance.save()
-
-		# Note that many-to-many fields are set after updating instance.
-		# Setting m2m fields triggers signals which could potentially change
-		# updated instance and we do not want it to collide with .update()
-		for attr, value in m2m_fields:
-			field = getattr(instance, attr)
-			field.set(value)
-
-		return instance
+	# 	instance.content = validated_data.get('message', instance.content)
+	# 	instance.save()
+	# 	return instance
 
 	# def update(self, instance, validated_data):
 	# 	pass
