@@ -250,7 +250,7 @@ class MessageUpdateViews(ModelViewSet):
 				return Response({'error': "Object not found"}, status=status.HTTP_404_NOT_FOUND)
 			# serializer = MessageUpdateSerializer()
 			# serializer.is_valid(raise_axception = True)
-			content = request.data.pop('message')
+			content = request.data.pop('content')
 			request.data['content'] = content
 			pass
 			# serializer.update(validated_data=request.data, instance=instance[0])
