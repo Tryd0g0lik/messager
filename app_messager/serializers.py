@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 
@@ -14,26 +15,35 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 
 
 	def to_internal_value(self, data):
+		data = dict(data)
 		'''
 		was made changes the key of dictionary for view the relevant-datas
 		:param data: entrypoint
 		:return: new datas relevant
 		'''
-		group = data.pop('groupId')
-		author = data.pop('userId')
+		# group = int(data.pop('groupId')) if data.get('groupId') and data['groupId'] else int(data.get('group')[0])
+
+		group_bool = True if bool(data.get('groupId')) else False
+		group = GroupsModel.objects.filter(uuid = data.get('groupId'))[0].id if group_bool else data.get('group')[0] # get the uuid
+		author = int(data.pop('userId')) if data.get('userId') else int(data.get('author')[0])
 
 		''' Get content '''
-		content = data.pop('message')
+		content = data.pop('message') if data.get('message') else data.get('content')[0]
 		data['content'] = content
 
 		''' get group id '''
-		group = GroupsModel.objects.filter(uuid=group)
-		data['group'] = group[0].id
+		# if
+		# group = None
+		# group = GroupsModel.objects.filter(subgroup_id=index)[0]['groupId'] if group_bool else index
+		# data['group'] = group[0].id if type(group) == list and len(group) > 0 else group
+		data['group'] = group
 
 		''' get author id '''
 		author = int(author)
 		data['author'] = author
 
+		''' file '''
+		data['file'] = ''
 		return super().to_internal_value(data)
 
 	def create(self, validated_data):
@@ -71,7 +81,34 @@ class Chat_MessageSerializer(serializers.ModelSerializer):
 		}
 		return kwargs
 
-		
+	# def update(self, instance, validated_data):
+		# raise_errors_on_nested_writes('update', self, validated_data)
+		# info = model_meta.get_field_info(instance)
+
+		# Simply set each attribute on the instance, and then save it.
+		# Note that unlike `.create()` we don't need to treat many-to-many
+		# relationships as being a special case. During updates we already
+		# have an instance pk for the relationships to be associated with.
+		# m2m_fields = []
+		# for attr, value in validated_data.items():
+		# 	if attr in info.relations and info.relations[attr].to_many:
+		# 		m2m_fields.append((attr, value))
+		# 	else:
+		# 		setattr(instance, attr, value)
+		#
+		# instance.save()
+
+		# Note that many-to-many fields are set after updating instance.
+		# Setting m2m fields triggers signals which could potentially change
+		# updated instance and we do not want it to collide with .update()
+		for attr, value in m2m_fields:
+			field = getattr(instance, attr)
+			field.set(value)
+
+		return instance
+
+	# def update(self, instance, validated_data):
+	# 	pass
 class File_MessagesSerializer(serializers.ListSerializer):
 	class Meta:
 		model = FileModels

@@ -232,6 +232,119 @@ class PostAPIFilterViews(ModelViewSet):
 
 		return Response(r)
 
+	# def update(self, request, *args, **kwargs):
+	# 	pass
+	# def update(self, request, *args, **kwargs):
+	# 	pass
+	# 	'''
+	# 	TODO: rewrite chat text/message and files add
+	# 	:param request:
+	# 	:param args:
+	# 	:param kwargs:
+	# 	:return:
+	# 	'''
+	# 	queryse_post_id = kwargs['pk']
+	# 	queryset_file =  request.data['filesId'] if 'filesId' in request.data else [] # list a file's indexes
+	# 	queryset_contents = request.data['content'] if 'content' in request.data else ''
+	# 	new_list_indexes = []
+	# 	'''receive an all rows. If a row > 1  then we have files from single post'''
+	# 	chat_list = Chat_MessageModel.objects.filter(subgroup_id=queryse_post_id)
+	#
+	# 	if (len(chat_list) == 0):
+	# 		JsonResponse({'update': False})
+	#
+	# 	'''simply a metadata for patch'''
+	# 	if (len(queryset_file) > 0):
+	# 		if (chat_list[0].file_id == None):
+	# 			file_id = None
+	# 		else:
+	# 			file_id = chat_list[0].file_id
+	#
+	#
+	# 		check = False # row does not has a file in message/post from db (That metadata)
+	# 		if (file_id != None and len(chat_list) > 0):
+	# 			check = True # in row is a file
+	# 			''' drop the file_id duplicate from еру received list'''
+	# 			for i in range(0, len(queryset_file)):
+	# 				for ind in range(0, len(chat_list)):
+	# 					if (int(queryset_file[i]) == chat_list[ind]):
+	# 						new_list_indexes.append(queryset_file.pop(i))
+	# 						chat_list.pop(ind)
+	# 						i -=1
+	# 						ind -=1
+	#
+	# 		response_i = -1
+	# 		chat_copy = chat_list[:]
+	# 		if (check == True):
+	# 			for i in range(0, len(queryset_file)):
+	# 				if queryset_contents != chat_copy[0].content:
+	# 					'''rewrites content/message of db's old row'''
+	# 					for i in range(0, len(chat_list)):
+	# 						chat_list[i].content = queryset_contents if queryset_contents != chat_copy[i].content else chat_copy[i].content
+	# 						chat_list[i].save()
+	#
+	# 				Chat_MessageModel(
+	# 					content= queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content,
+	# 					author_id= chat_copy[0].author_id,
+	# 					file_id= int(queryset_file[0]) if len(queryset_file) > 0 else None,
+	# 					group_id = chat_copy[0].group_id,
+	# 					subgroup_id= chat_copy[0].subgroup_id,
+	# 				).save()
+	# 				new_list_indexes.append(queryset_file.pop(0))
+	#
+	#
+	# 		elif (check == False):
+	# 			chat_list[0].file_id = int(queryset_file[0]) if len(queryset_file) > 0 else None
+	# 			chat_list[0].content = queryset_contents if queryset_contents != chat_copy[0].content else chat_copy[0].content
+	# 			chat_list[0].save()
+	# 			new_list_indexes.append(queryset_file.pop(0))
+	#
+	# 			for i in range(0, len(queryset_file)):
+	# 				Chat_MessageModel(
+	# 					content=queryset_contents if queryset_contents != chat_list[0].content else chat_list[0].content,
+	# 					author_id=chat_list[0].author_id,
+	# 					file_id=int(queryset_file[0]),
+	# 					group_id=chat_list[0].group_id,
+	# 					subgroup_id=chat_list[0].subgroup_id,
+	# 				).save()
+	# 				new_list_indexes.append(queryset_file.pop(0))
+	#
+	# 	else:
+	# 		for i in range(0, len(chat_list)):
+	# 			chat_list[i].content = queryset_contents
+	# 			chat_list[i].save()
+	#
+	# 	request.pk = kwargs['pk']
+	# 	return  JsonResponse(request)
+	# 	return self.partial_update(request, *args, **kwargs)
+		#
+		# partial = kwargs.pop('partial', False)
+		# instance = self.get_object()
+		# serializer = self.get_serializer(instance, data=request.data, partial=partial)
+		# serializer.is_valid(raise_exception=True)
+		# self.perform_update(serializer)
+		#
+		# if getattr(instance, '_prefetched_objects_cache', None):
+		# 	# If 'prefetch_related' has been applied to a queryset, we need to
+		# 	# forcibly invalidate the prefetch cache on the instance.
+		# 	instance._prefetched_objects_cache = {}
+		#
+		# return Response(serializer.data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''-------------------'''
 	# def post(self, request):
 	# 	if request.method != 'POST':
 	# 		return
