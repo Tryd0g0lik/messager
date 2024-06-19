@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 from app_messager import views
 
 router = DefaultRouter()
+
 router.register(r'get', views.PostAPIFilterViews, basename='message_get')
 router.register(r'update', views.MessageUpdateViews, basename='message_update')
 
