@@ -16,7 +16,7 @@ export class Requires {
     this.urls = url;
   }
 
-  async post(props: RequestHeaders): Promise<object | boolean> {
+  async post(props): Promise<object | boolean> {
     const { caches = 'no-cache', contentType = 'application/json; charset=utf-8', ...data } = { ...props };
 
     const url = this.urls;
@@ -28,12 +28,14 @@ export class Requires {
 
     const h = {
       'X-CSRFToken': getCookie('csrftoken'),
-      'Content-Type': contentType
+      'Content-Type': 'application/json' // contentType
     };
 
     const response = await fetch(url, {
       method: 'POST',
       headers: h,
+      cache: 'no-cache',
+      mode: 'cors',
       body: data.context
     });
 

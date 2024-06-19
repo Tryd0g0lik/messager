@@ -42,6 +42,7 @@ export class LiveSearcher extends Searher {
         return;
       }
 
+
       const searcherObj = await this.receive(this.words);
       const templateresult = this.templateresult.bind(this);
       if (searcherObj === undefined) {
@@ -49,7 +50,7 @@ export class LiveSearcher extends Searher {
       }
 
       let htmlLi = '';
-      await ((searcherObj.searcher) as ChatMessage[]).forEach((item) => {
+      ((searcherObj.searcher) as ChatMessage[]).forEach((item) => {
         htmlLi += String(templateresult(item));
       });
 
@@ -82,7 +83,8 @@ export class LiveSearcher extends Searher {
     url.searchParams.set('searcher', v);
     this.urls = url;
     const response = await this.get({ contentType: 'application/json' });
-    return response as Record<'searcher', object>;
+
+    return JSON.parse(response as string) as Record<'searcher', object>;
   };
 
   private templateresult(prop: ChatMessage): string | undefined {

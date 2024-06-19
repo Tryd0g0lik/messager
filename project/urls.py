@@ -24,19 +24,21 @@ import app_messager
 from app_messager import views
 from project import settings
 from django.views.defaults import page_not_found, server_error, permission_denied, bad_request
-r = DefaultRouter()
-# r.register()
+
+from project.rest_routers import router
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ws/<str:room_name>/', views.chat_page, name="room"),
     path('ws/chat/upload/', views.upload_file, name="upload_file"),
-    path(r'api/v1/chat/make/post/', views.PostAPIFilterViews.as_view()),
-    path(r'api/v1/search/get/', views.PostAPIFilterViews.as_view()),
-    path(r'api/v1/chat/upload/files/', views.upload_file, name="upload_file"),
-    path(r'api/v1/chat/update/<int:pk>/', views.UpdateMessages.as_view()),# update the one post # , name="requests_messages" # (([0-9]{2,4}|[-]){1,5}_[0-9:\.]{2,13})[0-9]{1,2}$'
-    path(r'api/v1/chat/delete/files/', views.PostAPIDeleteFilelView.as_view()),
+    path('api/v1/', include(router.urls)), # , "myapi"
+    # path(r'api/v1/chat/make/post/', views.PostAPIFilterViews.as_view()),
+    # path(r'api/v1/search/get/', views.PostAPIFilterViews.as_view({'get':'list'})),
+    # path(r'api/v1/chat/upload/files/', views.upload_file, name="upload_file"),
+    # path(r'api/v1/chat/update/<int:pk>/', views.UpdateMessages.as_view()),# update the one post # , name="requests_messages" # (([0-9]{2,4}|[-]){1,5}_[0-9:\.]{2,13})[0-9]{1,2}$'
+    # path(r'api/v1/chat/delete/files/', views.PostAPIDeleteFilelView.as_view()),
 ]
-
+print(router.urls, '\n')
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

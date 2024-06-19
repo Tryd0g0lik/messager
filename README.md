@@ -1,6 +1,6 @@
 # Install
 ## Python
-```python
+```txt
 pip install -r requirements.txt  
 ```
 ### Javascript 
