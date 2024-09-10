@@ -177,57 +177,7 @@ Before this's \
 After this's \
 `Messeger_User.user = models.OneToOneField(<your_nam_table_registration_user>, on_delete= models.CASCADE, unique=True, )` Here is us only need the id it user
 
-## History
-this an all package was installed for the chat project from Django. \
-[1.1 -branch]: 
-- we can run chatting and async record messeges in the db.
 
-[1.1 -branch]:
-- we have the ability having the connaction to the chat server if we us focus on another tad.
-
-[1.2 -branch]:
-- `\app_messager\correctors.py` file has two fincrion/ It's `check_unique_file` and `md5_chacker`
-- These function is checks upload files. `check_unique_file` fun., is searcher the files  from the db which to similar by a new user file.
-- If did not found , it means the user file is unique. Or not unique 
-
-[1.2.1 -branch]: 
-- Here is added sending files. It's one sending or more files
-- do weight restrictions on file to the single message. It's 10MB and 64MB.
-- In html-code of the message was add the html-code referencies (tag `<a>`)/ It's for a download/open file.
-- Plus, [pattern timer](#timeer-of-message)
-
-[2 -branch]: 
-- uniqueness of files checking by the 'md5' algorithm. 
-- A poste with the box html  for a download files is has a dynamic property. It's box's 'padding-top'.
-- All files located above the poste.
-- Everything post maybe open for a redaction. For opening post need press to the pencil. It's a 'svg' infographic. 
-- After press on the pencil in chat message, you can see the quote post and post itself inside the form. 
-- The new post (updated post) is updating in the db and to the chat all users.
-
-
-[2.2 -branch]: 
-- нажимаем на карандаш, форма получает цитирование файло, цитирование сообщений, сообщение.
-- при наличии файлов, в режиме редавтировния , над формой автоматически меняется рамер (style), чтоб разместить файлы из чата.
-- в режиме редактирования, добавляем файл(ы). При сохранении БД получает новые файлы. 
-- У Всех участиников, к старым файлам добавляются новые + обновляется пост,
-- Старый пост автоматически меняет размер  (style), чтоб разместить и новые файлы и старые файлы.
-
-[2.3 - brach]: 
-- Everyone a file has the bucket. Click by the bucket to deleted file from the server and all clients.
-
-[2.3 - brach]: 
-- interfaces the rewrite message, plus a delte one file, delete all files, delte single message and modal window was added to the interface"
-
-[3 - brach]: 
-- search by click
-- or search by Enter
-- search by text  where is a value more than 2 symbol
-
-[3.1 - brach]: 
- - pagination for serach
-
-[3.2 - brach]: 
- - prompt for a search
 
 ## Files for  message
 We can sending files of the `git`, `png`, `jpg`, `jpeg`, `doc`, `pdf`, `xls`, `xls`, `xlsx`, `doc`, `docx`, `ods`, `odt`. \
